@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Genius Score Is Ready — Academy Access Unlocked! | Test Your Genius</title>
+    <meta name="description" content="You've qualified for exclusive Genius Academy access. Unlock your full IQ profile and begin your 6-week brain mastery journey today.">
+    <style>
+        /* ===== CSS Variables & Reset ===== */
+        :root {
+            --bg-1: #070B1A;
+            --bg-2: #0E1A3A;
+            --ink: #EAF2FF;
+            --accent: #64D4FF;
+            --purple: #8B5CF6;
+            --gold: #F4D37E;
+            --green: #10B981;
+            --red: #EF4444;
+            
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-7: 3rem;
+            --space-8: 4rem;
+            
+            --font-stack: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-stack);
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+            color: var(--ink);
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* ===== Animated Background ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(100, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(244, 211, 126, 0.05) 0%, transparent 50%);
+            animation: backgroundShift 12s ease-in-out infinite alternate;
+        }
+        
+        @keyframes backgroundShift {
+            0% { opacity: 0.4; }
+            100% { opacity: 0.9; }
+        }
+        
+        /* ===== Holographic Light Streaks ===== */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                linear-gradient(45deg, transparent 40%, rgba(100, 212, 255, 0.02) 50%, transparent 60%),
+                linear-gradient(-45deg, transparent 30%, rgba(139, 92, 246, 0.02) 50%, transparent 70%);
+            animation: lightStreaks 15s linear infinite;
+        }
+        
+        @keyframes lightStreaks {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(0deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(360deg); }
+        }
+        
+        /* ===== Typography ===== */
+        h1, h2, h3 {
+            font-weight: bold;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+        
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+        h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
+        
+        p { font-size: clamp(1rem, 2vw, 1.1rem); }
+        
+        /* ===== Glassmorphism ===== */
+        .glass {
+            background: rgba(234, 242, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(234, 242, 255, 0.1);
+            border-radius: 20px;
+        }
+        
+        .glass-premium {
+            background: rgba(234, 242, 255, 0.08);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(234, 242, 255, 0.15);
+            border-radius: 24px;
+        }
+        
+        /* ===== Navigation ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: var(--space-4);
+            background: rgba(7, 11, 26, 0.9);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(234, 242, 255, 0.1);
+        }
+        
+        .nav__content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .nav__brand {
+            color: var(--ink);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .nav__logo {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent) 0%, var(--purple) 100%);
+            box-shadow: 0 0 15px rgba(100, 212, 255, 0.6);
+        }
+        
+        .nav__back {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 1rem;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+        
+        .nav__back:hover {
+            opacity: 1;
+            transform: translateX(-2px);
+        }
+        
+        /* ===== Container ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+        
+        .container-narrow {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+        
+        /* ===== Section Styling ===== */
+        .section {
+            padding: var(--space-8) 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section--hero {
+            padding-top: calc(90px + var(--space-8));
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* ===== Hero Section ===== */
+        .hero {
+            text-align: center;
+        }
+        
+        .hero__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: linear-gradient(135deg, var(--green) 0%, #059669 100%);
+            color: white;
+            padding: var(--space-2) var(--space-5);
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: var(--space-6);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            animation: badgeGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes badgeGlow {
+            0% { box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3); }
+            100% { box-shadow: 0 15px 40px rgba(16, 185, 129, 0.5); }
+        }
+        
+        .hero__title {
+            background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 50%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-5);
+            font-weight: 900;
+        }
+        
+        .hero__subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+            opacity: 0.9;
+            margin-bottom: var(--space-8);
+            color: rgba(234, 242, 255, 0.85);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* ===== Teaser Results Section ===== */
+        .teaser-results {
+            background: rgba(14, 26, 58, 0.4);
+            position: relative;
+        }
+        
+        .processing-container {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+        
+        .processing-title {
+            color: var(--accent);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: var(--space-5);
+        }
+        
+        .progress-bar-advanced {
+            width: 100%;
+            max-width: 400px;
+            height: 12px;
+            background: rgba(234, 242, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 0 auto var(--space-4);
+            position: relative;
+        }
+        
+        .progress-fill-advanced {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--gold) 100%);
+            width: 0%;
+            border-radius: 6px;
+            animation: progressAdvanced 3s ease-out forwards;
+        }
+        
+        @keyframes progressAdvanced {
+            0% { width: 0%; }
+            100% { width: 92%; }
+        }
+        
+        .progress-text {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .countdown-premium {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 16px;
+            padding: var(--space-5);
+            margin: var(--space-6) auto;
+            max-width: 350px;
+            text-align: center;
+        }
+        
+        .countdown-label {
+            color: #EF4444;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: var(--space-3);
+        }
+        
+        .countdown-display {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-weight: 900;
+            color: var(--gold);
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+        
+        /* ===== Results Grid ===== */
+        .results-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+        
+        .result-showcase {
+            padding: var(--space-7);
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .result-showcase.unlocked {
+            border: 2px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .result-showcase.locked {
+            filter: blur(3px);
+            opacity: 0.4;
+        }
+        
+        .result-showcase.locked::after {
+            content: '🔒 Unlock Full Analysis';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(7, 11, 26, 0.95);
+            color: var(--accent);
+            padding: var(--space-4) var(--space-6);
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            white-space: nowrap;
+            border: 3px solid var(--accent);
+            box-shadow: 0 10px 40px rgba(100, 212, 255, 0.4);
+        }
+        
+        .result-category {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: var(--space-4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .result-score {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: var(--space-3);
+        }
+        
+        .result-description {
+            color: rgba(234, 242, 255, 0.8);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        /* ===== What You Get Section ===== */
+        .benefits {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(100, 212, 255, 0.06) 100%);
+        }
+        
+        .benefits__title {
+            text-align: center;
+            margin-bottom: var(--space-8);
+            background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 50%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-7);
+        }
+        
+        .benefit-card {
+            padding: var(--space-6);
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(100, 212, 255, 0.15);
+        }
+        
+        .benefit__icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto var(--space-4);
+            background: rgba(234, 242, 255, 0.08);
+            border: 2px dashed rgba(100, 212, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(100, 212, 255, 0.7);
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        
+        .benefit__title {
+            color: var(--ink);
+            margin-bottom: var(--space-3);
+            font-size: 1.2rem;
+        }
+        
+        .benefit__description {
+            opacity: 0.85;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        /* ===== Pricing Section ===== */
+        .pricing {
+            background: linear-gradient(135deg, rgba(244, 211, 126, 0.08) 0%, rgba(139, 92, 246, 0.06) 100%);
+        }
+        
+        .pricing-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            padding: var(--space-7);
+            text-align: center;
+        }
+        
+        .pricing__badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold) 0%, #d4af37 100%);
+            color: var(--bg-1);
+            padding: var(--space-3) var(--space-5);
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: var(--space-5);
+        }
+        
+        .pricing-main {
+            margin-bottom: var(--space-6);
+        }
+        
+        .price-intro {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: var(--space-3);
+        }
+        
+        .price-then {
+            font-size: 1.1rem;
+            color: rgba(234, 242, 255, 0.8);
+            margin-bottom: var(--space-2);
+        }
+        
+        .price-subscription {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--purple);
+            margin-bottom: var(--space-4);
+        }
+        
+        .price-note {
+            color: rgba(234, 242, 255, 0.7);
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+        
+        .urgency-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: var(--space-4);
+            margin: var(--space-5) 0;
+        }
+        
+        .urgency-text {
+            color: #EF4444;
+            font-weight: 700;
+            font-size: 1rem;
+            text-align: center;
+        }
+        
+        /* ===== Payment Form ===== */
+        .payment-section {
+            background: rgba(14, 26, 58, 0.3);
+        }
+        
+        .payment-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .payment-form {
+            padding: var(--space-8);
+        }
+        
+        .form-group {
+            margin-bottom: var(--space-6);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-5);
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: var(--space-3);
+            color: var(--ink);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: var(--space-5);
+            background: rgba(234, 242, 255, 0.06);
+            border: 2px solid rgba(234, 242, 255, 0.12);
+            border-radius: 16px;
+            color: var(--ink);
+            font-family: var(--font-stack);
+            font-size: 1.05rem;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(234, 242, 255, 0.1);
+            box-shadow: 0 0 25px rgba(100, 212, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .form-input::placeholder {
+            color: rgba(234, 242, 255, 0.5);
+        }
+        
+        /* ===== Card Number Field with Icon ===== */
+        .card-input-container {
+            position: relative;
+        }
+        
+        .card-input-container .form-input {
+            padding-right: var(--space-8);
+        }
+        
+        .card-type-icon {
+            position: absolute;
+            right: var(--space-4);
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 28px;
+            background: rgba(234, 242, 255, 0.1);
+            border: 1px solid rgba(234, 242, 255, 0.2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: rgba(234, 242, 255, 0.6);
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+        
+        .card-type-icon.visible {
+            opacity: 1;
+        }
+        
+        .card-type-icon.visa {
+            background: linear-gradient(135deg, #1A1F71 0%, #0F4C81 100%);
+            color: white;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+        
+        .card-type-icon.mastercard {
+            background: linear-gradient(135deg, #FF5F00 0%, #EB001B 100%);
+            color: white;
+            font-size: 0.65rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .card-type-icon.amex {
+            background: linear-gradient(135deg, #006FCF 0%, #0047AB 100%);
+            color: white;
+            font-size: 0.65rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .card-type-icon.discover {
+            background: linear-gradient(135deg, #FF6000 0%, #E5530A 100%);
+            color: white;
+            font-size: 0.6rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .card-type-icon.jcb {
+            background: linear-gradient(135deg, #006CB7 0%, #004B87 100%);
+            color: white;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+        
+        .card-type-icon.diners {
+            background: linear-gradient(135deg, #0079BE 0%, #005C91 100%);
+            color: white;
+            font-size: 0.6rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .card-type-icon.unknown {
+            background: rgba(234, 242, 255, 0.1);
+            border: 2px dashed rgba(100, 212, 255, 0.3);
+            color: rgba(100, 212, 255, 0.7);
+            font-size: 0.6rem;
+        }
+        
+        /* ===== CTA Button ===== */
+        .cta-button {
+            width: 100%;
+            padding: var(--space-5) var(--space-4);
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--accent) 0%, #4facfe 100%);
+            color: var(--bg-1);
+            font-family: var(--font-stack);
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(100, 212, 255, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(100, 212, 255, 0.4);
+        }
+        
+        .cta-button:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+        
+        /* ===== Security & Trust ===== */
+        .security-section {
+            text-align: center;
+            margin-top: var(--space-6);
+        }
+        
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--space-5);
+            margin-bottom: var(--space-4);
+            flex-wrap: wrap;
+        }
+        
+        .security-badge {
+            width: 60px;
+            height: 40px;
+            background: rgba(234, 242, 255, 0.06);
+            border: 1px dashed rgba(100, 212, 255, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(100, 212, 255, 0.7);
+            font-size: 0.7rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .security-text {
+            color: rgba(234, 242, 255, 0.8);
+            font-size: 0.95rem;
+            margin-bottom: var(--space-3);
+        }
+        
+        .cancel-note {
+            color: rgba(234, 242, 255, 0.6);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+        
+        /* ===== Guarantee Section ===== */
+        .guarantee {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(244, 211, 126, 0.06) 100%);
+            text-align: center;
+        }
+        
+        .guarantee-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            padding: var(--space-4) var(--space-6);
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: var(--space-5);
+        }
+        
+        .guarantee-text {
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        /* ===== Certificate Preview Section ===== */
+        .certificate-preview-section {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+            padding: var(--space-8) 0;
+            margin: var(--space-6) 0;
+            border-radius: 24px;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .preview-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+
+        .preview-header {
+            text-align: center;
+            margin-bottom: var(--space-6);
+        }
+
+        .preview-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: var(--space-3);
+            background: linear-gradient(135deg, #8B5CF6, #3B82F6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .preview-header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .certificate-mini-preview {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
+            border: 2px solid #E5E7EB;
+            border-radius: 16px;
+            padding: var(--space-5);
+            margin: var(--space-6) auto;
+            max-width: 500px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .certificate-mini-preview:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .certificate-mini-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8B5CF6, #3B82F6, #10B981, #F59E0B);
+        }
+
+        .certificate-border {
+            border: 3px double #8B5CF6;
+            border-radius: 12px;
+            padding: var(--space-4);
+            background: white;
+            position: relative;
+        }
+
+        .certificate-content {
+            text-align: center;
+            color: #1F2937;
+        }
+
+        .certificate-logo {
+            margin-bottom: var(--space-3);
+        }
+
+        .genius-icon {
+            font-size: 2rem;
+            margin-bottom: var(--space-2);
+        }
+
+        .certificate-logo h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #8B5CF6;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        .certificate-title h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1F2937;
+            margin: var(--space-3) 0;
+            letter-spacing: 1px;
+        }
+
+        .certificate-text {
+            margin: var(--space-4) 0;
+        }
+
+        .certificate-text p {
+            font-size: 0.9rem;
+            margin: var(--space-1) 0;
+            color: #4B5563;
+        }
+
+        .name-display {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #8B5CF6;
+            margin: var(--space-2) 0;
+            padding: var(--space-2);
+            border-bottom: 2px solid #E5E7EB;
+            transition: all 0.3s ease;
+            animation: nameGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes nameGlow {
+            0% { 
+                color: #8B5CF6;
+                text-shadow: 0 0 5px rgba(139, 92, 246, 0.3);
+            }
+            100% { 
+                color: #3B82F6;
+                text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+            }
+        }
+
+        .score-display {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #10B981;
+            margin: var(--space-2) 0;
+        }
+
+        .certificate-bottom {
+            margin-top: var(--space-4);
+            padding-top: var(--space-3);
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: var(--space-3);
+        }
+
+        .date-section p {
+            font-size: 0.8rem;
+            color: #6B7280;
+            margin: 0;
+        }
+
+        .signature-section {
+            text-align: right;
+        }
+
+        .signature-line {
+            width: 120px;
+            height: 1px;
+            background: #D1D5DB;
+            margin: 0 0 var(--space-1) auto;
+        }
+
+        .signature-section p {
+            font-size: 0.75rem;
+            color: #6B7280;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .preview-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--space-4);
+            margin-top: var(--space-6);
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .benefit-icon {
+            font-size: 1.2rem;
+        }
+
+        .benefit-item span:last-child {
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .certificate-mini-preview {
+                max-width: 100%;
+                padding: var(--space-4);
+            }
+            
+            .certificate-border {
+                padding: var(--space-3);
+            }
+            
+            .certificate-bottom {
+                flex-direction: column;
+                align-items: center;
+                gap: var(--space-2);
+            }
+            
+            .signature-section {
+                text-align: center;
+            }
+            
+            .signature-line {
+                margin: 0 auto var(--space-1);
+            }
+            
+            .preview-benefits {
+                grid-template-columns: 1fr;
+            }
+            
+            .preview-header h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* ===== Inline Certificate Preview ===== */
+        .certificate-preview-inline {
+            margin-top: var(--space-6);
+            padding: var(--space-5);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(59, 130, 246, 0.05) 100%);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+        }
+
+        .preview-header-inline {
+            text-align: center;
+            margin-bottom: var(--space-4);
+        }
+
+        .preview-header-inline h3 {
+            font-size: 1.4rem;
+            margin-bottom: var(--space-2);
+            background: linear-gradient(135deg, #8B5CF6, #3B82F6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .preview-header-inline p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin: 0;
+            color: rgba(234, 242, 255, 0.9);
+        }
+
+        .certificate-preview-mini {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.95) 100%);
+            border: 3px solid rgba(100, 212, 255, 0.3);
+            border-radius: 20px;
+            padding: var(--space-5);
+            margin: 0 auto var(--space-4);
+            max-width: 450px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .certificate-preview-mini:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.2);
+            border-color: rgba(100, 212, 255, 0.5);
+        }
+
+        .certificate-preview-mini::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent), var(--gold), #10B981, #8B5CF6);
+        }
+
+        .certificate-mini-header {
+            text-align: center;
+            margin-bottom: var(--space-4);
+            padding-bottom: var(--space-3);
+            border-bottom: 2px solid rgba(100, 212, 255, 0.2);
+        }
+
+        .certificate-mini-logo {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-2);
+            filter: drop-shadow(0 0 10px rgba(100, 212, 255, 0.3));
+        }
+
+        .certificate-mini-header h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 0 0 var(--space-1);
+            letter-spacing: 1px;
+        }
+
+        .certificate-mini-header p {
+            font-size: 0.9rem;
+            color: #4B5563;
+            margin: 0;
+            font-style: italic;
+        }
+
+        .certificate-mini-content {
+            text-align: center;
+            color: #1F2937;
+        }
+
+        .certificate-mini-content p {
+            font-size: 0.95rem;
+            margin: var(--space-2) 0;
+            color: #4B5563;
+            line-height: 1.4;
+        }
+
+        .certificate-mini-name {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin: var(--space-4) 0;
+            text-decoration: underline;
+            text-decoration-color: var(--gold);
+            text-underline-offset: 8px;
+            transition: all 0.3s ease;
+            min-height: 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .certificate-mini-name.highlight {
+            animation: nameGlow 2s ease-in-out;
+        }
+
+        @keyframes nameGlow {
+            0%, 100% { 
+                transform: scale(1); 
+                color: var(--accent);
+            }
+            50% { 
+                transform: scale(1.05); 
+                color: var(--gold);
+                text-shadow: 0 0 20px rgba(244, 211, 126, 0.6);
+            }
+        }
+
+        .certificate-mini-score {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: var(--space-3) 0;
+            text-shadow: 0 0 30px rgba(244, 211, 126, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .certificate-mini-classification {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(244, 211, 126, 0.1) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: var(--space-2) var(--space-3);
+            margin: var(--space-3) 0;
+            font-size: 0.9rem;
+        }
+
+        .certificate-mini-classification strong {
+            color: #10B981;
+            font-weight: 700;
+        }
+
+        .certificate-mini-signature {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-3);
+            margin-top: var(--space-4);
+            padding-top: var(--space-3);
+            border-top: 1px solid rgba(100, 212, 255, 0.2);
+        }
+
+        .mini-seal {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .certificate-mini-signature p {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .preview-encouragement {
+            background: rgba(100, 212, 255, 0.05);
+            border: 1px solid rgba(100, 212, 255, 0.2);
+            border-radius: 12px;
+            padding: var(--space-3);
+            text-align: center;
+        }
+
+        .preview-encouragement p {
+            color: rgba(234, 242, 255, 0.9);
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .certificate-preview-inline {
+                margin-top: var(--space-4);
+                padding: var(--space-3);
+            }
+            
+            .certificate-preview-mini {
+                max-width: 100%;
+                padding: var(--space-4);
+            }
+            
+            .certificate-mini-name {
+                font-size: 1.5rem;
+            }
+            
+            .certificate-mini-score {
+                font-size: 2rem;
+            }
+            
+            .certificate-mini-logo {
+                font-size: 2rem;
+            }
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: linear-gradient(135deg, var(--bg-1) 0%, rgba(14, 26, 58, 0.95) 100%);
+            border-top: 2px solid rgba(100, 212, 255, 0.1);
+            padding: var(--space-7) 0 var(--space-5);
+        }
+        
+        .footer__links {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-6);
+            margin-bottom: var(--space-5);
+            flex-wrap: wrap;
+        }
+        
+        .footer__link {
+            color: rgba(234, 242, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer__link:hover {
+            color: var(--accent);
+        }
+        
+        .footer__bottom {
+            text-align: center;
+            color: rgba(234, 242, 255, 0.6);
+            font-size: 0.85rem;
+            padding-top: var(--space-4);
+            border-top: 1px solid rgba(234, 242, 255, 0.1);
+        }
+        
+        /* ===== Mobile Sticky CTA ===== */
+        .mobile-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(7, 11, 26, 0.98);
+            backdrop-filter: blur(40px);
+            border-top: 2px solid rgba(100, 212, 255, 0.2);
+            padding: var(--space-4);
+            z-index: 90;
+            display: none;
+        }
+        
+        /* ===== Reveal Animations ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* ===== Responsive Design ===== */
+        @media (max-width: 768px) {
+            .hero__title {
+                font-size: clamp(2.2rem, 8vw, 3.5rem);
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-5);
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: var(--space-4);
+            }
+            
+            .payment-form {
+                padding: var(--space-6) var(--space-4);
+            }
+            
+            .mobile-cta {
+                display: block;
+            }
+            
+            .payment-section .cta-button {
+                display: none;
+            }
+            
+            .results-showcase {
+                grid-template-columns: 1fr;
+            }
+            
+            .security-badges {
+                gap: var(--space-3);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .section {
+                padding: var(--space-6) 0;
+            }
+            
+            .section--hero {
+                padding-top: calc(80px + var(--space-6));
+            }
+            
+            .countdown-display {
+                font-size: clamp(1.5rem, 6vw, 2.2rem);
+            }
+        }
+        
+        /* ===== Focus States ===== */
+        .cta-button:focus,
+        .form-input:focus {
+            outline: 3px solid var(--accent);
+            outline-offset: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== Navigation ===== -->
+    <nav class="nav">
+        <div class="nav__content">
+            <a href="index.html" class="nav__brand">
+                <div class="nav__logo"></div>
+                Test Your Genius
+            </a>
+            <a href="iq-test.html" class="nav__back">← Back to Test</a>
+        </div>
+    </nav>
+    
+    <!-- ===== Hero Section ===== -->
+    <section class="section section--hero">
+        <div class="container">
+            <div class="hero reveal">
+                <div class="hero__badge">
+                    ✅ QUALIFIED FOR ACADEMY ACCESS
+                </div>
+                <h1 class="hero__title">Your Genius Score Is Ready — and You've Qualified for the Genius Academy!</h1>
+                <p class="hero__subtitle">
+                    Unlock your full IQ profile and begin your 6-week brain mastery journey today. Join the elite minds transforming their potential into genius-level performance.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== Teaser Results Section ===== -->
+    <section class="section teaser-results reveal">
+        <div class="container">
+            <div class="processing-container">
+                <h2 class="processing-title">Processing Your Genius Profile...</h2>
+                <div class="progress-bar-advanced">
+                    <div class="progress-fill-advanced"></div>
+                </div>
+                <p class="progress-text">Analysis 92% Complete</p>
+            </div>
+            
+            <div class="countdown-premium">
+                <div class="countdown-label">Results stored for 24 hours only</div>
+                <div class="countdown-display" id="countdown-premium">23:42:17</div>
+            </div>
+            
+            <div class="results-showcase">
+                <div class="result-showcase glass unlocked">
+                    <div class="result-category">Logical Reasoning</div>
+                    <div class="result-score" style="color: var(--green);">Above Average</div>
+                    <p class="result-description">Strong analytical thinking with excellent deduction capabilities</p>
+                </div>
+                
+                <div class="result-showcase glass unlocked">
+                    <div class="result-category">Problem-Solving Speed</div>
+                    <div class="result-score" style="color: var(--purple);">Exceptional</div>
+                    <p class="result-description">Faster cognitive processing than 87% of test takers</p>
+                </div>
+                
+                <div class="result-showcase glass locked">
+                    <div class="result-category">Pattern Recognition</div>
+                    <div class="result-score" style="color: var(--gold);">★★★★★</div>
+                    <p class="result-description">Outstanding visual-spatial intelligence detected</p>
+                </div>
+                
+                <div class="result-showcase glass-premium locked">
+                    <div class="result-category">Your Complete IQ Score</div>
+                    <div class="result-score" style="color: var(--accent); font-size: 3rem;">1??</div>
+                    <p class="result-description">Full genius-level analysis with personalized insights</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== Benefits Section ===== -->
+    <section class="section benefits reveal">
+        <div class="container">
+            <h2 class="benefits__title">What You Get When You Unlock Today</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card glass-premium">
+                    <div class="benefit__icon">
+                        [Placeholder: iq-report-icon.png]
+                    </div>
+                    <h3 class="benefit__title">Full IQ Score & Detailed Report</h3>
+                    <p class="benefit__description">
+                        Complete cognitive analysis with detailed breakdown of your intellectual strengths, growth areas, and personalized recommendations.
+                    </p>
+                </div>
+                
+                <div class="benefit-card glass-premium">
+                    <div class="benefit__icon">
+                        [Placeholder: academy-access-icon.png]
+                    </div>
+                    <h3 class="benefit__title">Complete 6-Week Genius Academy Access</h3>
+                    <p class="benefit__description">
+                        Learn from Einstein, Steve Jobs, Oprah, and other legendary mentors through immersive weekly lessons and live coaching sessions.
+                    </p>
+                </div>
+                
+                <div class="benefit-card glass-premium">
+                    <div class="benefit__icon">
+                        [Placeholder: certificate-icon.png]
+                    </div>
+                    <h3 class="benefit__title">Exclusive Genius Certificate</h3>
+                    <p class="benefit__description">
+                        Official certification of your genius-level completion to showcase your enhanced cognitive abilities and dedication to growth.
+                    </p>
+                </div>
+                
+                <div class="benefit-card glass-premium">
+                    <div class="benefit__icon">
+                        [Placeholder: roadmap-icon.png]
+                    </div>
+                    <h3 class="benefit__title">Personalized Growth Roadmap</h3>
+                    <p class="benefit__description">
+                        Custom-tailored development plan based on your unique cognitive profile to maximize your intellectual potential.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== Pricing Section ===== -->
+    <section class="section pricing reveal">
+        <div class="container">
+            <div class="pricing-container glass-premium">
+                <div class="pricing-card">
+                    <div class="pricing__badge">🔥 LAUNCH SPECIAL</div>
+                    
+                    <div class="pricing-main">
+                        <div class="price-intro">€4.99</div>
+                        <p class="price-then">Then €29/month for your 6-week Academy</p>
+                        <div class="price-subscription">Complete program in 6 weeks</div>
+                        <p class="price-note">No charges after your Academy program ends</p>
+                    </div>
+                    
+                    <div class="urgency-box">
+                        <div class="urgency-text">⏰ This offer expires in 24 hours!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== Payment Form Section ===== -->
+    <section class="section payment-section reveal">
+        <div class="container">
+            <div class="payment-container glass-premium">
+                <form class="payment-form" id="payment-form-premium">
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div>
+                                <label class="form-label" for="firstName">First Name</label>
+                                <input class="form-input" type="text" id="firstName" name="firstName" placeholder="John" required>
+                            </div>
+                            <div>
+                                <label class="form-label" for="lastName">Last Name</label>
+                                <input class="form-input" type="text" id="lastName" name="lastName" placeholder="Doe" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email Address</label>
+                        <input class="form-input" type="email" id="email" name="email" placeholder="john@example.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="cardNumber">Card Number</label>
+                        <div class="card-input-container">
+                            <input class="form-input" type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                            <div class="card-type-icon" id="cardTypeIcon">CARD</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div>
+                                <label class="form-label" for="expiry">Expiry Date</label>
+                                <input class="form-input" type="text" id="expiry" name="expiry" placeholder="MM/YY" maxlength="5" required>
+                            </div>
+                            <div>
+                                <label class="form-label" for="cvv">CVV</label>
+                                <input class="form-input" type="text" id="cvv" name="cvv" placeholder="123" maxlength="4" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="cta-button" id="cta-btn">
+                        <span id="btn-text">🔓 Unlock My Genius Profile</span>
+                    </button>
+                    
+                    <div class="security-section">
+                        <div class="security-badges">
+                            <div class="security-badge">SSL<br>SECURE</div>
+                            <div class="security-badge">STRIPE<br>POWERED</div>
+                            <div class="security-badge">256-BIT<br>ENCRYPTED</div>
+                            <div class="security-badge">PCI<br>COMPLIANT</div>
+                        </div>
+                        <p class="security-text">🔒 Secure checkout — Your information is fully protected</p>
+                        <p class="cancel-note">Cancel anytime during your Academy program with one click</p>
+                    </div>
+                </form>
+                
+                <!-- ===== Certificate Preview (Inline) ===== -->
+                <div class="certificate-preview-inline">
+                    <div class="preview-header-inline">
+                        <h3>🏆 Your Certificate Preview</h3>
+                        <p>💫 <strong>Type your name above</strong> to see it on your personalized certificate!</p>
+                    </div>
+                    
+                    <div class="certificate-preview-mini" id="certificatePreview">
+                        <div class="certificate-mini-header">
+                            <div class="certificate-mini-logo">🧠</div>
+                            <h3>Test Your Genius</h3>
+                            <p>Official IQ Assessment Certificate</p>
+                        </div>
+                        
+                        <div class="certificate-mini-content">
+                            <p>This certifies that</p>
+                            <h2 class="certificate-mini-name" id="previewName">Your Name Here</h2>
+                            <p>has successfully completed our comprehensive IQ assessment</p>
+                            <p>and achieved an official score of</p>
+                            
+                            <div class="certificate-mini-score" id="previewScore">
+                                127
+                            </div>
+                            
+                            <p class="certificate-mini-classification">
+                                Classification: <strong>Superior Intelligence</strong>
+                            </p>
+                            
+                            <div class="certificate-mini-signature">
+                                <div class="mini-seal">✓</div>
+                                <p>Dr. Sarah Chen, Ph.D.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-encouragement">
+                        <p>🎓 This official certificate proves your cognitive abilities to employers, schools, and peers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== Guarantee Section ===== -->
+    <section class="section guarantee reveal">
+        <div class="container-narrow">
+            <div class="guarantee-badge">
+                🛡️ 100% Satisfaction Guarantee
+            </div>
+            <p class="guarantee-text">
+                If you're not completely impressed after your first week of the Genius Academy, cancel for a full refund of all payments. We're confident you'll love the transformation, but your satisfaction is our priority.
+            </p>
+        </div>
+    </section>
+    
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__links">
+                <a href="#terms" class="footer__link">Terms of Service</a>
+                <a href="#privacy" class="footer__link">Privacy Policy</a>
+                <a href="#contact" class="footer__link">Contact Support</a>
+                <a href="#refunds" class="footer__link">Refund Policy</a>
+            </div>
+            
+            <div class="footer__bottom">
+                <p>&copy; 2025 Test Your Genius Academy. Transforming potential into genius-level performance.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- ===== Mobile Sticky CTA ===== -->
+    <div class="mobile-cta">
+        <button class="cta-button" onclick="document.getElementById('cta-btn').scrollIntoView({behavior: 'smooth'})">
+            🔓 Unlock My Genius Profile
+        </button>
+    </div>
+    
+    <script>
+        // ===== Advanced Countdown Timer =====
+        function initPremiumCountdown() {
+            const countdownElement = document.getElementById('countdown-premium');
+            
+            // Set countdown to 23 hours, 42 minutes, 17 seconds
+            let totalSeconds = 23 * 3600 + 42 * 60 + 17;
+            
+            function updateCountdown() {
+                const hours = Math.floor(totalSeconds / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = totalSeconds % 60;
+                
+                const display = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                countdownElement.textContent = display;
+                
+                if (totalSeconds > 0) {
+                    totalSeconds--;
+                } else {
+                    countdownElement.textContent = "EXPIRED";
+                    countdownElement.style.color = '#EF4444';
+                }
+            }
+            
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+        
+        // ===== Results Animation =====
+        function initResultsAnimation() {
+            setTimeout(() => {
+                const resultCards = document.querySelectorAll('.result-showcase');
+                resultCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 300);
+                });
+            }, 2500);
+        }
+        
+        // ===== Card Type Detection =====
+        function detectCardType(number) {
+            const cleanNumber = number.replace(/\s/g, '');
+            
+            const cardTypes = {
+                visa: /^4[0-9]{0,15}$/,
+                mastercard: /^5[1-5][0-9]{0,14}$/,
+                amex: /^3[47][0-9]{0,13}$/,
+                discover: /^6(?:011|5[0-9]{2})[0-9]{0,12}$/,
+                jcb: /^(?:2131|1800|35\d{3})\d{0,11}$/,
+                diners: /^3[0689][0-9]{0,11}$/
+            };
+            
+            for (const [type, pattern] of Object.entries(cardTypes)) {
+                if (pattern.test(cleanNumber)) {
+                    return type;
+                }
+            }
+            
+            return cleanNumber.length > 0 ? 'unknown' : null;
+        }
+        
+        function updateCardIcon(cardType) {
+            const icon = document.getElementById('cardTypeIcon');
+            if (!icon) return;
+            
+            // Remove all card type classes
+            icon.className = 'card-type-icon';
+            
+            if (!cardType) {
+                icon.classList.remove('visible');
+                return;
+            }
+            
+            icon.classList.add('visible', cardType);
+            
+            const cardNames = {
+                visa: 'VISA',
+                mastercard: 'MASTER',
+                amex: 'AMEX',
+                discover: 'DISCOVER',
+                jcb: 'JCB',
+                diners: 'DINERS',
+                unknown: 'CARD'
+            };
+            
+            icon.textContent = cardNames[cardType] || 'CARD';
+        }
+        function formatCardNumber(value) {
+            return value.replace(/\s/g, '').replace(/(.{4})/g, '$1 ').trim();
+        }
+        
+        function formatExpiry(value) {
+            return value.replace(/\D/g, '').replace(/(\d{2})(\d{2})/, '$1/$2');
+        }
+        
+        function formatCVV(value) {
+            return value.replace(/\D/g, '');
+        }
+        
+        // ===== Form Validation =====
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+        
+        function validateCardNumber(number) {
+            return /^\d{4}\s\d{4}\s\d{4}\s\d{4}$/.test(number);
+        }
+        
+        function validateExpiry(expiry) {
+            if (!/^\d{2}\/\d{2}$/.test(expiry)) return false;
+            
+            const [month, year] = expiry.split('/');
+            const currentDate = new Date();
+            const currentYear = currentDate.getFullYear() % 100;
+            const currentMonth = currentDate.getMonth() + 1;
+            
+            const expYear = parseInt(year);
+            const expMonth = parseInt(month);
+            
+            if (expMonth < 1 || expMonth > 12) return false;
+            if (expYear < currentYear || (expYear === currentYear && expMonth < currentMonth)) return false;
+            
+            return true;
+        }
+        
+        function validateCVV(cvv) {
+            return /^\d{3,4}$/.test(cvv);
+        }
+        
+        // ===== Scroll Reveal Animation =====
+        function initScrollReveal() {
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            });
+            
+            revealElements.forEach((el) => {
+                revealObserver.observe(el);
+            });
+        }
+        
+        // ===== Payment Form Submission =====
+        function handlePremiumPayment(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                cardNumber: formData.get('cardNumber'),
+                expiry: formData.get('expiry'),
+                cvv: formData.get('cvv')
+            };
+            
+            // Validation
+            if (!data.firstName || !data.lastName) {
+                alert('Please enter your full name.');
+                return;
+            }
+            
+            if (!validateEmail(data.email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            if (!validateCardNumber(data.cardNumber)) {
+                alert('Please enter a valid card number.');
+                return;
+            }
+            
+            if (!validateExpiry(data.expiry)) {
+                alert('Please enter a valid expiry date.');
+                return;
+            }
+            
+            if (!validateCVV(data.cvv)) {
+                alert('Please enter a valid CVV.');
+                return;
+            }
+            
+            // Show loading state
+            const btn = document.getElementById('cta-btn');
+            const btnText = document.getElementById('btn-text');
+            
+            btn.classList.add('loading');
+            btnText.textContent = 'Processing Payment...';
+            btn.disabled = true;
+            
+            // Simulate payment processing
+            setTimeout(() => {
+                console.log('💎 Premium payment processed successfully:', data);
+                
+                // Prepare premium payment data for account creation
+                const paymentData = {
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    email: data.email,
+                    cardNumber: data.cardNumber,
+                    plan: 'premium',
+                    amount: 67.99,
+                    paymentDate: new Date().toISOString()
+                };
+                
+                // Store payment success data
+                localStorage.setItem('paymentSuccess', JSON.stringify(paymentData));
+                
+                // Create account and handle success
+                if (typeof handlePaymentSuccess === 'function') {
+                    handlePaymentSuccess(paymentData);
+                } else {
+                    // Fallback if auth system not loaded
+                    console.warn('Auth system not loaded, redirecting directly');
+                    window.location.href = 'dashboard.html?payment=success';
+                }
+            }, 3500);
+        }
+        
+        // ===== Certificate Preview Functions =====
+        function initializeCertificatePreview() {
+            // Set current date
+            const currentDate = new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            const previewDate = document.getElementById('preview-date');
+            if (previewDate) {
+                previewDate.textContent = currentDate;
+            }
+            
+            // Load and display user's IQ score
+            loadUserScore();
+            
+            // Add real-time name update functionality
+            setupNameInput();
+        }
+        
+        function loadUserScore() {
+            try {
+                const testResults = JSON.parse(localStorage.getItem('iqTestResults') || '{}');
+                const score = testResults.score || calculateIQScore();
+                
+                const previewScore = document.getElementById('preview-score');
+                if (previewScore) {
+                    previewScore.textContent = `${score} IQ Points`;
+                }
+            } catch (error) {
+                console.error('Error loading user score:', error);
+                const previewScore = document.getElementById('preview-score');
+                if (previewScore) {
+                    previewScore.textContent = '130+ IQ Points';
+                }
+            }
+        }
+        
+        function calculateIQScore() {
+            try {
+                const testResults = JSON.parse(localStorage.getItem('iqTestResults') || '{}');
+                const answers = testResults.answers || [];
+                
+                if (answers.length === 0) {
+                    return 130; // Default high score
+                }
+                
+                const correctAnswers = [
+                    'option2', 'option3', 'option1', 'option4', 'option2',
+                    'option3', 'option1', 'option4', 'option2', 'option3'
+                ];
+                
+                let correct = 0;
+                answers.forEach((answer, index) => {
+                    if (answer === correctAnswers[index]) {
+                        correct++;
+                    }
+                });
+                
+                const percentage = (correct / correctAnswers.length) * 100;
+                return Math.max(85, Math.min(165, Math.round(85 + (percentage * 0.8))));
+            } catch (error) {
+                console.error('Error calculating IQ score:', error);
+                return 130;
+            }
+        }
+        
+        function setupNameInput() {
+            // Find all name input fields
+            const nameInputs = [
+                document.getElementById('firstName'),
+                document.getElementById('name'),
+                document.querySelector('input[name="firstName"]'),
+                document.querySelector('input[name="name"]'),
+                document.querySelector('input[placeholder*="First"]'),
+                document.querySelector('input[placeholder*="Name"]')
+            ].filter(input => input !== null);
+            
+            const previewName = document.getElementById('preview-name');
+            
+            if (nameInputs.length > 0 && previewName) {
+                // Update preview when user types
+                nameInputs.forEach(input => {
+                    input.addEventListener('input', function() {
+                        const name = this.value.trim();
+                        if (name) {
+                            previewName.textContent = name;
+                            previewName.style.animation = 'nameGlow 2s ease-in-out infinite alternate';
+                        } else {
+                            previewName.textContent = 'Your Name Here';
+                            previewName.style.animation = '';
+                        }
+                    });
+                    
+                    // Focus effect - scroll to preview
+                    input.addEventListener('focus', function() {
+                        setTimeout(() => {
+                            const certificateSection = document.querySelector('.certificate-preview-section');
+                            if (certificateSection) {
+                                certificateSection.scrollIntoView({ 
+                                    behavior: 'smooth',
+                                    block: 'center'
+                                });
+                            }
+                        }, 300);
+                    });
+                });
+                
+                // Initialize with any existing value
+                const firstInput = nameInputs[0];
+                if (firstInput.value.trim()) {
+                    previewName.textContent = firstInput.value.trim();
+                }
+            }
+        }
+
+        // ===== Initialize Everything =====
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize all features
+            initPremiumCountdown();
+            initResultsAnimation();
+            initScrollReveal();
+            initializeCertificatePreview();
+            initializeCertificatePreview();
+            
+            // Form input formatting with card type detection
+            const cardNumberInput = document.getElementById('cardNumber');
+            const expiryInput = document.getElementById('expiry');
+            const cvvInput = document.getElementById('cvv');
+            
+            if (cardNumberInput) {
+                cardNumberInput.addEventListener('input', (e) => {
+                    const formattedNumber = formatCardNumber(e.target.value);
+                    e.target.value = formattedNumber;
+                    
+                    // Detect and update card type
+                    const cardType = detectCardType(formattedNumber);
+                    updateCardIcon(cardType);
+                });
+                
+                // Clear icon when field is empty
+                cardNumberInput.addEventListener('blur', (e) => {
+                    if (!e.target.value.trim()) {
+                        updateCardIcon(null);
+                    }
+                });
+            }
+            
+            if (expiryInput) {
+                expiryInput.addEventListener('input', (e) => {
+                    e.target.value = formatExpiry(e.target.value);
+                });
+            }
+            
+            if (cvvInput) {
+                cvvInput.addEventListener('input', (e) => {
+                    e.target.value = formatCVV(e.target.value);
+                });
+            }
+            
+            // Form submission
+            const paymentForm = document.getElementById('payment-form-premium');
+            if (paymentForm) {
+                paymentForm.addEventListener('submit', handlePremiumPayment);
+            }
+            
+            // Initial reveal for hero
+            setTimeout(() => {
+                const heroContent = document.querySelector('.hero.reveal');
+                if (heroContent) {
+                    heroContent.classList.add('revealed');
+                }
+            }, 500);
+            
+            // Progressive reveal animations
+            setTimeout(() => {
+                const elements = document.querySelectorAll('.reveal');
+                elements.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.add('revealed');
+                    }, index * 200);
+                });
+            }, 800);
+        });
+    </script>
+    
+    <!-- Authentication System -->
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/auth-ui.js"></script>
+</body>
+</html>

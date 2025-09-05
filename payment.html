@@ -1,0 +1,2705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Genius Analysis is Almost Ready... | Test Your Genius</title>
+    <meta name="description" content="Your cognitive profile shows exceptional potential. Unlock your full genius analysis and discover if you qualify for exclusive academy access.">
+    <style>
+        /* ===== CSS Variables & Reset ===== */
+        :root {
+            --bg-1: #070B1A;
+            --bg-2: #0E1A3A;
+            --ink: #EAF2FF;
+            --accent: #64D4FF;
+            --purple: #8B5CF6;
+            --gold: #F4D37E;
+            
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-7: 3rem;
+            --space-8: 4rem;
+            
+            --font-stack: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-stack);
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+            color: var(--ink);
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* ===== Animated Background ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(100, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(244, 211, 126, 0.05) 0%, transparent 50%);
+            animation: backgroundShift 12s ease-in-out infinite alternate;
+        }
+        
+        @keyframes backgroundShift {
+            0% { opacity: 0.4; }
+            100% { opacity: 0.9; }
+        }
+        
+        /* ===== Holographic Light Streaks ===== */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                linear-gradient(45deg, transparent 40%, rgba(100, 212, 255, 0.02) 50%, transparent 60%),
+                linear-gradient(-45deg, transparent 30%, rgba(139, 92, 246, 0.02) 50%, transparent 70%);
+            animation: lightStreaks 15s linear infinite;
+        }
+        
+        @keyframes lightStreaks {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(0deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(360deg); }
+        }
+        
+        /* ===== Typography ===== */
+        h1, h2, h3 {
+            font-weight: bold;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+        
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+        h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
+        
+        p { font-size: clamp(1rem, 2vw, 1.1rem); }
+        
+        /* ===== Glassmorphism Components ===== */
+        .glass {
+            background: rgba(234, 242, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(234, 242, 255, 0.1);
+            border-radius: 20px;
+        }
+        
+        .glass-strong {
+            background: rgba(234, 242, 255, 0.08);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(234, 242, 255, 0.15);
+            border-radius: 24px;
+        }
+        
+        /* ===== Navigation ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(7, 11, 26, 0.9);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(100, 212, 255, 0.1);
+            padding: var(--space-4) 0;
+        }
+
+        .navbar__container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar__brand {
+            color: var(--ink);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            transition: color 0.3s ease;
+        }
+
+        .navbar__brand:hover {
+            color: var(--accent);
+        }
+
+        .navbar__logo {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg-1);
+            font-size: 1rem;
+        }
+
+        .navbar__logo::before {
+            content: "🧠";
+            font-size: 16px;
+        }
+
+        .navbar__right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-5);
+        }
+
+        .navbar__menu {
+            display: flex;
+            list-style: none;
+            gap: var(--space-5);
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar__menu-item {
+            margin: 0;
+        }
+
+        .navbar__menu-link {
+            color: var(--ink-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            padding: var(--space-2) var(--space-3);
+            border-radius: 6px;
+        }
+
+        .navbar__menu-link:hover {
+            color: var(--accent);
+            background: rgba(100, 212, 255, 0.1);
+        }
+
+        .navbar__back {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: var(--space-2) var(--space-4);
+            border: 1px solid rgba(100, 212, 255, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(100, 212, 255, 0.1);
+        }
+
+        .navbar__back:hover {
+            background: rgba(100, 212, 255, 0.2);
+            border-color: rgba(100, 212, 255, 0.5);
+            transform: translateX(-2px);
+        }
+
+        .navbar__auth {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .auth-button {
+            background: rgba(100, 212, 255, 0.1);
+            border: 1px solid rgba(100, 212, 255, 0.3);
+            color: var(--accent);
+            padding: var(--space-2) var(--space-5);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .auth-button:hover {
+            background: rgba(100, 212, 255, 0.2);
+            border-color: rgba(100, 212, 255, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-menu-trigger {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-1);
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: transform 0.3s ease;
+        }
+
+        .user-menu-trigger:hover .user-avatar {
+            transform: scale(1.05);
+        }
+
+        .user-menu-dropdown {
+            position: absolute;
+            top: calc(100% + var(--space-3));
+            right: 0;
+            background: rgba(7, 11, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(100, 212, 255, 0.2);
+            border-radius: 12px;
+            padding: var(--space-4);
+            min-width: 220px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .user-menu.active .user-menu-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .user-info {
+            margin-bottom: var(--space-4);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid rgba(100, 212, 255, 0.1);
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: var(--space-1);
+        }
+
+        .user-email {
+            font-size: 0.75rem;
+            color: var(--ink-secondary);
+        }
+
+        .user-menu-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3);
+            color: var(--ink-secondary);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .user-menu-item:hover {
+            background: rgba(100, 212, 255, 0.1);
+            color: var(--ink);
+        }
+
+        .menu-icon {
+            font-size: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .navbar__toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--ink);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: var(--space-2);
+        }
+
+        @media (max-width: 768px) {
+            .navbar__menu {
+                display: none;
+            }
+            
+            .navbar__toggle {
+                display: block;
+            }
+            
+            .navbar__right {
+                gap: var(--space-3);
+            }
+            
+            .navbar__back {
+                font-size: 0.8rem;
+                padding: var(--space-1) var(--space-3);
+            }
+        }
+        
+        /* ===== Container ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+        
+        /* ===== Section Styling ===== */
+        .section {
+            padding: var(--space-8) 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section--hero {
+            padding-top: calc(80px + var(--space-8));
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* ===== Hero Section ===== */
+        .hero {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero__card {
+            padding: var(--space-8) var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+        
+        .hero__title {
+            background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 50%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-5);
+        }
+        
+        .score-teaser {
+            margin: var(--space-6) 0;
+        }
+        
+        .score-number {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            color: var(--accent);
+            text-shadow: 0 0 30px rgba(100, 212, 255, 0.5);
+            animation: scorePulse 2s ease-in-out infinite;
+            display: block;
+            margin-bottom: var(--space-3);
+        }
+        
+        @keyframes scorePulse {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 0 0 30px rgba(100, 212, 255, 0.5);
+            }
+            50% {
+                transform: scale(1.05);
+                text-shadow: 0 0 40px rgba(100, 212, 255, 0.8);
+            }
+        }
+        
+        .score-text {
+            font-size: 1.3rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        .hero__subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            opacity: 0.9;
+            margin-bottom: var(--space-6);
+            color: rgba(234, 242, 255, 0.8);
+        }
+        
+        /* ===== Value Proposition Section ===== */
+        .value-prop {
+            background: rgba(14, 26, 58, 0.3);
+        }
+        
+        .value-prop__title {
+            text-align: center;
+            margin-bottom: var(--space-8);
+            background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 70%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-6);
+        }
+        
+        .feature-card {
+            padding: var(--space-6);
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 80px rgba(100, 212, 255, 0.15);
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 212, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .feature-card:hover::before {
+            left: 100%;
+        }
+        
+        .feature__icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto var(--space-4);
+            background: rgba(234, 242, 255, 0.1);
+            border: 2px dashed rgba(100, 212, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(100, 212, 255, 0.6);
+            font-size: 0.8rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature__icon::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(100, 212, 255, 0.2), transparent);
+            animation: iconRotate 4s linear infinite;
+        }
+        
+        @keyframes iconRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* ===== Progress Bar Animation ===== */
+        .processing-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(234, 242, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: var(--space-4);
+        }
+        
+        .processing-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--purple) 50%, var(--gold) 100%);
+            width: 0%;
+            border-radius: 6px;
+            animation: processingAnimation 3s ease-in-out forwards;
+            position: relative;
+        }
+        
+        .processing-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes processingAnimation {
+            0% { width: 0%; }
+            100% { width: 87%; }
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* ===== Countdown Timer ===== */
+        .countdown-timer {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.2) 0%, rgba(244, 211, 126, 0.1) 100%);
+            border: 2px solid rgba(255, 107, 107, 0.3);
+            border-radius: 16px;
+            padding: var(--space-4);
+            text-align: center;
+            margin: var(--space-6) 0;
+        }
+        
+        .timer-text {
+            color: #ff6b6b;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: var(--space-2);
+        }
+        
+        .timer-display {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 900;
+            color: var(--gold);
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 20px rgba(244, 211, 126, 0.5);
+        }
+        
+        /* ===== Teaser Results ===== */
+        .teaser-results {
+            background: rgba(14, 26, 58, 0.3);
+        }
+        
+        .processing-status {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+        
+        .processing-title {
+            color: var(--accent);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: var(--space-4);
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-5);
+            margin-top: var(--space-7);
+        }
+        
+        .result-card {
+            padding: var(--space-6);
+            position: relative;
+            transition: all 0.4s ease;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .result-card.locked {
+            opacity: 0.6;
+            filter: blur(2px);
+        }
+        
+        .result-card.locked::after {
+            content: '🔒 Unlock Full Analysis';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(7, 11, 26, 0.9);
+            color: var(--accent);
+            padding: var(--space-3) var(--space-5);
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            border: 2px solid var(--accent);
+        }
+        
+        .result-label {
+            color: var(--ink);
+            font-weight: 600;
+            margin-bottom: var(--space-3);
+            font-size: 1.1rem;
+        }
+        
+        .result-value {
+            font-size: 1.2rem;
+            margin-bottom: var(--space-2);
+        }
+        
+        .stars {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: var(--space-2);
+        }
+        
+        .result-hint {
+            color: rgba(234, 242, 255, 0.8);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+        
+        /* ===== Emotional Trigger ===== */
+        .emotional-trigger {
+            background: linear-gradient(135deg, rgba(100, 212, 255, 0.05) 0%, rgba(139, 92, 246, 0.03) 100%);
+            text-align: center;
+        }
+        
+        .trigger-title {
+            background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 50%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-5);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+        }
+        
+        .trigger-subtitle {
+            color: rgba(234, 242, 255, 0.9);
+            font-size: 1.2rem;
+            margin-bottom: var(--space-6);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .feature__title {
+            color: var(--accent);
+            margin-bottom: var(--space-3);
+        }
+        
+        .feature__description {
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+        
+        /* ===== Pricing Section ===== */
+        .pricing {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(100, 212, 255, 0.05) 100%);
+        }
+        
+        .pricing-card {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: var(--space-8);
+            text-align: center;
+        }
+        
+        .price-box {
+            background: rgba(234, 242, 255, 0.1);
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            padding: var(--space-6);
+            margin-bottom: var(--space-6);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .price-box::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--accent), var(--purple), var(--gold), var(--accent));
+            border-radius: 22px;
+            z-index: -1;
+            animation: borderGlow 3s linear infinite;
+        }
+        
+        @keyframes borderGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .price-main {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: var(--space-2);
+        }
+        
+        .price-period {
+            font-size: 1.1rem;
+            color: rgba(234, 242, 255, 0.7);
+            margin-bottom: var(--space-4);
+        }
+        
+        .price-description {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .urgency-note {
+            background: linear-gradient(135deg, rgba(244, 211, 126, 0.2) 0%, rgba(255, 107, 107, 0.1) 100%);
+            border: 1px solid rgba(244, 211, 126, 0.3);
+            border-radius: 12px;
+            padding: var(--space-3) var(--space-4);
+            margin-bottom: var(--space-6);
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .benefits-list {
+            margin: var(--space-5) 0;
+            text-align: left;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-2) 0;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .upsell-note {
+            background: linear-gradient(135deg, rgba(100, 212, 255, 0.1) 0%, rgba(244, 211, 126, 0.05) 100%);
+            border: 1px solid rgba(100, 212, 255, 0.2);
+            border-radius: 12px;
+            padding: var(--space-3) var(--space-4);
+            margin-top: var(--space-4);
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        /* ===== Payment Form Section ===== */
+        .payment {
+            background: rgba(14, 26, 58, 0.2);
+        }
+        
+        .payment-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Payment Header Styles */
+        .payment-header {
+            text-align: center;
+            padding: var(--space-7) var(--space-6) var(--space-6);
+            border-bottom: 1px solid rgba(100, 212, 255, 0.1);
+            margin-bottom: var(--space-6);
+        }
+        
+        .payment-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: var(--space-3);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+        
+        .payment-subtitle {
+            font-size: 1.1rem;
+            color: rgba(234, 242, 255, 0.8);
+            margin: 0;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        
+        .payment-form {
+            padding: var(--space-8);
+        }
+        
+        .form-group {
+            margin-bottom: var(--space-5);
+            transition: all 0.5s ease;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Progressive Form Steps */
+        .form-group.hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            max-height: 0;
+            margin: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .form-group.active {
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 200px;
+            margin-bottom: var(--space-5);
+        }
+
+        .step-hint {
+            font-size: 0.85rem;
+            color: rgba(234, 242, 255, 0.7);
+            margin-top: var(--space-1);
+            font-style: italic;
+            opacity: 0;
+            animation: fadeInHint 0.5s ease 0.3s forwards;
+        }
+
+        @keyframes fadeInHint {
+            from { 
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .payment-btn.hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            max-height: 0;
+            margin: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .payment-btn.active {
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 80px;
+            margin-top: var(--space-5);
+            animation: buttonAppear 0.6s ease;
+        }
+
+        @keyframes buttonAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            60% {
+                transform: translateY(-5px) scale(1.02);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Step Progress Indicator */
+        .form-progress {
+            display: flex;
+            justify-content: center;
+            margin-bottom: var(--space-6);
+            gap: var(--space-2);
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(234, 242, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: var(--accent);
+            box-shadow: 0 0 15px rgba(100, 212, 255, 0.5);
+        }
+
+        .progress-dot.completed {
+            background: var(--gold);
+            box-shadow: 0 0 15px rgba(244, 211, 126, 0.5);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-4);
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: var(--space-2);
+            color: var(--ink);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: var(--space-4);
+            background: rgba(234, 242, 255, 0.05);
+            border: 2px solid rgba(234, 242, 255, 0.1);
+            border-radius: 12px;
+            color: var(--ink);
+            font-family: var(--font-stack);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(234, 242, 255, 0.08);
+            box-shadow: 0 0 20px rgba(100, 212, 255, 0.2);
+        }
+        
+        .form-input::placeholder {
+            color: rgba(234, 242, 255, 0.5);
+        }
+        
+        /* ===== Card Number Field with Icon ===== */
+        .card-input-container {
+            position: relative;
+        }
+        
+        .card-input-container .form-input {
+            padding-right: var(--space-8);
+        }
+        
+        .card-type-icon {
+            position: absolute;
+            right: var(--space-4);
+            top: 50%;
+            transform: translateY(-50%);
+            width: 38px;
+            height: 26px;
+            background: rgba(234, 242, 255, 0.1);
+            border: 1px solid rgba(234, 242, 255, 0.2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: rgba(234, 242, 255, 0.6);
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+        
+        .card-type-icon.visible {
+            opacity: 1;
+        }
+        
+        .card-type-icon.visa {
+            background: linear-gradient(135deg, #1A1F71 0%, #0F4C81 100%);
+            color: white;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+        
+        .card-type-icon.mastercard {
+            background: linear-gradient(135deg, #FF5F00 0%, #EB001B 100%);
+            color: white;
+            font-size: 0.6rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .card-type-icon.amex {
+            background: linear-gradient(135deg, #006FCF 0%, #0047AB 100%);
+            color: white;
+            font-size: 0.6rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .card-type-icon.discover {
+            background: linear-gradient(135deg, #FF6000 0%, #E5530A 100%);
+            color: white;
+            font-size: 0.55rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .card-type-icon.jcb {
+            background: linear-gradient(135deg, #006CB7 0%, #004B87 100%);
+            color: white;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+        
+        .card-type-icon.diners {
+            background: linear-gradient(135deg, #0079BE 0%, #005C91 100%);
+            color: white;
+            font-size: 0.55rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .card-type-icon.unknown {
+            background: rgba(234, 242, 255, 0.1);
+            border: 2px dashed rgba(100, 212, 255, 0.3);
+            color: rgba(100, 212, 255, 0.7);
+            font-size: 0.55rem;
+        }
+        
+        /* ===== Payment Button ===== */
+        .payment-btn {
+            width: 100%;
+            padding: var(--space-6) var(--space-4);
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+            color: var(--bg-1);
+            font-family: var(--font-stack);
+            font-weight: 700;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 0 30px rgba(100, 212, 255, 0.4),
+                0 10px 40px rgba(139, 92, 246, 0.3);
+        }
+        
+        .payment-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .payment-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 
+                0 0 40px rgba(100, 212, 255, 0.6),
+                0 15px 50px rgba(139, 92, 246, 0.4);
+        }
+        
+        .payment-btn:hover::before {
+            left: 100%;
+        }
+        
+        .payment-btn:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+        
+        /* ===== Security Badge ===== */
+        .security-info {
+            text-align: center;
+            margin-top: var(--space-5);
+        }
+        
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--space-4);
+            margin-bottom: var(--space-3);
+            flex-wrap: wrap;
+        }
+        
+        .security-badge {
+            width: 60px;
+            height: 40px;
+            background: rgba(234, 242, 255, 0.1);
+            border: 1px dashed rgba(100, 212, 255, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(100, 212, 255, 0.6);
+            font-size: 0.7rem;
+            text-align: center;
+        }
+        
+        .security-text {
+            color: rgba(234, 242, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        /* ===== Certificate Preview Section ===== */
+        .certificate-preview-section {
+            background: rgba(244, 211, 126, 0.02);
+            border-top: 1px solid rgba(244, 211, 126, 0.1);
+            border-bottom: 1px solid rgba(244, 211, 126, 0.1);
+        }
+
+        .certificate-preview-container {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .preview-title {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            background: linear-gradient(135deg, var(--gold) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-2);
+        }
+
+        .preview-subtitle {
+            color: rgba(234, 242, 255, 0.8);
+            margin-bottom: var(--space-6);
+            font-size: 1.1rem;
+        }
+
+        .certificate-preview-mini {
+            background: linear-gradient(135deg, 
+                rgba(244, 211, 126, 0.1) 0%, 
+                rgba(100, 212, 255, 0.05) 50%, 
+                rgba(139, 92, 246, 0.03) 100%);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: var(--space-6);
+            margin: var(--space-5) 0;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .certificate-preview-mini:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(244, 211, 126, 0.2);
+        }
+
+        .certificate-preview-mini::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 15px,
+                rgba(244, 211, 126, 0.02) 15px,
+                rgba(244, 211, 126, 0.02) 30px
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .certificate-mini-header, .certificate-mini-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .certificate-mini-header {
+            border-bottom: 1px solid rgba(244, 211, 126, 0.3);
+            padding-bottom: var(--space-3);
+            margin-bottom: var(--space-4);
+        }
+
+        .certificate-mini-logo {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-2);
+        }
+
+        .certificate-mini-header h3 {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: var(--space-1);
+        }
+
+        .certificate-mini-header p {
+            color: rgba(234, 242, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .certificate-mini-content p {
+            color: rgba(234, 242, 255, 0.8);
+            margin-bottom: var(--space-2);
+            font-size: 0.9rem;
+        }
+
+        .certificate-mini-name {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin: var(--space-4) 0;
+            text-decoration: underline;
+            text-decoration-color: var(--gold);
+            text-underline-offset: 8px;
+            transition: all 0.3s ease;
+            min-height: 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .certificate-mini-name.highlight {
+            animation: nameGlow 2s ease-in-out;
+        }
+
+        @keyframes nameGlow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); text-shadow: 0 0 20px rgba(100, 212, 255, 0.5); }
+        }
+
+        .certificate-mini-score {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: var(--space-4) 0;
+        }
+
+        .certificate-mini-classification {
+            color: var(--gold);
+            margin: var(--space-3) 0;
+            padding: var(--space-2);
+            border: 1px solid rgba(244, 211, 126, 0.3);
+            border-radius: 10px;
+            background: rgba(244, 211, 126, 0.05);
+            font-size: 0.9rem;
+        }
+
+        .certificate-mini-signature {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--space-3);
+            margin-top: var(--space-4);
+            padding-top: var(--space-3);
+            border-top: 1px solid rgba(244, 211, 126, 0.3);
+        }
+
+        .mini-seal {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--green) 0%, var(--accent) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .certificate-mini-signature p {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin: 0;
+        }
+
+        .preview-encouragement {
+            background: rgba(100, 212, 255, 0.05);
+            border: 1px solid rgba(100, 212, 255, 0.2);
+            border-radius: 12px;
+            padding: var(--space-4);
+            margin-top: var(--space-5);
+        }
+
+        .preview-encouragement p {
+            color: rgba(234, 242, 255, 0.9);
+            margin-bottom: var(--space-2);
+            font-size: 0.95rem;
+        }
+
+        .preview-encouragement p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ===== Inline Certificate Preview ===== */
+        .certificate-preview-inline {
+            margin-top: var(--space-6);
+            padding: var(--space-5);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(59, 130, 246, 0.05) 100%);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+        }
+
+        .preview-header-inline {
+            text-align: center;
+            margin-bottom: var(--space-4);
+        }
+
+        .preview-header-inline h3 {
+            font-size: 1.4rem;
+            margin-bottom: var(--space-2);
+            background: linear-gradient(135deg, #8B5CF6, #3B82F6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .preview-header-inline p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin: 0;
+            color: rgba(234, 242, 255, 0.9);
+        }
+
+        .certificate-preview-mini {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(234, 242, 255, 0.08) 100%);
+            border: 2px solid rgba(100, 212, 255, 0.3);
+            border-radius: 20px;
+            padding: var(--space-5);
+            margin: 0 auto var(--space-4);
+            max-width: 450px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .certificate-preview-mini:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.2);
+            border-color: rgba(100, 212, 255, 0.5);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(234, 242, 255, 0.12) 100%);
+        }
+
+        .certificate-preview-mini::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent), var(--gold), #10B981, #8B5CF6);
+        }
+
+        .certificate-mini-header {
+            text-align: center;
+            margin-bottom: var(--space-4);
+            padding-bottom: var(--space-3);
+            border-bottom: 2px solid rgba(100, 212, 255, 0.3);
+        }
+
+        .certificate-mini-logo {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-2);
+            filter: drop-shadow(0 0 15px rgba(100, 212, 255, 0.5));
+        }
+
+        .certificate-mini-header h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 0 0 var(--space-1);
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(100, 212, 255, 0.3);
+        }
+
+        .certificate-mini-header p {
+            font-size: 0.9rem;
+            color: rgba(234, 242, 255, 0.8);
+            margin: 0;
+            font-style: italic;
+        }
+
+        .certificate-mini-content {
+            text-align: center;
+            color: var(--ink);
+        }
+
+        .certificate-mini-content p {
+            font-size: 0.95rem;
+            margin: var(--space-2) 0;
+            color: rgba(234, 242, 255, 0.9);
+            line-height: 1.4;
+        }
+
+        .certificate-mini-name {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin: var(--space-4) 0;
+            text-decoration: underline;
+            text-decoration-color: var(--gold);
+            text-underline-offset: 8px;
+            transition: all 0.3s ease;
+            min-height: 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(100, 212, 255, 0.3);
+        }
+
+        .certificate-mini-name.highlight {
+            animation: nameGlow 2s ease-in-out;
+        }
+
+        @keyframes nameGlow {
+            0%, 100% { 
+                transform: scale(1); 
+                color: var(--accent);
+            }
+            50% { 
+                transform: scale(1.05); 
+                color: var(--gold);
+                text-shadow: 0 0 20px rgba(244, 211, 126, 0.6);
+            }
+        }
+
+        .certificate-mini-score {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: var(--space-3) 0;
+            text-shadow: 0 0 30px rgba(244, 211, 126, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .certificate-mini-classification {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(244, 211, 126, 0.15) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: 12px;
+            padding: var(--space-2) var(--space-3);
+            margin: var(--space-3) 0;
+            font-size: 0.9rem;
+            backdrop-filter: blur(8px);
+            color: rgba(234, 242, 255, 0.9);
+        }
+
+        .certificate-mini-classification strong {
+            color: #10B981;
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+        }
+
+        .certificate-mini-signature {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-3);
+            margin-top: var(--space-4);
+            padding-top: var(--space-3);
+            border-top: 1px solid rgba(100, 212, 255, 0.3);
+        }
+
+        .mini-seal {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .certificate-mini-signature p {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin: 0;
+            line-height: 1.3;
+            text-shadow: 0 0 6px rgba(100, 212, 255, 0.3);
+        }
+
+        .preview-encouragement {
+            background: rgba(100, 212, 255, 0.05);
+            border: 1px solid rgba(100, 212, 255, 0.2);
+            border-radius: 12px;
+            padding: var(--space-3);
+            text-align: center;
+        }
+
+        .preview-encouragement p {
+            color: rgba(234, 242, 255, 0.9);
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .certificate-preview-inline {
+                margin-top: var(--space-4);
+                padding: var(--space-3);
+            }
+            
+            .certificate-preview-mini {
+                max-width: 100%;
+                padding: var(--space-4);
+            }
+            
+            .certificate-mini-name {
+                font-size: 1.5rem;
+            }
+            
+            .certificate-mini-score {
+                font-size: 2rem;
+            }
+            
+            .certificate-mini-logo {
+                font-size: 2rem;
+            }
+        }
+
+        /* ===== Guarantee Section ===== */
+        .guarantee {
+            background: rgba(244, 211, 126, 0.05);
+            text-align: center;
+        }
+        
+        .guarantee-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            background: linear-gradient(135deg, var(--gold) 0%, #d4af37 100%);
+            color: var(--bg-1);
+            padding: var(--space-4) var(--space-6);
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: var(--space-5);
+            box-shadow: 0 10px 30px rgba(244, 211, 126, 0.3);
+        }
+        
+        .guarantee-text {
+            max-width: 500px;
+            margin: 0 auto;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        /* ===== Footer ===== */
+        .footer {
+            background: linear-gradient(135deg, var(--bg-1) 0%, rgba(14, 26, 58, 0.9) 100%);
+            border-top: 1px solid rgba(100, 212, 255, 0.1);
+            padding: var(--space-6) 0 var(--space-4);
+        }
+        
+        .footer__content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-5);
+            margin-bottom: var(--space-5);
+        }
+        
+        .footer__section h4 {
+            color: var(--accent);
+            margin-bottom: var(--space-3);
+            font-size: 1rem;
+        }
+        
+        .footer__links {
+            list-style: none;
+        }
+        
+        .footer__links li {
+            margin-bottom: var(--space-2);
+        }
+        
+        .footer__links a {
+            color: rgba(234, 242, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer__links a:hover {
+            color: var(--accent);
+        }
+        
+        .footer__bottom {
+            text-align: center;
+            padding-top: var(--space-4);
+            border-top: 1px solid rgba(100, 212, 255, 0.1);
+            color: rgba(234, 242, 255, 0.6);
+            font-size: 0.85rem;
+        }
+        
+        /* ===== Loading State ===== */
+        .payment-btn.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        
+        .payment-btn.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid transparent;
+            border-top: 2px solid var(--bg-1);
+            border-radius: 50%;
+            animation: btnSpin 1s linear infinite;
+        }
+        
+        @keyframes btnSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* ===== Reveal Animation ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* ===== Responsive Design ===== */
+        @media (max-width: 768px) {
+            .hero__card {
+                padding: var(--space-6) var(--space-4);
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-4);
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: var(--space-3);
+            }
+            
+            .payment-form {
+                padding: var(--space-6) var(--space-4);
+            }
+            
+            .security-badges {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .section {
+                padding: var(--space-6) 0;
+            }
+            
+            .section--hero {
+                padding-top: calc(80px + var(--space-6));
+            }
+        }
+        
+        /* ===== Focus States ===== */
+        .payment-btn:focus,
+        .form-input:focus {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== Navigation ===== -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Payment page navigation">
+        <div class="navbar__container">
+            <a href="index.html" class="navbar__brand" aria-label="Test Your Genius Homepage">
+                <div class="navbar__logo"></div>
+                Test Your Genius
+            </a>
+            
+            <div class="navbar__right">
+                <ul class="navbar__menu" id="navbar-menu" role="menubar">
+                    <li class="navbar__menu-item">
+                        <a href="index.html#how-it-works" class="navbar__menu-link" role="menuitem">How It Works</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="academy-homepage.html" class="navbar__menu-link" role="menuitem">Academy</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="leaderboard.html" class="navbar__menu-link" role="menuitem">Leaderboard</a>
+                    </li>
+                </ul>
+                
+                <a href="iq-test.html" class="navbar__back">← Back to Test</a>
+                
+                <!-- Authentication Section -->
+                <div class="navbar__auth">
+                    <!-- Login Button (shown when not authenticated) -->
+                    <button class="auth-button" onclick="showAuthModal()" id="login-button">
+                        Sign In
+                    </button>
+                    
+                    <!-- User Menu (shown when authenticated) -->
+                    <div class="user-menu hidden" id="user-menu">
+                        <button class="user-menu-trigger" onclick="toggleUserMenu()">
+                            <div class="user-avatar">
+                                <span id="user-avatar-text">U</span>
+                            </div>
+                        </button>
+                        
+                        <div class="user-menu-dropdown">
+                            <div class="user-info">
+                                <div class="user-name" id="user-display-name">User Name</div>
+                                <div class="user-email" id="user-display-email">user@email.com</div>
+                            </div>
+                            
+                            <a href="dashboard.html" class="user-menu-item">
+                                <span class="menu-icon">📊</span>
+                                Dashboard
+                            </a>
+                            
+                            <a href="pages/results.html" class="user-menu-item">
+                                <span class="menu-icon">🧠</span>
+                                My Results
+                            </a>
+                            
+                            <a href="academy-homepage.html" class="user-menu-item">
+                                <span class="menu-icon">🎓</span>
+                                Academy
+                            </a>
+                            
+                            <a href="leaderboard.html" class="user-menu-item">
+                                <span class="menu-icon">🏆</span>
+                                Leaderboard
+                            </a>
+                            
+                            <div class="user-menu-divider"></div>
+                            
+                            <button class="user-menu-item logout-button" onclick="handleLogout()">
+                                <span class="menu-icon">🚪</span>
+                                Sign Out
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="navbar__toggle" id="navbar-toggle" aria-label="Toggle mobile menu">☰</button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- ===== Hero Section ===== -->
+    <section class="section section--hero">
+        <div class="container">
+            <div class="hero reveal">
+                <div class="hero__card glass-strong">
+                    <h1 class="hero__title">Your Genius Analysis is Almost Ready... 🧠</h1>
+                    
+                    <p class="hero__subtitle">
+                        We've analyzed your answers and your score is significantly higher than average. You may qualify for exclusive Genius Academy access.
+                    </p>
+                    
+                    <div class="countdown-timer">
+                        <div class="timer-text">Results will only be stored for:</div>
+                        <div class="timer-display" id="countdown">23:47:32</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== Teaser Results Section ===== -->
+    <section class="section teaser-results reveal">
+        <div class="container">
+            <div class="processing-status">
+                <h2 class="processing-title">Processing Your Cognitive Profile...</h2>
+                <div class="processing-bar">
+                    <div class="processing-fill"></div>
+                </div>
+                <p style="color: rgba(234, 242, 255, 0.7); font-size: 0.9rem;">Analysis 87% Complete</p>
+            </div>
+            
+            <div class="results-grid">
+                <div class="result-card glass">
+                    <div class="result-label">Logical Thinking</div>
+                    <div class="stars">★★★★☆</div>
+                    <div class="result-value" style="color: var(--accent);">Above Average</div>
+                    <p class="result-hint">Strong analytical capabilities detected</p>
+                </div>
+                
+                <div class="result-card glass">
+                    <div class="result-label">Problem Solving Speed</div>
+                    <div class="result-value" style="color: var(--purple);">Faster Than 73%</div>
+                    <p class="result-hint">Quick cognitive processing identified</p>
+                </div>
+                
+                <div class="result-card glass locked">
+                    <div class="result-label">Pattern Recognition</div>
+                    <div class="stars">★★★★★</div>
+                    <div class="result-value" style="color: var(--gold);">Outstanding Potential</div>
+                    <p class="result-hint">Exceptional visual-spatial abilities</p>
+                </div>
+                
+                <div class="result-card glass locked">
+                    <div class="result-label">Your Full IQ Score</div>
+                    <div class="result-value" style="color: var(--accent); font-size: 2rem; font-weight: 900;">1??</div>
+                    <p class="result-hint">Complete analysis required</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== Emotional Trigger Section ===== -->
+    <section class="section emotional-trigger reveal">
+        <div class="container">
+            <h2 class="trigger-title">You're So Close to Discovering Your Full Genius Score!</h2>
+            <p class="trigger-subtitle">
+                Don't miss your chance to unlock your complete cognitive profile. Your results show exceptional potential, but the full analysis is only available for the next 24 hours.
+            </p>
+        </div>
+    </section>
+    
+    <!-- ===== Value Proposition Section ===== -->
+    <section class="section value-prop reveal">
+        <div class="container">
+            <h2 class="value-prop__title">What You Get When You Unlock Today</h2>
+            <div class="features-grid">
+                <div class="feature-card glass">
+                    <div class="feature__icon">
+                        [Placeholder: full-score-report.png]
+                    </div>
+                    <h3 class="feature__title">Full Genius Score & Detailed Report</h3>
+                    <p class="feature__description">
+                        Your complete IQ analysis with breakdown of cognitive strengths and improvement areas.
+                    </p>
+                </div>
+                
+                <div class="feature-card glass">
+                    <div class="feature__icon">
+                        [Placeholder: academy-access.png]
+                    </div>
+                    <h3 class="feature__title">Exclusive Entry to Genius Academy</h3>
+                    <p class="feature__description">
+                        Learn from legendary mentors like Einstein, Steve Jobs, and Oprah in personalized training sessions.
+                    </p>
+                </div>
+                
+                <div class="feature-card glass">
+                    <div class="feature__icon">
+                        [Placeholder: brain-training.png]
+                    </div>
+                    <h3 class="feature__title">Weekly Brain Training & Live Sessions</h3>
+                    <p class="feature__description">
+                        Structured challenges and live workshops to continuously expand your cognitive abilities.
+                    </p>
+                </div>
+                
+                <div class="feature-card glass">
+                    <div class="feature__icon">
+                        [Placeholder: genius-certificate.png]
+                    </div>
+                    <h3 class="feature__title">Certificate to Showcase Your Skills</h3>
+                    <p class="feature__description">
+                        Official certification of your genius-level abilities to display professionally and socially.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== Pricing Section ===== -->
+    <section class="section pricing reveal">
+        <div class="container">
+            <div class="pricing-card glass-strong">
+                <div class="price-box">
+                    <div class="price-main">€9.99</div>
+                    <div class="price-period">one-time payment — no subscriptions</div>
+                    <p class="price-description">
+                        Complete IQ analysis, genius profile, and Week 1 access with Einstein mentor. Perfect for discovering your potential.
+                    </p>
+                </div>
+                
+                <div class="benefits-list">
+                    <div class="benefit-item">✅ Complete IQ Score & Analysis</div>
+                    <div class="benefit-item">✅ Detailed Genius Type Profile</div>
+                    <div class="benefit-item">✅ Week 1 Einstein Mentorship</div>
+                    <div class="benefit-item">✅ Personalized Learning Path</div>
+                    <div class="benefit-item">✅ Certificate of Completion</div>
+                </div>
+                
+                <div class="upsell-note">
+                    💫 Want all 6 weeks? Upgrade to full Academy for €29/month after purchase
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== Payment Form Section ===== -->
+    <section class="section payment reveal">
+        <div class="container">
+            <div class="payment-container glass-strong">
+                <!-- Payment Form Header -->
+                <div class="payment-header">
+                    <h2 class="payment-title">Complete Your Assessment</h2>
+                    <p class="payment-subtitle">Secure payment to unlock your personalized genius analysis</p>
+                </div>
+                
+                <!-- Progress Indicator -->
+                <div class="form-progress">
+                    <div class="progress-dot active" data-step="1"></div>
+                    <div class="progress-dot" data-step="2"></div>
+                    <div class="progress-dot" data-step="3"></div>
+                    <div class="progress-dot" data-step="4"></div>
+                    <div class="progress-dot" data-step="5"></div>
+                </div>
+                
+                <form class="payment-form" id="payment-form">
+                    <!-- Step 1: First Name -->
+                    <div class="form-group step-1 active">
+                        <label class="form-label" for="firstName">👋 Let's start with your first name</label>
+                        <input class="form-input" type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+                        <div class="step-hint">This will appear on your certificate</div>
+                    </div>
+                    
+                    <!-- Step 2: Last Name -->
+                    <div class="form-group step-2 hidden">
+                        <label class="form-label" for="lastName">✨ And your last name?</label>
+                        <input class="form-input" type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+                        <div class="step-hint">Perfect! Your full name will look great on the certificate</div>
+                    </div>
+                    
+                    <!-- Step 3: Email -->
+                    <div class="form-group step-3 hidden">
+                        <label class="form-label" for="email">📧 Where should we send your results?</label>
+                        <input class="form-input" type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                        <div class="step-hint">We'll send your IQ report and Academy access here</div>
+                    </div>
+                    
+                    <!-- Step 4: Card Number -->
+                    <div class="form-group step-4 hidden">
+                        <label class="form-label" for="cardNumber">💳 Secure payment information</label>
+                        <div class="card-input-container">
+                            <input class="form-input" type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                            <div class="card-type-icon" id="cardTypeIcon">CARD</div>
+                        </div>
+                        <div class="step-hint">Your payment is secured with 256-bit encryption</div>
+                    </div>
+                    
+                    <!-- Step 5: Card Details -->
+                    <div class="form-group step-5 hidden">
+                        <div class="form-row">
+                            <div>
+                                <label class="form-label" for="expiry">Expiry Date</label>
+                                <input class="form-input" type="text" id="expiry" name="expiry" placeholder="MM/YY" maxlength="5" required>
+                            </div>
+                            <div>
+                                <label class="form-label" for="cvv">CVV</label>
+                                <input class="form-input" type="text" id="cvv" name="cvv" placeholder="123" maxlength="4" required>
+                            </div>
+                        </div>
+                        <div class="step-hint">Final step - complete your secure payment</div>
+                    </div>
+
+                    <button type="submit" class="payment-btn step-6 hidden" id="payment-btn">
+                        <span id="btn-text">🔓 Unlock My Genius Profile - €9.99</span>
+                    </button>
+                    
+                    <div class="security-info">
+                        <div class="security-badges">
+                            <div class="security-badge">[SSL]</div>
+                            <div class="security-badge">[Stripe]</div>
+                            <div class="security-badge">[256-bit]</div>
+                        </div>
+                        <p class="security-text">🔒 Secure Checkout - Your information is protected</p>
+                    </div>
+                </form>
+                
+                <!-- ===== Certificate Preview (Inline) ===== -->
+                <div class="certificate-preview-inline">
+                    <div class="preview-header-inline">
+                        <h3>🏆 Your Certificate Preview</h3>
+                        <p>💫 <strong>Type your name above</strong> to see it on your personalized certificate!</p>
+                    </div>
+                    
+                    <div class="certificate-preview-mini" id="certificatePreview">
+                        <div class="certificate-mini-header">
+                            <div class="certificate-mini-logo">🧠</div>
+                            <h3>Test Your Genius</h3>
+                            <p>Official IQ Assessment Certificate</p>
+                        </div>
+                        
+                        <div class="certificate-mini-content">
+                            <p>This certifies that</p>
+                            <h2 class="certificate-mini-name" id="previewName">Your Name Here</h2>
+                            <p>has successfully completed our comprehensive IQ assessment</p>
+                            <p>and achieved an official score of</p>
+                            
+                            <div class="certificate-mini-score" id="previewScore">
+                                127
+                            </div>
+                            
+                            <p class="certificate-mini-classification">
+                                Classification: <strong>Superior Intelligence</strong>
+                            </p>
+                            
+                            <div class="certificate-mini-signature">
+                                <div class="mini-seal">✓</div>
+                                <p>Dr. Sarah Chen, Ph.D.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-encouragement">
+                        <p>🎓 This official certificate proves your cognitive abilities to employers, schools, and peers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Guarantee Section ===== -->
+    <section class="section guarantee reveal">
+        <div class="container">
+            <div class="guarantee-badge">
+                ✅ 100% Satisfaction Guarantee
+            </div>
+            <p class="guarantee-text">
+                If you're not completely satisfied with your Genius Academy experience, cancel within 7 days for a full refund. No questions asked.
+            </p>
+        </div>
+    </section>
+    
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__section">
+                    <h4>Genius Academy</h4>
+                    <ul class="footer__links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="academy-homepage.html">Academy</a></li>
+                        <li><a href="iq-test.html">IQ Test</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__section">
+                    <h4>Support</h4>
+                    <ul class="footer__links">
+                        <li><a href="#help">Help Center</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#refunds">Refund Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__section">
+                    <h4>Legal</h4>
+                    <ul class="footer__links">
+                        <li><a href="#terms">Terms of Service</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#cookies">Cookie Policy</a></li>
+                        <li><a href="#disclaimer">Disclaimer</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__section">
+                    <h4>Connect</h4>
+                    <ul class="footer__links">
+                        <li><a href="#newsletter">Newsletter</a></li>
+                        <li><a href="#community">Community</a></li>
+                        <li><a href="#social">Social Media</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p>&copy; 2025 Test Your Genius Academy. Transforming minds, one genius at a time.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // ===== Navigation JavaScript =====
+        
+        // Toggle user menu
+        function toggleUserMenu() {
+            const userMenu = document.getElementById('user-menu');
+            userMenu.classList.toggle('active');
+        }
+
+        // Close user menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const userMenu = document.getElementById('user-menu');
+            const userMenuTrigger = userMenu?.querySelector('.user-menu-trigger');
+            
+            if (userMenu && !userMenu.contains(event.target)) {
+                userMenu.classList.remove('active');
+            }
+        });
+
+        // Mock authentication functions (replace with real auth)
+        function showAuthModal() {
+            // This would typically open a login modal
+            console.log('Auth modal would open here');
+            // For demo purposes, simulate login
+            setTimeout(() => {
+                simulateLogin();
+            }, 1000);
+        }
+
+        function simulateLogin() {
+            document.getElementById('login-button').style.display = 'none';
+            document.getElementById('user-menu').classList.remove('hidden');
+            document.getElementById('user-display-name').textContent = 'Test User';
+            document.getElementById('user-display-email').textContent = 'test@example.com';
+            document.getElementById('user-avatar-text').textContent = 'TU';
+        }
+
+        function handleLogout() {
+            document.getElementById('login-button').style.display = 'block';
+            document.getElementById('user-menu').classList.add('hidden');
+            document.getElementById('user-menu').classList.remove('active');
+        }
+
+        // Check auth status on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            // This would check real authentication status
+            // For now, just ensure login button is visible
+            const loginButton = document.getElementById('login-button');
+            const userMenu = document.getElementById('user-menu');
+            
+            // Show login by default (replace with real auth check)
+            if (loginButton) loginButton.style.display = 'block';
+            if (userMenu) userMenu.classList.add('hidden');
+        });
+
+        // ===== Countdown Timer =====
+        function initCountdown() {
+            const countdownElement = document.getElementById('countdown');
+            
+            // Set countdown to 23 hours, 47 minutes, 32 seconds from now
+            let totalSeconds = 23 * 3600 + 47 * 60 + 32;
+            
+            function updateCountdown() {
+                const hours = Math.floor(totalSeconds / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = totalSeconds % 60;
+                
+                const display = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                countdownElement.textContent = display;
+                
+                if (totalSeconds > 0) {
+                    totalSeconds--;
+                } else {
+                    countdownElement.textContent = "00:00:00";
+                    countdownElement.style.color = "#ff6b6b";
+                }
+            }
+            
+            // Update immediately and then every second
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+        
+        // ===== Processing Bar Animation =====
+        function initProcessingAnimation() {
+            setTimeout(() => {
+                const processingFill = document.querySelector('.processing-fill');
+                if (processingFill) {
+                    processingFill.style.animationPlayState = 'running';
+                }
+            }, 1000);
+        }
+        
+        // ===== Form Formatting =====
+        // ===== Card Type Detection =====
+        function detectCardType(number) {
+            const cleanNumber = number.replace(/\s/g, '');
+            
+            const cardTypes = {
+                visa: /^4[0-9]{0,15}$/,
+                mastercard: /^5[1-5][0-9]{0,14}$/,
+                amex: /^3[47][0-9]{0,13}$/,
+                discover: /^6(?:011|5[0-9]{2})[0-9]{0,12}$/,
+                jcb: /^(?:2131|1800|35\d{3})\d{0,11}$/,
+                diners: /^3[0689][0-9]{0,11}$/
+            };
+            
+            for (const [type, pattern] of Object.entries(cardTypes)) {
+                if (pattern.test(cleanNumber)) {
+                    return type;
+                }
+            }
+            
+            return cleanNumber.length > 0 ? 'unknown' : null;
+        }
+        
+        function updateCardIcon(cardType) {
+            const icon = document.getElementById('cardTypeIcon');
+            if (!icon) return;
+            
+            // Remove all card type classes
+            icon.className = 'card-type-icon';
+            
+            if (!cardType) {
+                icon.classList.remove('visible');
+                return;
+            }
+            
+            icon.classList.add('visible', cardType);
+            
+            const cardNames = {
+                visa: 'VISA',
+                mastercard: 'MASTER',
+                amex: 'AMEX',
+                discover: 'DISCOVER',
+                jcb: 'JCB',
+                diners: 'DINERS',
+                unknown: 'CARD'
+            };
+            
+            icon.textContent = cardNames[cardType] || 'CARD';
+        }
+        
+        // ===== Form Functions =====
+        function formatCardNumber(value) {
+            return value.replace(/\s/g, '').replace(/(.{4})/g, '$1 ').trim();
+        }
+        
+        function formatExpiry(value) {
+            return value.replace(/\D/g, '').replace(/(\d{2})(\d{2})/, '$1/$2');
+        }
+        
+        function formatCVV(value) {
+            return value.replace(/\D/g, '');
+        }
+        
+        // ===== Form Validation =====
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+        
+        function validateCardNumber(number) {
+            return /^\d{4}\s\d{4}\s\d{4}\s\d{4}$/.test(number);
+        }
+        
+        function validateExpiry(expiry) {
+            if (!/^\d{2}\/\d{2}$/.test(expiry)) return false;
+            
+            const [month, year] = expiry.split('/');
+            const currentDate = new Date();
+            const currentYear = currentDate.getFullYear() % 100;
+            const currentMonth = currentDate.getMonth() + 1;
+            
+            const expYear = parseInt(year);
+            const expMonth = parseInt(month);
+            
+            if (expMonth < 1 || expMonth > 12) return false;
+            if (expYear < currentYear || (expYear === currentYear && expMonth < currentMonth)) return false;
+            
+            return true;
+        }
+        
+        function validateCVV(cvv) {
+            return /^\d{3,4}$/.test(cvv);
+        }
+        
+        // ===== Scroll Reveal Animation =====
+        function initScrollReveal() {
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            revealElements.forEach((el) => {
+                revealObserver.observe(el);
+            });
+        }
+        
+        // ===== Progressive Form Revelation =====
+        function initProgressiveForm() {
+            let currentStep = 1;
+            const totalSteps = 5;
+            
+            // Get all form elements
+            const firstName = document.getElementById('firstName');
+            const lastName = document.getElementById('lastName');
+            const email = document.getElementById('email');
+            const cardNumber = document.getElementById('cardNumber');
+            const expiry = document.getElementById('expiry');
+            const cvv = document.getElementById('cvv');
+            const submitBtn = document.getElementById('payment-btn');
+
+            
+            // Progress tracking
+            function updateProgress(step) {
+                const dots = document.querySelectorAll('.progress-dot');
+                dots.forEach((dot, index) => {
+                    const stepNum = index + 1;
+                    if (stepNum < step) {
+                        dot.classList.add('completed');
+                        dot.classList.remove('active');
+                    } else if (stepNum === step) {
+                        dot.classList.add('active');
+                        dot.classList.remove('completed');
+                    } else {
+                        dot.classList.remove('active', 'completed');
+                    }
+                });
+            }
+            
+            // Show next step with animation
+            function showStep(stepNumber) {
+                const stepElement = document.querySelector(`.step-${stepNumber}`);
+                if (stepElement) {
+                    stepElement.classList.remove('hidden');
+                    setTimeout(() => {
+                        stepElement.classList.add('active');
+                    }, 50);
+                    
+                    // Auto-focus the input in the new step
+                    setTimeout(() => {
+                        const input = stepElement.querySelector('input');
+                        if (input) input.focus();
+                    }, 300);
+                }
+                
+                updateProgress(stepNumber);
+                currentStep = stepNumber;
+            }
+            
+            // Validation functions
+            function isValidName(name) {
+                return name.trim().length >= 2;
+            }
+            
+            function isValidEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+            
+            function isValidCardNumber(number) {
+                return number.replace(/\s/g, '').length >= 13;
+            }
+            
+            function isValidExpiry(expiry) {
+                return /^\d{2}\/\d{2}$/.test(expiry);
+            }
+            
+            function isValidCVV(cvv) {
+                return cvv.length >= 3;
+            }
+            
+            // Step 1: First Name
+            firstName.addEventListener('input', function() {
+                if (isValidName(this.value) && currentStep === 1) {
+                    setTimeout(() => showStep(2), 500);
+                }
+            });
+            
+            // Step 2: Last Name
+            lastName.addEventListener('input', function() {
+                if (isValidName(this.value) && currentStep === 2) {
+                    setTimeout(() => showStep(3), 500);
+                }
+            });
+            
+            // Step 3: Email
+            email.addEventListener('input', function() {
+                if (isValidEmail(this.value) && currentStep === 3) {
+                    setTimeout(() => showStep(4), 500);
+                }
+            });
+            
+            // Step 4: Card Number
+            cardNumber.addEventListener('input', function() {
+                if (isValidCardNumber(this.value) && currentStep === 4) {
+                    setTimeout(() => showStep(5), 500);
+                }
+            });
+            
+            // Step 5: Expiry and CVV
+            function checkFinalStep() {
+                if (isValidExpiry(expiry.value) && isValidCVV(cvv.value) && currentStep === 5) {
+                    setTimeout(() => {
+                        submitBtn.classList.remove('hidden');
+                        submitBtn.classList.add('active');
+                        updateProgress(6);
+                    }, 500);
+                }
+            }
+            
+            expiry.addEventListener('input', checkFinalStep);
+            cvv.addEventListener('input', checkFinalStep);
+            
+            // Initialize first step
+            updateProgress(1);
+        }
+        
+        // ===== Certificate Preview Updates =====
+        function initializeCertificatePreview() {
+            const firstNameInput = document.getElementById('firstName');
+            const previewName = document.getElementById('previewName');
+            const previewScore = document.getElementById('previewScore');
+            
+            // Get IQ score from localStorage (from test results)
+            function getEstimatedScore() {
+                const testResults = JSON.parse(localStorage.getItem('iqTestResults') || '{}');
+                if (testResults.answers) {
+                    const correctAnswers = testResults.answers.filter(a => a !== null && a !== undefined).length;
+                    const performance = correctAnswers / testResults.answers.length;
+                    const score = Math.round(80 + (performance * 75));
+                    return Math.min(Math.max(score, 80), 155);
+                }
+                return 127; // Default score
+            }
+            
+            // Update score in preview
+            const estimatedScore = getEstimatedScore();
+            previewScore.textContent = estimatedScore;
+            
+            // Real-time name update
+            firstNameInput.addEventListener('input', function() {
+                const name = this.value.trim();
+                
+                if (name.length > 0) {
+                    // Update certificate with user's name
+                    previewName.textContent = name + ' [Last Name]';
+                    previewName.classList.add('highlight');
+                    
+                    // Remove highlight after animation
+                    setTimeout(() => {
+                        previewName.classList.remove('highlight');
+                    }, 2000);
+                    
+                    // Update placeholder text
+                    const encouragement = document.querySelector('.preview-encouragement p:first-child');
+                    encouragement.innerHTML = `🎉 <strong>Perfect! "${name}"</strong> will appear on your official certificate!`;
+                } else {
+                    // Reset to placeholder
+                    previewName.textContent = 'Your Name Here';
+                    const encouragement = document.querySelector('.preview-encouragement p:first-child');
+                    encouragement.innerHTML = `💫 <strong>Type your name above</strong> to see it on your personalized certificate!`;
+                }
+            });
+            
+            // Last name update for complete name
+            const lastNameInput = document.getElementById('lastName');
+            lastNameInput.addEventListener('input', function() {
+                const firstName = firstNameInput.value.trim();
+                const lastName = this.value.trim();
+                
+                if (firstName.length > 0) {
+                    if (lastName.length > 0) {
+                        previewName.textContent = `${firstName} ${lastName}`;
+                        previewName.classList.add('highlight');
+                        setTimeout(() => previewName.classList.remove('highlight'), 2000);
+                    } else {
+                        previewName.textContent = firstName + ' [Last Name]';
+                    }
+                }
+            });
+            
+            // Scroll to certificate when user starts typing
+            let hasScrolled = false;
+            firstNameInput.addEventListener('focus', function() {
+                if (!hasScrolled) {
+                    setTimeout(() => {
+                        const certificateSection = document.querySelector('.certificate-preview-inline');
+                        if (certificateSection) {
+                            certificateSection.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
+                        }
+                        hasScrolled = true;
+                    }, 500);
+                }
+            });
+        }
+        
+        // ===== Form Submission =====
+        function handlePayment(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                cardNumber: formData.get('cardNumber'),
+                expiry: formData.get('expiry'),
+                cvv: formData.get('cvv')
+            };
+            
+            // Basic validation
+            if (!data.firstName || !data.lastName) {
+                alert('Please enter your full name.');
+                return;
+            }
+            
+            if (!validateEmail(data.email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            if (!validateCardNumber(data.cardNumber)) {
+                alert('Please enter a valid card number.');
+                return;
+            }
+            
+            if (!validateExpiry(data.expiry)) {
+                alert('Please enter a valid expiry date.');
+                return;
+            }
+            
+            if (!validateCVV(data.cvv)) {
+                alert('Please enter a valid CVV.');
+                return;
+            }
+            
+            // Show loading state
+            const btn = document.getElementById('payment-btn');
+            const btnText = document.getElementById('btn-text');
+            
+            btn.classList.add('loading');
+            btnText.textContent = 'Processing...';
+            
+            // Simulate payment processing
+            setTimeout(() => {
+                // Here you would integrate with Stripe or your payment processor
+                console.log('💳 Payment processed successfully:', data);
+                
+                // Prepare payment data for account creation
+                const paymentData = {
+                    firstName: data.firstName || '',
+                    lastName: data.lastName || '', 
+                    email: data.email || '',
+                    cardNumber: data.cardNumber || '',
+                    plan: 'basic',
+                    amount: 29.99,
+                    paymentDate: new Date().toISOString()
+                };
+                
+                console.log('💳 Payment data prepared:', paymentData);
+                console.log('💳 Data validation - firstName:', !!paymentData.firstName, 'email:', !!paymentData.email);
+                
+                // Store payment success data
+                localStorage.setItem('paymentSuccess', JSON.stringify(paymentData));
+                
+                console.log('🔍 About to call handlePaymentSuccess with:', paymentData);
+                console.log('🔍 handlePaymentSuccess function exists:', typeof handlePaymentSuccess);
+                
+                // Create account and handle success
+                if (typeof handlePaymentSuccess === 'function') {
+                    console.log('✅ Calling handlePaymentSuccess...');
+                    handlePaymentSuccess(paymentData);
+                } else {
+                    // Fallback if auth system not loaded
+                    console.warn('❌ Auth system not loaded, redirecting directly');
+                    console.warn('Available functions:', Object.keys(window).filter(key => key.includes('handle')));
+                    window.location.href = 'dashboard.html?payment=success';
+                }
+            }, 3000);
+        }
+        
+        // ===== Event Listeners =====
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize animations and timers
+            initCountdown();
+            initProcessingAnimation();
+            initScrollReveal();
+            initProgressiveForm(); // Add progressive form revelation
+            initializeCertificatePreview(); // Add certificate preview functionality
+            
+            // Form input formatting with card type detection
+            const cardNumberInput = document.getElementById('cardNumber');
+            const expiryInput = document.getElementById('expiry');
+            const cvvInput = document.getElementById('cvv');
+            
+            cardNumberInput.addEventListener('input', (e) => {
+                const formattedNumber = formatCardNumber(e.target.value);
+                e.target.value = formattedNumber;
+                
+                // Detect and update card type
+                const cardType = detectCardType(formattedNumber);
+                updateCardIcon(cardType);
+            });
+            
+            // Clear icon when field is empty
+            cardNumberInput.addEventListener('blur', (e) => {
+                if (!e.target.value.trim()) {
+                    updateCardIcon(null);
+                }
+            });
+            
+            expiryInput.addEventListener('input', (e) => {
+                e.target.value = formatExpiry(e.target.value);
+            });
+            
+            cvvInput.addEventListener('input', (e) => {
+                e.target.value = formatCVV(e.target.value);
+            });
+            
+            // Form submission
+            const paymentForm = document.getElementById('payment-form');
+            paymentForm.addEventListener('submit', handlePayment);
+            
+            // Initial reveal for hero
+            setTimeout(() => {
+                const heroContent = document.querySelector('.hero.reveal');
+                if (heroContent) {
+                    heroContent.classList.add('revealed');
+                }
+            }, 300);
+            
+            // Stagger reveal animations for result cards
+            setTimeout(() => {
+                const resultCards = document.querySelectorAll('.result-card');
+                resultCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 200);
+                });
+            }, 2000);
+        });
+    </script>
+    
+    <!-- Authentication System -->
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/auth-ui.js"></script>
+</body>
+</html>

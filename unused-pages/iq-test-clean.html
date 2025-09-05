@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Your Genius – IQ Challenge | Discover Your True Intelligence</title>
+    <meta name="description" content="Take the ultimate IQ challenge with 25 carefully crafted questions. Discover your true genius potential and unlock access to our exclusive academy.">
+    <style>
+        /* ===== CSS Variables & Reset ===== */
+        :root {
+            --bg-1: #070B1A;
+            --bg-2: #0E1A3A;
+            --ink: #EAF2FF;
+            --accent: #64D4FF;
+            --purple: #8B5CF6;
+            --gold: #F4D37E;
+            
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-7: 3rem;
+            --space-8: 4rem;
+            
+            --font-stack: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-stack);
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+            color: var(--ink);
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* ===== Animated Background ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(100, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(244, 211, 126, 0.05) 0%, transparent 50%);
+            animation: backgroundShift 12s ease-in-out infinite alternate;
+        }
+        
+        @keyframes backgroundShift {
+            0% { opacity: 0.4; }
+            100% { opacity: 0.9; }
+        }
+        
+        /* ===== Typography ===== */
+        h1, h2, h3 {
+            font-weight: bold;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+        
+        h1 { font-size: clamp(2rem, 4vw, 3rem); }
+        h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+        h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
+        
+        /* ===== Glassmorphism Effects ===== */
+        .glass {
+            background: rgba(234, 242, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(234, 242, 255, 0.08);
+            border-radius: 20px;
+        }
+        
+        .glass-strong {
+            background: rgba(234, 242, 255, 0.08);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(234, 242, 255, 0.15);
+            border-radius: 24px;
+        }
+        
+        /* ===== Container ===== */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+        
+        /* ===== Main Content ===== */
+        .main {
+            min-height: 100vh;
+            padding: var(--space-6) 0 var(--space-8);
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* ===== Progress Bar ===== */
+        .progress-container {
+            margin-bottom: var(--space-6);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(234, 242, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: var(--space-3);
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--purple) 100%);
+            border-radius: 20px;
+            width: 0%;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .progress-text {
+            text-align: center;
+            color: rgba(234, 242, 255, 0.7);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* ===== Question Container ===== */
+        .question-container {
+            padding: var(--space-7);
+            margin-bottom: var(--space-6);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .motivation-text {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-bottom: var(--space-4);
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        
+        .question-content {
+            text-align: center;
+        }
+        
+        .question-number {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: var(--space-2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .question-text {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 600;
+            margin-bottom: var(--space-6);
+            color: var(--ink);
+            line-height: 1.4;
+        }
+        
+        /* ===== Question Image ===== */
+        .question-image {
+            margin: var(--space-5) auto;
+            text-align: center;
+        }
+        
+        .question-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* ===== Answer Options ===== */
+        .answer-options {
+            display: grid;
+            gap: var(--space-3);
+            margin-top: var(--space-6);
+        }
+        
+        .answer-option {
+            background: rgba(234, 242, 255, 0.05);
+            border: 2px solid rgba(234, 242, 255, 0.1);
+            border-radius: 16px;
+            padding: var(--space-4);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+        
+        .answer-option:hover {
+            border-color: rgba(100, 212, 255, 0.4);
+            background: rgba(100, 212, 255, 0.08);
+            transform: translateY(-2px);
+        }
+        
+        .answer-option.selected {
+            border-color: var(--accent);
+            background: rgba(100, 212, 255, 0.12);
+            box-shadow: 0 8px 25px rgba(100, 212, 255, 0.2);
+        }
+        
+        .answer-label {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+            color: var(--bg-1);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        
+        .answer-text {
+            flex: 1;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        
+        .answer-image {
+            width: 60px;
+            height: 60px;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+        
+        .answer-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        /* ===== Mobile Responsive ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--space-3);
+            }
+            
+            .question-container {
+                padding: var(--space-5);
+            }
+            
+            .answer-options {
+                gap: var(--space-2);
+            }
+            
+            .answer-option {
+                padding: var(--space-3);
+            }
+            
+            .answer-image {
+                width: 50px;
+                height: 50px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .answer-image {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .main {
+                padding: var(--space-4) 0 var(--space-6);
+            }
+        }
+        
+        /* ===== Navigation Buttons ===== */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--space-6);
+            gap: var(--space-4);
+        }
+        
+        .btn {
+            padding: var(--space-3) var(--space-5);
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+            color: var(--bg-1);
+            box-shadow: 0 4px 15px rgba(100, 212, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(100, 212, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(234, 242, 255, 0.08);
+            color: var(--ink);
+            border: 2px solid rgba(234, 242, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(234, 242, 255, 0.15);
+            border-color: rgba(234, 242, 255, 0.4);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        /* ===== Retake Dialog ===== */
+        .dialog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .dialog-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .dialog {
+            background: rgba(7, 11, 26, 0.95);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(100, 212, 255, 0.2);
+            border-radius: 24px;
+            padding: var(--space-7);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        
+        .dialog-overlay.show .dialog {
+            transform: scale(1);
+        }
+        
+        .dialog h3 {
+            color: var(--ink);
+            margin-bottom: var(--space-4);
+        }
+        
+        .dialog p {
+            color: rgba(234, 242, 255, 0.8);
+            margin-bottom: var(--space-6);
+            line-height: 1.6;
+        }
+        
+        .dialog-buttons {
+            display: flex;
+            gap: var(--space-3);
+            justify-content: center;
+        }
+        
+        /* ===== Accessibility ===== */
+        .answer-option:focus {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+        }
+        
+        .btn:focus {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== Main Content ===== -->
+    <main class="main">
+        <div class="container">
+            <!-- ===== Progress Bar ===== -->
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-text" id="progress-text">Question 1 of 25</div>
+            </div>
+            
+            <!-- ===== Question Container ===== -->
+            <div class="question-container glass-strong" id="question-container">
+                <div class="motivation-text" id="motivation-text"></div>
+                
+                <div class="question-content">
+                    <div class="question-number" id="question-number">Question 1 of 25</div>
+                    <h2 class="question-text" id="question-text">Loading question...</h2>
+                    
+                    <div class="question-image" id="question-image" style="display: none;">
+                        <img id="question-img" src="" alt="Question visual">
+                    </div>
+                </div>
+                
+                <div class="answer-options" id="answer-options">
+                    <!-- Options will be populated by JavaScript -->
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" id="prev-btn" onclick="previousQuestion()" style="display: none;">
+                        ← Previous
+                    </button>
+                    <div></div>
+                    <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()" disabled>
+                        Next →
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- ===== Retake Dialog ===== -->
+    <div class="dialog-overlay" id="retakeDialog">
+        <div class="dialog">
+            <h3>Test Completed!</h3>
+            <p>Congratulations on completing the IQ test! You can either view your results or take the test again to improve your score.</p>
+            <div class="dialog-buttons">
+                <button class="btn btn-secondary" onclick="hideRetakeDialog(); window.location.href='payment.html'">
+                    View Results
+                </button>
+                <button class="btn btn-primary" onclick="retakeTest()">
+                    Retake Test
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== Question Data =====
+        const questions = [
+            // Easy Warm-up Questions (1-5)
+            {
+                id: 1,
+                intro: "Let's start with something simple - 95% get this right!",
+                question: "What comes next in the sequence: 2, 4, 6, 8, ?",
+                options: ["9", "10", "11", "12"],
+                correct: 1,
+                type: "sequence"
+            },
+            {
+                id: 2,
+                intro: "Building momentum - you've got this!",
+                question: "Which word doesn't belong with the others?",
+                options: ["Apple", "Banana", "Carrot", "Orange"],
+                correct: 2,
+                type: "categorization"
+            },
+            {
+                id: 3,
+                intro: "Easy pattern recognition ahead!",
+                question: "If all roses are flowers and all flowers are plants, then all roses are:",
+                options: ["Red", "Plants", "Beautiful", "Thorny"],
+                correct: 1,
+                type: "logic"
+            },
+            {
+                id: 4,
+                intro: "You're doing great! Next challenge:",
+                question: "Complete the analogy: Cat is to Kitten as Dog is to ?",
+                options: ["Bark", "Puppy", "Bone", "Tail"],
+                correct: 1,
+                type: "analogy"
+            },
+            {
+                id: 5,
+                intro: "Final warm-up question!",
+                question: "What number should replace the question mark: 1, 4, 9, 16, ?",
+                options: ["20", "23", "25", "30"],
+                correct: 2,
+                type: "sequence"
+            },
+            
+            // Medium Questions (6-15)
+            {
+                id: 6,
+                intro: "Now we're getting more challenging...",
+                question: "If it takes 5 machines 5 minutes to make 5 widgets, how long would it take 100 machines to make 100 widgets?",
+                options: ["5 minutes", "20 minutes", "100 minutes", "500 minutes"],
+                correct: 0,
+                type: "logic"
+            },
+            {
+                id: 7,
+                intro: "Pattern recognition challenge:",
+                question: "What comes next: J, F, M, A, M, J, ?",
+                options: ["J", "A", "S", "O"],
+                correct: 0,
+                type: "sequence"
+            },
+            {
+                id: 8,
+                intro: "Spatial reasoning test:",
+                question: "How many triangles can you count in total?",
+                image: "assets/images/triangle-puzzle.png",
+                options: ["8", "12", "16", "20"],
+                correct: 2,
+                type: "spatial"
+            },
+            {
+                id: 9,
+                intro: "Word puzzle ahead:",
+                question: "Rearrange these letters to form a word: LEBATNIGRE",
+                options: ["TRIANGLEBE", "RETANGIBLE", "INTEGRABLE", "ALBETERING"],
+                correct: 2,
+                type: "wordplay"
+            },
+            {
+                id: 10,
+                intro: "Mathematical reasoning:",
+                question: "If you're running a race and you pass the person in 2nd place, what place are you in?",
+                options: ["1st place", "2nd place", "3rd place", "It depends"],
+                correct: 1,
+                type: "logic"
+            },
+            {
+                id: 11,
+                intro: "Abstract thinking challenge:",
+                question: "Which figure completes the pattern?",
+                image: "assets/images/pattern-puzzle.png",
+                options: ["A", "B", "C", "D"],
+                correct: 2,
+                type: "pattern"
+            },
+            {
+                id: 12,
+                intro: "Number sequence challenge:",
+                question: "What's the next number: 2, 6, 12, 20, 30, ?",
+                options: ["40", "42", "44", "46"],
+                correct: 1,
+                type: "sequence"
+            },
+            {
+                id: 13,
+                intro: "Logical deduction:",
+                question: "All birds can fly. Penguins are birds. Therefore:",
+                options: ["Penguins can fly", "The first statement is false", "Penguins are not birds", "Logic doesn't apply here"],
+                correct: 1,
+                type: "logic"
+            },
+            {
+                id: 14,
+                intro: "Complex analogy:",
+                question: "Clock is to Time as Thermometer is to ?",
+                options: ["Heat", "Temperature", "Weather", "Mercury"],
+                correct: 1,
+                type: "analogy"
+            },
+            {
+                id: 15,
+                intro: "Halfway through - you're doing amazing!",
+                question: "Which of these doesn't belong: Circle, Triangle, Square, Sphere",
+                options: ["Circle", "Triangle", "Square", "Sphere"],
+                correct: 3,
+                type: "categorization"
+            },
+            
+            // Hard Questions (16-25)
+            {
+                id: 16,
+                intro: "Now entering the expert zone...",
+                question: "What's the missing number in this matrix?",
+                image: "assets/images/matrix-puzzle.png",
+                options: ["15", "18", "21", "24"],
+                correct: 2,
+                type: "pattern"
+            },
+            {
+                id: 17,
+                intro: "Advanced sequence recognition:",
+                question: "What comes next: 1, 1, 2, 3, 5, 8, ?",
+                options: ["11", "13", "15", "16"],
+                correct: 1,
+                type: "sequence"
+            },
+            {
+                id: 18,
+                intro: "Complex spatial reasoning:",
+                question: "If you fold this paper as shown, where will the hole appear?",
+                image: "assets/images/paper-fold.png",
+                options: ["A", "B", "C", "D"],
+                correct: 2,
+                type: "spatial"
+            },
+            {
+                id: 19,
+                intro: "High-level abstract thinking:",
+                question: "Find the relationship: CAT (3) - DOG (3) - BIRD (?)",
+                options: ["4", "5", "6", "7"],
+                correct: 0,
+                type: "pattern"
+            },
+            {
+                id: 20,
+                intro: "Ultimate logic challenge:",
+                question: "In a group of 100 people, 70 can speak English, 80 can speak Spanish. What's the minimum number who can speak both?",
+                options: ["50", "60", "70", "80"],
+                correct: 0,
+                type: "logic"
+            },
+            {
+                id: 21,
+                intro: "Expert-level pattern:",
+                question: "Complete the sequence: 3, 7, 15, 31, ?",
+                options: ["63", "65", "67", "69"],
+                correct: 0,
+                type: "sequence"
+            },
+            {
+                id: 22,
+                intro: "Advanced word problem:",
+                question: "CIPHER is to CODE as MYSTERY is to ?",
+                options: ["PUZZLE", "SECRET", "RIDDLE", "ENIGMA"],
+                correct: 0,
+                type: "analogy"
+            },
+            {
+                id: 23,
+                intro: "Final spatial challenge:",
+                question: "How many cubes are missing from this figure?",
+                image: "assets/images/cube-puzzle.png",
+                options: ["3", "4", "5", "6"],
+                correct: 1,
+                type: "spatial"
+            },
+            {
+                id: 24,
+                intro: "Penultimate challenge - almost there!",
+                question: "Which number logically completes the series: 144, 121, 100, 81, ?",
+                options: ["64", "68", "72", "76"],
+                correct: 0,
+                type: "sequence"
+            },
+            {
+                id: 25,
+                intro: "Final question - show your genius!",
+                question: "What's the next letter in this sequence: O, T, T, F, F, S, S, ?",
+                options: ["E", "N", "T", "L"],
+                correct: 0,
+                type: "sequence"
+            }
+        ];
+
+        // ===== Game State =====
+        let currentQuestion = 0;
+        let userAnswers = [];
+        let testStartTime = new Date();
+
+        // ===== Initialize Test =====
+        function initializeTest() {
+            console.log('Initializing test...');
+            console.log('Current userAnswers:', userAnswers);
+            console.log('userAnswers type:', typeof userAnswers);
+            console.log('Is userAnswers an array?', Array.isArray(userAnswers));
+            
+            loadProgress();
+            displayQuestion();
+        }
+
+        // ===== Load Progress from localStorage =====
+        function loadProgress() {
+            try {
+                const savedProgress = localStorage.getItem('iqTestProgress');
+                const savedAnswers = localStorage.getItem('iqTestAnswers');
+                
+                console.log('Loading progress...');
+                console.log('Saved progress:', savedProgress);
+                console.log('Saved answers:', savedAnswers);
+                
+                if (savedProgress) {
+                    currentQuestion = parseInt(savedProgress);
+                    console.log('Loaded current question:', currentQuestion);
+                }
+                
+                if (savedAnswers) {
+                    const parsedAnswers = JSON.parse(savedAnswers);
+                    console.log('Parsed answers:', parsedAnswers);
+                    console.log('Parsed answers type:', typeof parsedAnswers);
+                    console.log('Is parsed answers an array?', Array.isArray(parsedAnswers));
+                    
+                    if (Array.isArray(parsedAnswers)) {
+                        userAnswers = parsedAnswers;
+                        console.log('Successfully loaded answers array');
+                    } else {
+                        console.warn('Saved answers is not an array, resetting...');
+                        userAnswers = [];
+                    }
+                } else {
+                    console.log('No saved answers found, starting fresh');
+                    userAnswers = [];
+                }
+                
+                console.log('Final userAnswers:', userAnswers);
+                console.log('Final userAnswers type:', typeof userAnswers);
+                console.log('Final userAnswers is array:', Array.isArray(userAnswers));
+                
+            } catch (error) {
+                console.error('Error loading progress:', error);
+                currentQuestion = 0;
+                userAnswers = [];
+            }
+        }
+
+        // ===== Save Progress to localStorage =====
+        function saveProgress() {
+            try {
+                localStorage.setItem('iqTestProgress', currentQuestion.toString());
+                localStorage.setItem('iqTestAnswers', JSON.stringify(userAnswers));
+                console.log('Progress saved:', currentQuestion, userAnswers);
+            } catch (error) {
+                console.error('Error saving progress:', error);
+            }
+        }
+
+        // ===== Display Current Question =====
+        function displayQuestion() {
+            if (currentQuestion >= questions.length) {
+                showRetakeDialog();
+                return;
+            }
+
+            const question = questions[currentQuestion];
+            
+            // Update progress bar
+            const progress = ((currentQuestion) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('progress-text').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+            
+            // Update question content
+            document.getElementById('motivation-text').textContent = question.intro;
+            document.getElementById('question-number').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+            document.getElementById('question-text').textContent = question.question;
+            
+            // Handle question image
+            const questionImage = document.getElementById('question-image');
+            const questionImg = document.getElementById('question-img');
+            
+            if (question.image) {
+                questionImg.src = question.image;
+                questionImg.alt = `Question ${question.id} visual`;
+                questionImage.style.display = 'block';
+            } else {
+                questionImage.style.display = 'none';
+            }
+            
+            // Create answer options
+            const optionsContainer = document.getElementById('answer-options');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'answer-option';
+                optionElement.onclick = () => selectAnswer(index);
+                
+                // Check if this answer was previously selected
+                if (userAnswers[currentQuestion] === index) {
+                    optionElement.classList.add('selected');
+                }
+                
+                optionElement.innerHTML = `
+                    <div class="answer-label">${String.fromCharCode(65 + index)}</div>
+                    <div class="answer-text">${option}</div>
+                    <div class="answer-image">
+                        <img src="assets/images/icons/placeholder-answer.png" alt="Answer ${String.fromCharCode(65 + index)}" 
+                             onerror="this.style.display='none'">
+                    </div>
+                `;
+                
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Update navigation buttons
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            prevBtn.style.display = currentQuestion > 0 ? 'block' : 'none';
+            
+            // Enable next button if answer is selected
+            nextBtn.disabled = userAnswers[currentQuestion] === undefined;
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.textContent = 'Complete Test';
+            } else {
+                nextBtn.textContent = 'Next →';
+            }
+        }
+
+        // ===== Select Answer =====
+        function selectAnswer(answerIndex) {
+            console.log('Selecting answer:', answerIndex);
+            console.log('Current userAnswers before selection:', userAnswers);
+            console.log('userAnswers type:', typeof userAnswers);
+            console.log('Is userAnswers an array?', Array.isArray(userAnswers));
+            
+            // Ensure userAnswers is an array
+            if (!Array.isArray(userAnswers)) {
+                console.warn('userAnswers is not an array, reinitializing...');
+                userAnswers = [];
+            }
+            
+            // Remove selection from all options
+            document.querySelectorAll('.answer-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selection to clicked option
+            document.querySelectorAll('.answer-option')[answerIndex].classList.add('selected');
+            
+            // Store the answer
+            userAnswers[currentQuestion] = answerIndex;
+            console.log('Answer stored. Updated userAnswers:', userAnswers);
+            
+            // Enable next button
+            document.getElementById('next-btn').disabled = false;
+            
+            // Save progress
+            saveProgress();
+        }
+
+        // ===== Next Question =====
+        function nextQuestion() {
+            console.log('Next question called');
+            console.log('Current userAnswers:', userAnswers);
+            console.log('userAnswers type:', typeof userAnswers);
+            console.log('Is userAnswers an array?', Array.isArray(userAnswers));
+            
+            // Defensive programming - ensure userAnswers is an array
+            if (!Array.isArray(userAnswers)) {
+                console.error('CRITICAL: userAnswers is not an array in nextQuestion!');
+                console.log('userAnswers value:', userAnswers);
+                console.log('userAnswers type:', typeof userAnswers);
+                
+                // Try to recover
+                const savedAnswers = localStorage.getItem('iqTestAnswers');
+                if (savedAnswers) {
+                    try {
+                        const parsed = JSON.parse(savedAnswers);
+                        if (Array.isArray(parsed)) {
+                            userAnswers = parsed;
+                            console.log('Recovered userAnswers from localStorage:', userAnswers);
+                        } else {
+                            console.error('Saved answers is not an array either, creating new array');
+                            userAnswers = [];
+                        }
+                    } catch (e) {
+                        console.error('Failed to parse saved answers:', e);
+                        userAnswers = [];
+                    }
+                } else {
+                    console.log('No saved answers found, creating new array');
+                    userAnswers = [];
+                }
+            }
+            
+            if (userAnswers[currentQuestion] === undefined) {
+                alert('Please select an answer before continuing.');
+                return;
+            }
+            
+            currentQuestion++;
+            
+            if (currentQuestion >= questions.length) {
+                console.log('Test completed!');
+                showRetakeDialog();
+            } else {
+                displayQuestion();
+            }
+            
+            saveProgress();
+        }
+
+        // ===== Previous Question =====
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                displayQuestion();
+                saveProgress();
+            }
+        }
+
+        // ===== Show Retake Dialog =====
+        function showRetakeDialog() {
+            document.getElementById('retakeDialog').classList.add('show');
+        }
+
+        // ===== Hide Retake Dialog =====
+        function hideRetakeDialog() {
+            document.getElementById('retakeDialog').classList.remove('show');
+        }
+
+        // ===== Retake Test =====
+        function retakeTest() {
+            // Clear all progress
+            localStorage.removeItem('iqTestProgress');
+            localStorage.removeItem('iqTestAnswers');
+            
+            // Reset state
+            currentQuestion = 0;
+            userAnswers = [];
+            testStartTime = new Date();
+            
+            // Hide dialog
+            hideRetakeDialog();
+            
+            // Restart test
+            displayQuestion();
+        }
+
+        // ===== Initialize when page loads =====
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing test...');
+            initializeTest();
+        });
+    </script>
+</body>
+</html>

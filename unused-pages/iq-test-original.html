@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Your Genius – IQ Challenge | Discover Your True Intelligence</title>
+    <meta name="description" content="Take the ultimate IQ challenge with 25 carefully crafted questions. Discover your true genius potential and unlock access to our exclusive academy.">
+    <style>
+        /* ===== CSS Variables & Reset ===== */
+        :root {
+            --bg-1: #070B1A;
+            --bg-2: #0E1A3A;
+            --ink: #EAF2FF;
+            --accent: #64D4FF;
+            --purple: #8B5CF6;
+            --gold: #F4D37E;
+            
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-7: 3rem;
+            --space-8: 4rem;
+            
+            --font-stack: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-stack);
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+            color: var(--ink);
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* ===== Animated Background ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(100, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(244, 211, 126, 0.05) 0%, transparent 50%);
+            animation: backgroundShift 12s ease-in-out infinite alternate;
+        }
+        
+        @keyframes backgroundShift {
+            0% { opacity: 0.4; }
+            100% { opacity: 0.9; }
+        }
+        
+        /* ===== Typography ===== */
+        h1, h2, h3 {
+            font-weight: bold;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+        
+        h1 { font-size: clamp(2rem, 4vw, 3rem); }
+        h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+        h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
+        
+        p { font-size: clamp(1rem, 2vw, 1.1rem); }
+        
+        /* ===== Glassmorphism Components ===== */
+        .glass {
+            background: rgba(234, 242, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(234, 242, 255, 0.1);
+            border-radius: 20px;
+        }
+        
+        .glass-strong {
+            background: rgba(234, 242, 255, 0.08);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(234, 242, 255, 0.15);
+            border-radius: 24px;
+        }
+        
+        /* ===== Container ===== */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+        
+        /* ===== Main Content ===== */
+        .main {
+            min-height: 100vh;
+            padding: var(--space-6) 0 var(--space-8);
+            position: relative;
+            z-index: 2;
+        }
+
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: var(--space-2) var(--space-4);
+            border: 1px solid rgba(100, 212, 255, 0.3);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            background: rgba(100, 212, 255, 0.05);
+        }
+
+            background: rgba(100, 212, 255, 0.1);
+            border-color: rgba(100, 212, 255, 0.5);
+            transform: translateX(-2px);
+        }
+
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+            background: rgba(100, 212, 255, 0.05);
+            border: 1px solid rgba(100, 212, 255, 0.2);
+            color: var(--accent);
+            padding: var(--space-2) var(--space-4);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            opacity: 0.8;
+        }
+
+            background: rgba(100, 212, 255, 0.1);
+            border-color: rgba(100, 212, 255, 0.4);
+            opacity: 1;
+        }
+
+            position: relative;
+        }
+
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+            opacity: 1;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-1);
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+            transform: scale(1.05);
+        }
+
+            position: absolute;
+            top: calc(100% + var(--space-3));
+            right: 0;
+            background: rgba(7, 11, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(100, 212, 255, 0.2);
+            border-radius: 10px;
+            padding: var(--space-3);
+            min-width: 200px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .user-info {
+            margin-bottom: var(--space-3);
+            padding-bottom: var(--space-3);
+            border-bottom: 1px solid rgba(100, 212, 255, 0.1);
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: var(--space-1);
+            font-size: 0.85rem;
+        }
+
+        .user-email {
+            font-size: 0.7rem;
+            color: var(--ink-secondary);
+        }
+
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2);
+            color: var(--ink-secondary);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+
+            background: rgba(100, 212, 255, 0.05);
+            color: var(--ink);
+        }
+
+            font-size: 0.9rem;
+        }
+
+            display: none;
+        }
+
+            display: none;
+            background: none;
+            border: none;
+            color: var(--ink);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: var(--space-2);
+            opacity: 0.7;
+        }
+
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+                display: none;
+            }
+            
+                display: block;
+            }
+            
+                gap: var(--space-3);
+            }
+            
+                font-size: 0.75rem;
+                padding: var(--space-1) var(--space-3);
+            }
+
+                font-size: 0.75rem;
+                padding: var(--space-1) var(--space-3);
+            }
+        }
+        
+        /* ===== Container ===== */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+        
+        /* ===== Main Content ===== */
+        .main {
+            min-height: 100vh;
+            padding: var(--space-6) 0 var(--space-8);
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* ===== Progress Bar ===== */
+        .progress-container {
+            margin-bottom: var(--space-6);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(234, 242, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: var(--space-3);
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--purple) 100%);
+            width: 4%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+        
+        .progress-text {
+            text-align: center;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* ===== Question Container ===== */
+        .question-container {
+            padding: var(--space-7);
+            margin-bottom: var(--space-6);
+            position: relative;
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .question-container.fade-out {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        
+        .question-container.fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .motivation-text {
+            text-align: center;
+            color: var(--gold);
+            font-style: italic;
+            font-size: 0.9rem;
+            margin-bottom: var(--space-5);
+            opacity: 0.9;
+        }
+        
+        .question-content {
+            margin-bottom: var(--space-6);
+        }
+        
+        .question-title {
+            color: var(--ink);
+            margin-bottom: var(--space-4);
+            text-align: center;
+        }
+        
+        .question-image {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            background: rgba(234, 242, 255, 0.1);
+            border: 2px dashed rgba(100, 212, 255, 0.3);
+            border-radius: 16px;
+            margin: 0 auto var(--space-5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(100, 212, 255, 0.6);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        /* ===== Answer Options ===== */
+        .answers {
+            display: grid;
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+        
+        .answers--text {
+            grid-template-columns: 1fr;
+        }
+        
+        .answers--images {
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+        
+        .answer-option {
+            padding: var(--space-4);
+            border: 2px solid rgba(234, 242, 255, 0.1);
+            border-radius: 16px;
+            background: rgba(234, 242, 255, 0.03);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .answer-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 212, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .answer-option:hover {
+            border-color: var(--accent);
+            background: rgba(100, 212, 255, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(100, 212, 255, 0.2);
+        }
+        
+        .answer-option:hover::before {
+            left: 100%;
+        }
+        
+        .answer-option.selected {
+            border-color: var(--accent);
+            background: rgba(100, 212, 255, 0.15);
+            box-shadow: 0 0 30px rgba(100, 212, 255, 0.3);
+        }
+        
+        .answer-option--image {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(100, 212, 255, 0.6);
+            font-size: 0.8rem;
+            border: 2px dashed rgba(100, 212, 255, 0.3);
+            background: rgba(234, 242, 255, 0.05);
+        }
+        
+        .answer-option--image:hover {
+            border-style: solid;
+        }
+        
+        /* ===== Navigation Buttons ===== */
+        .question-nav {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-4) var(--space-7);
+            border: none;
+            border-radius: 16px;
+            font-family: var(--font-stack);
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn--primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+            color: var(--bg-1);
+            box-shadow: 
+                0 0 30px rgba(100, 212, 255, 0.4),
+                0 10px 40px rgba(139, 92, 246, 0.3);
+        }
+        
+        .btn--primary:hover:not(:disabled) {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 
+                0 0 40px rgba(100, 212, 255, 0.6),
+                0 15px 50px rgba(139, 92, 246, 0.4);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        
+        .btn--pulse {
+            animation: btnPulse 2s infinite;
+        }
+        
+        @keyframes btnPulse {
+            0%, 100% {
+                box-shadow: 
+                    0 0 30px rgba(100, 212, 255, 0.4),
+                    0 10px 40px rgba(139, 92, 246, 0.3);
+            }
+            50% {
+                box-shadow: 
+                    0 0 40px rgba(100, 212, 255, 0.6),
+                    0 10px 40px rgba(139, 92, 246, 0.5);
+            }
+        }
+        
+        /* ===== Mobile Sticky Button ===== */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(7, 11, 26, 0.95);
+            backdrop-filter: blur(30px);
+            border-top: 1px solid rgba(234, 242, 255, 0.1);
+            padding: var(--space-4);
+            z-index: 50;
+            display: none;
+        }
+        
+        /* ===== Loading Screen ===== */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-screen.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(100, 212, 255, 0.2);
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: var(--space-5);
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 1.3rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        /* ===== Results Screen ===== */
+        .results-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            text-align: center;
+            padding: var(--space-6);
+        }
+        
+        .results-screen.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .results-content {
+            max-width: 600px;
+            padding: var(--space-8);
+        }
+        
+        .results-title {
+            background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 50%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-5);
+        }
+        
+        .results-subtitle {
+            color: var(--gold);
+            margin-bottom: var(--space-7);
+            font-size: 1.2rem;
+        }
+        
+        .results-cta {
+            padding: var(--space-5) var(--space-8);
+            font-size: 1.2rem;
+        }
+        
+        /* ===== Responsive Design ===== */
+        @media (max-width: 768px) {
+            .question-nav {
+                display: none;
+            }
+            
+            .mobile-nav {
+                display: block;
+            }
+            
+            .question-container {
+                padding: var(--space-5);
+            }
+            
+            .answers--images {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-3);
+            }
+            
+            .answer-option--image {
+                aspect-ratio: 1;
+                min-height: 80px;
+                max-height: 120px;
+                font-size: 0.7rem;
+            }
+            
+            .main {
+                padding-bottom: 100px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .answers--images {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-2);
+            }
+            
+            .answer-option--image {
+                min-height: 70px;
+                max-height: 100px;
+                font-size: 0.65rem;
+            }
+        }
+        
+        /* ===== Focus States ===== */
+        .answer-option:focus,
+        .btn:focus {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== Main Content ===== -->
+    <main class="main">
+        <div class="container">
+            <!-- ===== Progress Bar ===== -->
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-text" id="progress-text">Question 1 of 25</div>
+            </div>
+            
+            <!-- ===== Question Container ===== -->
+            <div class="question-container glass-strong" id="question-container">
+                <div class="motivation-text" id="motivation-text"></div>
+                
+                <div class="question-content">
+                    <h2 class="question-title" id="question-title"></h2>
+                    <div class="question-image" id="question-image" style="display: none;">
+                        [Placeholder: Main Question Image]
+                    </div>
+                </div>
+                
+                <div class="answers" id="answers-container"></div>
+                
+                <div class="question-nav">
+                    <button class="btn btn--primary" id="next-btn" disabled>Next Question</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ===== Mobile Navigation ===== -->
+        <div class="mobile-nav">
+            <button class="btn btn--primary" id="mobile-next-btn" disabled style="width: 100%;">Next Question</button>
+        </div>
+    </main>
+    
+    <!-- ===== Loading Screen ===== -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Calculating your Genius Score...</div>
+    </div>
+    
+    <!-- ===== Results Screen ===== -->
+    <div class="results-screen glass-strong" id="results-screen">
+        <div class="results-content">
+            <h1 class="results-title">🎯 Test Complete!</h1>
+            <p class="results-subtitle">Calculating your genius score...</p>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+    
+    <script>
+        // ===== Navigation JavaScript =====
+        
+        // Toggle user menu
+        function toggleUserMenu() {
+            userMenu.classList.toggle('active');
+        }
+
+        // Close user menu when clicking outside
+        document.addEventListener('click', function(event) {
+            
+            if (userMenu && !userMenu.contains(event.target)) {
+                userMenu.classList.remove('active');
+            }
+        });
+
+        // ===== Question Data =====
+        const questions = [
+            // Easy Warm-up Questions (1-5)
+            {
+                id: 1,
+                intro: "Let's start with something simple - 95% get this right!",
+                question: "What comes next in the sequence: 2, 4, 6, 8, ?",
+                type: "text",
+                answers: [
+                    { label: "10" },
+                    { label: "12" },
+                    { label: "14" },
+                    { label: "16" }
+                ],
+                correctIndex: 0
+            },
+            {
+                id: 2,
+                intro: "Visual patterns are key to genius thinking!",
+                question: "Which shape completes the pattern?",
+                type: "image",
+                mainImage: "placeholder-main.png",
+                answers: [
+                    { label: "Option A", img: "placeholder1.png" },
+                    { label: "Option B", img: "placeholder2.png" },
+                    { label: "Option C", img: "placeholder3.png" },
+                    { label: "Option D", img: "placeholder4.png" }
+                ],
+                correctIndex: 1
+            },
+            {
+                id: 3,
+                intro: "Logic is the foundation of intelligence!",
+                question: "If all Bloops are Razzles and all Razzles are Lazzles, then all Bloops are definitely:",
+                type: "text",
+                answers: [
+                    { label: "Lazzles" },
+                    { label: "Not Lazzles" },
+                    { label: "Sometimes Lazzles" },
+                    { label: "Cannot be determined" }
+                ],
+                correctIndex: 0
+            },
+            {
+                id: 4,
+                intro: "Numbers tell stories - can you read this one?",
+                question: "What number should replace the question mark?\n7, 14, 28, 56, ?",
+                type: "text",
+                answers: [
+                    { label: "84" },
+                    { label: "112" },
+                    { label: "98" },
+                    { label: "126" }
+                ],
+                correctIndex: 1
+            },
+            {
+                id: 5,
+                intro: "Spatial intelligence separates the good from the great!",
+                question: "Which cube can be made from this unfolded pattern?",
+                type: "image",
+                mainImage: "placeholder-main.png",
+                answers: [
+                    { label: "Cube A", img: "placeholder1.png" },
+                    { label: "Cube B", img: "placeholder2.png" },
+                    { label: "Cube C", img: "placeholder3.png" },
+                    { label: "Cube D", img: "placeholder4.png" }
+                ],
+                correctIndex: 2
+            },
+            
+            // Medium Questions (6-15)
+            {
+                id: 6,
+                intro: "Only 70% solve this correctly - are you one of them?",
+                question: "In a race, you overtake the person in 2nd place. What position are you now in?",
+                type: "text",
+                answers: [
+                    { label: "1st place" },
+                    { label: "2nd place" },
+                    { label: "3rd place" },
+                    { label: "It depends" }
+                ],
+                correctIndex: 1
+            },
+            {
+                id: 7,
+                intro: "Pattern recognition is the heart of genius!",
+                question: "Find the missing piece in this sequence:",
+                type: "image",
+                mainImage: "placeholder-main.png",
+                answers: [
+                    { label: "Pattern A", img: "placeholder1.png" },
+                    { label: "Pattern B", img: "placeholder2.png" },
+                    { label: "Pattern C", img: "placeholder3.png" },
+                    { label: "Pattern D", img: "placeholder4.png" }
+                ],
+                correctIndex: 0
+            },
+            {
+                id: 8,
+                intro: "Mathematical relationships reveal hidden truths!",
+                question: "If 3 = 18, 4 = 32, 5 = 50, then 6 = ?",
+                type: "text",
+                answers: [
+                    { label: "72" },
+                    { label: "78" },
+                    { label: "84" },
+                    { label: "90" }
+                ],
+                correctIndex: 0
+            },
+            {
+                id: 9,
+                intro: "Analogies test the depth of your thinking!",
+                question: "Book is to Reading as Fork is to:",
+                type: "text",
+                answers: [
+                    { label: "Eating" },
+                    { label: "Kitchen" },
+                    { label: "Cooking" },
+                    { label: "Food" }
+                ],
+                correctIndex: 0
+            },
+            {
+                id: 10,
+                intro: "Visual logic challenges the mind beautifully!",
+                question: "Which pattern logically completes the grid?",
+                type: "image",
+                mainImage: "placeholder-main.png",
+                answers: [
+                    { label: "Option 1", img: "placeholder1.png" },
+                    { label: "Option 2", img: "placeholder2.png" },
+                    { label: "Option 3", img: "placeholder3.png" },
+                    { label: "Option 4", img: "placeholder4.png" }
+                ],
+                correctIndex: 3
+            },
+            {
+                id: 11,
+                intro: "Word patterns reveal linguistic intelligence!",
+                question: "What comes next: MON, TUE, WED, THU, ?",
+                type: "text",
+                answers: [
+                    { label: "FRI" },
+                    { label: "FRIDAY" },
+                    { label: "SAT" },
+                    { label: "WEEKEND" }
+                ],
+                correctIndex: 0
+            },
+            {
+                id: 12,
+                intro: "Abstract thinking is your superpower!",
+                question: "Which shape is the odd one out?",
+                type: "image",
+                mainImage: "placeholder-main.png",
+                answers: [
+                    { label: "Shape A", img: "placeholder1.png" },
+                    { label: "Shape B", img: "placeholder2.png" },
+                    { label: "Shape C", img: "placeholder3.png" },
+                    { label: "Shape D", img: "placeholder4.png" }
+                ],
+                correctIndex: 1
+            },
+            {
+                id: 13,
+                intro: "Number sequences challenge your pattern mind!",
+                question: "What's the next number: 1, 1, 2, 3, 5, 8, ?",
+                type: "text",
+                answers: [
+                    { label: "11" },
+                    { label: "13" },
+                    { label: "15" },
+                    { label: "21" }
+                ],
+                correctIndex: 1
+            },
+            {
+                id: 14,
+                intro: "Logical deduction separates minds!",
+                question: "If some cats are dogs, and some dogs are birds, then:",
+                type: "text",
+                answers: [
+                    { label: "Some cats are birds" },
+                    { label: "All cats are birds" },
+                    { label: "No cats are birds" },
+                    { label: "Cannot be determined" }
+                ],
+                correctIndex: 3
+            },
+            {
+                id: 15,
+                intro: "Spatial rotation tests true intelligence!",
+                question: "How would this shape look when rotated 180 degrees?",
+                type: "image",
+                mainImage: "placeholder-main.png",
+                answers: [
+                    { label: "Rotation A", img: "placeholder1.png" },
+                    { label: "Rotation B", img: "placeholder2.png" },
+                    { label: "Rotation C", img: "placeholder3.png" },
+                    { label: "Rotation D", img: "placeholder4.png" }
+                ],
+                correctIndex: 2
+            },
+            
+            // Challenging Questions (16-25)
+            {
+                id: 16,
+                intro: "Only 40% solve this - join the elite!",
+                question: "A man lives on the 20th floor. Every morning he takes the elevator down to ground floor. When he comes home, he takes the elevator to the 10th floor and walks the rest, except on rainy days when he takes the elevator all the way up. Why?",
+                type: "text",
+                answers: [
+                    { label: "He's too short to reach the 20th floor button" },
+                    { label: "He wants exercise" },
+                    { label: "The elevator is broken above 10th floor" },
+                    { label: "He's scared of heights" }
+                ],
+                correctIndex: 0
+            },
+            {
+                id: 17,
+                intro: "Matrix puzzles reveal pure logic!",
+                question: "Complete this visual matrix:",
+                type: "image",
+                mainImage: "placeholder-main.png",
+                answers: [
+                    { label: "Matrix A", img: "placeholder1.png" },
+                    { label: "Matrix B", img: "placeholder2.png" },
+                    { label: "Matrix C", img: "placeholder3.png" },
+                    { label: "Matrix D", img: "placeholder4.png" }
+                ],
+                correctIndex: 1
+            },
+            {
+                id: 18,
+                intro: "Complex patterns challenge brilliant minds!",
+                question: "If MONDAY is coded as ONMYAD, how would GENIUS be coded?",
+                type: "text",
+                answers: [
+                    { label: "EGNUSI" },
+                    { label: "NEIGUS" },
+                    { label: "SGUINE" },
+                    { label: "UIGNES" }
+                ],
+                correctIndex: 1
+            },
+            {
+                id: 19,
+                intro: "Only 25% get this right - prove your genius!",
+                question: "What comes next: 2, 6, 12, 20, 30, ?",
+                type: "text",
+                answers: [
+                    { label: "38" },
+                    { label: "40" },
+                    { label: "42" },
+                    { label: "44" }
+                ],
+                correctIndex: 2
+            },
+            {
+                id: 20,
+                intro: "Visual complexity tests true intelligence!",
+                question: "Which piece completes the puzzle?",
+                type: "image",
+                mainImage: "placeholder-main.png",
+                answers: [
+                    { label: "Piece A", img: "placeholder1.png" },
+                    { label: "Piece B", img: "placeholder2.png" },
+                    { label: "Piece C", img: "placeholder3.png" },
+                    { label: "Piece D", img: "placeholder4.png" }
+                ],
+                correctIndex: 0
+            },
+            {
+                id: 21,
+                intro: "Multi-step logic - the ultimate test!",
+                question: "In a family of 6, each person shakes hands with every other person exactly once. How many handshakes occur?",
+                type: "text",
+                answers: [
+                    { label: "12" },
+                    { label: "15" },
+                    { label: "18" },
+                    { label: "21" }
+                ],
+                correctIndex: 1
+            },
+            {
+                id: 22,
+                intro: "Advanced spatial reasoning - genius level!",
+                question: "If you fold this pattern, which faces will touch?",
+                type: "image",
+                mainImage: "placeholder-main.png",
+                answers: [
+                    { label: "Faces shown in A", img: "placeholder1.png" },
+                    { label: "Faces shown in B", img: "placeholder2.png" },
+                    { label: "Faces shown in C", img: "placeholder3.png" },
+                    { label: "Faces shown in D", img: "placeholder4.png" }
+                ],
+                correctIndex: 3
+            },
+            {
+                id: 23,
+                intro: "Only 12% solve this on first try!",
+                question: "A clock shows 3:15. What is the angle between the hour and minute hands?",
+                type: "text",
+                answers: [
+                    { label: "0 degrees" },
+                    { label: "7.5 degrees" },
+                    { label: "15 degrees" },
+                    { label: "22.5 degrees" }
+                ],
+                correctIndex: 1
+            },
+            {
+                id: 24,
+                intro: "Complex visual reasoning - almost there!",
+                question: "Which transformation was applied to create the second image?",
+                type: "image",
+                mainImage: "placeholder-main.png",
+                answers: [
+                    { label: "Transform A", img: "placeholder1.png" },
+                    { label: "Transform B", img: "placeholder2.png" },
+                    { label: "Transform C", img: "placeholder3.png" },
+                    { label: "Transform D", img: "placeholder4.png" }
+                ],
+                correctIndex: 2
+            },
+            {
+                id: 25,
+                intro: "The final challenge - only true geniuses master this!",
+                question: "If you rearrange the letters 'CIFAIPC' you get the name of a:",
+                type: "text",
+                answers: [
+                    { label: "City" },
+                    { label: "Ocean" },
+                    { label: "Country" },
+                    { label: "Animal" }
+                ],
+                correctIndex: 1
+            }
+        ];
+        
+        // ===== State Management =====
+        let currentQuestionIndex = 0;
+        let selectedAnswer = null;
+        let userAnswers = [];
+        
+        // Debug: Log initial state
+        console.log('Initial userAnswers:', userAnswers);
+        console.log('Initial userAnswers is array?', Array.isArray(userAnswers));
+        
+        // ===== DOM Elements =====
+        const progressFill = document.getElementById('progress-fill');
+        const progressText = document.getElementById('progress-text');
+        const questionContainer = document.getElementById('question-container');
+        const motivationText = document.getElementById('motivation-text');
+        const questionTitle = document.getElementById('question-title');
+        const questionImage = document.getElementById('question-image');
+        const answersContainer = document.getElementById('answers-container');
+        const nextBtn = document.getElementById('next-btn');
+        const mobileNextBtn = document.getElementById('mobile-next-btn');
+        const loadingScreen = document.getElementById('loading-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        
+        // ===== Display Question =====
+        function displayQuestion(index) {
+            const question = questions[index];
+            
+            // Update content
+            motivationText.textContent = question.intro;
+            questionTitle.textContent = question.question;
+            
+            // Handle question image
+            if (question.type === 'image' && question.mainImage) {
+                questionImage.style.display = 'flex';
+                questionImage.innerHTML = `[Placeholder: ${question.mainImage}]`;
+            } else {
+                questionImage.style.display = 'none';
+            }
+            
+            // Create answers
+            answersContainer.innerHTML = '';
+            answersContainer.className = question.type === 'image' ? 'answers answers--images' : 'answers answers--text';
+            
+            question.answers.forEach((answer, answerIndex) => {
+                const answerElement = document.createElement('div');
+                answerElement.className = question.type === 'image' 
+                    ? 'answer-option answer-option--image' 
+                    : 'answer-option';
+                answerElement.setAttribute('tabindex', '0');
+                
+                if (question.type === 'image' && answer.img) {
+                    answerElement.innerHTML = `[Placeholder: ${answer.img}]<br><small>${answer.label}</small>`;
+                } else {
+                    answerElement.textContent = answer.label;
+                }
+                
+                answerElement.addEventListener('click', () => selectAnswer(answerIndex));
+                answerElement.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        selectAnswer(answerIndex);
+                    }
+                });
+                
+                answersContainer.appendChild(answerElement);
+            });
+            
+            // Reset state
+            selectedAnswer = null;
+            updateNextButton();
+        }
+        
+        // ===== Select Answer =====
+        function selectAnswer(answerIndex) {
+            selectedAnswer = answerIndex;
+            
+            // Update UI
+            const answerOptions = answersContainer.querySelectorAll('.answer-option');
+            answerOptions.forEach((option, index) => {
+                option.classList.toggle('selected', index === answerIndex);
+            });
+            
+            updateNextButton();
+            
+            // Save progress
+            saveProgress();
+        }
+        
+        // ===== Update Next Button =====
+        function updateNextButton() {
+            const isEnabled = selectedAnswer !== null;
+            const isLastQuestion = currentQuestionIndex === questions.length - 1;
+            
+            nextBtn.disabled = !isEnabled;
+            mobileNextBtn.disabled = !isEnabled;
+            
+            const buttonText = isLastQuestion ? 'Complete Test' : 'Next Question';
+            nextBtn.textContent = buttonText;
+            mobileNextBtn.textContent = buttonText;
+            
+            if (isEnabled) {
+                nextBtn.classList.add('btn--pulse');
+                mobileNextBtn.classList.add('btn--pulse');
+            } else {
+                nextBtn.classList.remove('btn--pulse');
+                mobileNextBtn.classList.remove('btn--pulse');
+            }
+        }
+        
+        // ===== Next Question =====
+        function nextQuestion() {
+            if (selectedAnswer === null) return;
+            
+            // Debug logging
+            console.log('nextQuestion called - userAnswers:', userAnswers);
+            console.log('userAnswers type:', typeof userAnswers);
+            console.log('userAnswers is array?', Array.isArray(userAnswers));
+            
+            // Ensure userAnswers is an array before proceeding
+            if (!Array.isArray(userAnswers)) {
+                console.error('userAnswers is not an array! Resetting to empty array.');
+                userAnswers = [];
+            }
+            
+            // Save answer
+            userAnswers.push({
+                questionId: questions[currentQuestionIndex].id,
+                selectedAnswer: selectedAnswer,
+                correct: selectedAnswer === questions[currentQuestionIndex].correctIndex
+            });
+            
+            if (currentQuestionIndex < questions.length - 1) {
+                // Go to next question
+                currentQuestionIndex++;
+                
+                // Animate transition
+                questionContainer.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    displayQuestion(currentQuestionIndex);
+                    updateProgress();
+                    
+                    questionContainer.classList.remove('fade-out');
+                    questionContainer.classList.add('fade-in');
+                    
+                    setTimeout(() => {
+                        questionContainer.classList.remove('fade-in');
+                    }, 100);
+                }, 250);
+            } else {
+                // Test complete
+                completeTest();
+            }
+        }
+        
+        // ===== Update Progress =====
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressFill.style.width = progress + '%';
+            progressText.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+        }
+        
+        // ===== Complete Test =====
+        function completeTest() {
+            console.log('Completing test...');
+            
+            // Clear any existing progress data first
+            localStorage.removeItem('iqTestProgress');
+            
+            // Validate that we have answers
+            if (!userAnswers || userAnswers.length === 0) {
+                console.error('No user answers found, cannot complete test');
+                alert('Error: No test answers found. Please retake the test.');
+                return;
+            }
+            
+            // Save final results to localStorage
+            const finalResults = {
+                totalQuestions: questions.length,
+                answeredQuestions: userAnswers.length,
+                correctAnswers: userAnswers.filter(answer => answer.correct).length,
+                completedAt: new Date().toISOString(),
+                testData: userAnswers
+            };
+            
+            console.log('Saving test results:', finalResults);
+            
+            try {
+                localStorage.setItem('iqTestResults', JSON.stringify(finalResults));
+                
+                // Verify the data was saved correctly
+                const verification = localStorage.getItem('iqTestResults');
+                if (!verification) {
+                    throw new Error('Failed to save test results to localStorage');
+                }
+                
+                const parsed = JSON.parse(verification);
+                if (!parsed.totalQuestions || !parsed.hasOwnProperty('correctAnswers')) {
+                    throw new Error('Saved test results are invalid');
+                }
+                
+                console.log('Test results saved and verified successfully');
+                
+            } catch (error) {
+                console.error('Error saving test results:', error);
+                alert('Error saving test results. Please try again or contact support.');
+                return;
+            }
+            
+            // Hide main content
+            questionContainer.style.display = 'none';
+            
+            // Show loading screen
+            loadingScreen.classList.add('active');
+            
+            // After 3 seconds, redirect to calculating results
+            setTimeout(() => {
+                console.log('Redirecting to calculating results...');
+                window.location.href = 'calculating-results.html';
+            }, 3000);
+        }
+        
+        // ===== Save Progress =====
+        function saveProgress() {
+            const progressData = {
+                currentQuestion: currentQuestionIndex,
+                answers: userAnswers,
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('iqTestProgress', JSON.stringify(progressData));
+        }
+        
+        // ===== Load Progress =====
+        function loadProgress() {
+            const savedProgress = localStorage.getItem('iqTestProgress');
+            if (savedProgress) {
+                try {
+                    const progressData = JSON.parse(savedProgress);
+                    currentQuestionIndex = progressData.currentQuestion;
+                    
+                    // Ensure userAnswers is always an array
+                    const savedAnswers = progressData.answers || [];
+                    userAnswers = Array.isArray(savedAnswers) ? savedAnswers : [];
+                    
+                    console.log('Loaded progress - userAnswers:', userAnswers);
+                    console.log('userAnswers is array?', Array.isArray(userAnswers));
+                    
+                    return true;
+                } catch (e) {
+                    console.error('Error loading progress:', e);
+                    localStorage.removeItem('iqTestProgress');
+                    userAnswers = [];
+                    return false;
+                }
+            }
+            return false;
+        }
+        
+        // ===== Retake Dialog =====
+        function showRetakeDialog(testResults) {
+            // Create dialog overlay
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(7, 11, 26, 0.95);
+                backdrop-filter: blur(10px);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            `;
+            
+            // Create dialog box
+            const dialog = document.createElement('div');
+            dialog.style.cssText = `
+                background: rgba(14, 26, 58, 0.95);
+                border: 1px solid rgba(100, 212, 255, 0.3);
+                border-radius: 20px;
+                padding: 40px;
+                max-width: 500px;
+                width: 100%;
+                text-align: center;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            `;
+            
+            dialog.innerHTML = `
+                <div style="font-size: 3rem; margin-bottom: 20px;">🧠</div>
+                <h2 style="color: #EAF2FF; font-size: 1.5rem; margin-bottom: 15px;">Test Already Completed!</h2>
+                <p style="color: rgba(234, 242, 255, 0.7); margin-bottom: 10px;">
+                    You've already taken this IQ test and your results are ready.
+                </p>
+                <p style="color: rgba(234, 242, 255, 0.5); font-size: 0.9rem; margin-bottom: 30px;">
+                    Unlock your detailed results to see your score, IQ level, and personalized insights.
+                </p>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button id="viewResults" style="
+                        background: linear-gradient(135deg, #64D4FF 0%, #F4D37E 100%);
+                        color: #070B1A;
+                        border: none;
+                        padding: 15px 25px;
+                        border-radius: 10px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: transform 0.3s ease;
+                    ">View Results</button>
+                    <button id="retakeTest" style="
+                        background: rgba(100, 212, 255, 0.1);
+                        color: #64D4FF;
+                        border: 1px solid rgba(100, 212, 255, 0.3);
+                        padding: 15px 25px;
+                        border-radius: 10px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                    ">Retake Test</button>
+                </div>
+            `;
+            
+            overlay.appendChild(dialog);
+            document.body.appendChild(overlay);
+            
+            // Add hover effects
+            const viewBtn = dialog.querySelector('#viewResults');
+            const retakeBtn = dialog.querySelector('#retakeTest');
+            
+            viewBtn.addEventListener('mouseenter', () => {
+                viewBtn.style.transform = 'translateY(-2px)';
+            });
+            viewBtn.addEventListener('mouseleave', () => {
+                viewBtn.style.transform = 'translateY(0)';
+            });
+            
+            retakeBtn.addEventListener('mouseenter', () => {
+                retakeBtn.style.background = 'rgba(100, 212, 255, 0.2)';
+                retakeBtn.style.borderColor = 'rgba(100, 212, 255, 0.5)';
+            });
+            retakeBtn.addEventListener('mouseleave', () => {
+                retakeBtn.style.background = 'rgba(100, 212, 255, 0.1)';
+                retakeBtn.style.borderColor = 'rgba(100, 212, 255, 0.3)';
+            });
+            
+            // Button actions
+            viewBtn.addEventListener('click', () => {
+                window.location.href = 'payment.html';
+            });
+            
+            retakeBtn.addEventListener('click', () => {
+                // Clear previous test data
+                localStorage.removeItem('iqTestResults');
+                localStorage.removeItem('iqTestProgress');
+                sessionStorage.removeItem('teaserRedirectCount');
+                
+                // Remove dialog
+                document.body.removeChild(overlay);
+                
+                // Reset test state completely
+                currentQuestionIndex = 0;
+                selectedAnswer = null;
+                userAnswers = []; // Ensure it's an array
+                
+                console.log('Retake: Reset userAnswers to:', userAnswers);
+                console.log('Retake: userAnswers is array?', Array.isArray(userAnswers));
+                
+                // Instead of trying to recreate event listeners, just reload the page
+                // This ensures clean state and proper initialization
+                window.location.reload();
+            });
+        }
+        
+        // ===== Initialize App =====
+        function init() {
+            console.log('Initializing IQ test...');
+            
+            // Check if test was already completed
+            const testResults = localStorage.getItem('iqTestResults');
+            if (testResults) {
+                try {
+                    const parsedResults = JSON.parse(testResults);
+                    console.log('Found existing test results:', parsedResults);
+                    
+                    // Validate the test results structure
+                    if (parsedResults && 
+                        typeof parsedResults === 'object' &&
+                        parsedResults.hasOwnProperty('totalQuestions') &&
+                        parsedResults.hasOwnProperty('correctAnswers') &&
+                        parsedResults.totalQuestions > 0) {
+                        
+                        // Test has been completed before - show retake dialog
+                        console.log('Test already completed, showing retake dialog...');
+                        showRetakeDialog(parsedResults);
+                        return;
+                    } else {
+                        console.warn('Invalid test results structure, clearing and restarting');
+                        localStorage.removeItem('iqTestResults');
+                        sessionStorage.removeItem('teaserRedirectCount');
+                    }
+                } catch (e) {
+                    console.error('Error parsing test results:', e);
+                    localStorage.removeItem('iqTestResults');
+                    sessionStorage.removeItem('teaserRedirectCount');
+                }
+            }
+            
+            // Load saved progress if exists
+            const hasProgress = loadProgress();
+            
+            if (hasProgress && currentQuestionIndex > 0 && currentQuestionIndex < questions.length) {
+                // Ask user if they want to continue where they left off
+                const continueTest = confirm(`You have a test in progress (Question ${currentQuestionIndex + 1}). Would you like to continue where you left off?`);
+                if (!continueTest) {
+                    // Clear progress and start fresh
+                    localStorage.removeItem('iqTestProgress');
+                    currentQuestionIndex = 0;
+                    userAnswers = [];
+                }
+            } else if (hasProgress && currentQuestionIndex >= questions.length) {
+                // Progress shows test completed but results not found, clear progress
+                localStorage.removeItem('iqTestProgress');
+                currentQuestionIndex = 0;
+                userAnswers = [];
+            }
+            
+            displayQuestion(currentQuestionIndex);
+            updateProgress();
+            
+            // Event listeners
+            nextBtn.addEventListener('click', nextQuestion);
+            mobileNextBtn.addEventListener('click', nextQuestion);
+        }
+        
+        // ===== Initialize App =====
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('=== IQ TEST PAGE LOADED ===');
+            console.log('Current URL:', window.location.href);
+            console.log('localStorage iqTestResults:', localStorage.getItem('iqTestResults'));
+            console.log('localStorage iqTestProgress:', localStorage.getItem('iqTestProgress'));
+            console.log('sessionStorage teaserRedirectCount:', sessionStorage.getItem('teaserRedirectCount'));
+            
+            init();
+        });
+    </script>
+</body>
+</html>

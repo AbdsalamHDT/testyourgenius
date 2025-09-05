@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Genius Score Awaits - Test Your Genius</title>
+    <meta name="description" content="Your IQ analysis is complete! Discover your genius type and unlock your complete cognitive profile with personalized insights.">
+    <style>
+        /* ===== CSS Variables & Design System ===== */
+        :root {
+            /* Project Color Palette */
+            --bg-1: #070B1A;
+            --bg-2: #0E1A3A;
+            --bg-3: #1a0b2e;
+            --ink: #EAF2FF;
+            --ink-secondary: rgba(234, 242, 255, 0.7);
+            --ink-muted: rgba(234, 242, 255, 0.5);
+            --accent: #64D4FF;
+            --accent-light: #87E8FF;
+            --gold: #F4D37E;
+            --success: #4ADE80;
+            --warning: #FBBF24;
+            
+            /* Spacing System */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-7: 3rem;
+            --space-8: 4rem;
+            --space-9: 5rem;
+            
+            /* Typography */
+            --font-stack: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 50%, var(--bg-3) 100%);
+            color: var(--ink);
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+
+        /* ===== Enhanced Background System ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.03;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255,255,255,0.1) 2px,
+                    rgba(255,255,255,0.1) 4px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255,255,255,0.1) 2px,
+                    rgba(255,255,255,0.1) 4px
+                );
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                radial-gradient(1px 1px at 20px 30px, rgba(234,242,255,0.3), transparent),
+                radial-gradient(1px 1px at 40px 70px, rgba(100,212,255,0.2), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(244,211,126,0.2), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(234,242,255,0.1), transparent);
+            background-size: 
+                200px 200px,
+                300px 300px,
+                250px 250px,
+                400px 400px;
+            animation: sparkle 20s linear infinite;
+        }
+
+        @keyframes sparkle {
+            from { transform: translate(0, 0); }
+            to { transform: translate(-100px, -100px); }
+        }
+
+        /* ===== Glassmorphism Components ===== */
+        .glass {
+            background: rgba(234, 242, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(234, 242, 255, 0.1);
+            border-radius: 16px;
+        }
+
+        .glass-strong {
+            background: rgba(234, 242, 255, 0.08);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(234, 242, 255, 0.15);
+            border-radius: 20px;
+        }
+
+        .glass-accent {
+            background: rgba(234, 242, 255, 0.06);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(100, 212, 255, 0.2);
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-accent::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(100, 212, 255, 0.1) 0%,
+                transparent 50%,
+                rgba(244, 211, 126, 0.05) 100%
+            );
+            pointer-events: none;
+        }
+
+        /* ===== Container & Layout ===== */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+            position: relative;
+            z-index: 2;
+        }
+
+        .main {
+            min-height: 100vh;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== Button System ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-4) var(--space-7);
+            border: none;
+            border-radius: 12px;
+            font-family: var(--font-stack);
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 52px;
+            gap: var(--space-2);
+        }
+
+        .btn--large {
+            padding: var(--space-5) var(--space-8);
+            font-size: 1.1rem;
+            min-height: 60px;
+        }
+
+        .btn--primary {
+            background: linear-gradient(135deg, var(--accent) 0%, #4facfe 100%);
+            color: var(--bg-1);
+            box-shadow: 0 8px 32px rgba(100, 212, 255, 0.3);
+        }
+
+        .btn--secondary {
+            background: rgba(234, 242, 255, 0.1);
+            color: var(--ink);
+            border: 2px solid rgba(234, 242, 255, 0.2);
+        }
+
+        .btn--gold {
+            background: linear-gradient(135deg, var(--gold) 0%, #e6a837 100%);
+            color: var(--bg-1);
+            box-shadow: 0 8px 32px rgba(244, 211, 126, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .btn--primary:hover {
+            box-shadow: 0 12px 40px rgba(100, 212, 255, 0.4);
+        }
+
+        .btn--gold:hover {
+            box-shadow: 0 12px 40px rgba(244, 211, 126, 0.4);
+        }
+
+        /* ===== Reveal Animations ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== Results Header ===== */
+        .results-header {
+            text-align: center;
+            padding: var(--space-9) 0 var(--space-7);
+        }
+
+        .completion-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            color: white;
+            padding: var(--space-2) var(--space-5);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: var(--space-5);
+            box-shadow: 0 8px 24px rgba(74, 222, 128, 0.3);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 8px 24px rgba(74, 222, 128, 0.3); }
+            to { box-shadow: 0 12px 32px rgba(74, 222, 128, 0.5); }
+        }
+
+        .results-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 50%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-4);
+            line-height: 1.2;
+        }
+
+        .results-subtitle {
+            font-size: 1.25rem;
+            color: var(--ink-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== Score Reveal ===== */
+        .score-reveal {
+            padding: var(--space-8) 0;
+        }
+
+        .score-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: var(--space-8);
+        }
+
+        .score-preview {
+            margin-bottom: var(--space-7);
+        }
+
+        .preview-label {
+            font-size: 1rem;
+            color: var(--ink-secondary);
+            margin-bottom: var(--space-3);
+        }
+
+        .score-display {
+            position: relative;
+            margin-bottom: var(--space-5);
+        }
+
+        .score-visible {
+            font-size: 5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-shadow: 0 0 30px rgba(100, 212, 255, 0.5);
+            margin-right: var(--space-3);
+        }
+
+        .score-hidden {
+            font-size: 5rem;
+            font-weight: 700;
+            color: var(--ink-muted);
+            filter: blur(8px);
+            opacity: 0.3;
+            position: relative;
+        }
+
+        .score-hidden::after {
+            content: '🔒';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            filter: none;
+            opacity: 1;
+        }
+
+        .percentile-preview {
+            font-size: 1.5rem;
+            color: var(--ink-secondary);
+            margin-bottom: var(--space-5);
+        }
+
+        .percentile-number {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .unlock-teaser {
+            background: rgba(100, 212, 255, 0.05);
+            border: 1px solid rgba(100, 212, 255, 0.2);
+            border-radius: 16px;
+            padding: var(--space-5);
+            margin-bottom: var(--space-6);
+        }
+
+        .unlock-teaser h3 {
+            color: var(--accent);
+            margin-bottom: var(--space-3);
+        }
+
+        /* ===== Genius Type Preview ===== */
+        .genius-preview {
+            padding: var(--space-8) 0;
+        }
+
+        .genius-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: var(--space-7);
+        }
+
+        .genius-types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+
+        .genius-card {
+            padding: var(--space-6);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .genius-card.highlighted {
+            transform: scale(1.05);
+            border-color: var(--gold);
+            background: rgba(244, 211, 126, 0.1);
+        }
+
+        .genius-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .genius-icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-4);
+            display: block;
+        }
+
+        .genius-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: var(--space-3);
+        }
+
+        .genius-description {
+            color: var(--ink-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-4);
+        }
+
+        .type-indicator {
+            position: absolute;
+            top: var(--space-3);
+            right: var(--space-3);
+            background: var(--gold);
+            color: var(--bg-1);
+            padding: var(--space-1) var(--space-2);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .blur-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(11, 15, 26, 0.7);
+            backdrop-filter: blur(4px);
+            border-radius: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* ===== Benefits Showcase ===== */
+        .benefits-showcase {
+            padding: var(--space-8) 0;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+
+        .benefit-card {
+            padding: var(--space-6);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(100, 212, 255, 0.1) 0%, rgba(244, 211, 126, 0.05) 100%);
+            border: 2px solid rgba(100, 212, 255, 0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto var(--space-4);
+        }
+
+        .benefit-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: var(--space-3);
+        }
+
+        .benefit-description {
+            color: var(--ink-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===== Pricing & CTA ===== */
+        .pricing-cta {
+            padding: var(--space-8) 0;
+        }
+
+        .pricing-container {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            padding: var(--space-8);
+        }
+
+        .pricing-badge {
+            background: var(--gold);
+            color: var(--bg-1);
+            padding: var(--space-2) var(--space-4);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: var(--space-5);
+            display: inline-block;
+        }
+
+        .pricing-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: var(--space-4);
+        }
+
+        .price-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-3);
+            margin: var(--space-6) 0;
+        }
+
+        .price-main {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-shadow: 0 0 20px rgba(100, 212, 255, 0.3);
+        }
+
+        .price-note {
+            color: var(--ink-secondary);
+            font-size: 0.9rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: var(--space-4);
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: var(--space-5);
+        }
+
+        .guarantee {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            color: var(--ink-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ===== Responsive Design ===== */
+        @media (max-width: 768px) {
+            .score-visible, .score-hidden {
+                font-size: 4rem;
+            }
+            
+            .genius-types-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .price-display {
+                flex-direction: column;
+                gap: var(--space-2);
+            }
+        }
+
+        /* ===== Loading Animation ===== */
+        .loading-dots {
+            display: inline-flex;
+            gap: var(--space-1);
+        }
+
+        .loading-dots span {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: bounce 1.4s ease-in-out infinite both;
+        }
+
+        .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <main class="main">
+        <div class="container">
+            <!-- Results Header -->
+            <section class="results-header reveal">
+                <div class="completion-badge">
+                    ✅ Assessment Complete
+                </div>
+                <h1 class="results-title">Your Genius Profile Is Ready</h1>
+                <p class="results-subtitle">
+                    Congratulations! Your cognitive analysis has revealed fascinating insights about your intellectual abilities and potential.
+                </p>
+            </section>
+
+            <!-- Score Reveal -->
+            <section class="score-reveal reveal">
+                <div class="score-container glass-strong">
+                    <div class="score-preview">
+                        <div class="preview-label">Your IQ Score</div>
+                        <div class="score-display">
+                            <span class="score-visible">127</span>
+                            <span class="score-hidden">●●●</span>
+                        </div>
+                        <div class="percentile-preview">
+                            You scored higher than <span class="percentile-number">89%</span> of test takers
+                        </div>
+                    </div>
+                    
+                    <div class="unlock-teaser">
+                        <h3>🔓 Unlock Your Complete Analysis</h3>
+                        <p>See your full score breakdown, detailed cognitive strengths, personalized recommendations, and discover your unique genius type.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Genius Type Preview -->
+            <section class="genius-preview reveal">
+                <div class="genius-container">
+                    <h2 class="section-title">Discover Your Genius Type</h2>
+                    <div class="genius-types-grid">
+                        <div class="genius-card glass highlighted">
+                            <div class="type-indicator">Your Type</div>
+                            <div class="genius-icon">🎯</div>
+                            <h3 class="genius-title">Strategic Thinker</h3>
+                            <p class="genius-description">
+                                You excel at analyzing complex problems and developing innovative solutions with remarkable precision and foresight.
+                            </p>
+                        </div>
+                        
+                        <div class="genius-card glass">
+                            <div class="genius-icon">🎨</div>
+                            <h3 class="genius-title">Creative Visionary</h3>
+                            <p class="genius-description">
+                                Masters of innovation who see possibilities others miss and create breakthrough solutions.
+                            </p>
+                            <div class="blur-overlay">
+                                🔒 Unlock to See Details
+                            </div>
+                        </div>
+                        
+                        <div class="genius-card glass">
+                            <div class="genius-icon">📊</div>
+                            <h3 class="genius-title">Analytical Mind</h3>
+                            <p class="genius-description">
+                                Exceptional at processing information, recognizing patterns, and making data-driven decisions.
+                            </p>
+                            <div class="blur-overlay">
+                                🔒 Unlock to See Details
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Benefits Showcase -->
+            <section class="benefits-showcase reveal">
+                <div class="genius-container">
+                    <h2 class="section-title">What You'll Unlock</h2>
+                    <div class="benefits-grid">
+                        <div class="benefit-card glass-accent">
+                            <div class="benefit-icon">📈</div>
+                            <h3 class="benefit-title">Complete Score Breakdown</h3>
+                            <p class="benefit-description">
+                                Detailed analysis of your cognitive strengths across verbal, mathematical, spatial, and logical reasoning domains.
+                            </p>
+                        </div>
+                        
+                        <div class="benefit-card glass-accent">
+                            <div class="benefit-icon">🎓</div>
+                            <h3 class="benefit-title">Personalized Growth Plan</h3>
+                            <p class="benefit-description">
+                                Custom recommendations and exercises designed specifically for your genius type and cognitive profile.
+                            </p>
+                        </div>
+                        
+                        <div class="benefit-card glass-accent">
+                            <div class="benefit-icon">🏆</div>
+                            <h3 class="benefit-title">Official Genius Certificate</h3>
+                            <p class="benefit-description">
+                                Professional certificate showcasing your IQ score and cognitive abilities - perfect for LinkedIn, resumes, and portfolios.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pricing & CTA -->
+            <section class="pricing-cta reveal">
+                <div class="pricing-container glass-strong">
+                    <div class="pricing-badge">Limited Time Offer</div>
+                    <h2 class="pricing-title">Unlock Your Complete Genius Profile</h2>
+                    
+                    <div class="price-display">
+                        <span class="price-main">€9.99</span>
+                    </div>
+                    <div class="price-note">One-time payment • Full lifetime access</div>
+                    
+                    <div class="cta-buttons">
+                        <button class="btn btn--primary btn--large" onclick="proceedToPayment()">
+                            🧠 Unlock My Complete Profile
+                        </button>
+                        <button class="btn btn--secondary" onclick="learnMore()">
+                            📊 See Sample Report
+                        </button>
+                    </div>
+                    
+                    <div class="guarantee">
+                        <span>🛡️</span>
+                        <span>30-day money-back guarantee • Secure payment</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Reveal animations on scroll
+        function initRevealAnimations() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            reveals.forEach(reveal => {
+                observer.observe(reveal);
+            });
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initRevealAnimations();
+            
+            // Add some interactive polish
+            const geniusCards = document.querySelectorAll('.genius-card');
+            geniusCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('highlighted')) {
+                        this.style.transform = 'translateY(-8px) scale(1.02)';
+                    }
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('highlighted')) {
+                        this.style.transform = '';
+                    }
+                });
+            });
+        });
+
+        function proceedToPayment() {
+            // Add loading state
+            const button = event.target;
+            const originalText = button.innerHTML;
+            button.innerHTML = '<span class="loading-dots"><span></span><span></span><span></span></span> Processing...';
+            button.disabled = true;
+            
+            // Simulate processing then redirect
+            setTimeout(() => {
+                window.location.href = 'payment.html';
+            }, 1500);
+        }
+
+        function learnMore() {
+            // Scroll to benefits or show more info
+            document.querySelector('.benefits-showcase').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+    </script>
+</body>
+</html>

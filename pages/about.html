@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Test Your Genius - Our Mission & Story</title>
+    <meta name="description" content="Discover the story behind Test Your Genius. Learn about our mission to unlock human potential through scientifically-backed cognitive assessment and mentorship from history's greatest minds.">
+    <style>
+        /* ===== CSS Variables & Reset ===== */
+        :root {
+            --bg-1: #070B1A;
+            --bg-2: #0E1A3A;
+            --ink: #EAF2FF;
+            --accent: #64D4FF;
+            --purple: #8B5CF6;
+            --gold: #F4D37E;
+            --green: #10B981;
+            --red: #EF4444;
+            
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-7: 3rem;
+            --space-8: 4rem;
+            
+            --font-stack: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-stack);
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+            color: var(--ink);
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* ===== Animated Background ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(100, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(244, 211, 126, 0.05) 0%, transparent 50%);
+            animation: backgroundShift 12s ease-in-out infinite alternate;
+        }
+        
+        @keyframes backgroundShift {
+            0% { opacity: 0.4; }
+            100% { opacity: 0.9; }
+        }
+        
+        /* ===== Holographic Light Streaks ===== */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                linear-gradient(45deg, transparent 40%, rgba(100, 212, 255, 0.02) 50%, transparent 60%),
+                linear-gradient(-45deg, transparent 30%, rgba(139, 92, 246, 0.02) 50%, transparent 70%);
+            animation: lightStreaks 15s linear infinite;
+        }
+        
+        @keyframes lightStreaks {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(0deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(360deg); }
+        }
+        
+        /* ===== Typography ===== */
+        h1, h2, h3 {
+            font-weight: bold;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+        
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+        h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
+        
+        p { font-size: clamp(1rem, 2vw, 1.1rem); }
+        
+        /* ===== Glassmorphism Components ===== */
+        .glass {
+            background: rgba(234, 242, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(234, 242, 255, 0.1);
+            border-radius: 20px;
+        }
+        
+        .glass-strong {
+            background: rgba(234, 242, 255, 0.08);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(234, 242, 255, 0.15);
+            border-radius: 24px;
+        }
+        
+        /* ===== Navigation ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: var(--space-4);
+            background: rgba(7, 11, 26, 0.9);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(234, 242, 255, 0.1);
+        }
+        
+        .nav__content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .nav__brand {
+            color: var(--ink);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .nav__logo {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--accent);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+        
+        .nav__links {
+            display: flex;
+            gap: var(--space-6);
+            align-items: center;
+        }
+        
+        .nav__link {
+            color: rgba(234, 242, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav__link:hover {
+            color: var(--accent);
+        }
+        
+        /* ===== Container ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+        
+        /* ===== Section Styling ===== */
+        .section {
+            padding: var(--space-8) 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section--hero {
+            padding-top: calc(80px + var(--space-8));
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* ===== About Hero ===== */
+        .about-hero {
+            text-align: center;
+            padding: var(--space-8) 0;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50px;
+            padding: var(--space-2) var(--space-4);
+            font-size: 0.9rem;
+            color: var(--purple);
+            margin-bottom: var(--space-5);
+            font-weight: 600;
+        }
+        
+        .hero-title {
+            margin-bottom: var(--space-4);
+            background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 50%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: rgba(234, 242, 255, 0.8);
+            margin-bottom: var(--space-6);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* ===== Mission Section ===== */
+        .mission {
+            background: linear-gradient(135deg, rgba(100, 212, 255, 0.05) 0%, rgba(139, 92, 246, 0.03) 100%);
+            border-radius: 30px;
+            padding: var(--space-8);
+            margin: var(--space-8) 0;
+            text-align: center;
+        }
+        
+        .mission-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto var(--space-5);
+            background: linear-gradient(135deg, rgba(100, 212, 255, 0.2) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border: 2px solid rgba(100, 212, 255, 0.3);
+        }
+        
+        .mission-title {
+            color: var(--accent);
+            margin-bottom: var(--space-4);
+        }
+        
+        .mission-description {
+            color: rgba(234, 242, 255, 0.9);
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        /* ===== Story Section ===== */
+        .story {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-8);
+            align-items: center;
+            margin: var(--space-8) 0;
+        }
+        
+        .story-content h2 {
+            color: var(--gold);
+            margin-bottom: var(--space-4);
+        }
+        
+        .story-content p {
+            color: rgba(234, 242, 255, 0.9);
+            line-height: 1.7;
+            margin-bottom: var(--space-4);
+        }
+        
+        .story-visual {
+            background: rgba(244, 211, 126, 0.05);
+            border: 1px solid rgba(244, 211, 126, 0.2);
+            border-radius: 24px;
+            padding: var(--space-7);
+            text-align: center;
+        }
+        
+        /* ===== Values Grid ===== */
+        .values-section {
+            background: rgba(244, 211, 126, 0.05);
+            border-radius: 30px;
+            padding: var(--space-8);
+            margin: var(--space-8) 0;
+        }
+        
+        .values-title {
+            text-align: center;
+            margin-bottom: var(--space-6);
+            color: var(--gold);
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+        }
+        
+        .value-card {
+            background: rgba(234, 242, 255, 0.05);
+            border: 1px solid rgba(234, 242, 255, 0.1);
+            border-radius: 20px;
+            padding: var(--space-6);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .value-card:hover {
+            background: rgba(234, 242, 255, 0.08);
+            transform: translateY(-5px);
+        }
+        
+        .value-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto var(--space-4);
+            background: linear-gradient(135deg, rgba(244, 211, 126, 0.2) 0%, rgba(100, 212, 255, 0.1) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            border: 1px solid rgba(244, 211, 126, 0.3);
+        }
+        
+        .value-title {
+            color: var(--accent);
+            margin-bottom: var(--space-3);
+            font-size: 1.3rem;
+        }
+        
+        .value-description {
+            color: rgba(234, 242, 255, 0.8);
+            line-height: 1.6;
+        }
+        
+        /* ===== Team Section ===== */
+        .team-section {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(100, 212, 255, 0.03) 100%);
+            border-radius: 30px;
+            padding: var(--space-8);
+            margin: var(--space-8) 0;
+        }
+        
+        .team-title {
+            text-align: center;
+            margin-bottom: var(--space-6);
+            color: var(--purple);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-6);
+        }
+        
+        .team-member {
+            background: rgba(234, 242, 255, 0.05);
+            border: 1px solid rgba(234, 242, 255, 0.1);
+            border-radius: 20px;
+            padding: var(--space-6);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .team-member:hover {
+            background: rgba(234, 242, 255, 0.08);
+            transform: translateY(-5px);
+        }
+        
+        .member-avatar {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto var(--space-4);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(100, 212, 255, 0.1) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+        
+        .member-name {
+            color: var(--accent);
+            margin-bottom: var(--space-2);
+            font-size: 1.3rem;
+        }
+        
+        .member-role {
+            color: var(--purple);
+            font-weight: 600;
+            margin-bottom: var(--space-3);
+        }
+        
+        .member-bio {
+            color: rgba(234, 242, 255, 0.8);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        /* ===== CTA Section ===== */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(100, 212, 255, 0.1) 0%, rgba(244, 211, 126, 0.05) 100%);
+            border-radius: 30px;
+            padding: var(--space-8);
+            margin: var(--space-8) 0;
+            text-align: center;
+        }
+        
+        .cta-title {
+            margin-bottom: var(--space-4);
+            color: var(--gold);
+        }
+        
+        .cta-description {
+            color: rgba(234, 242, 255, 0.9);
+            margin-bottom: var(--space-6);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: var(--space-4);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-4) var(--space-6);
+            border: none;
+            border-radius: 16px;
+            font-family: var(--font-stack);
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            gap: var(--space-2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn--primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+            color: var(--ink);
+            box-shadow: 0 8px 32px rgba(100, 212, 255, 0.3);
+        }
+        
+        .btn--gold {
+            background: linear-gradient(135deg, var(--gold) 0%, #f7d060 100%);
+            color: var(--bg-1);
+            box-shadow: 0 8px 32px rgba(244, 211, 126, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        /* ===== Visual Placeholders ===== */
+        .visual-placeholder {
+            width: 100%;
+            background: linear-gradient(135deg, rgba(100, 212, 255, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%);
+            border: 2px dashed rgba(234, 242, 255, 0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: rgba(234, 242, 255, 0.6);
+            position: relative;
+            overflow: hidden;
+            min-height: 200px;
+        }
+        
+        .visual-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 212, 255, 0.1), transparent);
+            animation: placeholderShimmer 2s infinite;
+        }
+        
+        @keyframes placeholderShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        /* ===== Responsive Design ===== */
+        @media (max-width: 768px) {
+            .nav__links {
+                display: none;
+            }
+            
+            .story {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        /* ===== Reveal Animation ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav__content">
+            <a href="../index.html" class="nav__brand">
+                <div class="nav__logo"></div>
+                Test Your Genius
+            </a>
+            <div class="nav__links">
+                <a href="../index.html" class="nav__link">Home</a>
+                <a href="../iq-test.html" class="nav__link">Take Test</a>
+                <a href="../academy-homepage.html" class="nav__link">Academy</a>
+                <a href="pricing.html" class="nav__link">Pricing</a>
+                <a href="contact.html" class="nav__link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Hero -->
+    <section class="section section--hero">
+        <div class="container">
+            <div class="about-hero reveal">
+                <div class="hero-badge">
+                    Our Story
+                </div>
+                <h1 class="hero-title">Unlocking Human Potential</h1>
+                <p class="hero-subtitle">
+                    We believe every mind has genius potential waiting to be discovered. Through scientifically-backed assessment and mentorship from history's greatest minds, we help people unlock their intellectual capabilities.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="section">
+        <div class="container">
+            <div class="mission reveal">
+                <div class="mission-icon">
+                    <div class="visual-placeholder" style="height: 80px;">
+                        [Mission Icon]
+                    </div>
+                </div>
+                <h2 class="mission-title">Our Mission</h2>
+                <p class="mission-description">
+                    To democratize access to genius-level thinking by providing cutting-edge cognitive assessment tools and transformative mentorship experiences. We bridge the gap between potential and achievement, helping individuals discover their unique intellectual strengths and develop them through proven methodologies derived from history's most brilliant minds.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="section">
+        <div class="container">
+            <div class="story reveal">
+                <div class="story-content">
+                    <h2>The Genesis of Genius</h2>
+                    <p>
+                        Test Your Genius was born from a simple yet profound observation: traditional intelligence testing tells you where you stand, but not how to reach your peak potential. Our founders, cognitive scientists and education innovators, recognized that true genius isn't just about raw intelligence—it's about thinking patterns, learning strategies, and mental frameworks.
+                    </p>
+                    <p>
+                        By studying the documented approaches of history's greatest minds—from Einstein's thought experiments to Da Vinci's systematic curiosity—we've created a unique platform that not only measures cognitive ability but actively develops it through personalized mentorship experiences.
+                    </p>
+                </div>
+                <div class="story-visual">
+                    <div class="visual-placeholder">
+                        [Founding Story Illustration]
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="section">
+        <div class="container">
+            <div class="values-section reveal">
+                <h2 class="values-title">Our Core Values</h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <div class="visual-placeholder" style="height: 40px;">
+                                [Science Icon]
+                            </div>
+                        </div>
+                        <h3 class="value-title">Scientific Rigor</h3>
+                        <p class="value-description">
+                            Every assessment and training method is grounded in peer-reviewed research and validated psychometric principles. We believe in evidence-based approaches to cognitive development.
+                        </p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <div class="visual-placeholder" style="height: 40px;">
+                                [Access Icon]
+                            </div>
+                        </div>
+                        <h3 class="value-title">Universal Access</h3>
+                        <p class="value-description">
+                            Genius potential exists in everyone. We're committed to making advanced cognitive training accessible regardless of background, with transparent pricing and inclusive design.
+                        </p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <div class="visual-placeholder" style="height: 40px;">
+                                [Privacy Icon]
+                            </div>
+                        </div>
+                        <h3 class="value-title">Privacy First</h3>
+                        <p class="value-description">
+                            Your cognitive profile is deeply personal. We implement military-grade security and never share individual results with third parties without explicit consent.
+                        </p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <div class="visual-placeholder" style="height: 40px;">
+                                [Growth Icon]
+                            </div>
+                        </div>
+                        <h3 class="value-title">Continuous Growth</h3>
+                        <p class="value-description">
+                            Intelligence isn't fixed. We focus on developing growth mindsets and providing tools for lifelong cognitive enhancement and intellectual curiosity.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section">
+        <div class="container">
+            <div class="team-section reveal">
+                <h2 class="team-title">Meet Our Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <div class="visual-placeholder" style="height: 60px;">
+                                [Team Member]
+                            </div>
+                        </div>
+                        <h3 class="member-name">Dr. Sarah Chen</h3>
+                        <div class="member-role">Chief Scientific Officer</div>
+                        <p class="member-bio">
+                            Ph.D. in Cognitive Psychology from Stanford. Leading researcher in intelligence assessment and cognitive training methodologies with 15+ years in psychometric development.
+                        </p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <div class="visual-placeholder" style="height: 60px;">
+                                [Team Member]
+                            </div>
+                        </div>
+                        <h3 class="member-name">Marcus Johnson</h3>
+                        <div class="member-role">Head of Learning Experience</div>
+                        <p class="member-bio">
+                            Former education technology leader at MIT. Specializes in creating immersive learning experiences that adapt to individual cognitive patterns and learning styles.
+                        </p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <div class="visual-placeholder" style="height: 60px;">
+                                [Team Member]
+                            </div>
+                        </div>
+                        <h3 class="member-name">Dr. Elena Rodriguez</h3>
+                        <div class="member-role">Director of Research</div>
+                        <p class="member-bio">
+                            Neuroscientist and cognitive researcher focused on the intersection of historical genius strategies and modern brain science. Published author on cognitive enhancement.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section">
+        <div class="container">
+            <div class="cta-section reveal">
+                <h2 class="cta-title">Ready to Discover Your Genius?</h2>
+                <p class="cta-description">
+                    Join thousands of individuals who have unlocked their cognitive potential through our scientifically-backed assessment and mentorship programs. Your genius journey starts with a single test.
+                </p>
+                <div class="cta-buttons">
+                    <a href="../iq-test.html" class="btn btn--primary">
+                        Take IQ Assessment
+                    </a>
+                    <a href="../academy-homepage.html" class="btn btn--gold">
+                        Explore Elite Academy
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Reveal animation on scroll
+        function initRevealAnimation() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            reveals.forEach(reveal => {
+                observer.observe(reveal);
+            });
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initRevealAnimation();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!-- Reusable Navigation Component -->
+<nav class="navbar" id="navbar">
+    <div class="navbar__container">
+        <a href="/" class="navbar__brand">
+            <div class="navbar__logo"></div>
+            Test Your Genius
+        </a>
+        <ul class="navbar__menu" id="navbar-menu">
+            <li class="navbar__menu-item">
+                <a href="#how-it-works" class="navbar__menu-link">How it works</a>
+            </li>
+            <li class="navbar__menu-item">
+                <a href="#iq-test" class="navbar__menu-link">IQ Test</a>
+            </li>
+            <li class="navbar__menu-item">
+                <a href="#academy" class="navbar__menu-link">Academy</a>
+            </li>
+            <li class="navbar__menu-item">
+                <a href="#certificate" class="navbar__menu-link">Certificate</a>
+            </li>
+            <li class="navbar__menu-item">
+                <a href="#pricing" class="navbar__menu-link">Pricing</a>
+            </li>
+            <li class="navbar__menu-item">
+                <a href="#testimonials" class="navbar__menu-link">Reviews</a>
+            </li>
+            <li class="navbar__menu-item">
+                <a href="#iq-test" class="navbar__cta">Start Test</a>
+            </li>
+        </ul>
+        
+        <!-- Authentication Section -->
+        <div class="navbar__auth">
+            <!-- Login Button (shown when not authenticated) -->
+            <button id="login-button" class="auth-button auth-button--primary" onclick="showAuthModal('login')">
+                Login
+            </button>
+            
+            <!-- User Menu (shown when authenticated) -->
+            <div id="user-menu" class="user-menu hidden">
+                <button class="user-menu-trigger" onclick="toggleUserMenu()">
+                    <div class="user-avatar">
+                        <span id="user-initials">TU</span>
+                    </div>
+                </button>
+                
+                <div class="user-menu-dropdown">
+                    <div class="user-info">
+                        <div class="user-name" id="user-display-name">Test User</div>
+                        <div class="user-email" id="user-display-email">test@example.com</div>
+                    </div>
+                    
+                    <div class="user-menu-divider"></div>
+                    
+                    <a href="dashboard.html" class="user-menu-item">
+                        <span class="menu-icon">📊</span>
+                        Dashboard
+                    </a>
+                    
+                    <a href="academy-homepage.html" class="user-menu-item">
+                        <span class="menu-icon">🎓</span>
+                        Academy
+                    </a>
+                    
+                    <a href="pages/results.html" class="user-menu-item">
+                        <span class="menu-icon">🏆</span>
+                        My Results
+                    </a>
+                    
+                    <a href="#" class="user-menu-item" onclick="showAuthModal('profile')">
+                        <span class="menu-icon">⚙️</span>
+                        Settings
+                    </a>
+                    
+                    <div class="user-menu-divider"></div>
+                    
+                    <button class="user-menu-item logout-button" onclick="handleLogout()">
+                        <span class="menu-icon">🚪</span>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <button class="navbar__toggle" id="navbar-toggle" aria-label="Toggle menu">
+            ☰
+        </button>
+    </div>
+</nav>
+
+<!-- Usage Instructions:
+1. Include this component at the top of any page
+2. Add the navbar CSS styles to the page's <style> section
+3. Add the navbar JavaScript functionality
+4. Customize links as needed for specific pages
+-->

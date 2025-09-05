@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Dashboard Access</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #070B1A 0%, #0E1A3A 100%);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .access-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            max-width: 400px;
+        }
+        button {
+            background: #64D4FF;
+            color: #070B1A;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #4AC8F7;
+        }
+    </style>
+</head>
+<body>
+    <div class="access-card">
+        <h2>🔑 Quick Dashboard Access</h2>
+        <p>Click the button below to create a test user and access the dashboard directly:</p>
+        
+        <button onclick="createTestUser()">Create Test User & Go to Dashboard</button>
+        
+        <br><br>
+        
+        <button onclick="clearAllData()">Clear All Data & Start Fresh</button>
+        
+        <div id="status" style="margin-top: 20px; font-size: 14px;"></div>
+    </div>
+
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/auth-ui.js"></script>
+    <script>
+        function createTestUser() {
+            const status = document.getElementById('status');
+            status.innerHTML = '⏳ Creating test user...';
+            
+            try {
+                // Clear any existing data
+                localStorage.clear();
+                
+                // Initialize auth system if needed
+                if (!window.TYGAuth) {
+                    window.TYGAuth = {
+                        users: [],
+                        getCurrentUser: function() {
+                            const userData = localStorage.getItem('currentUser');
+                            return userData ? JSON.parse(userData) : null;
+                        }
+                    };
+                }
+                
+                // Create a simple test user
+                const testUser = {
+                    id: 'test_user_' + Date.now(),
+                    email: 'test@genius.com',
+                    fullName: 'Test User',
+                    accountType: 'premium',
+                    joinDate: new Date().toISOString(),
+                    iqScore: 125,
+                    academyProgress: {
+                        completedWeeks: []
+                    }
+                };
+                
+                // Save the user
+                window.TYGAuth.users = [testUser];
+                localStorage.setItem('currentUser', JSON.stringify(testUser));
+                localStorage.setItem('users', JSON.stringify(window.TYGAuth.users));
+                
+                status.innerHTML = '✅ Test user created successfully!<br>Redirecting to dashboard...';
+                
+                // Redirect to dashboard
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+                
+            } catch (error) {
+                console.error('Error creating test user:', error);
+                status.innerHTML = '❌ Error: ' + error.message;
+            }
+        }
+        
+        function clearAllData() {
+            localStorage.clear();
+            sessionStorage.clear();
+            document.getElementById('status').innerHTML = '🧹 All data cleared!';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Auth Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #0a0e27; color: white; }
+        .test-area { background: rgba(255,255,255,0.1); padding: 20px; margin: 20px 0; border-radius: 12px; }
+        button { background: #64D4FF; color: white; border: none; padding: 12px 24px; border-radius: 8px; margin: 10px; cursor: pointer; }
+        input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 10px; border-radius: 8px; margin: 5px; }
+        .user-info { background: rgba(100, 212, 255, 0.1); padding: 15px; border-radius: 8px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Quick Auth & Z-Index Test</h1>
+    
+    <div class="test-area">
+        <h2>Test 1: Register New User</h2>
+        <input type="text" id="firstName" placeholder="First Name" value="John">
+        <input type="text" id="lastName" placeholder="Last Name" value="Smith">
+        <input type="email" id="email" placeholder="Email" value="john.smith@test.com">
+        <input type="password" id="password" placeholder="Password" value="Test123!">
+        <br>
+        <button onclick="testRegister()">Register & Check Name</button>
+        <div id="result" class="user-info" style="display:none;"></div>
+    </div>
+    
+    <div class="test-area">
+        <h2>Test 2: Modal Z-Index</h2>
+        <p>These buttons should be clickable when modal is hidden:</p>
+        <button onclick="showModal()">Show Auth Modal</button>
+        <button onclick="hideModal()">Hide Auth Modal</button>
+        <button onclick="testClickability()">Test Button Clicks</button>
+        <div id="click-test">Clicks: 0</div>
+    </div>
+    
+    <div class="test-area">
+        <h2>Current User Display</h2>
+        <div class="user-info">
+            <strong>Name:</strong> <span data-user-name>No user logged in</span><br>
+            <strong>Email:</strong> <span data-user-email>No email</span>
+        </div>
+        <button onclick="updateDisplay()">Update Display</button>
+        <button onclick="clearUser()">Clear User</button>
+    </div>
+    
+    <!-- Include auth system -->
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/auth-ui.js"></script>
+    
+    <script>
+        let clickCount = 0;
+        
+        function testRegister() {
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                // Clear existing user first
+                localStorage.removeItem('tyg_users');
+                localStorage.removeItem('tyg_currentUser');
+                
+                // Register new user
+                const user = window.TYGAuth.register({
+                    firstName, lastName, email, password
+                });
+                
+                // Display result
+                const result = document.getElementById('result');
+                result.style.display = 'block';
+                result.innerHTML = `
+                    <strong>✅ Registration Successful!</strong><br>
+                    <strong>Full Name:</strong> ${user.fullName}<br>
+                    <strong>First Name:</strong> ${user.firstName}<br>
+                    <strong>Last Name:</strong> ${user.lastName}<br>
+                    <strong>Email:</strong> ${user.email}
+                `;
+                
+                // Update display elements
+                updateDisplay();
+                
+            } catch (error) {
+                const result = document.getElementById('result');
+                result.style.display = 'block';
+                result.innerHTML = `<strong>❌ Error:</strong> ${error.message}`;
+            }
+        }
+        
+        function showModal() {
+            showAuthModal('login');
+        }
+        
+        function hideModal() {
+            closeAuthModal();
+        }
+        
+        function testClickability() {
+            clickCount++;
+            document.getElementById('click-test').textContent = `Clicks: ${clickCount}`;
+        }
+        
+        function updateDisplay() {
+            const user = window.TYGAuth?.getCurrentUser();
+            if (user && typeof updateUserContent === 'function') {
+                updateUserContent(user);
+            } else if (user) {
+                // Manual update
+                document.querySelectorAll('[data-user-name]').forEach(el => {
+                    el.textContent = user.fullName;
+                });
+                document.querySelectorAll('[data-user-email]').forEach(el => {
+                    el.textContent = user.email;
+                });
+            }
+        }
+        
+        function clearUser() {
+            localStorage.removeItem('tyg_users');
+            localStorage.removeItem('tyg_currentUser');
+            document.querySelectorAll('[data-user-name]').forEach(el => {
+                el.textContent = 'No user logged in';
+            });
+            document.querySelectorAll('[data-user-email]').forEach(el => {
+                el.textContent = 'No email';
+            });
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDisplay();
+        });
+    </script>
+</body>
+</html>

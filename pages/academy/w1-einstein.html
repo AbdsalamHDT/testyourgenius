@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 1: Think Differently with Einstein - Test Your Genius Academy</title>
+    <meta name="description" content="Master creative problem-solving and thought experiments with Albert Einstein as your mentor. Week 1 of the Test Your Genius Elite Academy program.">
+    <style>
+        /* ===== CSS Variables & Reset ===== */
+        :root {
+            --bg-1: #070B1A;
+            --bg-2: #0E1A3A;
+            --ink: #EAF2FF;
+            --accent: #64D4FF;
+            --gold: #F4D37E;
+            --green: #10B981;
+            --red: #EF4444;
+            
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-7: 3rem;
+            --space-8: 4rem;
+            
+            --font-stack: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-stack);
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+            color: var(--ink);
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+        
+        /* ===== Noise Overlay ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.03;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255,255,255,0.1) 2px,
+                    rgba(255,255,255,0.1) 4px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255,255,255,0.1) 2px,
+                    rgba(255,255,255,0.1) 4px
+                );
+        }
+        
+        /* ===== Animated Background ===== */
+        .hero__bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 50%, #1a0b2e 100%);
+            animation: gradientShift 8s ease-in-out infinite alternate;
+        }
+        
+        @keyframes gradientShift {
+            0% { background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 50%, #1a0b2e 100%); }
+            100% { background: linear-gradient(225deg, #0a0f2a 0%, var(--bg-2) 50%, var(--bg-1) 100%); }
+        }
+        
+        /* ===== Starfield ===== */
+        .starfield {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(1px 1px at 20px 30px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 40px 70px, rgba(100,212,255,0.6), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(244,211,126,0.5), transparent),
+                radial-gradient(1px 1px at 160px 30px, rgba(255,255,255,0.7), transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: twinkle 4s ease-in-out infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.8; }
+        }
+        
+        /* ===== Typography ===== */
+        h1, h2, h3 {
+            font-weight: bold;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+        
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+        h3 { font-size: clamp(1.2rem, 3vw, 1.5rem); }
+        
+        p { font-size: clamp(1rem, 2vw, 1.125rem); }
+        
+        /* ===== Glassmorphism Components ===== */
+        .glass {
+            background: rgba(234, 242, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(234, 242, 255, 0.1);
+            border-radius: 16px;
+        }
+        
+        .glass-strong {
+            background: rgba(234, 242, 255, 0.08);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(234, 242, 255, 0.15);
+            border-radius: 20px;
+        }
+        
+        /* ===== Buttons (Homepage Style) ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-4) var(--space-6);
+            border: none;
+            border-radius: 12px;
+            font-family: var(--font-stack);
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            gap: var(--space-2);
+        }
+        
+        .btn--primary {
+            background: linear-gradient(135deg, var(--accent) 0%, #4facfe 100%);
+            color: var(--bg-1);
+            box-shadow: 0 8px 32px rgba(100, 212, 255, 0.3);
+        }
+        
+        .btn--secondary {
+            background: rgba(234, 242, 255, 0.1);
+            color: var(--ink);
+            border: 2px solid rgba(234, 242, 255, 0.2);
+        }
+        
+        .btn--gold {
+            background: linear-gradient(135deg, var(--gold) 0%, #f7d060 100%);
+            color: var(--bg-1);
+            box-shadow: 0 8px 32px rgba(244, 211, 126, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px) scale(1.02);
+        }
+        
+        .btn--primary:hover {
+            box-shadow: 0 12px 40px rgba(100, 212, 255, 0.4);
+        }
+        
+        .btn--secondary:hover {
+            background: rgba(234, 242, 255, 0.15);
+            border-color: var(--accent);
+        }
+        
+        .btn--gold:hover {
+            box-shadow: 0 12px 40px rgba(244, 211, 126, 0.4);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        /* ===== Reveal Animation ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* ===== Hero Section (Redesigned with Homepage Beauty) ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: var(--space-8) var(--space-4);
+        }
+        
+        .hero__container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-8);
+            align-items: center;
+            position: relative;
+            z-index: 3;
+        }
+        
+        .hero__content {
+            padding: var(--space-6);
+        }
+        
+        .hero__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: rgba(244, 211, 126, 0.1);
+            border: 1px solid rgba(244, 211, 126, 0.3);
+            border-radius: 50px;
+            padding: var(--space-2) var(--space-4);
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-bottom: var(--space-5);
+            font-weight: 600;
+        }
+        
+        .hero__title {
+            margin-bottom: var(--space-4);
+            background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 50%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+        
+        .hero__subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: rgba(234, 242, 255, 0.8);
+            margin-bottom: var(--space-6);
+            line-height: 1.5;
+        }
+        
+        .hero__actions {
+            display: flex;
+            gap: var(--space-4);
+            flex-wrap: wrap;
+        }
+        
+        .play-video-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            font-size: 1.1rem;
+        }
+        
+        .play-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent) 0%, #4facfe 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-1);
+            font-size: 24px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(100, 212, 255, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(100, 212, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(100, 212, 255, 0); }
+        }
+        
+        /* ===== Einstein Portrait (Styled like Homepage Mentors) ===== */
+        .einstein-portrait {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .portrait-container {
+            position: relative;
+            width: 400px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(244, 211, 126, 0.1) 0%, rgba(100, 212, 255, 0.05) 100%);
+            border-radius: 30px;
+            border: 2px solid rgba(244, 211, 126, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+        
+        .portrait-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--gold), var(--accent), var(--gold));
+            border-radius: 32px;
+            z-index: -1;
+            animation: rotate 4s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .portrait-placeholder {
+            text-align: center;
+            color: var(--accent);
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        
+        .thinking-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: thinking 3s ease-in-out infinite;
+        }
+        
+        .particle:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { top: 30%; right: 15%; animation-delay: 0.5s; }
+        .particle:nth-child(3) { bottom: 40%; left: 20%; animation-delay: 1s; }
+        .particle:nth-child(4) { bottom: 25%; right: 10%; animation-delay: 1.5s; }
+        
+        @keyframes thinking {
+            0%, 100% { opacity: 0; transform: translateY(0px) scale(1); }
+            50% { opacity: 1; transform: translateY(-30px) scale(1.5); }
+        }
+        
+        /* ===== Container ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* ===== Sections ===== */
+        .section {
+            padding: var(--space-8) 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section__header {
+            text-align: center;
+            margin-bottom: var(--space-7);
+        }
+        
+        .section__title {
+            margin-bottom: var(--space-3);
+            background: linear-gradient(135deg, var(--ink) 0%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* ===== Einstein's Message ===== */
+        .einstein-message {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-8);
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .einstein-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(244, 211, 126, 0.1) 0%, rgba(100, 212, 255, 0.05) 100%);
+            z-index: -1;
+        }
+        
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+        
+        .einstein-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(244, 211, 126, 0.2) 0%, rgba(100, 212, 255, 0.1) 100%);
+            border-radius: 50%;
+            border: 3px solid rgba(244, 211, 126, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+        
+        .message-info h3 {
+            color: var(--gold);
+            margin-bottom: var(--space-1);
+        }
+        
+        .message-info p {
+            color: rgba(234, 242, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        .message-content {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: var(--space-6);
+            color: rgba(234, 242, 255, 0.9);
+        }
+        
+        .famous-quote {
+            background: linear-gradient(135deg, rgba(244, 211, 126, 0.15) 0%, rgba(100, 212, 255, 0.1) 100%);
+            border-left: 4px solid var(--gold);
+            padding: var(--space-6);
+            border-radius: 0 20px 20px 0;
+            font-size: 1.3rem;
+            font-style: italic;
+            text-align: center;
+            margin: var(--space-6) 0;
+            position: relative;
+        }
+        
+        .famous-quote::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--gold);
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            opacity: 0.3;
+        }
+        
+        .quote-author {
+            font-size: 1rem;
+            color: var(--gold);
+            margin-top: var(--space-3);
+            font-weight: 600;
+        }
+        
+        /* ===== Weekly Mission Cards (With Homepage Hover Effects) ===== */
+        .mission-overview {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+        
+        .mission-theme {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: rgba(100, 212, 255, 0.1);
+            border: 1px solid rgba(100, 212, 255, 0.3);
+            border-radius: 50px;
+            padding: var(--space-3) var(--space-5);
+            font-size: 1rem;
+            color: var(--accent);
+            margin-bottom: var(--space-4);
+            font-weight: 600;
+        }
+        
+        .mission-description {
+            font-size: 1.1rem;
+            color: rgba(234, 242, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .missions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+        
+        .mission-card {
+            padding: var(--space-6);
+            border-radius: 24px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(234, 242, 255, 0.1);
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+        }
+        
+        .mission-card:hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: sweep 0.8s ease-in-out;
+        }
+        
+        @keyframes sweep {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .mission-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: var(--space-4);
+            box-shadow: 0 8px 32px rgba(100, 212, 255, 0.2);
+        }
+        
+        .mission-card h3 {
+            margin-bottom: var(--space-3);
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+        
+        .mission-card p {
+            color: rgba(234, 242, 255, 0.8);
+            margin-bottom: var(--space-5);
+            line-height: 1.6;
+        }
+        
+        .mission-status {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: 0.9rem;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(234, 242, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .status-dot.completed {
+            background: var(--green);
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+        }
+        
+        .progress-percent {
+            font-size: 0.8rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        /* ===== Genius Lab Challenge ===== */
+        .genius-lab {
+            background: linear-gradient(135deg, rgba(244, 211, 126, 0.05) 0%, rgba(100, 212, 255, 0.05) 100%);
+            border-radius: 30px;
+            padding: var(--space-8);
+            margin: var(--space-8) 0;
+            border: 1px solid rgba(244, 211, 126, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .lab-header {
+            text-align: center;
+            margin-bottom: var(--space-6);
+        }
+        
+        .lab-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: rgba(244, 211, 126, 0.2);
+            border: 1px solid rgba(244, 211, 126, 0.4);
+            border-radius: 50px;
+            padding: var(--space-2) var(--space-4);
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-bottom: var(--space-4);
+            font-weight: 600;
+        }
+        
+        .experiment-setup {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .thought-experiment {
+            background: rgba(234, 242, 255, 0.03);
+            border: 2px dashed rgba(234, 242, 255, 0.2);
+            border-radius: 20px;
+            padding: var(--space-6);
+            margin: var(--space-6) 0;
+        }
+        
+        .experiment-objects {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--space-8);
+            margin: var(--space-6) 0;
+        }
+        
+        .experiment-object {
+            width: 120px;
+            height: 120px;
+            background: rgba(234, 242, 255, 0.05);
+            border: 2px solid rgba(234, 242, 255, 0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            transition: all 0.3s ease;
+            animation: levitate 3s ease-in-out infinite;
+        }
+        
+        .experiment-object:nth-child(1) { animation-delay: 0s; }
+        .experiment-object:nth-child(3) { animation-delay: 1s; }
+        
+        @keyframes levitate {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .plus-symbol {
+            font-size: 2rem;
+            color: var(--accent);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px var(--accent); }
+            100% { text-shadow: 0 0 20px var(--accent), 0 0 30px var(--accent); }
+        }
+        
+        .solution-input {
+            width: 100%;
+            max-width: 600px;
+            margin: var(--space-6) auto;
+            padding: var(--space-5);
+            background: rgba(234, 242, 255, 0.03);
+            border: 2px solid rgba(234, 242, 255, 0.1);
+            border-radius: 16px;
+            color: var(--ink);
+            font-family: var(--font-stack);
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 140px;
+            transition: all 0.3s ease;
+        }
+        
+        .solution-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(234, 242, 255, 0.05);
+            box-shadow: 0 0 20px rgba(100, 212, 255, 0.2);
+        }
+        
+        .solution-input::placeholder {
+            color: rgba(234, 242, 255, 0.5);
+            font-style: italic;
+        }
+        
+        /* ===== Progress Dashboard (With Homepage Shimmer Effects) ===== */
+        .progress-dashboard {
+            background: linear-gradient(135deg, rgba(100, 212, 255, 0.05) 0%, rgba(244, 211, 126, 0.05) 100%);
+            border-radius: 30px;
+            padding: var(--space-8);
+            margin: var(--space-8) 0;
+            border: 1px solid rgba(100, 212, 255, 0.2);
+        }
+        
+        .progress-header {
+            text-align: center;
+            margin-bottom: var(--space-7);
+        }
+        
+        .academy-progress {
+            max-width: 800px;
+            margin: 0 auto var(--space-7);
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background: rgba(234, 242, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            margin: var(--space-4) 0;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--gold) 100%);
+            border-radius: 6px;
+            transition: width 1s ease;
+            width: 16.67%; /* Week 1 of 6 */
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: progressShimmer 2s infinite;
+        }
+        
+        @keyframes progressShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .week-markers {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: rgba(234, 242, 255, 0.7);
+            margin-top: var(--space-2);
+        }
+        
+        .week-marker.active {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .achievement-showcase {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-6);
+            margin-top: var(--space-6);
+        }
+        
+        .achievement-badge {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+        
+        .achievement-badge.locked {
+            background: rgba(234, 242, 255, 0.1);
+            border: 2px solid rgba(234, 242, 255, 0.2);
+            opacity: 0.4;
+        }
+        
+        .achievement-badge.unlocked {
+            background: linear-gradient(135deg, var(--gold) 0%, #f7d060 100%);
+            box-shadow: 0 12px 40px rgba(244, 211, 126, 0.4);
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .badge-label {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            text-align: center;
+            white-space: nowrap;
+        }
+        
+        /* ===== Navigation ===== */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
+            gap: var(--space-4);
+            padding: var(--space-6) 0;
+        }
+        
+        /* ===== Video Modal ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--bg-2);
+            border-radius: 24px;
+            padding: var(--space-8);
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+            border: 1px solid rgba(234, 242, 255, 0.2);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: var(--space-4);
+            right: var(--space-4);
+            background: rgba(234, 242, 255, 0.1);
+            border: none;
+            color: var(--ink);
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background: rgba(234, 242, 255, 0.2);
+        }
+        
+        /* ===== Responsive Design ===== */
+        @media (max-width: 968px) {
+            .hero__container {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+                text-align: center;
+            }
+            
+            .portrait-container {
+                width: 300px;
+                height: 400px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .missions-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-5);
+            }
+            
+            .experiment-objects {
+                flex-direction: column;
+                gap: var(--space-4);
+            }
+            
+            .navigation {
+                flex-direction: column;
+            }
+            
+            .achievement-showcase {
+                flex-wrap: wrap;
+                gap: var(--space-4);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container, .hero {
+                padding-left: var(--space-3);
+                padding-right: var(--space-3);
+            }
+            
+            .section {
+                padding: var(--space-6) 0;
+            }
+            
+            .einstein-message,
+            .genius-lab,
+            .progress-dashboard {
+                padding: var(--space-6);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero__bg"></div>
+        <div class="starfield"></div>
+        
+        <div class="hero__container reveal">
+            <div class="hero__content">
+                <div class="hero__badge">
+                    <span>⚡</span>
+                    Week 1 • Genius Academy
+                </div>
+                
+                <h1 class="hero__title">Think Differently with Einstein</h1>
+                <p class="hero__subtitle">Master the art of creative problem-solving through thought experiments that revolutionized science. Learn to see beyond the obvious and unlock breakthrough insights.</p>
+                
+                <div class="hero__actions">
+                    <button class="btn btn--primary play-video-btn" onclick="openVideoModal()">
+                        <div class="play-icon">▶</div>
+                        Watch Einstein's Welcome
+                    </button>
+                    <button class="btn btn--secondary" onclick="scrollToMissions()">
+                        Start Your Journey
+                    </button>
+                </div>
+            </div>
+            
+            <div class="einstein-portrait">
+                <div class="portrait-container">
+                    <div class="portrait-placeholder">
+                        <strong>Einstein 3D Character</strong><br>
+                        <small>Animated portrait with<br>thinking expressions</small>
+                    </div>
+                    <div class="thinking-particles">
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Einstein's Personal Message -->
+    <section class="section">
+        <div class="container">
+            <div class="einstein-message glass-strong reveal">
+                <div class="message-header">
+                    <div class="einstein-avatar">🧠</div>
+                    <div class="message-info">
+                        <h3>Albert Einstein</h3>
+                        <p>Your Creativity Mentor • Week 1</p>
+                    </div>
+                </div>
+                
+                <div class="message-content">
+                    Welcome, my curious student! This week, we embark on a remarkable journey to unlock your creative genius. In my years of scientific exploration, I discovered that the most profound breakthroughs emerge not from memorizing facts, but from daring to question everything.
+                    <br><br>
+                    You will learn the power of thought experiments—the same mental tools that led me to discover relativity. We'll explore how to break free from conventional thinking and see possibilities where others see only problems. Remember, it's not that I'm so smart, but rather that I stay with questions longer.
+                    <br><br>
+                    <strong>This week's mission:</strong> Transform how you approach problems by embracing the art of "what if" thinking.
+                </div>
+                
+                <div class="famous-quote">
+                    Imagination is more important than knowledge. Knowledge is limited, imagination embraces the entire world.
+                    <div class="quote-author">— Albert Einstein</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weekly Mission -->
+    <section class="section">
+        <div class="container">
+            <div class="section__header reveal">
+                <h2 class="section__title">Your Creative Breakthrough Mission</h2>
+            </div>
+            
+            <div class="mission-overview reveal">
+                <div class="mission-theme">
+                    🧬 Breaking Mental Barriers
+                </div>
+                <p class="mission-description">
+                    This week focuses on developing your ability to think beyond conventional boundaries. You'll master Einstein's methods for creative problem-solving and apply them to unlock breakthrough insights.
+                </p>
+            </div>
+            
+            <div class="missions-grid">
+                <div class="mission-card glass reveal" onclick="toggleMission('read')">
+                    <div class="mission-icon">📚</div>
+                    <h3>Deep Dive: Creative Thinking</h3>
+                    <p>Explore Einstein's revolutionary approach to breaking assumptions with our curated collection of mind-expanding articles and thought experiments.</p>
+                    <div class="mission-status">
+                        <div class="status-indicator">
+                            <div class="status-dot" id="read-progress"></div>
+                            <span id="read-status">Ready to Begin</span>
+                        </div>
+                        <div class="progress-percent" id="read-percent">0%</div>
+                    </div>
+                </div>
+                
+                <div class="mission-card glass reveal" onclick="toggleMission('practice')">
+                    <div class="mission-icon">🧪</div>
+                    <h3>Laboratory: Thought Experiments</h3>
+                    <p>Engage in Einstein's famous thought experiments that revolutionized physics. Learn to visualize complex problems and find elegant solutions.</p>
+                    <div class="mission-status">
+                        <div class="status-indicator">
+                            <div class="status-dot" id="practice-progress"></div>
+                            <span id="practice-status">Ready to Begin</span>
+                        </div>
+                        <div class="progress-percent" id="practice-percent">0%</div>
+                    </div>
+                </div>
+                
+                <div class="mission-card glass reveal" onclick="toggleMission('apply')">
+                    <div class="mission-icon">🚀</div>
+                    <h3>Innovation Challenge</h3>
+                    <p>Apply your newfound creative thinking skills to solve a real-world challenge. Share your breakthrough idea with the genius community.</p>
+                    <div class="mission-status">
+                        <div class="status-indicator">
+                            <div class="status-dot" id="apply-progress"></div>
+                            <span id="apply-status">Ready to Begin</span>
+                        </div>
+                        <div class="progress-percent" id="apply-percent">0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Genius Lab Challenge -->
+    <section class="section">
+        <div class="container">
+            <div class="genius-lab reveal">
+                <div class="lab-header">
+                    <div class="lab-badge">
+                        🔬 Einstein's Genius Lab
+                    </div>
+                    <h2 class="section__title">Creative Fusion Challenge</h2>
+                    <p>Think like Einstein: What revolutionary solution emerges when you combine these seemingly unrelated elements?</p>
+                </div>
+                
+                <div class="experiment-setup">
+                    <div class="thought-experiment">
+                        <h3>The Challenge:</h3>
+                        <p>Using Einstein's approach to creative thinking, imagine how you could combine these objects to solve a pressing global challenge:</p>
+                        
+                        <div class="experiment-objects">
+                            <div class="experiment-object">📱</div>
+                            <div class="plus-symbol">+</div>
+                            <div class="experiment-object">🌱</div>
+                        </div>
+                        
+                        <p><strong>Your Mission:</strong> Create an innovative solution that combines smartphone technology with living plants to address environmental, health, or social challenges.</p>
+                    </div>
+                    
+                    <textarea 
+                        class="solution-input" 
+                        placeholder="Think beyond the obvious... What if smartphones could communicate with plants? What if plants could enhance smartphone capabilities? Let your imagination soar and describe your breakthrough idea here..."
+                        id="genius-solution"
+                        oninput="saveSolution()"
+                    ></textarea>
+                    
+                    <button class="btn btn--gold" onclick="submitSolution()">
+                        💡 Submit Your Breakthrough
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Dashboard -->
+    <section class="section">
+        <div class="container">
+            <div class="progress-dashboard reveal">
+                <div class="progress-header">
+                    <h2 class="section__title">Your Genius Journey</h2>
+                    <p>Track your transformation from curious learner to creative genius</p>
+                </div>
+                
+                <div class="academy-progress">
+                    <h3>Academy Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="week-markers">
+                        <span class="week-marker active">Week 1</span>
+                        <span class="week-marker">Week 2</span>
+                        <span class="week-marker">Week 3</span>
+                        <span class="week-marker">Week 4</span>
+                        <span class="week-marker">Week 5</span>
+                        <span class="week-marker">Week 6</span>
+                    </div>
+                </div>
+                
+                <div class="achievement-showcase">
+                    <div class="achievement-badge locked" id="creativity-badge">
+                        🎨
+                        <div class="badge-label">Creative<br>Thinker</div>
+                    </div>
+                    <div class="achievement-badge locked" id="innovator-badge">
+                        💡
+                        <div class="badge-label">Problem<br>Solver</div>
+                    </div>
+                    <div class="achievement-badge locked" id="einstein-badge">
+                        🏆
+                        <div class="badge-label">Einstein<br>Disciple</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation -->
+    <section class="section">
+        <div class="container">
+            <div class="navigation reveal">
+                <a href="../../academy-homepage.html" class="btn btn--secondary">
+                    ← Academy Home
+                </a>
+                
+                <button class="btn btn--primary" id="next-week-btn" disabled onclick="goToNextWeek()">
+                    Week 2: Steve Jobs →
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Modal -->
+    <div class="modal" id="video-modal">
+        <div class="modal-content glass-strong">
+            <button class="modal-close" onclick="closeVideoModal()">×</button>
+            <h3 style="text-align: center; margin-bottom: var(--space-4); color: var(--gold);">Einstein's Personal Welcome</h3>
+            <div style="text-align: center; padding: var(--space-8); color: rgba(234, 242, 255, 0.8);">
+                <div style="font-size: 4rem; margin-bottom: var(--space-4);">🎬</div>
+                <p><strong>Veo3-Generated Welcome Video</strong></p>
+                <p style="margin: var(--space-4) 0;">Einstein introduces you to the world of creative thinking and explains how thought experiments revolutionized science.</p>
+                <p style="font-style: italic; color: var(--accent);">Video content will be embedded here</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== State Management =====
+        let missionProgress = {
+            read: false,
+            practice: false,
+            apply: false
+        };
+        
+        let solutionSubmitted = false;
+        let progressPercentages = { read: 0, practice: 0, apply: 0 };
+        
+        // ===== Initialize Page =====
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProgress();
+            updateProgressDisplay();
+            initializeRevealAnimation();
+        });
+        
+        // ===== Load/Save Progress =====
+        function loadProgress() {
+            const saved = localStorage.getItem('einstein-week1-progress');
+            if (saved) {
+                const data = JSON.parse(saved);
+                missionProgress = data.missionProgress || missionProgress;
+                solutionSubmitted = data.solutionSubmitted || false;
+                progressPercentages = data.progressPercentages || progressPercentages;
+                
+                // Load solution
+                const solution = localStorage.getItem('einstein-genius-solution');
+                if (solution) {
+                    document.getElementById('genius-solution').value = solution;
+                }
+            }
+        }
+        
+        function saveProgress() {
+            const data = {
+                missionProgress,
+                solutionSubmitted,
+                progressPercentages,
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('einstein-week1-progress', JSON.stringify(data));
+        }
+        
+        // ===== Mission Management =====
+        function toggleMission(mission) {
+            missionProgress[mission] = !missionProgress[mission];
+            progressPercentages[mission] = missionProgress[mission] ? 100 : 0;
+            saveProgress();
+            updateProgressDisplay();
+        }
+        
+        function updateProgressDisplay() {
+            // Update mission cards
+            Object.keys(missionProgress).forEach(mission => {
+                const dot = document.getElementById(`${mission}-progress`);
+                const status = document.getElementById(`${mission}-status`);
+                const percent = document.getElementById(`${mission}-percent`);
+                
+                if (missionProgress[mission]) {
+                    dot.classList.add('completed');
+                    status.textContent = 'Completed';
+                    percent.textContent = '100%';
+                } else {
+                    dot.classList.remove('completed');
+                    status.textContent = 'Ready to Begin';
+                    percent.textContent = '0%';
+                }
+            });
+            
+            // Check completion and update badges
+            const allMissionsComplete = Object.values(missionProgress).every(completed => completed);
+            const weekCompleted = allMissionsComplete && solutionSubmitted;
+            
+            updateBadges(allMissionsComplete, solutionSubmitted, weekCompleted);
+            
+            // Update next week button
+            const nextBtn = document.getElementById('next-week-btn');
+            nextBtn.disabled = !weekCompleted;
+            
+            if (weekCompleted) {
+                // Save global progress
+                const globalProgress = JSON.parse(localStorage.getItem('academy-progress') || '{}');
+                globalProgress.week1Completed = true;
+                localStorage.setItem('academy-progress', JSON.stringify(globalProgress));
+            }
+        }
+        
+        function updateBadges(missions, solution, complete) {
+            const creativityBadge = document.getElementById('creativity-badge');
+            const innovatorBadge = document.getElementById('innovator-badge');
+            const einsteinBadge = document.getElementById('einstein-badge');
+            
+            // Creative Thinker badge
+            if (missionProgress.read || missionProgress.practice) {
+                creativityBadge.classList.remove('locked');
+                creativityBadge.classList.add('unlocked');
+            }
+            
+            // Problem Solver badge
+            if (solution) {
+                innovatorBadge.classList.remove('locked');
+                innovatorBadge.classList.add('unlocked');
+            }
+            
+            // Einstein Disciple badge
+            if (complete) {
+                einsteinBadge.classList.remove('locked');
+                einsteinBadge.classList.add('unlocked');
+            }
+        }
+        
+        // ===== Solution Management =====
+        function saveSolution() {
+            const solution = document.getElementById('genius-solution').value;
+            localStorage.setItem('einstein-genius-solution', solution);
+        }
+        
+        function submitSolution() {
+            const solution = document.getElementById('genius-solution').value.trim();
+            
+            if (solution.length < 100) {
+                alert('Think deeper! Einstein would want at least 100 characters describing your breakthrough idea. Let your imagination soar!');
+                return;
+            }
+            
+            solutionSubmitted = true;
+            saveProgress();
+            updateProgressDisplay();
+            
+            alert('🎉 Brilliant! Your innovative solution has been submitted to the Genius Lab. Einstein would be proud of your creative thinking!');
+        }
+        
+        // ===== Modal Management =====
+        function openVideoModal() {
+            document.getElementById('video-modal').classList.add('active');
+        }
+        
+        function closeVideoModal() {
+            document.getElementById('video-modal').classList.remove('active');
+        }
+        
+        // ===== Navigation =====
+        function goToNextWeek() {
+            window.location.href = 'week2-lesson.html';
+        }
+        
+        function scrollToMissions() {
+            document.querySelector('.missions-grid').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+        
+        // ===== Reveal Animation =====
+        function initializeRevealAnimation() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            reveals.forEach(reveal => {
+                observer.observe(reveal);
+            });
+        }
+        
+        // ===== Event Listeners =====
+        document.getElementById('video-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeVideoModal();
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeVideoModal();
+            }
+        });
+    </script>
+</body>
+</html>

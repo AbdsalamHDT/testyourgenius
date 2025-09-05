@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Your Genius - Discover Your True IQ | Official Cognitive Assessment</title>
+    <meta name="description" content="Take our comprehensive IQ test and unlock detailed insights about your cognitive abilities. Join thousands who've discovered their intellectual potential.">
+    <meta name="keywords" content="IQ test, intelligence quotient, cognitive assessment, brain training, mental abilities">
+    <meta name="author" content="Test Your Genius">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Test Your Genius - Discover Your True IQ">
+    <meta property="og:description" content="Take our comprehensive IQ test and discover your true intellectual potential with detailed cognitive analysis.">
+    <meta property="og:image" content="assets/images/og-image.jpg">
+    <meta property="og:url" content="https://testyourgenius.com">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Test Your Genius - Discover Your True IQ">
+    <meta name="twitter:description" content="Take our comprehensive IQ test and get detailed cognitive analysis.">
+    <meta name="twitter:image" content="assets/images/twitter-card.jpg">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="assets/css/homepage.css" as="style">
+    <link rel="preload" href="assets/js/homepage.js" as="script">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/homepage.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Test Your Genius",
+        "url": "https://testyourgenius.com",
+        "description": "Comprehensive IQ testing platform with detailed cognitive analysis",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+        <div class="navbar__container">
+            <a href="#" class="navbar__brand" aria-label="Test Your Genius Homepage">
+                <div class="navbar__logo"></div>
+                Test Your Genius
+            </a>
+            
+            <div class="navbar__right">
+                <ul class="navbar__menu" id="navbar-menu" role="menubar">
+                    <li class="navbar__menu-item">
+                        <a href="#how-it-works" class="navbar__menu-link" role="menuitem">How It Works</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="#mentors" class="navbar__menu-link" role="menuitem">Academy</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="leaderboard.html" class="navbar__menu-link" role="menuitem">Leaderboard</a>
+                    </li>
+                </ul>
+                
+                <!-- Authentication Section -->
+                <div class="navbar__auth">
+                    <!-- Login Button (shown when not authenticated) -->
+                    <button class="auth-button auth-button--primary" onclick="showAuthModal()">
+                        Sign In
+                    </button>
+                    
+                    <!-- User Menu (shown when authenticated) -->
+                    <div class="user-menu hidden" id="user-menu">
+                        <button class="user-menu-trigger" onclick="window.TYGAuth?.toggleUserMenu?.()">
+                            <div class="user-avatar">
+                                <span id="user-avatar-text">U</span>
+                            </div>
+                        </button>
+                        
+                        <div class="user-menu-dropdown">
+                            <div class="user-info">
+                                <div class="user-name" id="user-display-name">User Name</div>
+                                <div class="user-email" id="user-display-email">user@email.com</div>
+                            </div>
+                            
+                            <a href="dashboard.html" class="user-menu-item">
+                                <span class="menu-icon">📊</span>
+                                Dashboard
+                            </a>
+                            
+                            <a href="pages/results.html" class="user-menu-item">
+                                <span class="menu-icon">🧠</span>
+                                My Results
+                            </a>
+                            
+                            <a href="academy-homepage.html" class="user-menu-item">
+                                <span class="menu-icon">🎓</span>
+                                Academy
+                            </a>
+                            
+                            <a href="leaderboard.html" class="user-menu-item">
+                                <span class="menu-icon">🏆</span>
+                                Leaderboard
+                            </a>
+                            
+                            <div class="user-menu-divider"></div>
+                            
+                            <a href="pages/settings.html" class="user-menu-item">
+                                <span class="menu-icon">⚙️</span>
+                                Settings
+                            </a>
+                            
+                            <button class="user-menu-item logout-button" onclick="window.TYGAuth?.logout?.()">
+                                <span class="menu-icon">🚪</span>
+                                Sign Out
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="navbar__toggle" id="navbar-toggle" aria-label="Toggle mobile menu">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero" role="banner">
+        <div class="hero__bg"></div>
+        <div class="starfield"></div>
+        <div class="hero__spotlight"></div>
+        
+        <!-- 3D Characters -->
+        <div class="character character--einstein" data-speed="0.3">
+            <img src="assets/images/characters/Einstein.png" alt="Albert Einstein" loading="lazy">
+        </div>
+        <div class="character character--jobs" data-speed="0.5">
+            <img src="assets/images/characters/Steve.png" alt="Steve Jobs" loading="lazy">
+        </div>
+        <div class="character character--davinci" data-speed="0.4">
+            <img src="assets/images/characters/DaVinci.png" alt="Leonardo da Vinci" loading="lazy">
+        </div>
+        
+        <div class="hero__content">
+            <h1 class="hero__title">
+                Discover Your Unique 
+                <span class="gradient-text">Genius Profile</span>
+            </h1>
+            <p class="hero__subtitle">
+                Start with our IQ test and unlock a complete analysis of your intellectual brilliance. 
+                Discover not just how smart you are, but what type of genius you truly possess.
+            </p>
+            <div class="hero__cta">
+                <button class="btn btn--primary btn--large" data-action="start-test" aria-label="Start your genius discovery">
+                    🧠 Discover Your Genius
+                </button>
+                <button class="btn btn--secondary" data-action="learn-more" aria-label="Learn more about our features">
+                    Learn More
+                </button>
+            </div>
+            
+            <!-- Hero Stats -->
+            <div class="hero__stats glass">
+                <div class="stat">
+                    <div class="stat__number">50,000+</div>
+                    <div class="stat__label">Tests Completed</div>
+                </div>
+                <div class="stat">
+                    <div class="stat__number">98%</div>
+                    <div class="stat__label">Accuracy Rate</div>
+                </div>
+                <div class="stat">
+                    <div class="stat__number">125+</div>
+                    <div class="stat__label">Countries</div>
+                </div>
+                <div class="stat">
+                    <div class="stat__number">4.9/5</div>
+                    <div class="stat__label">User Rating</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Know Your IQ Section -->
+    <section class="why-iq reveal" id="why-iq">
+        <div class="container">
+            <h2 class="section__title">Why Discover Your Genius Type?</h2>
+            <p class="section__description">
+                Your genius isn't just a number—it's a unique combination of intellectual gifts. Understanding your complete 
+                genius profile helps you leverage your natural strengths and achieve extraordinary results.
+            </p>
+            <div class="benefits-grid">
+                <div class="benefit glass">
+                    <div class="benefit__icon">🎯</div>
+                    <h3 class="benefit__title">Find Your Genius Zone</h3>
+                    <p class="benefit__description">
+                        Identify your dominant genius types—whether logical, creative, social, or spatial—to 
+                        focus your energy where you naturally excel.
+                    </p>
+                </div>
+                <div class="benefit glass">
+                    <div class="benefit__icon">🚀</div>
+                    <h3 class="benefit__title">Accelerate Success</h3>
+                    <p class="benefit__description">
+                        Align your career, learning, and life choices with your genius profile to achieve 
+                        faster progress and greater satisfaction.
+                    </p>
+                </div>
+                <div class="benefit glass">
+                    <div class="benefit__icon">🧩</div>
+                    <h3 class="benefit__title">Solve Complex Challenges</h3>
+                    <p class="benefit__description">
+                        Understand how your unique combination of genius types works together to tackle 
+                        problems others can't solve.
+                    </p>
+                </div>
+                <div class="benefit glass">
+                    <div class="benefit__icon">�</div>
+                    <h3 class="benefit__title">Unlock Hidden Potential</h3>
+                    <p class="benefit__description">
+                        Discover genius dimensions you never knew you had and develop them through 
+                        targeted exercises and mentorship.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories Section -->
+    <section class="success-stories reveal" id="success-stories">
+        <div class="container">
+            <h2 class="section__title">Join Over 50,000 People Who've Discovered Their Genius</h2>
+            <p class="section__description">
+                Real stories from individuals who unlocked their unique genius profiles and transformed their lives.
+            </p>
+            <div class="stories-grid">
+                <div class="story glass">
+                    <div class="story__quote">
+                        "My genius profile revealed I'm a Spatial-Creative genius. This insight led me to architecture 
+                        where I now design award-winning sustainable buildings."
+                    </div>
+                    <div class="story__author">
+                        <div class="story__avatar">👩‍💼</div>
+                        <div class="story__info">
+                            <div class="story__name">Sarah Chen</div>
+                            <div class="story__title">Spatial-Creative Genius • Architect</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="story glass">
+                    <div class="story__quote">
+                        "Discovering I'm a Logical-Analytical genius with high IQ gave me confidence to pivot to AI research. 
+                        Now I'm developing the next generation of machine learning algorithms."
+                    </div>
+                    <div class="story__author">
+                        <div class="story__avatar">👨‍💻</div>
+                        <div class="story__info">
+                            <div class="story__name">Marcus Rodriguez</div>
+                            <div class="story__title">Logical-Analytical Genius • AI Researcher</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="story glass">
+                    <div class="story__quote">
+                        "My Social-Emotional genius profile explained why I connect so well with patients. 
+                        I'm now specializing in pediatric psychology and loving every day."
+                    </div>
+                    <div class="story__author">
+                        <div class="story__avatar">👩‍🎓</div>
+                        <div class="story__info">
+                            <div class="story__name">Emily Watson</div>
+                            <div class="story__title">Social-Emotional Genius • Psychologist</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section__cta">
+                <p class="cta__text">Ready to discover your unique genius combination and unlock your potential?</p>
+                <button class="btn btn--primary" data-action="start-test">
+                    🧠 Discover Your Genius Type
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works reveal" id="how-it-works" role="main">
+        <div class="container">
+            <h2 class="section__title">How It Works</h2>
+            <div class="steps">
+                <div class="step glass">
+                    <div class="step__icon">🎯</div>
+                    <h3 class="step__title">Take the Test</h3>
+                    <p class="step__description">
+                        Complete our scientifically-designed cognitive assessment featuring logic puzzles, 
+                        pattern recognition, and spatial reasoning challenges.
+                    </p>
+                </div>
+                <div class="step glass">
+                    <div class="step__icon">📊</div>
+                    <h3 class="step__title">Get Your Score</h3>
+                    <p class="step__description">
+                        Receive your detailed IQ score with comprehensive analysis of your cognitive strengths 
+                        and areas for improvement across multiple intelligence domains.
+                    </p>
+                </div>
+                <div class="step glass">
+                    <div class="step__icon">🚀</div>
+                    <h3 class="step__title">Unlock Your Potential</h3>
+                    <p class="step__description">
+                        Access personalized recommendations and join our exclusive academy to enhance your 
+                        cognitive abilities with guidance from history's greatest minds.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificate Preview Section -->
+    <section class="certificate-preview reveal" id="certificate">
+        <div class="container">
+            <h2 class="section__title">Get Your Official Genius Profile Certificate</h2>
+            <p class="section__description">
+                Upon completion, receive a beautifully designed certificate that validates your complete genius profile - 
+                not just your IQ, but all dimensions of your intellectual brilliance.
+            </p>
+            
+            <div class="certificate-showcase">
+                <div class="certificate-mockup">
+                    <div class="certificate glass-strong">
+                        <div class="certificate__header">
+                            <div class="certificate__logo">🧠</div>
+                            <h1 class="certificate__title">Test Your Genius</h1>
+                            <p class="certificate__subtitle">Official Genius Profile Certificate</p>
+                        </div>
+                        
+                        <div class="certificate__content">
+                            <div class="certificate__awarded">This is to certify that</div>
+                            <h2 class="certificate__name">[Your Name]</h2>
+                            <div class="certificate__achievement">
+                                has successfully completed our comprehensive genius assessment and achieved a Genius Profile with
+                            </div>
+                            <div class="certificate__score">
+                                <span class="score-value">XXX</span>
+                                <span class="score-classification">IQ Score</span>
+                            </div>
+                            <div class="genius__types">
+                                <div class="genius-grid">
+                                    <div class="genius-type">
+                                        <span class="genius-icon">🎯</span>
+                                        <span class="genius-label">Logical</span>
+                                        <span class="genius-score">XXX</span>
+                                    </div>
+                                    <div class="genius-type">
+                                        <span class="genius-icon">🎨</span>
+                                        <span class="genius-label">Creative</span>
+                                        <span class="genius-score">XXX</span>
+                                    </div>
+                                    <div class="genius-type">
+                                        <span class="genius-icon">👥</span>
+                                        <span class="genius-label">Social</span>
+                                        <span class="genius-score">XXX</span>
+                                    </div>
+                                    <div class="genius-type">
+                                        <span class="genius-icon">🧩</span>
+                                        <span class="genius-label">Spatial</span>
+                                        <span class="genius-score">XXX</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="certificate__details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Assessment Date:</span>
+                                    <span class="detail-value">[Date]</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Genius ID:</span>
+                                    <span class="detail-value">TYG-2025-XXXX</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="certificate__footer">
+                            <div class="certificate__signature">
+                                <div class="signature-line"></div>
+                                <p class="signature-title">Dr. Sarah Johnson, Ph.D.</p>
+                                <p class="signature-subtitle">Chief Psychologist</p>
+                            </div>
+                            <div class="certificate__seal">
+                                <div class="seal">
+                                    <div class="seal-inner">
+                                        <div class="seal-text">VERIFIED</div>
+                                        <div class="seal-year">2025</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="certificate-features">
+                    <h3 class="features__title">Your Genius Certificate Includes:</h3>
+                    <ul class="features__list">
+                        <li class="feature-item">
+                            <span class="feature-icon">🧠</span>
+                            <span class="feature-text">Complete Genius Profile with multiple intelligence types</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">🎯</span>
+                            <span class="feature-text">IQ score with detailed cognitive breakdown</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">🎨</span>
+                            <span class="feature-text">Creative, Social, Logical & Spatial genius scores</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">📊</span>
+                            <span class="feature-text">Percentile rankings across all genius dimensions</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">🔒</span>
+                            <span class="feature-text">Unique verification ID for authenticity</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">💼</span>
+                            <span class="feature-text">Professional format suitable for LinkedIn</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">📱</span>
+                            <span class="feature-text">Digital and printable PDF versions</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">🌟</span>
+                            <span class="feature-text">Lifetime access to your genius profile</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="certificate-cta">
+                        <p class="cta-note">🎯 Start your genius discovery today and get your complete profile!</p>
+                        <button class="btn btn--primary btn--large" data-action="start-test">
+                            🧠 Discover Your Genius & Get Certificate
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Genius Discovery Section -->
+    <section class="iq-test-section reveal" id="iq-test">
+        <div class="container">
+            <h2 class="section__title">Ready to Discover Your Genius Profile?</h2>
+            <p class="section__description">
+                Start with our comprehensive IQ assessment and unlock your complete genius profile including logical, 
+                creative, social, and spatial intelligence. Your journey to genius begins with a single test.
+            </p>
+            <div class="section__buttons">
+                <button class="btn btn--primary btn--large" data-action="start-test">
+                    🧠 Start Your Genius Discovery
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mentors Grid -->
+    <section class="mentors reveal" id="mentors">
+        <div class="container">
+            <h2 class="section__title">Elite Academy - Learn from Legends</h2>
+            <p class="section__description">
+                After completing your IQ test, unlock access to our exclusive academy featuring AI-powered 
+                mentorship from history's greatest intellectual titans.
+            </p>
+            <div class="mentors__grid">
+                <div class="mentor glass">
+                    <div class="mentor__portrait">
+                        <img src="assets/images/characters/Einstein.png" alt="Einstein" loading="lazy">
+                    </div>
+                    <div class="mentor__week">Week 1</div>
+                    <h3 class="mentor__name">Albert Einstein</h3>
+                    <p class="mentor__promise">Master the art of scientific thinking and creative problem-solving</p>
+                    <a href="pages/academy/w1-einstein.html" class="mentor__preview">Preview Lesson →</a>
+                </div>
+                
+                <div class="mentor glass">
+                    <div class="mentor__portrait">
+                        <img src="assets/images/characters/Steve.png" alt="Steve Jobs" loading="lazy">
+                    </div>
+                    <div class="mentor__week">Week 2</div>
+                    <h3 class="mentor__name">Steve Jobs</h3>
+                    <p class="mentor__promise">Develop innovative thinking and visionary leadership skills</p>
+                    <a href="pages/academy/week2-lesson.html" class="mentor__preview">Preview Lesson →</a>
+                </div>
+                
+                <div class="mentor glass">
+                    <div class="mentor__portrait">
+                        <img src="assets/images/characters/DaVinci.png" alt="Leonardo da Vinci" loading="lazy">
+                    </div>
+                    <div class="mentor__week">Week 3</div>
+                    <h3 class="mentor__name">Leonardo da Vinci</h3>
+                    <p class="mentor__promise">Unlock interdisciplinary thinking and artistic intelligence</p>
+                    <a href="#" class="mentor__preview">Coming Soon →</a>
+                </div>
+                
+                <div class="mentor glass">
+                    <div class="mentor__portrait">
+                        <img src="assets/images/characters/Marie.png" alt="Marie Curie" loading="lazy">
+                    </div>
+                    <div class="mentor__week">Week 4</div>
+                    <h3 class="mentor__name">Marie Curie</h3>
+                    <p class="mentor__promise">Cultivate perseverance and breakthrough scientific thinking</p>
+                    <a href="#" class="mentor__preview">Coming Soon →</a>
+                </div>
+                
+                <div class="mentor glass">
+                    <div class="mentor__portrait">
+                        <img src="assets/images/characters/Oprah-gpt.png" alt="Oprah Winfrey" loading="lazy">
+                    </div>
+                    <div class="mentor__week">Week 5</div>
+                    <h3 class="mentor__name">Oprah Winfrey</h3>
+                    <p class="mentor__promise">Master emotional intelligence and communication skills</p>
+                    <a href="#" class="mentor__preview">Coming Soon →</a>
+                </div>
+                
+                <div class="mentor glass">
+                    <div class="mentor__portrait">
+                        <img src="assets/images/characters/Goggins.png" alt="David Goggins" loading="lazy">
+                    </div>
+                    <div class="mentor__week">Week 6</div>
+                    <h3 class="mentor__name">David Goggins</h3>
+                    <p class="mentor__promise">Build mental toughness and peak performance mindset</p>
+                    <a href="#" class="mentor__preview">Coming Soon →</a>
+                </div>
+            </div>
+            
+            <div class="section__buttons">
+                <button class="btn btn--primary" data-action="academy">
+                    🎓 Access Academy
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leaderboard Preview -->
+    <section class="leaderboard-preview reveal">
+        <div class="container">
+            <h2 class="section__title">Global Genius Leaderboard</h2>
+            <div class="leaderboard__container glass-strong">
+                <div class="leaderboard__header">
+                    <h3 class="leaderboard__title">🏆 Top Scorers</h3>
+                    <a href="leaderboard.html" class="leaderboard__view-all">View All →</a>
+                </div>
+                
+                <div class="leaderboard__list">
+                    <div class="leaderboard__item leaderboard__item--gold">
+                        <span class="rank">1</span>
+                        <span class="avatar">🥇</span>
+                        <span class="name">Alexander M.</span>
+                        <span class="score">162</span>
+                        <span class="badge">Genius</span>
+                    </div>
+                    <div class="leaderboard__item leaderboard__item--silver">
+                        <span class="rank">2</span>
+                        <span class="avatar">🥈</span>
+                        <span class="name">Sarah K.</span>
+                        <span class="score">158</span>
+                        <span class="badge">Gifted</span>
+                    </div>
+                    <div class="leaderboard__item leaderboard__item--bronze">
+                        <span class="rank">3</span>
+                        <span class="avatar">🥉</span>
+                        <span class="name">David L.</span>
+                        <span class="score">155</span>
+                        <span class="badge">Gifted</span>
+                    </div>
+                    <div class="leaderboard__item">
+                        <span class="rank">4</span>
+                        <span class="avatar">🧠</span>
+                        <span class="name">Emma R.</span>
+                        <span class="score">152</span>
+                        <span class="badge">Superior</span>
+                    </div>
+                    <div class="leaderboard__item">
+                        <span class="rank">5</span>
+                        <span class="avatar">⚡</span>
+                        <span class="name">Michael T.</span>
+                        <span class="score">149</span>
+                        <span class="badge">Superior</span>
+                    </div>
+                </div>
+                
+                <div class="leaderboard__cta">
+                    <p>Think you can make it to the top?</p>
+                    <button class="btn btn--primary" data-action="start-test">
+                        🎯 Challenge the Leaderboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta reveal">
+        <div class="final-cta__content glass-strong">
+            <h2 class="final-cta__title">Ready to Unlock Your Genius?</h2>
+            <p class="final-cta__subtitle">
+                Join thousands of others who've discovered their true intellectual potential and 
+                transformed their thinking with our comprehensive cognitive assessment and elite academy.
+            </p>
+            <div class="final-cta__buttons">
+                <button class="btn btn--primary btn--large" data-action="start-test">
+                    🧠 Start Your IQ Test
+                </button>
+                <button class="btn btn--secondary" data-action="academy">
+                    🎓 Explore Academy
+                </button>
+            </div>
+            <div class="final-cta__badges">
+                <div class="badge">
+                    <span class="badge__icon">🔒</span>
+                    <span class="badge__text">100% Private</span>
+                </div>
+                <div class="badge">
+                    <span class="badge__icon">⚡</span>
+                    <span class="badge__text">Instant Results</span>
+                </div>
+                <div class="badge">
+                    <span class="badge__icon">🏆</span>
+                    <span class="badge__text">Scientifically Validated</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <nav class="footer__links" aria-label="Footer navigation">
+                <a href="pages/about.html" class="footer__link">About</a>
+                <a href="pages/privacy.html" class="footer__link">Privacy Policy</a>
+                <a href="pages/terms.html" class="footer__link">Terms of Service</a>
+                <a href="pages/contact.html" class="footer__link">Contact</a>
+                <a href="pages/faq.html" class="footer__link">FAQ</a>
+            </nav>
+            <div class="footer__disclaimer">
+                <p>&copy; 2024 Test Your Genius. All rights reserved. This platform provides cognitive assessment for educational and personal development purposes.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile CTA Bar -->
+    <div class="mobile-cta">
+        <div class="mobile-cta__buttons">
+            <button class="btn btn--primary" data-action="start-test">
+                🧠 Start Test
+            </button>
+            <button class="btn btn--secondary" data-action="academy">
+                🎓 Academy
+            </button>
+        </div>
+    </div>
+
+    <!-- Authentication Modal -->
+    <div id="auth-modal" class="auth-modal hidden">
+        <div class="auth-overlay" onclick="closeAuthModal()"></div>
+        <div class="auth-container glass-strong">
+                <!-- Close Button -->
+                <button class="auth-close" onclick="closeAuthModal()">×</button>
+                
+                <!-- Login Form -->
+                <div id="login-form" class="auth-form active">
+                    <div class="auth-header">
+                        <div class="auth-logo">🧠</div>
+                        <h2>Sign In to Your Account</h2>
+                        <p>Access your Test Your Genius dashboard</p>
+                        
+                        <!-- Demo Credentials Info -->
+                        <div style="background: rgba(100, 212, 255, 0.1); border: 1px solid rgba(100, 212, 255, 0.3); border-radius: 8px; padding: 12px; margin: 16px 0; font-size: 14px;">
+                            <div style="font-weight: 600; color: #64D4FF; margin-bottom: 8px;">🎯 Try Demo Account:</div>
+                            <div style="font-family: monospace; font-size: 13px; line-height: 1.4;">
+                                <div><strong>Email:</strong> demo@testgenius.com</div>
+                                <div><strong>Password:</strong> Demo123!</div>
+                            </div>
+                            <div style="font-size: 12px; color: rgba(234, 242, 255, 0.7); margin-top: 8px;">
+                                Click to auto-fill → <button type="button" onclick="fillDemoCredentials()" style="background: none; border: 1px solid #64D4FF; color: #64D4FF; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 12px;">Use Demo</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="login-email">Email Address</label>
+                            <input type="email" id="login-email" name="email" placeholder="your.email@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+                            <div class="password-toggle" onclick="togglePassword('login-password')">👁️</div>
+                        </div>
+                        
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="remember-me">
+                                <span class="checkmark"></span>
+                                Remember me
+                            </label>
+                            <button type="button" class="link-button" onclick="showForgotPassword()">
+                                Forgot Password?
+                            </button>
+                        </div>
+                        
+                        <button type="submit" class="auth-btn primary">
+                            <span>Sign In</span>
+                        </button>
+                        
+                        <div class="auth-divider">
+                            <span>Don't have an account?</span>
+                        </div>
+                        
+                        <button type="button" class="auth-btn secondary" onclick="showSignup()">
+                            Create Account
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Signup Form -->
+                <div id="signup-form" class="auth-form">
+                    <div class="auth-header">
+                        <div class="auth-logo">✨</div>
+                        <h2>Join the Genius Community</h2>
+                        <p>Create your account to unlock your full potential</p>
+                    </div>
+                    
+                    <form onsubmit="handleSignup(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="signup-firstname">First Name</label>
+                                <input type="text" id="signup-firstname" name="firstName" placeholder="John" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signup-lastname">Last Name</label>
+                                <input type="text" id="signup-lastname" name="lastName" placeholder="Doe" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="signup-email">Email Address</label>
+                            <input type="email" id="signup-email" name="email" placeholder="your.email@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <input type="password" id="signup-password" name="password" placeholder="Create a strong password" required>
+                            <div class="password-toggle" onclick="togglePassword('signup-password')">👁️</div>
+                            <div class="password-strength" id="password-strength"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="signup-confirm">Confirm Password</label>
+                            <input type="password" id="signup-confirm" name="confirmPassword" placeholder="Confirm your password" required>
+                        </div>
+                        
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="terms-agree" required>
+                                <span class="checkmark"></span>
+                                I agree to the <a href="#" class="link">Terms of Service</a> and <a href="#" class="link">Privacy Policy</a>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="auth-btn primary">
+                            <span>Create Account</span>
+                        </button>
+                        
+                        <div class="auth-divider">
+                            <span>Already have an account?</span>
+                        </div>
+                        
+                        <button type="button" class="auth-btn secondary" onclick="showLogin()">
+                            Sign In Instead
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Forgot Password Form -->
+                <div id="forgot-form" class="auth-form">
+                    <div class="auth-header">
+                        <div class="auth-logo">🔐</div>
+                        <h2>Reset Password</h2>
+                        <p>Enter your email to receive reset instructions</p>
+                    </div>
+                    
+                    <form onsubmit="handleForgotPassword(event)">
+                        <div class="form-group">
+                            <label for="forgot-email">Email Address</label>
+                            <input type="email" id="forgot-email" name="email" placeholder="your.email@example.com" required>
+                        </div>
+                        
+                        <button type="submit" class="auth-btn primary">
+                            <span>Send Reset Link</span>
+                        </button>
+                        
+                        <div class="auth-divider">
+                            <span>Remember your password?</span>
+                        </div>
+                        
+                        <button type="button" class="auth-btn secondary" onclick="showLogin()">
+                            Back to Sign In
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Success Messages -->
+                <div id="auth-success" class="auth-form">
+                    <div class="auth-header">
+                        <div class="auth-logo success">🎉</div>
+                        <h2 id="success-title">Welcome!</h2>
+                        <p id="success-message">Your account has been created successfully.</p>
+                    </div>
+                    
+                    <button class="auth-btn primary" onclick="closeAuthModal()">
+                        <span>Continue</span>
+                    </button>
+                </div>
+            </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/auth-ui.js"></script>
+    <script src="assets/js/homepage.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!-- Reusable Testimonial Card Component -->
+<div class="testimonial glass">
+    <div class="testimonial__content">
+        <p class="testimonial__quote">
+            "<!-- Insert testimonial quote here -->"
+        </p>
+        <div class="testimonial__author">
+            <div class="testimonial__avatar">
+                <!-- Optional: Add avatar image -->
+                <div class="testimonial__avatar-placeholder">
+                    <!-- Avatar placeholder or image -->
+                </div>
+            </div>
+            <div class="testimonial__details">
+                <span class="testimonial__name">Customer Name</span>
+                <span class="testimonial__role">Customer Role/Title</span>
+            </div>
+        </div>
+    </div>
+    <div class="testimonial__rating">
+        <span class="testimonial__stars">★★★★★</span>
+    </div>
+</div>
+
+<!-- Extended CSS for enhanced testimonial styling -->
+<style>
+.testimonial {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.testimonial:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 60px rgba(100, 212, 255, 0.1);
+}
+
+.testimonial__quote {
+    font-style: italic;
+    font-size: 1.1rem;
+    margin-bottom: var(--space-4);
+    line-height: 1.7;
+    position: relative;
+}
+
+.testimonial__quote::before {
+    content: '"';
+    font-size: 3rem;
+    color: var(--accent);
+    position: absolute;
+    top: -10px;
+    left: -15px;
+    opacity: 0.3;
+    font-family: serif;
+}
+
+.testimonial__author {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+}
+
+.testimonial__avatar-placeholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bg-1);
+    font-weight: bold;
+}
+
+.testimonial__details {
+    display: flex;
+    flex-direction: column;
+}
+
+.testimonial__name {
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.testimonial__role {
+    font-size: 0.9rem;
+    color: var(--accent);
+    opacity: 0.8;
+}
+
+.testimonial__rating {
+    text-align: center;
+}
+
+.testimonial__stars {
+    color: var(--gold);
+    font-size: 1.2rem;
+}
+</style>
+
+<!-- Usage Instructions:
+1. Replace placeholder quote with actual testimonial
+2. Add customer name and role/title
+3. Optionally add customer avatar image
+4. Adjust star rating as needed
+5. Include the CSS styles in your page
+6. Use within testimonials grid container
+-->

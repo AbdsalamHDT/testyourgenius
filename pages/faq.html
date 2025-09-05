@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Test Your Genius</title>
+    <meta name="description" content="Find answers to frequently asked questions about our IQ tests, Elite Academy program, pricing, and more.">
+    <style>
+        /* ===== CSS Variables & Reset ===== */
+        :root {
+            --bg-1: #070B1A;
+            --bg-2: #0E1A3A;
+            --ink: #EAF2FF;
+            --accent: #64D4FF;
+            --gold: #F4D37E;
+            --green: #10B981;
+            --red: #EF4444;
+            
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-7: 3rem;
+            --space-8: 4rem;
+            
+            --font-stack: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-stack);
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+            color: var(--ink);
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+        
+        /* ===== Noise Overlay ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.03;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255,255,255,0.1) 2px,
+                    rgba(255,255,255,0.1) 4px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255,255,255,0.1) 2px,
+                    rgba(255,255,255,0.1) 4px
+                );
+        }
+        
+        /* ===== Container ===== */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+        
+        .section {
+            padding: var(--space-8) 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* ===== Navigation ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: var(--space-4);
+            background: rgba(7, 11, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(234, 242, 255, 0.1);
+        }
+        
+        .nav__content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav__brand {
+            color: var(--ink);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .nav__links {
+            display: flex;
+            gap: var(--space-6);
+            align-items: center;
+        }
+        
+        .nav__link {
+            color: rgba(234, 242, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav__link:hover {
+            color: var(--accent);
+        }
+        
+        /* ===== Glassmorphism Components ===== */
+        .glass {
+            background: rgba(234, 242, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(234, 242, 255, 0.1);
+            border-radius: 16px;
+        }
+        
+        .glass-strong {
+            background: rgba(234, 242, 255, 0.08);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(234, 242, 255, 0.15);
+            border-radius: 20px;
+        }
+        
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-4) var(--space-6);
+            border: none;
+            border-radius: 12px;
+            font-family: var(--font-stack);
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            gap: var(--space-2);
+        }
+        
+        .btn--primary {
+            background: linear-gradient(135deg, var(--accent) 0%, #4facfe 100%);
+            color: var(--bg-1);
+            box-shadow: 0 8px 32px rgba(100, 212, 255, 0.3);
+        }
+        
+        .btn--gold {
+            background: linear-gradient(135deg, var(--gold) 0%, #f7d060 100%);
+            color: var(--bg-1);
+            box-shadow: 0 8px 32px rgba(244, 211, 126, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px) scale(1.02);
+        }
+        
+        /* ===== Typography ===== */
+        h1, h2, h3 {
+            font-weight: bold;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+        
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+        h3 { font-size: clamp(1.2rem, 3vw, 1.5rem); }
+        
+        /* ===== FAQ Hero ===== */
+        .faq-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 100px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: rgba(244, 211, 126, 0.1);
+            border: 1px solid rgba(244, 211, 126, 0.3);
+            border-radius: 50px;
+            padding: var(--space-2) var(--space-4);
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-bottom: var(--space-5);
+            font-weight: 600;
+        }
+        
+        .hero-title {
+            margin-bottom: var(--space-4);
+            background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 50%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: rgba(234, 242, 255, 0.8);
+            margin-bottom: var(--space-6);
+        }
+        
+        /* ===== Search Box ===== */
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto var(--space-8);
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: var(--space-4) var(--space-5);
+            padding-left: 60px;
+            border: 2px solid rgba(234, 242, 255, 0.1);
+            border-radius: 16px;
+            background: rgba(234, 242, 255, 0.05);
+            color: var(--ink);
+            font-size: 1.1rem;
+            font-family: var(--font-stack);
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(234, 242, 255, 0.08);
+            box-shadow: 0 0 20px rgba(100, 212, 255, 0.2);
+        }
+        
+        .search-input::placeholder {
+            color: rgba(234, 242, 255, 0.5);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: var(--space-4);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+        
+        /* ===== FAQ Categories ===== */
+        .faq-categories {
+            display: flex;
+            gap: var(--space-3);
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: var(--space-8);
+        }
+        
+        .category-btn {
+            padding: var(--space-2) var(--space-4);
+            border: 2px solid rgba(234, 242, 255, 0.2);
+            border-radius: 25px;
+            background: rgba(234, 242, 255, 0.05);
+            color: rgba(234, 242, 255, 0.8);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .category-btn.active,
+        .category-btn:hover {
+            border-color: var(--accent);
+            background: rgba(100, 212, 255, 0.1);
+            color: var(--accent);
+        }
+        
+        /* ===== FAQ Sections ===== */
+        .faq-section {
+            background: rgba(14, 26, 58, 0.3);
+            border-radius: 30px;
+            padding: var(--space-8);
+            margin: var(--space-6) 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--space-6);
+            font-size: 1.8rem;
+            color: var(--gold);
+        }
+        
+        .faq-grid {
+            display: grid;
+            gap: var(--space-4);
+        }
+        
+        .faq-item {
+            background: rgba(234, 242, 255, 0.05);
+            border: 1px solid rgba(234, 242, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            border-color: rgba(100, 212, 255, 0.3);
+            background: rgba(234, 242, 255, 0.08);
+        }
+        
+        .faq-question {
+            padding: var(--space-5);
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--ink);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            color: var(--accent);
+        }
+        
+        .faq-answer {
+            padding: 0 var(--space-5) var(--space-5);
+            color: rgba(234, 242, 255, 0.8);
+            line-height: 1.7;
+            font-size: 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .faq-answer.active {
+            max-height: 500px;
+            padding-top: var(--space-2);
+        }
+        
+        .faq-icon {
+            font-size: 1.2rem;
+            color: var(--accent);
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-icon.active {
+            transform: rotate(180deg);
+        }
+        
+        /* ===== Contact CTA ===== */
+        .contact-cta {
+            background: linear-gradient(135deg, rgba(100, 212, 255, 0.1) 0%, rgba(244, 211, 126, 0.1) 100%);
+            border-radius: 30px;
+            padding: var(--space-8);
+            text-align: center;
+            margin: var(--space-8) 0;
+            border: 1px solid rgba(100, 212, 255, 0.2);
+        }
+        
+        .cta-title {
+            font-size: 2rem;
+            margin-bottom: var(--space-4);
+            color: var(--gold);
+        }
+        
+        .cta-subtitle {
+            font-size: 1.1rem;
+            color: rgba(234, 242, 255, 0.8);
+            margin-bottom: var(--space-6);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: var(--space-4);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* ===== Responsive Design ===== */
+        @media (max-width: 768px) {
+            .nav__links {
+                display: none;
+            }
+            
+            .faq-categories {
+                gap: var(--space-2);
+            }
+            
+            .category-btn {
+                font-size: 0.9rem;
+                padding: var(--space-2) var(--space-3);
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        /* ===== Reveal Animation ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav__content">
+            <a href="../index.html" class="nav__brand">Test Your Genius</a>
+            <div class="nav__links">
+                <a href="../index.html" class="nav__link">Home</a>
+                <a href="../iq-test.html" class="nav__link">IQ Test</a>
+                <a href="../academy-homepage.html" class="nav__link">Academy</a>
+                <a href="about.html" class="nav__link">About</a>
+                <a href="contact.html" class="nav__link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- FAQ Hero -->
+    <section class="faq-hero">
+        <div class="container">
+            <div class="hero-content reveal">
+                <div class="hero-badge">
+                    <span>❓</span>
+                    Help Center
+                </div>
+                <h1 class="hero-title">Frequently Asked Questions</h1>
+                <p class="hero-subtitle">Find quick answers to common questions about our platform, tests, and academy</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Box -->
+    <section class="section">
+        <div class="container">
+            <div class="search-box reveal">
+                <div class="search-icon">🔍</div>
+                <input type="text" class="search-input" placeholder="Search for answers..." id="faq-search">
+            </div>
+            
+            <!-- Category Filters -->
+            <div class="faq-categories">
+                <button class="category-btn active" onclick="filterCategory('all')">All</button>
+                <button class="category-btn" onclick="filterCategory('iq-test')">IQ Test</button>
+                <button class="category-btn" onclick="filterCategory('academy')">Academy</button>
+                <button class="category-btn" onclick="filterCategory('pricing')">Pricing</button>
+                <button class="category-btn" onclick="filterCategory('technical')">Technical</button>
+                <button class="category-btn" onclick="filterCategory('account')">Account</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- IQ Test FAQs -->
+    <section class="section">
+        <div class="container">
+            <div class="faq-section reveal" data-category="iq-test">
+                <h2 class="section-title">🧠 IQ Test Questions</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            How accurate is your IQ test?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Our IQ test is based on standardized psychological assessments and provides results comparable to professional tests. While not a replacement for clinical assessment, it offers valuable insights with approximately 85-90% accuracy compared to traditional tests. The test measures multiple cognitive domains including logical reasoning, pattern recognition, spatial intelligence, and verbal comprehension.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            How long does the IQ test take?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            The complete IQ test takes approximately 30-45 minutes. This includes 40 carefully selected questions that progressively increase in difficulty. You can pause and resume the test if needed, and we recommend taking it in a quiet environment when you're mentally fresh for the most accurate results.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            Can I retake the IQ test?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Yes, you can retake the test after 30 days. This waiting period ensures accurate results, as immediate retesting can be influenced by memory of previous questions. Each retake uses a different set of questions to maintain test integrity while measuring your cognitive development over time.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            What makes your IQ test different?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Unlike basic online tests, ours provides detailed cognitive analysis, personalized genius typing, and specific improvement recommendations. We don't just give you a number—we help you understand your cognitive strengths and how to develop them further through our Academy program.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academy FAQs -->
+    <section class="section">
+        <div class="container">
+            <div class="faq-section reveal" data-category="academy">
+                <h2 class="section-title">🎓 Elite Academy Questions</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            What exactly is the Elite Academy?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            The Elite Academy is a 6-week intensive program where you learn thinking strategies from history's greatest minds. Each week focuses on a different mentor (Einstein, Jobs, Da Vinci, etc.) and their unique cognitive approaches. You'll get video lessons, interactive exercises, daily challenges, and progress tracking—all designed to enhance your thinking abilities.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            How much time should I dedicate each week?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            We recommend 3-5 hours per week for optimal results. This includes watching the mentor video (15-20 minutes), completing daily challenges (15-30 minutes each), and practice exercises. However, you have lifetime access, so you can learn at your own pace and revisit content anytime.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            Do I get a certificate upon completion?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Yes! Upon completing all 6 weeks and achieving the required progress benchmarks, you'll receive a personalized Certificate of Completion. This digital certificate includes your name, completion date, and specific skills mastered during the program.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            Can I access the Academy without taking the IQ test?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Absolutely! While the IQ test helps us personalize your learning experience, it's not required for Academy access. You can jump straight into the program and start learning from our legendary mentors immediately.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing FAQs -->
+    <section class="section">
+        <div class="container">
+            <div class="faq-section reveal" data-category="pricing">
+                <h2 class="section-title">💰 Pricing & Payment Questions</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            Why one-time payments instead of subscriptions?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            We believe learning shouldn't be held hostage by monthly fees. When you purchase our content, it's yours forever. No recurring charges, no fear of losing access, no pressure to consume content quickly. Learn at your own pace, return anytime, and truly own your educational investment.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            What payment methods do you accept?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            We accept all major credit cards (Visa, MasterCard, American Express), PayPal, Apple Pay, Google Pay, and bank transfers. All payments are processed securely through Stripe, ensuring your financial information is protected with enterprise-grade encryption.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            Do you offer refunds?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Yes! We offer a 30-day money-back guarantee on all purchases. If you're not completely satisfied with your experience, contact us within 30 days for a full refund. No questions asked, no complicated procedures—your satisfaction is our priority.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            Are there any hidden fees?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Never. The price you see is exactly what you pay. No setup fees, no processing charges, no surprise additions. We believe in transparent, honest pricing. Your one-time payment gives you complete, lifetime access to all content and features.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical FAQs -->
+    <section class="section">
+        <div class="container">
+            <div class="faq-section reveal" data-category="technical">
+                <h2 class="section-title">⚙️ Technical Questions</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            What devices and browsers are supported?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Our platform works on all modern devices and browsers. This includes desktop computers, laptops, tablets, and smartphones. We support Chrome, Firefox, Safari, Edge, and mobile browsers. The experience is fully responsive and optimized for each device type.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            Do I need to download any apps?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            No downloads required! Everything runs directly in your web browser. This means you can access your content from any device with an internet connection. No storage space concerns, no update hassles, no compatibility issues.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            What if I experience technical issues?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Our technical support team is here to help! Contact us through our support form, email, or live chat. Most issues are resolved within 24 hours. We also have a comprehensive help section with solutions to common problems.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            Is my progress saved automatically?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Yes! Your progress, test results, and Academy completion status are automatically saved to your account. You can seamlessly switch between devices and pick up exactly where you left off. All data is securely backed up and protected.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Account FAQs -->
+    <section class="section">
+        <div class="container">
+            <div class="faq-section reveal" data-category="account">
+                <h2 class="section-title">👤 Account Questions</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            Do I need to create an account?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Yes, creating an account ensures your progress is saved and you can access your purchased content from any device. The signup process takes less than 2 minutes and only requires an email address and password. Your data is encrypted and never shared with third parties.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            Can I share my account with family members?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Each account is designed for individual use to ensure accurate progress tracking and personalized recommendations. However, we understand families want to learn together. Contact us about our family plans for multiple users at a discounted rate.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            How do I reset my password?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Use the "Forgot Password" link on the login page. Enter your email address and we'll send you a secure reset link. The link expires after 24 hours for security. If you don't see the email, check your spam folder or contact support.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFAQ(this)">
+                            Can I delete my account?
+                            <span class="faq-icon">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            Yes, you can delete your account anytime from your account settings. This will permanently remove all your data, progress, and access to purchased content. Please contact support if you need help with account deletion or have any concerns.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="section">
+        <div class="container">
+            <div class="contact-cta reveal">
+                <h2 class="cta-title">Still Have Questions?</h2>
+                <p class="cta-subtitle">
+                    Can't find what you're looking for? Our support team is here to help with any questions or concerns.
+                </p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn btn--primary">Contact Support</a>
+                    <a href="../index.html" class="btn btn--gold">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // FAQ Toggle functionality
+        function toggleFAQ(button) {
+            const answer = button.nextElementSibling;
+            const icon = button.querySelector('.faq-icon');
+            
+            // Close all other FAQs
+            document.querySelectorAll('.faq-answer').forEach(ans => {
+                if (ans !== answer) {
+                    ans.classList.remove('active');
+                }
+            });
+            
+            document.querySelectorAll('.faq-icon').forEach(ic => {
+                if (ic !== icon) {
+                    ic.classList.remove('active');
+                }
+            });
+            
+            // Toggle current FAQ
+            answer.classList.toggle('active');
+            icon.classList.toggle('active');
+        }
+
+        // Category filtering
+        function filterCategory(category) {
+            const sections = document.querySelectorAll('.faq-section');
+            const buttons = document.querySelectorAll('.category-btn');
+            
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Show/hide sections
+            sections.forEach(section => {
+                if (category === 'all' || section.dataset.category === category) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        }
+
+        // Search functionality
+        function setupSearch() {
+            const searchInput = document.getElementById('faq-search');
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                faqItems.forEach(item => {
+                    const question = item.querySelector('.faq-question').textContent.toLowerCase();
+                    const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                    
+                    if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                        item.style.display = 'block';
+                        item.closest('.faq-section').style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                // Hide empty sections
+                document.querySelectorAll('.faq-section').forEach(section => {
+                    const visibleItems = section.querySelectorAll('.faq-item[style*="block"]');
+                    if (visibleItems.length === 0 && searchTerm !== '') {
+                        section.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Reveal animation
+        function initRevealAnimation() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            reveals.forEach(reveal => {
+                observer.observe(reveal);
+            });
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initRevealAnimation();
+            setupSearch();
+        });
+    </script>
+</body>
+</html>

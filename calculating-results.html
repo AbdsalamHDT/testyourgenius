@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculating Your Genius Score - Test Your Genius</title>
+    <meta name="description" content="Your IQ results are being calculated using advanced algorithms. Please wait while we analyze your cognitive performance.">
+    <style>
+        /* ===== CSS Variables & Design System ===== */
+        :root {
+            /* Project Color Palette */
+            --bg-1: #070B1A;
+            --bg-2: #0E1A3A;
+            --bg-3: #1a0b2e;
+            --ink: #EAF2FF;
+            --ink-secondary: rgba(234, 242, 255, 0.7);
+            --ink-muted: rgba(234, 242, 255, 0.5);
+            --accent: #64D4FF;
+            --accent-light: #87E8FF;
+            --gold: #F4D37E;
+            --success: #4ADE80;
+            --purple: #8B5CF6;
+            
+            /* Spacing System */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-7: 3rem;
+            --space-8: 4rem;
+            --space-9: 5rem;
+            
+            /* Typography */
+            --font-stack: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 50%, var(--bg-3) 100%);
+            color: var(--ink);
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-4) 0;
+        }
+
+        /* ===== Animated Background ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                radial-gradient(1px 1px at 20px 30px, rgba(234,242,255,0.3), transparent),
+                radial-gradient(1px 1px at 40px 70px, rgba(100,212,255,0.2), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(244,211,126,0.2), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(234,242,255,0.1), transparent);
+            background-size: 
+                200px 200px,
+                300px 300px,
+                250px 250px,
+                400px 400px;
+            animation: sparkle 20s linear infinite;
+        }
+
+        @keyframes sparkle {
+            from { transform: translate(0, 0); }
+            to { transform: translate(-100px, -100px); }
+        }
+
+        /* ===== Main Container ===== */
+        .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 600px;
+            padding: var(--space-8);
+        }
+
+        /* ===== Glassmorphism Card ===== */
+        .processing-card {
+            background: rgba(234, 242, 255, 0.08);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(234, 242, 255, 0.15);
+            border-radius: 24px;
+            padding: var(--space-8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .processing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(100, 212, 255, 0.1) 0%,
+                transparent 50%,
+                rgba(244, 211, 126, 0.05) 100%
+            );
+            pointer-events: none;
+        }
+
+        /* ===== Brain Icon Animation ===== */
+        .brain-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto var(--space-6);
+        }
+
+        .brain-icon {
+            font-size: 4rem;
+            color: var(--accent);
+            animation: brainPulse 2s ease-in-out infinite;
+            display: block;
+            text-shadow: 0 0 30px rgba(100, 212, 255, 0.5);
+        }
+
+        @keyframes brainPulse {
+            0%, 100% { 
+                transform: scale(1);
+                filter: brightness(1);
+            }
+            50% { 
+                transform: scale(1.1);
+                filter: brightness(1.3);
+            }
+        }
+
+        /* ===== Neural Network Animation ===== */
+        .neural-network {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .neuron {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: neuronPulse 3s ease-in-out infinite;
+        }
+
+        .neuron:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .neuron:nth-child(2) { top: 30%; right: 15%; animation-delay: 0.5s; }
+        .neuron:nth-child(3) { bottom: 25%; left: 20%; animation-delay: 1s; }
+        .neuron:nth-child(4) { bottom: 30%; right: 10%; animation-delay: 1.5s; }
+        .neuron:nth-child(5) { top: 60%; left: 50%; animation-delay: 2s; }
+
+        @keyframes neuronPulse {
+            0%, 90%, 100% { 
+                opacity: 0; 
+                transform: scale(0);
+            }
+            10%, 80% { 
+                opacity: 1; 
+                transform: scale(1);
+            }
+        }
+
+        /* ===== Progress Circle ===== */
+        .progress-circle {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: var(--space-6) auto;
+        }
+
+        .circle-bg, .circle-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid transparent;
+        }
+
+        .circle-bg {
+            border-color: rgba(234, 242, 255, 0.1);
+        }
+
+        .circle-progress {
+            border-color: var(--accent);
+            border-top-color: transparent;
+            border-right-color: transparent;
+            animation: circleProgress 12s ease-in-out infinite;
+            transform: rotate(-90deg);
+        }
+
+        @keyframes circleProgress {
+            0% { 
+                stroke-dasharray: 0, 628;
+                transform: rotate(-90deg);
+            }
+            50% { 
+                stroke-dasharray: 314, 628;
+                transform: rotate(90deg);
+            }
+            100% { 
+                stroke-dasharray: 628, 628;
+                transform: rotate(270deg);
+            }
+        }
+
+        /* ===== Progress Percentage ===== */
+        .progress-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .progress-percentage {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-shadow: 0 0 20px rgba(100, 212, 255, 0.3);
+            margin-bottom: var(--space-2);
+        }
+
+        .progress-label {
+            font-size: 0.9rem;
+            color: var(--ink-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== Main Content ===== */
+        .main-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 50%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-4);
+            line-height: 1.2;
+        }
+
+        .processing-subtitle {
+            font-size: 1.2rem;
+            color: var(--ink-secondary);
+            margin-bottom: var(--space-7);
+        }
+
+        /* ===== Processing Steps ===== */
+        .processing-steps {
+            margin: var(--space-7) 0;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: var(--space-3) var(--space-4);
+            margin-bottom: var(--space-3);
+            background: rgba(234, 242, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(234, 242, 255, 0.1);
+            opacity: 0.5;
+            transition: all 0.5s ease;
+        }
+
+        .step.active {
+            opacity: 1;
+            background: rgba(100, 212, 255, 0.1);
+            border-color: rgba(100, 212, 255, 0.3);
+            transform: translateX(10px);
+        }
+
+        .step-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: var(--space-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step.active .step-icon {
+            animation: stepIconSpin 1s ease-in-out;
+        }
+
+        @keyframes stepIconSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .step-text {
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .step.active .step-text {
+            color: var(--accent);
+        }
+
+        /* ===== Loading Dots ===== */
+        .loading-dots {
+            display: inline-flex;
+            gap: var(--space-2);
+            margin-top: var(--space-4);
+        }
+
+        .loading-dots span {
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: loadingBounce 1.4s ease-in-out infinite both;
+        }
+
+        .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+        .loading-dots span:nth-child(3) { animation-delay: 0s; }
+
+        @keyframes loadingBounce {
+            0%, 80%, 100% { 
+                transform: scale(0.6); 
+                opacity: 0.5;
+            }
+            40% { 
+                transform: scale(1); 
+                opacity: 1;
+            }
+        }
+
+        /* ===== Completion Message ===== */
+        .completion-message {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .completion-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .completion-icon {
+            font-size: 3rem;
+            color: var(--success);
+            margin-bottom: var(--space-3);
+            animation: completionPulse 0.6s ease-out;
+        }
+
+        @keyframes completionPulse {
+            0% { 
+                transform: scale(0); 
+                opacity: 0;
+            }
+            50% { 
+                transform: scale(1.2); 
+                opacity: 1;
+            }
+            100% { 
+                transform: scale(1); 
+                opacity: 1;
+            }
+        }
+
+        .completion-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--success);
+            margin-bottom: var(--space-2);
+        }
+
+        .redirect-text {
+            font-size: 1rem;
+            color: var(--ink-secondary);
+        }
+
+        /* ===== Responsive Design ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--space-5);
+            }
+            
+            .processing-card {
+                padding: var(--space-6);
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .progress-circle {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .progress-percentage {
+                font-size: 2rem;
+            }
+            
+            .brain-icon {
+                font-size: 3rem;
+            }
+        }
+
+        /* ===== Navigation Styles ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(7, 11, 26, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(100, 212, 255, 0.1);
+            padding: var(--space-4) 0;
+        }
+
+        .navbar__container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-5);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar__brand {
+            color: var(--ink);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.125rem;
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            transition: color 0.3s ease;
+        }
+
+        .navbar__brand:hover {
+            color: var(--accent);
+        }
+
+        .navbar__logo {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg-1);
+            font-size: 1rem;
+        }
+
+        .navbar__logo::before {
+            content: "🧠";
+            font-size: 16px;
+        }
+
+        .navbar__auth {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .auth-button {
+            background: rgba(100, 212, 255, 0.1);
+            border: 1px solid rgba(100, 212, 255, 0.3);
+            color: var(--accent);
+            padding: var(--space-2) var(--space-5);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .auth-button:hover {
+            background: rgba(100, 212, 255, 0.2);
+            border-color: rgba(100, 212, 255, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-menu-trigger {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-1);
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: transform 0.3s ease;
+        }
+
+        .user-menu-trigger:hover .user-avatar {
+            transform: scale(1.05);
+        }
+
+        .user-menu-dropdown {
+            position: absolute;
+            top: calc(100% + var(--space-3));
+            right: 0;
+            background: rgba(7, 11, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(100, 212, 255, 0.2);
+            border-radius: 12px;
+            padding: var(--space-4);
+            min-width: 220px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .user-menu.active .user-menu-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .user-info {
+            margin-bottom: var(--space-4);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid rgba(100, 212, 255, 0.1);
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: var(--space-1);
+        }
+
+        .user-email {
+            font-size: 0.75rem;
+            color: var(--ink-secondary);
+        }
+
+        .user-menu-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3);
+            color: var(--ink-secondary);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .user-menu-item:hover {
+            background: rgba(100, 212, 255, 0.1);
+            color: var(--ink);
+        }
+
+        .menu-icon {
+            font-size: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Adjust body padding for fixed navbar */
+        body {
+            padding-top: 80px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar__container {
+                padding: 0 var(--space-4);
+            }
+            
+            .navbar__brand {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Processing navigation">
+        <div class="navbar__container">
+            <a href="index.html" class="navbar__brand" aria-label="Test Your Genius Homepage">
+                <div class="navbar__logo"></div>
+                Test Your Genius
+            </a>
+            
+            <!-- Authentication Section -->
+            <div class="navbar__auth">
+                <!-- Login Button (shown when not authenticated) -->
+                <button class="auth-button" onclick="showAuthModal()" id="login-button">
+                    Sign In
+                </button>
+                
+                <!-- User Menu (shown when authenticated) -->
+                <div class="user-menu hidden" id="user-menu">
+                    <button class="user-menu-trigger" onclick="toggleUserMenu()">
+                        <div class="user-avatar">
+                            <span id="user-avatar-text">U</span>
+                        </div>
+                    </button>
+                    
+                    <div class="user-menu-dropdown">
+                        <div class="user-info">
+                            <div class="user-name" id="user-display-name">User Name</div>
+                            <div class="user-email" id="user-display-email">user@email.com</div>
+                        </div>
+                        
+                        <a href="dashboard.html" class="user-menu-item">
+                            <span class="menu-icon">📊</span>
+                            Dashboard
+                        </a>
+                        
+                        <a href="pages/results.html" class="user-menu-item">
+                            <span class="menu-icon">🧠</span>
+                            My Results
+                        </a>
+                        
+                        <a href="academy-homepage.html" class="user-menu-item">
+                            <span class="menu-icon">🎓</span>
+                            Academy
+                        </a>
+                        
+                        <a href="leaderboard.html" class="user-menu-item">
+                            <span class="menu-icon">🏆</span>
+                            Leaderboard
+                        </a>
+                        
+                        <div class="user-menu-divider"></div>
+                        
+                        <button class="user-menu-item logout-button" onclick="handleLogout()">
+                            <span class="menu-icon">🚪</span>
+                            Sign Out
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="processing-card">
+            <div class="brain-container">
+                <div class="brain-icon">🧠</div>
+                <div class="neural-network">
+                    <div class="neuron"></div>
+                    <div class="neuron"></div>
+                    <div class="neuron"></div>
+                    <div class="neuron"></div>
+                    <div class="neuron"></div>
+                </div>
+            </div>
+
+            <h1 class="main-title">Analyzing Your Genius</h1>
+            <p class="processing-subtitle">
+                Our advanced AI is processing your cognitive performance across multiple intelligence domains
+            </p>
+
+            <div class="progress-circle">
+                <div class="circle-bg"></div>
+                <div class="circle-progress"></div>
+                <div class="progress-content">
+                    <div class="progress-percentage" id="progressPercent">0%</div>
+                    <div class="progress-label">Complete</div>
+                </div>
+            </div>
+
+            <div class="processing-steps">
+                <div class="step" id="step1">
+                    <div class="step-icon">📊</div>
+                    <div class="step-text">Analyzing response patterns...</div>
+                </div>
+                <div class="step" id="step2">
+                    <div class="step-icon">🧬</div>
+                    <div class="step-text">Determining cognitive profile...</div>
+                </div>
+                <div class="step" id="step3">
+                    <div class="step-icon">🏆</div>
+                    <div class="step-text">Generating your genius insights...</div>
+                </div>
+            </div>
+
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="completion-message" id="completionMessage">
+                <div class="completion-icon">✅</div>
+                <div class="completion-text">Analysis Complete!</div>
+                <div class="redirect-text">Redirecting to unlock your results...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== Navigation JavaScript =====
+        
+        // Toggle user menu
+        function toggleUserMenu() {
+            const userMenu = document.getElementById('user-menu');
+            userMenu.classList.toggle('active');
+        }
+
+        // Close user menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const userMenu = document.getElementById('user-menu');
+            const userMenuTrigger = userMenu?.querySelector('.user-menu-trigger');
+            
+            if (userMenu && !userMenu.contains(event.target)) {
+                userMenu.classList.remove('active');
+            }
+        });
+
+        // Mock authentication functions (replace with real auth)
+        function showAuthModal() {
+            // This would typically open a login modal
+            console.log('Auth modal would open here');
+            // For demo purposes, simulate login
+            setTimeout(() => {
+                simulateLogin();
+            }, 1000);
+        }
+
+        function simulateLogin() {
+            document.getElementById('login-button').style.display = 'none';
+            document.getElementById('user-menu').classList.remove('hidden');
+            document.getElementById('user-display-name').textContent = 'Test User';
+            document.getElementById('user-display-email').textContent = 'test@example.com';
+            document.getElementById('user-avatar-text').textContent = 'TU';
+        }
+
+        function handleLogout() {
+            document.getElementById('login-button').style.display = 'block';
+            document.getElementById('user-menu').classList.add('hidden');
+            document.getElementById('user-menu').classList.remove('active');
+        }
+
+        // Check auth status on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            // This would check real authentication status
+            // For now, just ensure login button is visible
+            const loginButton = document.getElementById('login-button');
+            const userMenu = document.getElementById('user-menu');
+            
+            // Show login by default (replace with real auth check)
+            if (loginButton) loginButton.style.display = 'block';
+            if (userMenu) userMenu.classList.add('hidden');
+        });
+
+        // ===== Processing Animation JavaScript =====
+        
+        // Animation timeline
+        let currentStep = 0;
+        let progress = 0;
+        const steps = [
+            { id: 'step1', duration: 4000 },  // 4 seconds - Analyzing response patterns
+            { id: 'step2', duration: 4500 },  // 4.5 seconds - Determining cognitive profile  
+            { id: 'step3', duration: 4000 }   // 4 seconds - Generating genius insights
+        ];
+
+        // Progress counter
+        function updateProgress() {
+            const progressElement = document.getElementById('progressPercent');
+            
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 1.5 + 0.5; // Slower increment
+                
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(progressInterval);
+                    showCompletion();
+                }
+                
+                progressElement.textContent = Math.floor(progress) + '%';
+            }, 150); // Slower update interval
+        }
+
+        // Step activation
+        function activateStep(stepIndex) {
+            if (stepIndex < steps.length) {
+                const step = document.getElementById(steps[stepIndex].id);
+                step.classList.add('active');
+                
+                setTimeout(() => {
+                    step.classList.remove('active');
+                    activateStep(stepIndex + 1);
+                }, steps[stepIndex].duration);
+            }
+        }
+
+        // Show completion message
+        function showCompletion() {
+            setTimeout(() => {
+                const completionMessage = document.getElementById('completionMessage');
+                completionMessage.classList.add('show');
+                
+                // Redirect to payment page after showing completion
+                setTimeout(() => {
+                    window.location.href = 'payment.html';
+                }, 3000); // Extended to 3 seconds
+            }, 1000); // 1 second delay before showing completion
+        }
+
+        // Initialize animation sequence
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start progress counter
+            setTimeout(() => {
+                updateProgress();
+            }, 1000); // 1 second initial delay
+            
+            // Start step activation
+            setTimeout(() => {
+                activateStep(0);
+            }, 1500); // 1.5 second delay before first step
+        });
+
+        // Prevent back navigation during processing
+        window.addEventListener('beforeunload', function(e) {
+            e.preventDefault();
+            e.returnValue = '';
+            return '';
+        });
+    </script>
+</body>
+</html>

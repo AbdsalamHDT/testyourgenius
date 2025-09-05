@@ -1,0 +1,51 @@
+{
+  "name": "test-your-genius",
+  "version": "1.0.0",
+  "description": "Premium IQ testing platform with Elite Academy mentorship program featuring legendary minds like Einstein, Jobs, and Da Vinci.",
+  "main": "index.html",
+  "scripts": {
+    "dev": "live-server --host=localhost --port=3000 --open=/index.html",
+    "build": "echo 'No build process required - static HTML project'",
+    "deploy": "echo 'Ready for deployment - upload files to web server'",
+    "validate": "html-validate *.html pages/**/*.html"
+  },
+  "keywords": [
+    "iq-test",
+    "genius",
+    "academy",
+    "education",
+    "mentorship",
+    "einstein",
+    "premium-ui",
+    "glassmorphism",
+    "interactive-learning"
+  ],
+  "author": {
+    "name": "Test Your Genius Team",
+    "email": "contact@testyourgenius.com",
+    "url": "https://testyourgenius.com"
+  },
+  "license": "Proprietary",
+  "private": true,
+  "homepage": "https://testyourgenius.com",
+  "repository": {
+    "type": "git",
+    "url": "private-repository"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "html-validate": "^8.0.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 1%",
+    "not dead"
+  ],
+  "config": {
+    "port": 3000,
+    "host": "localhost"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

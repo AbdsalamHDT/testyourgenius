@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genius Academy - Train Your Mind with Legendary Mentors | Test Your Genius</title>
+    <meta name="description" content="6 weeks of intensive training with legendary mentors including Einstein, Jobs, Oprah, and more. Transform your thinking and unlock your genius potential.">
+    <style>
+        /* ===== CSS Variables & Reset ===== */
+        :root {
+            --bg-1: #070B1A;
+            --bg-2: #0E1A3A;
+            --ink: #EAF2FF;
+            --accent: #64D4FF;
+            --purple: #8B5CF6;
+            --gold: #F4D37E;
+            
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-7: 3rem;
+            --space-8: 4rem;
+            
+            --font-stack: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-stack);
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+            color: var(--ink);
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+        
+        /* ===== Animated Background ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(100, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(244, 211, 126, 0.05) 0%, transparent 50%);
+            animation: backgroundShift 12s ease-in-out infinite alternate;
+        }
+        
+        @keyframes backgroundShift {
+            0% { opacity: 0.4; }
+            100% { opacity: 0.9; }
+        }
+        
+        /* ===== Holographic Light Streaks ===== */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                linear-gradient(45deg, transparent 40%, rgba(100, 212, 255, 0.02) 50%, transparent 60%),
+                linear-gradient(-45deg, transparent 30%, rgba(139, 92, 246, 0.02) 50%, transparent 70%),
+                linear-gradient(135deg, transparent 45%, rgba(244, 211, 126, 0.01) 50%, transparent 55%);
+            animation: lightStreaks 15s linear infinite;
+        }
+        
+        @keyframes lightStreaks {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(0deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(360deg); }
+        }
+        
+        /* ===== Typography ===== */
+        h1, h2, h3 {
+            font-weight: bold;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+        
+        h1 { font-size: clamp(3rem, 6vw, 5rem); }
+        h2 { font-size: clamp(2rem, 4vw, 3rem); }
+        h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
+        
+        p { font-size: clamp(1rem, 2vw, 1.2rem); }
+        
+        /* ===== Glassmorphism Components ===== */
+        .glass {
+            background: rgba(234, 242, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(234, 242, 255, 0.1);
+            border-radius: 20px;
+        }
+        
+        .glass-strong {
+            background: rgba(234, 242, 255, 0.08);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(234, 242, 255, 0.15);
+            border-radius: 24px;
+        }
+        
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-4) var(--space-7);
+            border: none;
+            border-radius: 16px;
+            font-family: var(--font-stack);
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn--primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+            color: var(--bg-1);
+            box-shadow: 
+                0 0 30px rgba(100, 212, 255, 0.4),
+                0 10px 40px rgba(139, 92, 246, 0.3);
+        }
+        
+        .btn--outline {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 20px rgba(100, 212, 255, 0.2);
+        }
+        
+        .btn--large {
+            padding: var(--space-6) var(--space-8);
+            font-size: 1.3rem;
+            border-radius: 20px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+        }
+        
+        .btn--primary:hover {
+            box-shadow: 
+                0 0 40px rgba(100, 212, 255, 0.6),
+                0 15px 50px rgba(139, 92, 246, 0.4);
+        }
+        
+        .btn--outline:hover {
+            background: rgba(100, 212, 255, 0.1);
+            box-shadow: 0 0 30px rgba(100, 212, 255, 0.3);
+        }
+        
+        /* ===== Container ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+        
+        /* ===== Section Styling ===== */
+        .section {
+            padding: var(--space-8) 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section__title {
+            text-align: center;
+            margin-bottom: var(--space-7);
+            background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 70%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* ===== Navigation ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(7, 11, 26, 0.9);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(100, 212, 255, 0.1);
+            padding: var(--space-4) 0;
+        }
+
+        .navbar__container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar__brand {
+            color: var(--ink);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            transition: color 0.3s ease;
+        }
+
+        .navbar__brand:hover {
+            color: var(--accent);
+        }
+
+        .navbar__logo {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--accent) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg-1);
+            font-size: 1rem;
+        }
+
+        .navbar__logo::before {
+            content: "🎓";
+            font-size: 16px;
+        }
+
+        .navbar__right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-5);
+        }
+
+        .navbar__menu {
+            display: flex;
+            list-style: none;
+            gap: var(--space-5);
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar__menu-item {
+            margin: 0;
+        }
+
+        .navbar__menu-link {
+            color: var(--ink-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            padding: var(--space-2) var(--space-3);
+            border-radius: 6px;
+        }
+
+        .navbar__menu-link:hover {
+            color: var(--gold);
+            background: rgba(244, 211, 126, 0.1);
+        }
+
+        .navbar__back {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: var(--space-2) var(--space-4);
+            border: 1px solid rgba(100, 212, 255, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(100, 212, 255, 0.1);
+        }
+
+        .navbar__back:hover {
+            background: rgba(100, 212, 255, 0.2);
+            border-color: rgba(100, 212, 255, 0.5);
+            transform: translateX(-2px);
+        }
+
+        .navbar__auth {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .auth-button {
+            background: rgba(244, 211, 126, 0.1);
+            border: 1px solid rgba(244, 211, 126, 0.3);
+            color: var(--gold);
+            padding: var(--space-2) var(--space-5);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .auth-button:hover {
+            background: rgba(244, 211, 126, 0.2);
+            border-color: rgba(244, 211, 126, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-menu-trigger {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--accent) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-1);
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: transform 0.3s ease;
+        }
+
+        .user-menu-trigger:hover .user-avatar {
+            transform: scale(1.05);
+        }
+
+        .user-menu-dropdown {
+            position: absolute;
+            top: calc(100% + var(--space-3));
+            right: 0;
+            background: rgba(7, 11, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(244, 211, 126, 0.2);
+            border-radius: 12px;
+            padding: var(--space-4);
+            min-width: 220px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .user-menu.active .user-menu-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .user-info {
+            margin-bottom: var(--space-4);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid rgba(244, 211, 126, 0.1);
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: var(--space-1);
+        }
+
+        .user-email {
+            font-size: 0.75rem;
+            color: var(--ink-secondary);
+        }
+
+        .user-menu-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3);
+            color: var(--ink-secondary);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .user-menu-item:hover {
+            background: rgba(244, 211, 126, 0.1);
+            color: var(--ink);
+        }
+
+        .menu-icon {
+            font-size: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .navbar__toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--ink);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: var(--space-2);
+        }
+
+        @media (max-width: 768px) {
+            .navbar__menu {
+                display: none;
+            }
+            
+            .navbar__toggle {
+                display: block;
+            }
+            
+            .navbar__right {
+                gap: var(--space-3);
+            }
+            
+            .navbar__back {
+                font-size: 0.8rem;
+                padding: var(--space-1) var(--space-3);
+            }
+        }
+        
+        /* ===== Hero Section ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        .hero__content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-8);
+            align-items: center;
+            width: 100%;
+        }
+        
+        .hero__text {
+            z-index: 10;
+        }
+        
+        .hero__title {
+            background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 50%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-5);
+        }
+        
+        .hero__subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            opacity: 0.9;
+            margin-bottom: var(--space-7);
+            color: rgba(234, 242, 255, 0.8);
+        }
+        
+        .hero__cta {
+            display: flex;
+            gap: var(--space-5);
+            flex-wrap: wrap;
+        }
+        
+        .hero__carousel {
+            position: relative;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .carousel {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+        
+        .carousel__item {
+            position: absolute;
+            width: 200px;
+            height: 250px;
+            background: linear-gradient(135deg, rgba(100, 212, 255, 0.2) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 2px solid rgba(234, 242, 255, 0.15);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+            overflow: hidden;
+        }
+        
+        .carousel__item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 18px;
+        }
+        
+        .carousel__item:hover {
+            transform: scale(1.05);
+            border-color: var(--accent);
+        }
+        
+        /* ===== How It Works Section ===== */
+        .how-works {
+            background: rgba(14, 26, 58, 0.3);
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-7);
+            margin-top: var(--space-8);
+        }
+        
+        .step {
+            text-align: center;
+            padding: var(--space-6);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .step:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 80px rgba(100, 212, 255, 0.15);
+        }
+        
+        .step__icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto var(--space-5);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--bg-1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .step__icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: iconRotate 3s linear infinite;
+        }
+        
+        @keyframes iconRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .step__title {
+            margin-bottom: var(--space-4);
+            color: var(--accent);
+        }
+        
+        .step__description {
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+        
+        /* ===== Mentors Section ===== */
+        .mentors__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+        
+        .mentor-card {
+            padding: var(--space-6);
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .mentor-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 100px rgba(100, 212, 255, 0.2);
+        }
+        
+        .mentor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 212, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .mentor-card:hover::before {
+            left: 100%;
+        }
+        
+        .mentor__avatar {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto var(--space-4);
+            background: linear-gradient(135deg, rgba(100, 212, 255, 0.3) 0%, rgba(139, 92, 246, 0.2) 100%);
+            border: 3px solid rgba(100, 212, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: rgba(100, 212, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mentor__avatar::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(100, 212, 255, 0.2), transparent);
+            animation: avatarSpin 4s linear infinite;
+        }
+        
+        @keyframes avatarSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .mentor__name {
+            margin-bottom: var(--space-2);
+            color: var(--ink);
+        }
+        
+        .mentor__specialty {
+            color: var(--accent);
+            font-size: 1rem;
+            margin-bottom: var(--space-3);
+        }
+        
+        .mentor__quote {
+            font-style: italic;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+            color: rgba(234, 242, 255, 0.8);
+            font-size: 0.95rem;
+        }
+        
+        .mentor-card:hover .mentor__quote {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* ===== Weekly Path Section ===== */
+        .weekly-path {
+            background: linear-gradient(135deg, rgba(100, 212, 255, 0.05) 0%, rgba(139, 92, 246, 0.03) 100%);
+        }
+        
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-5);
+            margin-top: var(--space-8);
+        }
+        
+        .week-card {
+            padding: var(--space-5);
+            transition: all 0.4s ease;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .week-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(100, 212, 255, 0.15);
+        }
+        
+        .week__number {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+            color: var(--bg-1);
+            padding: var(--space-2) var(--space-4);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: var(--space-3);
+        }
+        
+        .week__mentor {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(244, 211, 126, 0.3) 0%, rgba(100, 212, 255, 0.2) 100%);
+            border-radius: 50%;
+            margin: 0 auto var(--space-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: rgba(244, 211, 126, 0.9);
+            text-align: center;
+        }
+        
+        .week__title {
+            margin-bottom: var(--space-3);
+            color: var(--ink);
+        }
+        
+        .week__description {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.3s ease;
+            margin-bottom: var(--space-4);
+            font-size: 0.95rem;
+        }
+        
+        .week__button {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.3s ease 0.1s;
+        }
+        
+        .week-card:hover .week__description,
+        .week-card:hover .week__button {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* ===== Student Results Section ===== */
+        .results__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+        
+        .testimonial {
+            padding: var(--space-6);
+            position: relative;
+            transition: all 0.4s ease;
+        }
+        
+        .testimonial:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 80px rgba(100, 212, 255, 0.1);
+        }
+        
+        .testimonial__header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin-bottom: var(--space-4);
+        }
+        
+        .testimonial__avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-1);
+            font-weight: bold;
+        }
+        
+        .testimonial__info h4 {
+            margin-bottom: var(--space-1);
+            color: var(--ink);
+        }
+        
+        .testimonial__badge {
+            background: linear-gradient(135deg, var(--gold) 0%, #d4af37 100%);
+            color: var(--bg-1);
+            padding: var(--space-1) var(--space-2);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .testimonial__quote {
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+        
+        /* ===== Final CTA Section ===== */
+        .final-cta {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(100, 212, 255, 0.05) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(100, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            animation: floatingBrain 8s ease-in-out infinite alternate;
+        }
+        
+        @keyframes floatingBrain {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-20px); }
+        }
+        
+        .final-cta__title {
+            margin-bottom: var(--space-5);
+        }
+        
+        .final-cta__subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: var(--space-8);
+        }
+        
+        /* ===== Reveal Animation ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* ===== Curved Section Dividers ===== */
+        .section-divider {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath d='M0,0V60c240,36 480,36 720,0s480-36 720,0V0Z' fill='%23070B1A'/%3E%3C/svg%3E") no-repeat center/cover;
+            z-index: 3;
+        }
+        
+        /* ===== Footer ===== */
+        .footer {
+            background: linear-gradient(135deg, var(--bg-1) 0%, rgba(14, 26, 58, 0.9) 100%);
+            border-top: 1px solid rgba(100, 212, 255, 0.1);
+            padding: var(--space-8) 0 var(--space-6);
+            position: relative;
+        }
+        
+        .footer__content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-6);
+        }
+        
+        .footer__section h4 {
+            color: var(--accent);
+            margin-bottom: var(--space-4);
+            font-size: 1.1rem;
+        }
+        
+        .footer__links {
+            list-style: none;
+        }
+        
+        .footer__links li {
+            margin-bottom: var(--space-2);
+        }
+        
+        .footer__links a {
+            color: rgba(234, 242, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer__links a:hover {
+            color: var(--accent);
+        }
+        
+        .footer__bottom {
+            text-align: center;
+            padding-top: var(--space-5);
+            border-top: 1px solid rgba(100, 212, 255, 0.1);
+            color: rgba(234, 242, 255, 0.6);
+            font-size: 0.9rem;
+        }
+        
+        /* ===== Progress Indicator ===== */
+        .progress-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(100, 212, 255, 0.1);
+            z-index: 1000;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--purple) 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        /* ===== Floating Action Button ===== */
+        .fab {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--bg-1);
+            box-shadow: 0 10px 30px rgba(100, 212, 255, 0.3);
+            transition: all 0.3s ease;
+            z-index: 50;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .fab.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .fab:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(100, 212, 255, 0.4);
+        }
+        
+        /* ===== Loading Animation ===== */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(100, 212, 255, 0.1);
+            border-top: 3px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* ===== Responsive Design ===== */
+        @media (max-width: 768px) {
+            .hero__content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: var(--space-6);
+            }
+            
+            .hero__cta {
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .carousel {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .carousel__item {
+                width: 150px;
+                height: 180px;
+            }
+            
+            .steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .mentors__grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            .timeline {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* ===== Focus States ===== */
+        .btn:focus,
+        .mentor-card:focus,
+        .week-card:focus {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== Loading Screen ===== -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-spinner"></div>
+    </div>
+    
+    <!-- ===== Progress Indicator ===== -->
+    <div class="progress-indicator">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <!-- ===== Navigation ===== -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Academy navigation">
+        <div class="navbar__container">
+            <a href="../index.html" class="navbar__brand" aria-label="Test Your Genius Academy">
+                <div class="navbar__logo"></div>
+                Test Your Genius Academy
+            </a>
+            
+            <div class="navbar__right">
+                <ul class="navbar__menu" id="navbar-menu" role="menubar">
+                    <li class="navbar__menu-item">
+                        <a href="#courses" class="navbar__menu-link" role="menuitem">Courses</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="#progress" class="navbar__menu-link" role="menuitem">Progress</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="leaderboard.html" class="navbar__menu-link" role="menuitem">Leaderboard</a>
+                    </li>
+                    <li class="navbar__menu-item">
+                        <a href="iq-test.html" class="navbar__menu-link" role="menuitem">Take Test</a>
+                    </li>
+                </ul>
+                
+                <a href="../index.html" class="navbar__back">← Back to Main Site</a>
+                
+                <!-- Authentication Section -->
+                <div class="navbar__auth">
+                    <!-- Login Button (shown when not authenticated) -->
+                    <button class="auth-button" onclick="showAuthModal()" id="login-button">
+                        Sign In
+                    </button>
+                    
+                    <!-- User Menu (shown when authenticated) -->
+                    <div class="user-menu hidden" id="user-menu">
+                        <button class="user-menu-trigger" onclick="toggleUserMenu()">
+                            <div class="user-avatar">
+                                <span id="user-avatar-text">U</span>
+                            </div>
+                        </button>
+                        
+                        <div class="user-menu-dropdown">
+                            <div class="user-info">
+                                <div class="user-name" id="user-display-name">User Name</div>
+                                <div class="user-email" id="user-display-email">user@email.com</div>
+                            </div>
+                            
+                            <a href="dashboard.html" class="user-menu-item">
+                                <span class="menu-icon">📊</span>
+                                Dashboard
+                            </a>
+                            
+                            <a href="pages/results.html" class="user-menu-item">
+                                <span class="menu-icon">🧠</span>
+                                My Results
+                            </a>
+                            
+                            <a href="#courses" class="user-menu-item">
+                                <span class="menu-icon">📚</span>
+                                My Courses
+                            </a>
+                            
+                            <a href="leaderboard.html" class="user-menu-item">
+                                <span class="menu-icon">🏆</span>
+                                Leaderboard
+                            </a>
+                            
+                            <div class="user-menu-divider"></div>
+                            
+                            <button class="user-menu-item logout-button" onclick="handleLogout()">
+                                <span class="menu-icon">🚪</span>
+                                Sign Out
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="navbar__toggle" id="navbar-toggle" aria-label="Toggle mobile menu">☰</button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- ===== Hero Section ===== -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero__content reveal">
+                <div class="hero__text">
+                    <h1 class="hero__title">Welcome to the Genius Academy</h1>
+                    <p class="hero__subtitle">6 Weeks. 6 Mentors. A lifetime of sharper thinking.</p>
+                    <div class="hero__cta">
+                        <a href="pages/academy/week1-lesson.html" class="btn btn--primary">Start Week 1</a>
+                        <a href="#how-works" class="btn btn--outline">Explore the Program</a>
+                    </div>
+                </div>
+                <div class="hero__carousel">
+                    <div class="carousel" id="mentor-carousel">
+                        <!-- Mentor carousel items will be generated by JavaScript -->
+                        <div class="carousel__item" style="transform: translateX(-150px) translateY(-100px);">
+                            <img src="assets/images/characters/Einstein.png" alt="Einstein">
+                        </div>
+                        <div class="carousel__item" style="transform: translateX(150px) translateY(-100px);">
+                            <img src="assets/images/characters/Steve.png" alt="Steve Jobs">
+                        </div>
+                        <div class="carousel__item" style="transform: translateX(-150px) translateY(100px);">
+                            <img src="assets/images/characters/Oprah-gpt.png" alt="Oprah">
+                        </div>
+                        <div class="carousel__item" style="transform: translateX(150px) translateY(100px);">
+                            <img src="assets/images/characters/Elon.png" alt="Elon Musk">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== How It Works Section ===== -->
+    <section class="section how-works reveal" id="how-works">
+        <div class="container">
+            <h2 class="section__title">How It Works</h2>
+            <div class="steps">
+                <div class="step glass">
+                    <div class="step__icon">
+                        🧠
+                    </div>
+                    <h3 class="step__title">Take the Genius IQ Test</h3>
+                    <p class="step__description">Start with our comprehensive IQ assessment to unlock your cognitive profile and set your learning baseline.</p>
+                </div>
+                <div class="step glass">
+                    <div class="step__icon">
+                        🎓
+                    </div>
+                    <h3 class="step__title">Unlock Your Weekly Mentor Lessons</h3>
+                    <p class="step__description">Each week, dive deep with a legendary mentor who will transform how you think and approach challenges.</p>
+                </div>
+                <div class="step glass">
+                    <div class="step__icon">
+                        🏆
+                    </div>
+                    <h3 class="step__title">Earn Genius Badges & Certificate</h3>
+                    <p class="step__description">Complete challenges, track progress, and graduate with your personalized Genius Certificate.</p>
+                </div>
+            </div>
+        </div>
+        <div class="section-divider"></div>
+    </section>
+    
+    <!-- ===== Meet Your Mentors Section ===== -->
+    <section class="section reveal" id="mentors">
+        <div class="container">
+            <h2 class="section__title">Meet Your Mentors</h2>
+            <div class="mentors__grid">
+                <div class="mentor-card glass-strong" data-week="1">
+                    <div class="mentor__avatar">
+                        <!-- Replace with: <img src="../assets/images/characters/einstein-3d.webp" alt="Albert Einstein"> -->
+                        Einstein<br>Portrait
+                    </div>
+                    <h3 class="mentor__name">Albert Einstein</h3>
+                    <p class="mentor__specialty">Logic & Problem Solving</p>
+                    <p class="mentor__quote">"Logic will take you from confusion to clarity. It's not about being the smartest — it's about seeing patterns where others see chaos."</p>
+                </div>
+                
+                <div class="mentor-card glass-strong" data-week="2">
+                    <div class="mentor__avatar">
+                        <!-- Replace with: <img src="../assets/images/characters/jobs-3d.webp" alt="Steve Jobs"> -->
+                        Jobs<br>Portrait
+                    </div>
+                    <h3 class="mentor__name">Steve Jobs</h3>
+                    <p class="mentor__specialty">Visionary Thinking</p>
+                    <p class="mentor__quote">"Innovation distinguishes between a leader and a follower. Think different and connect the unconnected."</p>
+                </div>
+                
+                <div class="mentor-card glass-strong" data-week="3">
+                    <div class="mentor__avatar">
+                        <!-- Replace with: <img src="../assets/images/characters/oprah-3d.webp" alt="Oprah Winfrey"> -->
+                        Oprah<br>Portrait
+                    </div>
+                    <h3 class="mentor__name">Oprah Winfrey</h3>
+                    <p class="mentor__specialty">Emotional Intelligence & Leadership</p>
+                    <p class="mentor__quote">"The greatest discovery of all time is that a person can change their future by changing their attitude."</p>
+                </div>
+                
+                <div class="mentor-card glass-strong" data-week="4">
+                    <div class="mentor__avatar">
+                        <!-- Replace with: <img src="../assets/images/characters/gates-3d.webp" alt="Bill Gates"> -->
+                        Gates<br>Portrait
+                    </div>
+                    <h3 class="mentor__name">Bill Gates</h3>
+                    <p class="mentor__specialty">Strategic Systems Thinking</p>
+                    <p class="mentor__quote">"Most people overestimate what they can do in one year and underestimate what they can do in ten years."</p>
+                </div>
+                
+                <div class="mentor-card glass-strong" data-week="5">
+                    <div class="mentor__avatar">
+                        <!-- Replace with: <img src="../assets/images/characters/goggins-3d.webp" alt="David Goggins"> -->
+                        Goggins<br>Portrait
+                    </div>
+                    <h3 class="mentor__name">David Goggins</h3>
+                    <p class="mentor__specialty">Mental Toughness & Resilience</p>
+                    <p class="mentor__quote">"You are in danger of living a life so comfortable and soft that you will die without ever realizing your true potential."</p>
+                </div>
+                
+                <div class="mentor-card glass-strong" data-week="6">
+                    <div class="mentor__avatar">
+                        <!-- Replace with: <img src="../assets/images/characters/curie-3d.webp" alt="Marie Curie"> -->
+                        Curie<br>Portrait
+                    </div>
+                    <h3 class="mentor__name">Marie Curie</h3>
+                    <p class="mentor__specialty">Scientific Discovery & Persistence</p>
+                    <p class="mentor__quote">"Nothing in life is to be feared; it is only to be understood. The path to genius is paved with relentless curiosity."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== Weekly Path Section ===== -->
+    <section class="section weekly-path reveal" id="weekly-path">
+        <div class="container">
+            <h2 class="section__title">Your 6-Week Journey</h2>
+            <div class="timeline">
+                <div class="week-card glass">
+                    <div class="week__number">Week 1</div>
+                    <div class="week__mentor">Einstein</div>
+                    <h3 class="week__title">Logic & Problem Solving</h3>
+                    <p class="week__description">Master the fundamentals of logical thinking and systematic problem-solving with history's greatest physicist.</p>
+                    <a href="pages/academy/week1-lesson.html" class="btn btn--primary week__button">View Lesson</a>
+                </div>
+                
+                <div class="week-card glass">
+                    <div class="week__number">Week 2</div>
+                    <div class="week__mentor">Jobs</div>
+                    <h3 class="week__title">Visionary Thinking</h3>
+                    <p class="week__description">Learn to think different, connect unrelated ideas, and develop breakthrough innovations like a tech visionary.</p>
+                    <a href="pages/academy/week2-lesson.html" class="btn btn--primary week__button">View Lesson</a>
+                </div>
+                
+                <div class="week-card glass">
+                    <div class="week__number">Week 3</div>
+                    <div class="week__mentor">Oprah</div>
+                    <h3 class="week__title">Emotional Intelligence</h3>
+                    <p class="week__description">Develop profound self-awareness and master the art of connecting with others authentically.</p>
+                    <a href="#" class="btn btn--primary week__button">Coming Soon</a>
+                </div>
+                
+                <div class="week-card glass">
+                    <div class="week__number">Week 4</div>
+                    <div class="week__mentor">Gates</div>
+                    <h3 class="week__title">Systems Thinking</h3>
+                    <p class="week__description">Learn to see the big picture, identify leverage points, and create lasting impact through strategic thinking.</p>
+                    <a href="#" class="btn btn--primary week__button">Coming Soon</a>
+                </div>
+                
+                <div class="week-card glass">
+                    <div class="week__number">Week 5</div>
+                    <div class="week__mentor">Goggins</div>
+                    <h3 class="week__title">Mental Toughness</h3>
+                    <p class="week__description">Build unbreakable mental resilience and learn to push through any obstacle or limitation.</p>
+                    <a href="#" class="btn btn--primary week__button">Coming Soon</a>
+                </div>
+                
+                <div class="week-card glass">
+                    <div class="week__number">Week 6</div>
+                    <div class="week__mentor">Curie</div>
+                    <h3 class="week__title">Scientific Discovery</h3>
+                    <p class="week__description">Cultivate relentless curiosity and learn the methodical approach to breakthrough discoveries.</p>
+                    <a href="#" class="btn btn--primary week__button">Coming Soon</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== Student Results Section ===== -->
+    <section class="section reveal" id="results">
+        <div class="container">
+            <h2 class="section__title">Student Success Stories</h2>
+            <div class="results__grid">
+                <div class="testimonial glass-strong">
+                    <div class="testimonial__header">
+                        <div class="testimonial__avatar">SM</div>
+                        <div class="testimonial__info">
+                            <h4>Sarah Mitchell</h4>
+                            <div class="testimonial__badge">Logic Master</div>
+                        </div>
+                    </div>
+                    <p class="testimonial__quote">
+                        "The Einstein week completely transformed how I approach complex problems. I now see solutions where I once saw obstacles. My IQ score improved by 18 points!"
+                    </p>
+                </div>
+                
+                <div class="testimonial glass-strong">
+                    <div class="testimonial__header">
+                        <div class="testimonial__avatar">DL</div>
+                        <div class="testimonial__info">
+                            <h4>David Liu</h4>
+                            <div class="testimonial__badge">Innovation Genius</div>
+                        </div>
+                    </div>
+                    <p class="testimonial__quote">
+                        "Learning from Jobs' visionary thinking patterns helped me launch my startup. The 'think different' framework is now part of my daily decision-making process."
+                    </p>
+                </div>
+                
+                <div class="testimonial glass-strong">
+                    <div class="testimonial__header">
+                        <div class="testimonial__avatar">MK</div>
+                        <div class="testimonial__info">
+                            <h4>Maria Rodriguez</h4>
+                            <div class="testimonial__badge">Leadership Pro</div>
+                        </div>
+                    </div>
+                    <p class="testimonial__quote">
+                        "Oprah's emotional intelligence training changed everything. I'm now leading my team with confidence and creating deeper connections in all my relationships."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== Final CTA Section ===== -->
+    <section class="section final-cta reveal">
+        <div class="container">
+            <h2 class="final-cta__title">Your Genius Journey Starts Now</h2>
+            <p class="final-cta__subtitle">Take the first step — start with Week 1 today.</p>
+            <a href="pages/academy/week1-lesson.html" class="btn btn--primary btn--large">Start Learning</a>
+        </div>
+    </section>
+    
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__section">
+                    <h4>Genius Academy</h4>
+                    <ul class="footer__links">
+                        <li><a href="../index.html">Main Site</a></li>
+                        <li><a href="#mentors">Meet Mentors</a></li>
+                        <li><a href="#weekly-path">6-Week Journey</a></li>
+                        <li><a href="#results">Success Stories</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__section">
+                    <h4>Weekly Lessons</h4>
+                    <ul class="footer__links">
+                        <li><a href="pages/academy/week1-lesson.html">Week 1 - Einstein</a></li>
+                        <li><a href="#" onclick="alert('Coming soon!')">Week 2 - Jobs</a></li>
+                        <li><a href="#" onclick="alert('Coming soon!')">Week 3 - Oprah</a></li>
+                        <li><a href="#" onclick="alert('Coming soon!')">Week 4 - Gates</a></li>
+                        <li><a href="#" onclick="alert('Coming soon!')">Week 5 - Goggins</a></li>
+                        <li><a href="#" onclick="alert('Coming soon!')">Week 6 - Curie</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__section">
+                    <h4>Resources</h4>
+                    <ul class="footer__links">
+                        <li><a href="../index.html#iq-test">Take IQ Test</a></li>
+                        <li><a href="#how-works">How It Works</a></li>
+                        <li><a href="../index.html#pricing">Pricing</a></li>
+                        <li><a href="../index.html#about">About</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__section">
+                    <h4>Connect</h4>
+                    <ul class="footer__links">
+                        <li><a href="#">Support Center</a></li>
+                        <li><a href="#">Community Forum</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p>&copy; 2025 Test Your Genius Academy. Unleashing human potential through legendary mentorship.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- ===== Floating Action Button ===== -->
+    <button class="fab" id="fab" onclick="window.location.href='pages/academy/week1-lesson.html'" title="Start Week 1">
+        🚀
+    </button>
+    
+    <script>
+        // ===== Navigation JavaScript =====
+        
+        // Toggle user menu
+        function toggleUserMenu() {
+            const userMenu = document.getElementById('user-menu');
+            userMenu.classList.toggle('active');
+        }
+
+        // Close user menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const userMenu = document.getElementById('user-menu');
+            const userMenuTrigger = userMenu?.querySelector('.user-menu-trigger');
+            
+            if (userMenu && !userMenu.contains(event.target)) {
+                userMenu.classList.remove('active');
+            }
+        });
+
+        // Mock authentication functions (replace with real auth)
+        function showAuthModal() {
+            // This would typically open a login modal
+            console.log('Auth modal would open here');
+            // For demo purposes, simulate login
+            setTimeout(() => {
+                simulateLogin();
+            }, 1000);
+        }
+
+        function simulateLogin() {
+            document.getElementById('login-button').style.display = 'none';
+            document.getElementById('user-menu').classList.remove('hidden');
+            document.getElementById('user-display-name').textContent = 'Test User';
+            document.getElementById('user-display-email').textContent = 'test@example.com';
+            document.getElementById('user-avatar-text').textContent = 'TU';
+        }
+
+        function handleLogout() {
+            document.getElementById('login-button').style.display = 'block';
+            document.getElementById('user-menu').classList.add('hidden');
+            document.getElementById('user-menu').classList.remove('active');
+        }
+
+        // Check auth status on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            // This would check real authentication status
+            // For now, just ensure login button is visible
+            const loginButton = document.getElementById('login-button');
+            const userMenu = document.getElementById('user-menu');
+            
+            // Show login by default (replace with real auth check)
+            if (loginButton) loginButton.style.display = 'block';
+            if (userMenu) userMenu.classList.add('hidden');
+        });
+
+        /* ===== Carousel Animation =====*/
+        function initCarousel() {
+            const carousel = document.getElementById('mentor-carousel');
+            const items = carousel.querySelectorAll('.carousel__item');
+            
+            if (items.length === 0) return;
+            
+            let angle = 0;
+            
+            function updateCarousel() {
+                items.forEach((item, index) => {
+                    const rotationAngle = (angle + index * 90) * Math.PI / 180;
+                    const radius = 120;
+                    const x = Math.cos(rotationAngle) * radius;
+                    const y = Math.sin(rotationAngle) * radius;
+                    
+                    item.style.transform = `translate(${x}px, ${y}px) scale(${0.8 + Math.sin(rotationAngle + Math.PI/2) * 0.2})`;
+                    item.style.zIndex = Math.floor(10 + Math.sin(rotationAngle + Math.PI/2) * 10);
+                });
+                
+                angle += 0.5;
+                requestAnimationFrame(updateCarousel);
+            }
+            
+            updateCarousel();
+        }
+        
+        /* ===== Scroll Reveal Animation ===== */
+        function initScrollReveal() {
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            });
+            
+            revealElements.forEach((el) => {
+                revealObserver.observe(el);
+            });
+        }
+        
+        /* ===== Mentor Card Interactions ===== */
+        function initMentorCards() {
+            const mentorCards = document.querySelectorAll('.mentor-card');
+            
+            mentorCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const week = card.dataset.week;
+                    if (week === '1') {
+                        window.location.href = 'pages/academy/week1-lesson.html';
+                    } else {
+                        // Future: redirect to other week lessons
+                        alert(`Week ${week} coming soon! Complete Week 1 first.`);
+                    }
+                });
+                
+                // Add keyboard support
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        card.click();
+                    }
+                });
+                
+                // Make focusable
+                card.setAttribute('tabindex', '0');
+            });
+        }
+        
+        /* ===== Week Card Interactions ===== */
+        function initWeekCards() {
+            const weekCards = document.querySelectorAll('.week-card');
+            
+            weekCards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('btn')) {
+                        const button = card.querySelector('.week__button');
+                        if (button) button.click();
+                    }
+                });
+                
+                // Add keyboard support
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const button = card.querySelector('.week__button');
+                        if (button) button.click();
+                    }
+                });
+                
+                // Make focusable
+                card.setAttribute('tabindex', '0');
+            });
+        }
+        
+        /* ===== Smooth Scrolling ===== */
+        function initSmoothScrolling() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            
+            links.forEach((link) => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    const targetId = link.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+        
+        /* ===== Parallax Effects ===== */
+        function initParallax() {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const parallaxElements = document.querySelectorAll('.final-cta::before');
+                
+                parallaxElements.forEach(el => {
+                    const speed = 0.5;
+                    el.style.transform = `translateY(${scrolled * speed}px)`;
+                });
+            });
+        }
+        
+        /* ===== Initialize Everything ===== */
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hide loading screen
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loading-screen');
+                if (loadingScreen) {
+                    loadingScreen.classList.add('hidden');
+                }
+            }, 1000);
+            
+            initCarousel();
+            initScrollReveal();
+            initMentorCards();
+            initWeekCards();
+            initSmoothScrolling();
+            initParallax();
+            initProgressBar();
+            initFab();
+            
+            // Initial reveal for hero
+            setTimeout(() => {
+                const heroContent = document.querySelector('.hero .reveal');
+                if (heroContent) {
+                    heroContent.classList.add('revealed');
+                }
+            }, 1200);
+        });
+        
+        /* ===== Progress Bar ===== */
+        function initProgressBar() {
+            const progressBar = document.getElementById('progress-bar');
+            
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.pageYOffset;
+                const docHeight = document.body.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                
+                if (progressBar) {
+                    progressBar.style.width = Math.min(scrollPercent, 100) + '%';
+                }
+            });
+        }
+        
+        /* ===== Floating Action Button ===== */
+        function initFab() {
+            const fab = document.getElementById('fab');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 500) {
+                    fab.classList.add('visible');
+                } else {
+                    fab.classList.remove('visible');
+                }
+            });
+        }
+        
+        /* ===== Performance Optimization ===== */
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+        
+        // Optimize scroll events
+        window.addEventListener('scroll', debounce(() => {
+            // Additional scroll-based animations can go here
+        }, 10));
+    </script>
+</body>
+</html>

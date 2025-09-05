@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 1: Logic & Problem Solving - Test Your Genius Academy</title>
+    <meta name="description" content="Master logic and problem-solving with Albert Einstein as your mentor. Week 1 of the Test Your Genius Elite Academy program.">
+    <style>
+        /* ===== CSS Variables & Reset ===== */
+        :root {
+            --bg-1: #070B1A;
+            --bg-2: #0E1A3A;
+            --ink: #EAF2FF;
+            --accent: #64D4FF;
+            --gold: #F4D37E;
+            
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-7: 3rem;
+            --space-8: 4rem;
+            
+            --font-stack: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-stack);
+            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+            color: var(--ink);
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+        
+        /* ===== Animated Background ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(100, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(244, 211, 126, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(100, 212, 255, 0.05) 0%, transparent 50%);
+            animation: backgroundShift 8s ease-in-out infinite alternate;
+        }
+        
+        @keyframes backgroundShift {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.8; }
+        }
+        
+        /* ===== Light Streaks Animation ===== */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                linear-gradient(45deg, transparent 40%, rgba(100, 212, 255, 0.03) 50%, transparent 60%),
+                linear-gradient(-45deg, transparent 30%, rgba(244, 211, 126, 0.02) 50%, transparent 70%);
+            animation: lightStreaks 12s linear infinite;
+        }
+        
+        @keyframes lightStreaks {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            100% { transform: translateX(100%) translateY(100%); }
+        }
+        
+        /* ===== Typography ===== */
+        h1, h2, h3 {
+            font-weight: bold;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+        
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+        h3 { font-size: clamp(1.2rem, 3vw, 1.5rem); }
+        
+        p { font-size: clamp(1rem, 2vw, 1.125rem); }
+        
+        /* ===== Glassmorphism Components ===== */
+        .glass {
+            background: rgba(234, 242, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(234, 242, 255, 0.1);
+            border-radius: 16px;
+        }
+        
+        .glass-strong {
+            background: rgba(234, 242, 255, 0.08);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(234, 242, 255, 0.15);
+            border-radius: 20px;
+        }
+        
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-4) var(--space-6);
+            border: none;
+            border-radius: 12px;
+            font-family: var(--font-stack);
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn--primary {
+            background: linear-gradient(135deg, var(--accent) 0%, #4facfe 100%);
+            color: var(--bg-1);
+            box-shadow: 0 8px 32px rgba(100, 212, 255, 0.3);
+        }
+        
+        .btn--secondary {
+            background: rgba(234, 242, 255, 0.1);
+            color: var(--ink);
+            border: 2px solid rgba(234, 242, 255, 0.2);
+        }
+        
+        .btn--download {
+            background: linear-gradient(135deg, var(--gold) 0%, #d4af37 100%);
+            color: var(--bg-1);
+            box-shadow: 0 8px 32px rgba(244, 211, 126, 0.3);
+        }
+        
+        .btn--glowing {
+            background: linear-gradient(135deg, var(--accent) 0%, #4facfe 100%);
+            color: var(--bg-1);
+            box-shadow: 
+                0 0 30px rgba(100, 212, 255, 0.6),
+                0 8px 32px rgba(100, 212, 255, 0.4);
+            transform: perspective(1000px) rotateX(15deg);
+            font-size: 1.2rem;
+            padding: var(--space-5) var(--space-7);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px) scale(1.02);
+        }
+        
+        .btn--glowing:hover {
+            transform: perspective(1000px) rotateX(15deg) translateY(-4px) scale(1.05);
+            box-shadow: 
+                0 0 40px rgba(100, 212, 255, 0.8),
+                0 12px 40px rgba(100, 212, 255, 0.5);
+        }
+        
+        /* ===== Container ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+        
+        /* ===== Navigation ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: var(--space-4);
+            background: rgba(7, 11, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(234, 242, 255, 0.1);
+        }
+        
+        .nav__content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav__brand {
+            color: var(--ink);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .nav__back {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav__back:hover {
+            opacity: 1;
+        }
+        
+        /* ===== Hero Section ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        .hero__content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-8);
+            align-items: center;
+            width: 100%;
+        }
+        
+        .hero__text {
+            z-index: 10;
+        }
+        
+        .hero__title {
+            background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-4);
+        }
+        
+        .hero__subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+            opacity: 0.9;
+            margin-bottom: var(--space-6);
+        }
+        
+        .hero__image {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero__character {
+            width: 100%;
+            max-width: 500px;
+            height: 600px;
+            background: linear-gradient(135deg, rgba(100, 212, 255, 0.2) 0%, rgba(244, 211, 126, 0.1) 100%);
+            border-radius: 20px;
+            border: 2px solid rgba(234, 242, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero__character img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 18px;
+            z-index: 2;
+        }
+        
+        .hero__character::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(100, 212, 255, 0.1), transparent);
+            animation: rotate 4s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* ===== Section Styles ===== */
+        .section {
+            padding: var(--space-8) 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section__title {
+            text-align: center;
+            margin-bottom: var(--space-6);
+            background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section__content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        /* ===== Video Section ===== */
+        .video {
+            background: rgba(14, 26, 58, 0.3);
+        }
+        
+        .video__container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto var(--space-5);
+            position: relative;
+        }
+        
+        .video__placeholder {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: linear-gradient(135deg, rgba(100, 212, 255, 0.1) 0%, rgba(244, 211, 126, 0.05) 100%),
+                        url('../../assets/videos/week-1/einstein-thumbnail.png');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            border: 2px solid rgba(234, 242, 255, 0.1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .video__placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(7, 11, 26, 0.4);
+            border-radius: 18px;
+        }
+        
+        .video__placeholder:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(100, 212, 255, 0.2);
+        }
+        
+        .video__placeholder:hover::before {
+            background: rgba(7, 11, 26, 0.2);
+        }
+        
+        .video__play {
+            position: relative;
+            z-index: 5;
+            width: 120px;
+            height: 120px;
+            background: rgba(100, 212, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(100, 212, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            box-shadow: 
+                0 0 40px rgba(100, 212, 255, 0.3),
+                0 8px 32px rgba(100, 212, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .video__play::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 55%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border-left: 24px solid var(--accent);
+            border-top: 14px solid transparent;
+            border-bottom: 14px solid transparent;
+            filter: drop-shadow(0 2px 8px rgba(100, 212, 255, 0.4));
+            transition: all 0.3s ease;
+        }
+        
+        .video__play::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(100, 212, 255, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .video__placeholder:hover .video__play {
+            transform: scale(1.15);
+            background: rgba(100, 212, 255, 0.25);
+            border-color: rgba(100, 212, 255, 0.5);
+            box-shadow: 
+                0 0 60px rgba(100, 212, 255, 0.5),
+                0 12px 48px rgba(100, 212, 255, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        .video__placeholder:hover .video__play::before {
+            border-left-color: #ffffff;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .video__placeholder:hover .video__play::after {
+            opacity: 1;
+        }
+        
+        .video__player {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            display: none;
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1/1;
+        }
+        
+        .video__element {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            object-fit: cover;
+            object-position: center center;
+            min-width: 100%;
+            min-height: 100%;
+        }
+        
+        .video__controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(7, 11, 26, 0.9) 0%, transparent 100%);
+            padding: var(--space-4);
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .video__player:hover .video__controls {
+            transform: translateY(0);
+        }
+        
+        .video__control-btn {
+            background: rgba(100, 212, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(100, 212, 255, 0.3);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            box-shadow: 
+                0 0 30px rgba(100, 212, 255, 0.3),
+                0 6px 24px rgba(100, 212, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .video__control-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(100, 212, 255, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .video__control-btn:hover {
+            background: rgba(100, 212, 255, 0.25);
+            border-color: rgba(100, 212, 255, 0.5);
+            transform: scale(1.1);
+            box-shadow: 
+                0 0 50px rgba(100, 212, 255, 0.5),
+                0 8px 32px rgba(100, 212, 255, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        .video__control-btn:hover::after {
+            opacity: 1;
+        }
+        
+        .video__control-btn.active {
+            background: var(--accent);
+            color: var(--bg-1);
+        }
+        
+        .video__caption {
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-bottom: var(--space-6);
+        }
+        
+        .video__quotes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-5);
+        }
+        
+        .quote {
+            padding: var(--space-5);
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        .quote::before {
+            content: '"';
+            font-size: 3rem;
+            color: var(--accent);
+            opacity: 0.3;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+        }
+        
+        .video-section h2 {
+            font-weight: 600;
+            margin-bottom: var(--space-6);
+        }
+        
+        .video__quotes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-5);
+            margin-top: var(--space-6);
+        }
+        
+        .quote {
+            padding: var(--space-5);
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            position: relative;
+        }
+        
+        .quote::before {
+            content: '"';
+            font-size: 3rem;
+            color: var(--accent);
+            position: absolute;
+            top: -10px;
+            left: var(--space-3);
+            opacity: 0.3;
+        }
+        
+        /* ===== Lesson Content ===== */
+        .lesson {
+            background: rgba(14, 26, 58, 0.3);
+        }
+        
+        .lesson__text {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        
+        .lesson__paragraph {
+            margin-bottom: var(--space-6);
+            font-size: 1.125rem;
+            line-height: 1.8;
+        }
+        
+        /* ===== Daily Challenges ===== */
+        .challenges__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-5);
+            margin-top: var(--space-6);
+        }
+        
+        .challenge {
+            padding: var(--space-5);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .challenge:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(100, 212, 255, 0.1);
+        }
+        
+        .challenge__day {
+            background: linear-gradient(135deg, var(--accent) 0%, #4facfe 100%);
+            color: var(--bg-1);
+            padding: var(--space-2) var(--space-4);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: var(--space-3);
+        }
+        
+        .challenge__title {
+            margin-bottom: var(--space-3);
+            color: var(--ink);
+        }
+        
+        .challenge__description {
+            opacity: 0.8;
+            margin-bottom: var(--space-4);
+        }
+        
+        /* ===== Tracking Section ===== */
+        .tracking {
+            background: var(--bg-2);
+        }
+        
+        .tracking__table {
+            width: 100%;
+            background: rgba(234, 242, 255, 0.05);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(234, 242, 255, 0.1);
+        }
+        
+        .tracking__header {
+            background: rgba(100, 212, 255, 0.1);
+            padding: var(--space-4);
+            display: grid;
+            grid-template-columns: 80px 2fr 100px 120px 2fr;
+            gap: var(--space-3);
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .tracking__row {
+            padding: var(--space-4);
+            display: grid;
+            grid-template-columns: 80px 2fr 100px 120px 2fr;
+            gap: var(--space-3);
+            border-top: 1px solid rgba(234, 242, 255, 0.1);
+            transition: background 0.3s ease;
+        }
+        
+        .tracking__row:hover {
+            background: rgba(234, 242, 255, 0.03);
+        }
+        
+        .tracking__checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(100, 212, 255, 0.5);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tracking__checkbox.checked {
+            background: var(--accent);
+            color: var(--bg-1);
+        }
+        
+        .tracking__input {
+            background: transparent;
+            border: 1px solid rgba(234, 242, 255, 0.2);
+            border-radius: 8px;
+            padding: var(--space-2);
+            color: var(--ink);
+            font-family: var(--font-stack);
+        }
+        
+        .tracking__input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        /* ===== Final CTA ===== */
+        .final-cta {
+            background: linear-gradient(135deg, rgba(100, 212, 255, 0.1) 0%, rgba(244, 211, 126, 0.05) 100%);
+            text-align: center;
+        }
+        
+        .final-cta__title {
+            margin-bottom: var(--space-4);
+        }
+        
+        .final-cta__subtitle {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            margin-bottom: var(--space-7);
+        }
+        
+        /* ===== Progress Bar ===== */
+        .progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent);
+            z-index: 200;
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        /* ===== Reveal Animation ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* ===== Responsive Design ===== */
+        @media (max-width: 768px) {
+            .hero__content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: var(--space-6);
+            }
+            
+            .hero__character {
+                max-width: 300px;
+                height: 400px;
+            }
+            
+            .challenges__grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tracking__header,
+            .tracking__row {
+                grid-template-columns: 1fr;
+                gap: var(--space-2);
+                text-align: center;
+            }
+            
+            .video__quotes {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* ===== Focus States ===== */
+        .btn:focus,
+        .tracking__checkbox:focus,
+        .tracking__input:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== Progress Bar ===== -->
+    <div class="progress" id="progress"></div>
+    
+    <!-- ===== Navigation ===== -->
+    <nav class="nav">
+        <div class="nav__content">
+            <a href="../../index.html" class="nav__brand">Test Your Genius</a>
+            <a href="../../index.html#academy" class="nav__back">← Back to Academy</a>
+        </div>
+    </nav>
+    
+    <!-- ===== Hero Section ===== -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero__content reveal">
+                <div class="hero__text">
+                    <h1 class="hero__title">Week 1: Think Like a Problem-Solver</h1>
+                    <p class="hero__subtitle">Unlock the power of logic to tackle challenges with clarity and precision.</p>
+                </div>
+                <div class="hero__image">
+                    <div class="hero__character">
+                        <img src="../../assets/images/characters/Einstein.png" alt="Albert Einstein 3D character">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== Mentor Video Section ===== -->
+    <section class="section video reveal">
+        <div class="container">
+            <h2 class="section__title">Message from Your Mentor</h2>
+            <div class="section__content">
+                <div class="video__container">
+                    <div class="video__placeholder" id="video-placeholder">
+                        <div class="video__play" id="initial-play-btn"></div>
+                    </div>
+                    
+                    <div class="video__player" id="video-player">
+                        <video class="video__element" id="mentor-video" preload="metadata" poster="../../assets/videos/week-1/einstein-thumbnail.png">
+                            <source src="../../assets/videos/week-1/Einstein-message.mp4" type="video/mp4">
+                            <source src="../../assets/videos/week-1/Einstein-message.webm" type="video/webm">
+                            Your browser does not support the video tag.
+                        </video>
+                        
+                        <div class="video__controls">
+                            <button class="video__control-btn" id="play-pause-btn" title="Play/Pause">
+                                <span id="play-pause-icon">▶</span>
+                            </button>
+                            <button class="video__control-btn" id="mute-btn" title="Sound On/Off">
+                                <span id="mute-icon">🔊</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <p class="video__caption">Albert Einstein – Logic & Problem Solving</p>
+                
+                <div class="video__quotes">
+                    <div class="quote glass">
+                        "Logic will take you from confusion to clarity. It's not about being the smartest — it's about seeing patterns where others see chaos."
+                    </div>
+                    <div class="quote glass">
+                        "When faced with a problem, break it into smaller, simpler parts. Solve each one, and the impossible becomes inevitable."
+                    </div>
+                    <div class="quote glass">
+                        "This week, challenge yourself to solve a puzzle or problem every day — from riddles to real-life decisions."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== Lesson Content Section ===== -->
+    <section class="section lesson reveal">
+        <div class="container">
+            <h2 class="section__title">Master the Art of Logic</h2>
+            <div class="lesson__text">
+                <p class="lesson__paragraph">
+                    In this first week, you'll train your brain to approach problems like a scientist. Logic isn't just about mathematics or formal reasoning—it's the foundation of clear thinking in every area of life. Whether you're deciding what to have for breakfast or solving complex challenges at work, the principles you'll learn this week will serve as your mental compass.
+                </p>
+                <p class="lesson__paragraph">
+                    Logic is not cold; it's the foundation for creativity and innovation. Einstein himself said that imagination is more important than knowledge, but he built his greatest insights on rigorous logical frameworks. This week, you'll discover how structured thinking amplifies rather than limits your creative potential, giving you the tools to turn wild ideas into breakthrough solutions.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== Daily Challenges Section ===== -->
+    <section class="section reveal">
+        <div class="container">
+            <h2 class="section__title">7-Day Challenge Program</h2>
+            <div class="challenges__grid">
+                <div class="challenge glass">
+                    <div class="challenge__day">Day 1</div>
+                    <h3 class="challenge__title">Logic Puzzle Mastery</h3>
+                    <p class="challenge__description">Solve a 5-question logic puzzle set to warm up your analytical thinking.</p>
+                    <a href="../../assets/downloads/logic-puzzles-day1.pdf" class="btn btn--download">
+                        <!-- Placeholder for puzzle icon -->
+                        📋 Download PDF
+                    </a>
+                </div>
+                
+                <div class="challenge glass">
+                    <div class="challenge__day">Day 2</div>
+                    <h3 class="challenge__title">Problem Decomposition</h3>
+                    <p class="challenge__description">Identify one problem in your life and break it into 3 smaller, manageable steps.</p>
+                </div>
+                
+                <div class="challenge glass">
+                    <div class="challenge__day">Day 3</div>
+                    <h3 class="challenge__title">Logic Game Session</h3>
+                    <p class="challenge__description">Play 15 minutes of a logic-based game to strengthen pattern recognition.</p>
+                </div>
+                
+                <div class="challenge glass">
+                    <div class="challenge__day">Day 4</div>
+                    <h3 class="challenge__title">Conditional Reasoning</h3>
+                    <p class="challenge__description">Practice "If... then..." thinking with 5 different scenarios.</p>
+                </div>
+                
+                <div class="challenge glass">
+                    <div class="challenge__day">Day 5</div>
+                    <h3 class="challenge__title">Word Problem Analysis</h3>
+                    <p class="challenge__description">Solve a word problem and explain your step-by-step reasoning process.</p>
+                </div>
+                
+                <div class="challenge glass">
+                    <div class="challenge__day">Day 6</div>
+                    <h3 class="challenge__title">Decision Framework</h3>
+                    <p class="challenge__description">Use a pros/cons table to make a real decision in your life.</p>
+                </div>
+                
+                <div class="challenge glass">
+                    <div class="challenge__day">Day 7</div>
+                    <h3 class="challenge__title">Multi-Step Riddle</h3>
+                    <p class="challenge__description">Solve a complex multi-step riddle and document your thought process.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== Tracking Section ===== -->
+    <section class="section tracking reveal">
+        <div class="container">
+            <h2 class="section__title">Track Your Progress</h2>
+            <div class="tracking__table">
+                <div class="tracking__header">
+                    <div>Day</div>
+                    <div>Challenge</div>
+                    <div>Completed</div>
+                    <div>Time Spent</div>
+                    <div>Notes</div>
+                </div>
+                
+                <div class="tracking__row">
+                    <div>Day 1</div>
+                    <div>Logic Puzzle Mastery</div>
+                    <div><div class="tracking__checkbox" data-day="1">✓</div></div>
+                    <div><input type="text" class="tracking__input" placeholder="30 min"></div>
+                    <div><input type="text" class="tracking__input" placeholder="Add notes..."></div>
+                </div>
+                
+                <div class="tracking__row">
+                    <div>Day 2</div>
+                    <div>Problem Decomposition</div>
+                    <div><div class="tracking__checkbox" data-day="2">✓</div></div>
+                    <div><input type="text" class="tracking__input" placeholder="15 min"></div>
+                    <div><input type="text" class="tracking__input" placeholder="Add notes..."></div>
+                </div>
+                
+                <div class="tracking__row">
+                    <div>Day 3</div>
+                    <div>Logic Game Session</div>
+                    <div><div class="tracking__checkbox" data-day="3">✓</div></div>
+                    <div><input type="text" class="tracking__input" placeholder="15 min"></div>
+                    <div><input type="text" class="tracking__input" placeholder="Add notes..."></div>
+                </div>
+                
+                <div class="tracking__row">
+                    <div>Day 4</div>
+                    <div>Conditional Reasoning</div>
+                    <div><div class="tracking__checkbox" data-day="4">✓</div></div>
+                    <div><input type="text" class="tracking__input" placeholder="20 min"></div>
+                    <div><input type="text" class="tracking__input" placeholder="Add notes..."></div>
+                </div>
+                
+                <div class="tracking__row">
+                    <div>Day 5</div>
+                    <div>Word Problem Analysis</div>
+                    <div><div class="tracking__checkbox" data-day="5">✓</div></div>
+                    <div><input type="text" class="tracking__input" placeholder="25 min"></div>
+                    <div><input type="text" class="tracking__input" placeholder="Add notes..."></div>
+                </div>
+                
+                <div class="tracking__row">
+                    <div>Day 6</div>
+                    <div>Decision Framework</div>
+                    <div><div class="tracking__checkbox" data-day="6">✓</div></div>
+                    <div><input type="text" class="tracking__input" placeholder="30 min"></div>
+                    <div><input type="text" class="tracking__input" placeholder="Add notes..."></div>
+                </div>
+                
+                <div class="tracking__row">
+                    <div>Day 7</div>
+                    <div>Multi-Step Riddle</div>
+                    <div><div class="tracking__checkbox" data-day="7">✓</div></div>
+                    <div><input type="text" class="tracking__input" placeholder="35 min"></div>
+                    <div><input type="text" class="tracking__input" placeholder="Add notes..."></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== Final CTA Section ===== -->
+    <section class="section final-cta reveal">
+        <div class="container">
+            <h2 class="final-cta__title">Your Turn to Solve It</h2>
+            <p class="final-cta__subtitle">Complete all 7 challenges and unlock your Week 1 Genius Badge.</p>
+            <button class="btn btn--glowing" id="completeWeek">Mark Week 1 Complete</button>
+        </div>
+    </section>
+    
+    <script>
+        /* ===== Progress Bar ===== */
+        function updateProgress() {
+            const progress = document.getElementById('progress');
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = scrollTop / docHeight;
+            
+            progress.style.transform = `scaleX(${scrollPercent})`;
+        }
+        
+        /* ===== Scroll Reveal Animation ===== */
+        function initScrollReveal() {
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            revealElements.forEach((el) => {
+                revealObserver.observe(el);
+            });
+        }
+        
+        /* ===== Tracking Checkboxes ===== */
+        function initTracking() {
+            const checkboxes = document.querySelectorAll('.tracking__checkbox');
+            const completeButton = document.getElementById('completeWeek');
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('click', () => {
+                    checkbox.classList.toggle('checked');
+                    updateCompleteButton();
+                });
+            });
+            
+            function updateCompleteButton() {
+                const checkedCount = document.querySelectorAll('.tracking__checkbox.checked').length;
+                const totalCount = checkboxes.length;
+                
+                if (checkedCount === totalCount) {
+                    completeButton.style.animation = 'pulse 2s infinite';
+                    completeButton.textContent = '🏆 Claim Your Badge!';
+                } else {
+                    completeButton.style.animation = '';
+                    completeButton.textContent = `Mark Week 1 Complete (${checkedCount}/${totalCount})`;
+                }
+            }
+            
+            completeButton.addEventListener('click', () => {
+                const checkedCount = document.querySelectorAll('.tracking__checkbox.checked').length;
+                if (checkedCount === checkboxes.length) {
+                    alert('🎉 Congratulations! You\'ve completed Week 1 and earned your Logic Master badge!');
+                } else {
+                    alert(`Complete ${checkboxes.length - checkedCount} more challenges to unlock your badge!`);
+                }
+            });
+        }
+        
+        /* ===== Video Integration ===== */
+        function initSmoothScrolling() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            
+            links.forEach((link) => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    const targetId = link.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+        
+        /* ===== Video Integration ===== */
+        function initVideo() {
+            const placeholder = document.getElementById('video-placeholder');
+            const player = document.getElementById('video-player');
+            const video = document.getElementById('mentor-video');
+            const initialPlayBtn = document.getElementById('initial-play-btn');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const playPauseIcon = document.getElementById('play-pause-icon');
+            const muteBtn = document.getElementById('mute-btn');
+            const muteIcon = document.getElementById('mute-icon');
+            
+            let isPlaying = false;
+            let isMuted = false;
+            
+            // Initial play button click
+            placeholder.addEventListener('click', () => {
+                placeholder.style.display = 'none';
+                player.style.display = 'block';
+                video.play();
+                isPlaying = true;
+                updatePlayPauseIcon();
+            });
+            
+            // Play/Pause button
+            playPauseBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (isPlaying) {
+                    video.pause();
+                    isPlaying = false;
+                } else {
+                    video.play();
+                    isPlaying = true;
+                }
+                updatePlayPauseIcon();
+            });
+            
+            // Mute/Unmute button
+            muteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (isMuted) {
+                    video.muted = false;
+                    isMuted = false;
+                } else {
+                    video.muted = true;
+                    isMuted = true;
+                }
+                updateMuteIcon();
+            });
+            
+            // Video click to play/pause
+            video.addEventListener('click', () => {
+                if (isPlaying) {
+                    video.pause();
+                    isPlaying = false;
+                } else {
+                    video.play();
+                    isPlaying = true;
+                }
+                updatePlayPauseIcon();
+            });
+            
+            // Video ended - show placeholder again
+            video.addEventListener('ended', () => {
+                player.style.display = 'none';
+                placeholder.style.display = 'flex';
+                isPlaying = false;
+                updatePlayPauseIcon();
+            });
+            
+            // Update play/pause icon
+            function updatePlayPauseIcon() {
+                if (isPlaying) {
+                    playPauseIcon.textContent = '⏸';
+                    playPauseBtn.classList.add('active');
+                } else {
+                    playPauseIcon.textContent = '▶';
+                    playPauseBtn.classList.remove('active');
+                }
+            }
+            
+            // Update mute icon
+            function updateMuteIcon() {
+                if (isMuted) {
+                    muteIcon.textContent = '🔇';
+                    muteBtn.classList.add('active');
+                } else {
+                    muteIcon.textContent = '🔊';
+                    muteBtn.classList.remove('active');
+                }
+            }
+            
+            // Handle video load errors
+            video.addEventListener('error', (e) => {
+                console.error('Video failed to load:', e);
+                placeholder.innerHTML = '<div style="color: var(--accent); text-align: center; padding: 2rem;"><p>Video temporarily unavailable</p><p style="font-size: 0.9rem; opacity: 0.7; margin-top: 1rem;">Please check back later</p></div>';
+            });
+            
+            // Preload video metadata
+            video.load();
+        }
+        
+        /* ===== Initialize Everything ===== */
+        document.addEventListener('DOMContentLoaded', () => {
+            initScrollReveal();
+            initTracking();
+            initVideo();
+            initSmoothScrolling();
+            
+            // Add progress bar scroll listener
+            window.addEventListener('scroll', updateProgress);
+            
+            // Initial reveal for hero
+            setTimeout(() => {
+                const heroContent = document.querySelector('.hero .reveal');
+                if (heroContent) {
+                    heroContent.classList.add('revealed');
+                }
+            }, 300);
+        });
+        
+        /* ===== Pulse Animation for Complete Button ===== */
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0%, 100% { 
+                    box-shadow: 
+                        0 0 30px rgba(100, 212, 255, 0.6),
+                        0 8px 32px rgba(100, 212, 255, 0.4);
+                }
+                50% { 
+                    box-shadow: 
+                        0 0 50px rgba(100, 212, 255, 0.9),
+                        0 12px 40px rgba(100, 212, 255, 0.6);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
