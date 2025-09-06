@@ -858,6 +858,9 @@
 
         // Initialize animation sequence
         document.addEventListener('DOMContentLoaded', function() {
+            // Process test results immediately when page loads
+            processTestResults();
+            
             // Start progress counter
             setTimeout(() => {
                 updateProgress();
@@ -868,6 +871,74 @@
                 activateStep(0);
             }, 1500); // 1.5 second delay before first step
         });
+
+        // Process and calculate test results
+        function processTestResults() {
+            try {
+                const testResults = JSON.parse(localStorage.getItem('iqTestResults') || '{}');
+                
+                if (testResults.totalQuestions && testResults.userAnswers && Array.isArray(testResults.userAnswers)) {
+                    // Calculate correct answers from userAnswers array
+                    const correctAnswers = testResults.userAnswers.filter(answer => answer && answer.correct).length;
+                    
+                    // Calculate IQ score
+                    const percentage = (correctAnswers / testResults.totalQuestions) * 100;
+                    let iqScore;
+                    
+                    // Enhanced IQ calculation with realistic distribution
+                    if (percentage >= 95) {
+                        iqScore = 145 + ((percentage - 95) * 2); // 145-155 for 95-100%
+                    } else if (percentage >= 90) {
+                        iqScore = 135 + ((percentage - 90) * 2); // 135-145 for 90-95%
+                    } else if (percentage >= 80) {
+                        iqScore = 120 + ((percentage - 80) * 1.5); // 120-135 for 80-90%
+                    } else if (percentage >= 70) {
+                        iqScore = 110 + ((percentage - 70) * 1); // 110-120 for 70-80%
+                    } else if (percentage >= 60) {
+                        iqScore = 100 + ((percentage - 60) * 1); // 100-110 for 60-70%
+                    } else if (percentage >= 50) {
+                        iqScore = 90 + ((percentage - 50) * 1); // 90-100 for 50-60%
+                    } else {
+                        iqScore = 80 + (percentage * 0.2); // 80-90 for 0-50%
+                    }
+                    
+                    iqScore = Math.round(iqScore);
+                    
+                    // Store the calculated score
+                    localStorage.setItem('iqTestScore', iqScore.toString());
+                    
+                    // Determine genius type
+                    let geniusType;
+                    if (iqScore >= 145) {
+                        geniusType = 'Exceptional Genius';
+                    } else if (iqScore >= 130) {
+                        geniusType = 'Analytical Genius';
+                    } else if (iqScore >= 120) {
+                        geniusType = 'Superior Intelligence';
+                    } else if (iqScore >= 110) {
+                        geniusType = 'Above Average Intelligence';
+                    } else if (iqScore >= 90) {
+                        geniusType = 'Average Intelligence';
+                    } else {
+                        geniusType = 'Developing Intelligence';
+                    }
+                    
+                    localStorage.setItem('geniusType', geniusType);
+                    
+                    console.log('Calculating Results: Processed test data', {
+                        totalQuestions: testResults.totalQuestions,
+                        correctAnswers: correctAnswers,
+                        percentage: percentage.toFixed(1) + '%',
+                        iqScore: iqScore,
+                        geniusType: geniusType
+                    });
+                } else {
+                    console.log('Calculating Results: No valid test data found');
+                }
+            } catch (error) {
+                console.error('Error processing test results:', error);
+            }
+        }
 
         // Prevent back navigation during processing
         window.addEventListener('beforeunload', function(e) {

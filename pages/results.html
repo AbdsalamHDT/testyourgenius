@@ -1979,24 +1979,27 @@
 
         // Calculate IQ score from test results (same algorithm as dashboard)
         function calculateIQScore(testResults) {
-            if (!testResults || !testResults.answers) {
+            if (!testResults || (!testResults.answers && !testResults.userAnswers)) {
                 return 120; // Default fallback
             }
             
-            const answers = testResults.answers;
+            // Handle both old format (answers) and new format (userAnswers)
+            const answers = testResults.userAnswers || testResults.answers;
             let correctAnswers = 0;
             
             // Count correct answers
-            answers.forEach(answer => {
-                if (answer !== null && answer !== undefined) {
-                    correctAnswers++;
-                }
-            });
+            if (Array.isArray(answers)) {
+                answers.forEach(answer => {
+                    if (answer && answer.correct) {
+                        correctAnswers++;
+                    }
+                });
+            }
             
             // Calculate score based on performance (80-155 range)
             const baseScore = 80;
             const maxBonus = 75;
-            const performance = correctAnswers / answers.length;
+            const performance = answers.length > 0 ? correctAnswers / answers.length : 0;
             
             // Add some randomization for realistic distribution
             const randomFactor = 0.95 + (Math.random() * 0.1);

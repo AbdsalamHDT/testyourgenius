@@ -792,6 +792,304 @@
                 font-size: 3rem;
             }
         }
+
+        /* ===== Test Review Styles ===== */
+        .test-review-section {
+            margin-top: var(--space-8);
+            background: rgba(234, 242, 255, 0.05);
+            border-radius: 20px;
+            padding: var(--space-7);
+            border: 1px solid rgba(100, 212, 255, 0.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-6);
+        }
+
+        .close-review-btn {
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            color: #ff6b6b;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-review-btn:hover {
+            background: rgba(255, 107, 107, 0.2);
+            transform: scale(1.1);
+        }
+
+        .review-summary {
+            margin-bottom: var(--space-6);
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            background: rgba(234, 242, 255, 0.05);
+            padding: var(--space-4);
+            border-radius: 12px;
+            border: 1px solid rgba(100, 212, 255, 0.1);
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .stat-icon.correct {
+            background: rgba(52, 211, 153, 0.1);
+            color: #34d399;
+            border: 2px solid rgba(52, 211, 153, 0.3);
+        }
+
+        .stat-icon.incorrect {
+            background: rgba(248, 113, 113, 0.1);
+            color: #f87171;
+            border: 2px solid rgba(248, 113, 113, 0.3);
+        }
+
+        .stat-icon.accuracy {
+            background: rgba(100, 212, 255, 0.1);
+            color: var(--accent);
+            border: 2px solid rgba(100, 212, 255, 0.3);
+        }
+
+        .stat-info {
+            flex: 1;
+        }
+
+        .review-filters {
+            display: flex;
+            gap: var(--space-3);
+            margin-bottom: var(--space-6);
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(234, 242, 255, 0.05);
+            border: 1px solid rgba(100, 212, 255, 0.2);
+            color: var(--ink-secondary);
+            padding: var(--space-3) var(--space-5);
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: rgba(100, 212, 255, 0.1);
+            color: var(--ink);
+        }
+
+        .filter-btn.active {
+            background: rgba(100, 212, 255, 0.15);
+            border-color: rgba(100, 212, 255, 0.4);
+            color: var(--accent);
+        }
+
+        .questions-review {
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: var(--space-2);
+        }
+
+        .question-review-item {
+            background: rgba(234, 242, 255, 0.03);
+            border-radius: 16px;
+            padding: var(--space-5);
+            margin-bottom: var(--space-4);
+            border: 1px solid rgba(100, 212, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .question-review-item:hover {
+            background: rgba(234, 242, 255, 0.08);
+            border-color: rgba(100, 212, 255, 0.2);
+        }
+
+        .question-review-item.correct {
+            border-left: 4px solid #34d399;
+        }
+
+        .question-review-item.incorrect {
+            border-left: 4px solid #f87171;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-4);
+        }
+
+        .question-number {
+            background: rgba(100, 212, 255, 0.1);
+            color: var(--accent);
+            padding: var(--space-2) var(--space-3);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .question-status {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .question-status.correct {
+            color: #34d399;
+        }
+
+        .question-status.incorrect {
+            color: #f87171;
+        }
+
+        .question-text {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: var(--space-4);
+            line-height: 1.6;
+        }
+
+        .answer-options {
+            display: grid;
+            gap: var(--space-3);
+        }
+
+        .answer-option {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .answer-option.user-answer {
+            background: rgba(100, 212, 255, 0.1);
+            border: 1px solid rgba(100, 212, 255, 0.3);
+        }
+
+        .answer-option.correct-answer {
+            background: rgba(52, 211, 153, 0.1);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+        }
+
+        .answer-option.user-incorrect {
+            background: rgba(248, 113, 113, 0.1);
+            border: 1px solid rgba(248, 113, 113, 0.3);
+        }
+
+        .answer-label {
+            min-width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .answer-option.user-answer .answer-label {
+            background: var(--accent);
+            color: white;
+        }
+
+        .answer-option.correct-answer .answer-label {
+            background: #34d399;
+            color: white;
+        }
+
+        .answer-option.user-incorrect .answer-label {
+            background: #f87171;
+            color: white;
+        }
+
+        .answer-text {
+            flex: 1;
+        }
+
+        .answer-status {
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+
+        .answer-status.your-answer {
+            background: rgba(100, 212, 255, 0.2);
+            color: var(--accent);
+        }
+
+        .answer-status.correct {
+            background: rgba(52, 211, 153, 0.2);
+            color: #059669;
+        }
+
+        .answer-status.incorrect {
+            background: rgba(248, 113, 113, 0.2);
+            color: #dc2626;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .test-review-section {
+                padding: var(--space-5);
+            }
+
+            .summary-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .review-filters {
+                flex-direction: column;
+            }
+
+            .filter-btn {
+                text-align: center;
+            }
+
+            .question-header {
+                flex-direction: column;
+                gap: var(--space-2);
+                align-items: flex-start;
+            }
+
+            .questions-review {
+                max-height: 400px;
+            }
+        }
     </style>
     
     <!-- Authentication CSS -->
@@ -996,6 +1294,16 @@
                         <div class="action-title">View Full Results</div>
                         <div class="action-description">See detailed IQ analysis</div>
                     </div>
+                    <div class="action-card glass" onclick="toggleTestReview()">
+                        <div class="action-icon">📋</div>
+                        <div class="action-title">Review Test</div>
+                        <div class="action-description">See your answers & corrections</div>
+                    </div>
+                    <div class="action-card glass" onclick="createSampleTestData()" style="border: 2px dashed rgba(100, 212, 255, 0.3);">
+                        <div class="action-icon">🧪</div>
+                        <div class="action-title">Create Sample Data</div>
+                        <div class="action-description">For testing (temporary)</div>
+                    </div>
                     <div class="action-card glass" onclick="window.location.href='leaderboard.html'">
                         <div class="action-icon">🏆</div>
                         <div class="action-title">Check Leaderboard</div>
@@ -1006,6 +1314,50 @@
                         <div class="action-title">My Certificate</div>
                         <div class="action-description">Available after completion</div>
                     </div>
+                </div>
+            </section>
+
+            <!-- ===== Test Review Section ===== -->
+            <section class="reveal test-review-section" id="testReviewSection" style="display: none;">
+                <div class="section-header">
+                    <h2>📋 Test Review</h2>
+                    <button class="close-review-btn" onclick="toggleTestReview()">✕</button>
+                </div>
+                
+                <div class="review-summary">
+                    <div class="summary-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon correct">✓</div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="correctCount">-</div>
+                                <div class="stat-label">Correct</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon incorrect">✗</div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="incorrectCount">-</div>
+                                <div class="stat-label">Incorrect</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon accuracy">%</div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="accuracyRate">-</div>
+                                <div class="stat-label">Accuracy</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-filters">
+                    <button class="filter-btn active" onclick="filterQuestions('all')" data-filter="all">All Questions</button>
+                    <button class="filter-btn" onclick="filterQuestions('correct')" data-filter="correct">Correct Only</button>
+                    <button class="filter-btn" onclick="filterQuestions('incorrect')" data-filter="incorrect">Incorrect Only</button>
+                </div>
+
+                <div class="questions-review" id="questionsReview">
+                    <!-- Questions will be populated by JavaScript -->
                 </div>
             </section>
         </div>
@@ -1212,8 +1564,19 @@
             let geniusType = 'Analytical Genius';
             let userName = 'Alex Johnson';
             
-            if (testResults.totalQuestions && testResults.correctAnswers !== undefined) {
-                iqScore = calculateIQScore(testResults);
+            // Check if we have test results with user answers
+            if (testResults.totalQuestions && testResults.userAnswers && Array.isArray(testResults.userAnswers)) {
+                // Calculate correct answers from userAnswers array
+                const correctAnswers = testResults.userAnswers.filter(answer => answer && answer.correct).length;
+                
+                // Create compatible results object for score calculation
+                const scoreCalcResults = {
+                    totalQuestions: testResults.totalQuestions,
+                    correctAnswers: correctAnswers,
+                    testData: testResults.userAnswers
+                };
+                
+                iqScore = calculateIQScore(scoreCalcResults);
                 geniusType = determineGeniusType(iqScore);
                 
                 // Store calculated score for consistency across the app
@@ -1221,12 +1584,21 @@
                 localStorage.setItem('geniusType', geniusType);
                 
                 // Calculate and store performance metrics
-                const metrics = calculatePerformanceMetrics(testResults);
+                const metrics = calculatePerformanceMetrics(scoreCalcResults);
                 localStorage.setItem('performanceMetrics', JSON.stringify(metrics));
+                
+                console.log('Dashboard: Calculated real score from test data:', {
+                    totalQuestions: testResults.totalQuestions,
+                    correctAnswers: correctAnswers,
+                    iqScore: iqScore,
+                    geniusType: geniusType
+                });
             } else {
                 // Fallback to stored values
                 iqScore = parseInt(localStorage.getItem('iqTestScore') || '142');
                 geniusType = localStorage.getItem('geniusType') || 'Analytical Genius';
+                
+                console.log('Dashboard: Using fallback score - no valid test results found');
             }
             
             // Get user name from payment data or default
@@ -1635,6 +2007,29 @@
     <script>
         // Dashboard initialization without auth requirement
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔧 Dashboard DOM loaded...');
+            
+            // Test if review elements exist
+            setTimeout(() => {
+                const reviewSection = document.getElementById('testReviewSection');
+                const correctCount = document.getElementById('correctCount');
+                const incorrectCount = document.getElementById('incorrectCount');
+                const accuracyRate = document.getElementById('accuracyRate');
+                
+                console.log('Review elements check:', {
+                    reviewSection: !!reviewSection,
+                    correctCount: !!correctCount,
+                    incorrectCount: !!incorrectCount,
+                    accuracyRate: !!accuracyRate
+                });
+                
+                // Test functions
+                console.log('Functions available:', {
+                    toggleTestReview: typeof window.toggleTestReview,
+                    createSampleTestData: typeof window.createSampleTestData
+                });
+            }, 100);
+            
             // Wait for auth system to be ready
             function initDashboard() {
                 if (!window.TYGAuth) {
@@ -1734,6 +2129,352 @@
                 const progressPercent = (completedWeeks / totalWeeks) * 100;
                 progressElements[0].style.width = `${progressPercent}%`;
             }
+        }
+
+        /* ===== Test Review Functions ===== */
+        
+        // Sample questions for review (simplified version)
+        const reviewQuestions = [
+            { id: 1, question: "What comes next in the sequence: 2, 4, 6, 8, ?", answers: ["10", "12", "14", "16"], correctIndex: 0 },
+            { id: 2, question: "Which shape completes the pattern?", answers: ["Option A", "Option B", "Option C", "Option D"], correctIndex: 1 },
+            { id: 3, question: "If all Bloops are Razzles and all Razzles are Lazzles, then all Bloops are definitely:", answers: ["Lazzles", "Not Lazzles", "Sometimes Lazzles", "Cannot be determined"], correctIndex: 0 },
+            { id: 4, question: "What number should replace the question mark? 7, 14, 28, 56, ?", answers: ["84", "112", "98", "126"], correctIndex: 1 },
+            { id: 5, question: "Find the odd one out:", answers: ["Circle", "Square", "Triangle", "Rectangle"], correctIndex: 0 }
+        ];
+
+        // Make functions globally accessible
+        window.toggleTestReview = function() {
+            console.log('toggleTestReview called');
+            const reviewSection = document.getElementById('testReviewSection');
+            if (!reviewSection) {
+                console.error('testReviewSection element not found');
+                return;
+            }
+            
+            if (reviewSection.style.display === 'none' || !reviewSection.style.display) {
+                reviewSection.style.display = 'block';
+                loadTestReview();
+                reviewSection.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                reviewSection.style.display = 'none';
+            }
+        };
+
+        // Make createSampleTestData globally accessible
+        window.createSampleTestData = function() {
+            console.log('Creating sample test data...');
+            
+            const sampleUserAnswers = [
+                { selectedAnswer: 0, correct: true, questionId: 1 },
+                { selectedAnswer: 2, correct: false, questionId: 2 },
+                { selectedAnswer: 0, correct: true, questionId: 3 },
+                { selectedAnswer: 1, correct: true, questionId: 4 },
+                { selectedAnswer: 3, correct: false, questionId: 5 }
+            ];
+
+            const sampleQuestionData = [
+                { id: 1, question: "What comes next in the sequence: 2, 4, 6, 8, ?", answers: ["10", "12", "14", "16"], correctIndex: 0, userAnswer: 0, isCorrect: true },
+                { id: 2, question: "Which shape completes the pattern?", answers: ["Option A", "Option B", "Option C", "Option D"], correctIndex: 1, userAnswer: 2, isCorrect: false },
+                { id: 3, question: "If all Bloops are Razzles and all Razzles are Lazzles, then all Bloops are definitely:", answers: ["Lazzles", "Not Lazzles", "Sometimes Lazzles", "Cannot be determined"], correctIndex: 0, userAnswer: 0, isCorrect: true },
+                { id: 4, question: "What number should replace the question mark? 7, 14, 28, 56, ?", answers: ["84", "112", "98", "126"], correctIndex: 1, userAnswer: 1, isCorrect: true },
+                { id: 5, question: "Find the odd one out:", answers: ["Circle", "Square", "Triangle", "Rectangle"], correctIndex: 0, userAnswer: 3, isCorrect: false }
+            ];
+
+            const sampleTestResults = {
+                totalQuestions: 5,
+                userAnswers: sampleUserAnswers,
+                questionData: sampleQuestionData,
+                completedAt: new Date().toISOString(),
+                testDuration: 300000 // 5 minutes
+            };
+
+            try {
+                localStorage.setItem('iqTestResults', JSON.stringify(sampleTestResults));
+                console.log('Sample test data saved to localStorage');
+                alert('✅ Sample test data created! Now click "Review Test" to see it in action.');
+            } catch (error) {
+                console.error('Error saving sample data:', error);
+                alert('❌ Error creating sample data. Check console for details.');
+            }
+        };
+
+        function toggleTestReview() {
+            return window.toggleTestReview();
+        }
+
+        function createSampleTestData() {
+            return window.createSampleTestData();
+        }
+
+        // Debug function to check localStorage
+        function debugLocalStorage() {
+            console.log('=== DEBUG: localStorage Contents ===');
+            console.log('iqTestResults:', localStorage.getItem('iqTestResults'));
+            console.log('paymentSuccess:', localStorage.getItem('paymentSuccess'));
+            console.log('iqTestScore:', localStorage.getItem('iqTestScore'));
+            console.log('All localStorage keys:', Object.keys(localStorage));
+            
+            // Try to parse the test results
+            try {
+                const results = JSON.parse(localStorage.getItem('iqTestResults') || '{}');
+                console.log('Parsed iqTestResults:', results);
+                console.log('userAnswers exists?', !!results.userAnswers);
+                console.log('userAnswers is array?', Array.isArray(results.userAnswers));
+                console.log('userAnswers length:', results.userAnswers ? results.userAnswers.length : 'N/A');
+            } catch (e) {
+                console.error('Error parsing iqTestResults:', e);
+            }
+        }
+
+        function loadTestReview() {
+            console.log('loadTestReview() called');
+            
+            // Check if required elements exist
+            const correctCountEl = document.getElementById('correctCount');
+            const incorrectCountEl = document.getElementById('incorrectCount');
+            const accuracyRateEl = document.getElementById('accuracyRate');
+            const questionsReviewEl = document.getElementById('questionsReview');
+            
+            if (!correctCountEl || !incorrectCountEl || !accuracyRateEl || !questionsReviewEl) {
+                console.error('Required elements not found:', {
+                    correctCount: !!correctCountEl,
+                    incorrectCount: !!incorrectCountEl,
+                    accuracyRate: !!accuracyRateEl,
+                    questionsReview: !!questionsReviewEl
+                });
+                return;
+            }
+            
+            // Debug localStorage contents
+            debugLocalStorage();
+            
+            let testResults = {};
+            try {
+                testResults = JSON.parse(localStorage.getItem('iqTestResults') || '{}');
+            } catch (error) {
+                console.error('Error parsing iqTestResults:', error);
+                testResults = {};
+            }
+            
+            console.log('loadTestReview - testResults:', testResults);
+            
+            // Check if we have questionData (new format) when userAnswers is empty
+            if ((!testResults.userAnswers || testResults.userAnswers.length === 0) && testResults.questionData && Array.isArray(testResults.questionData)) {
+                console.log('Using questionData since userAnswers is empty');
+                
+                const questionData = testResults.questionData;
+                const correctCount = questionData.filter(q => q.isCorrect).length;
+                const incorrectCount = questionData.length - correctCount;
+                const accuracy = questionData.length > 0 ? Math.round((correctCount / questionData.length) * 100) : 0;
+
+                console.log('loadTestReview - stats from questionData:', { correctCount, incorrectCount, accuracy });
+
+                // Update summary stats
+                correctCountEl.textContent = correctCount;
+                incorrectCountEl.textContent = incorrectCount;
+                accuracyRateEl.textContent = accuracy + '%';
+
+                // Generate questions review from questionData
+                generateQuestionsReviewFromQuestionData(questionData);
+                return;
+            }
+            
+            // Original logic for userAnswers format
+            if (!testResults.userAnswers || !Array.isArray(testResults.userAnswers)) {
+                questionsReviewEl.innerHTML = `
+                    <div style="text-align: center; padding: var(--space-8); color: var(--ink-secondary);">
+                        <p>🤔 No test results found</p>
+                        <p>Take the IQ test first to see your detailed review here!</p>
+                        <button onclick="window.location.href='iq-test.html'" style="margin-top: var(--space-4); background: var(--accent); color: white; border: none; padding: var(--space-3) var(--space-6); border-radius: 8px; cursor: pointer;">Take IQ Test</button>
+                    </div>
+                `;
+                // Reset stats to default
+                correctCountEl.textContent = '0';
+                incorrectCountEl.textContent = '0';
+                accuracyRateEl.textContent = '0%';
+                return;
+            }
+
+            const userAnswers = testResults.userAnswers;
+            console.log('loadTestReview - userAnswers:', userAnswers);
+            console.log('loadTestReview - userAnswers.length:', userAnswers.length);
+            
+            // Handle empty userAnswers array
+            if (userAnswers.length === 0) {
+                correctCountEl.textContent = '0';
+                incorrectCountEl.textContent = '0';
+                accuracyRateEl.textContent = '0%';
+                
+                questionsReviewEl.innerHTML = `
+                    <div style="text-align: center; padding: var(--space-8); color: var(--ink-secondary);">
+                        <p>🤔 No answers recorded</p>
+                        <p>It looks like the test was not completed properly.</p>
+                        <button onclick="window.location.href='iq-test.html'" style="margin-top: var(--space-4); background: var(--accent); color: white; border: none; padding: var(--space-3) var(--space-6); border-radius: 8px; cursor: pointer;">Take Test Again</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            const correctCount = userAnswers.filter(answer => answer && answer.correct).length;
+            const incorrectCount = userAnswers.length - correctCount;
+            const accuracy = userAnswers.length > 0 ? Math.round((correctCount / userAnswers.length) * 100) : 0;
+
+            console.log('loadTestReview - stats:', { correctCount, incorrectCount, accuracy });
+
+            // Update summary stats
+            correctCountEl.textContent = correctCount;
+            incorrectCountEl.textContent = incorrectCount;
+            accuracyRateEl.textContent = accuracy + '%';
+
+            // Generate questions review
+            generateQuestionsReview(userAnswers);
+        }
+
+        function generateQuestionsReview(userAnswers) {
+            const questionsContainer = document.getElementById('questionsReview');
+            const testResults = JSON.parse(localStorage.getItem('iqTestResults') || '{}');
+            
+            // Check if we have actual question data
+            const questionData = testResults.questionData;
+            
+            if (!questionData || !Array.isArray(questionData)) {
+                questionsContainer.innerHTML = `
+                    <div style="text-align: center; padding: var(--space-8); color: var(--ink-secondary);">
+                        <p>📝 Question details not available</p>
+                        <p>This feature requires retaking the test with the updated version.</p>
+                        <button onclick="window.location.href='iq-test.html'" style="margin-top: var(--space-4); background: var(--accent); color: white; border: none; padding: var(--space-3) var(--space-6); border-radius: 8px; cursor: pointer;">Retake Test</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            let questionsHTML = '';
+            
+            questionData.forEach((questionInfo, index) => {
+                const questionNum = index + 1;
+                const isCorrect = questionInfo.isCorrect;
+                const userChoice = questionInfo.userAnswer;
+                const correctChoice = questionInfo.correctIndex;
+                
+                questionsHTML += `
+                    <div class="question-review-item ${isCorrect ? 'correct' : 'incorrect'}" data-status="${isCorrect ? 'correct' : 'incorrect'}">
+                        <div class="question-header">
+                            <div class="question-number">Question ${questionNum}</div>
+                            <div class="question-status ${isCorrect ? 'correct' : 'incorrect'}">
+                                ${isCorrect ? '✓ Correct' : '✗ Incorrect'}
+                            </div>
+                        </div>
+                        
+                        <div class="question-text">${questionInfo.question}</div>
+                        
+                        <div class="answer-options">
+                            ${questionInfo.answers.map((answer, answerIndex) => {
+                                let classes = ['answer-option'];
+                                let statusText = '';
+                                
+                                if (userChoice === answerIndex) {
+                                    classes.push(isCorrect ? 'user-answer' : 'user-incorrect');
+                                    statusText = isCorrect ? 'Your Answer (Correct)' : 'Your Answer (Incorrect)';
+                                }
+                                
+                                if (answerIndex === correctChoice && !isCorrect) {
+                                    classes.push('correct-answer');
+                                    statusText = 'Correct Answer';
+                                }
+                                
+                                return `
+                                    <div class="${classes.join(' ')}">
+                                        <div class="answer-label">${String.fromCharCode(65 + answerIndex)}</div>
+                                        <div class="answer-text">${answer}</div>
+                                        ${statusText ? `<div class="answer-status ${statusText.includes('Correct') ? 'correct' : 'incorrect'}">${statusText}</div>` : ''}
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            questionsContainer.innerHTML = questionsHTML;
+        }
+
+        // New function to generate review from questionData directly
+        function generateQuestionsReviewFromQuestionData(questionData) {
+            const questionsContainer = document.getElementById('questionsReview');
+            
+            let questionsHTML = '';
+            
+            questionData.forEach((questionInfo, index) => {
+                const questionNum = index + 1;
+                const isCorrect = questionInfo.isCorrect;
+                const userChoice = questionInfo.userAnswer;
+                const correctChoice = questionInfo.correctIndex;
+                
+                questionsHTML += `
+                    <div class="question-review-item ${isCorrect ? 'correct' : 'incorrect'}" data-status="${isCorrect ? 'correct' : 'incorrect'}">
+                        <div class="question-header">
+                            <div class="question-number">Question ${questionNum}</div>
+                            <div class="question-status ${isCorrect ? 'correct' : 'incorrect'}">
+                                ${isCorrect ? '✓ Correct' : '✗ Incorrect'}
+                            </div>
+                        </div>
+                        
+                        <div class="question-text">${questionInfo.question}</div>
+                        
+                        <div class="answer-options">
+                            ${questionInfo.answers.map((answer, answerIndex) => {
+                                let classes = ['answer-option'];
+                                let statusText = '';
+                                
+                                if (userChoice === answerIndex) {
+                                    classes.push(isCorrect ? 'user-answer' : 'user-incorrect');
+                                    statusText = isCorrect ? 'Your Answer (Correct)' : 'Your Answer (Incorrect)';
+                                }
+                                
+                                if (answerIndex === correctChoice && !isCorrect) {
+                                    classes.push('correct-answer');
+                                    statusText = 'Correct Answer';
+                                }
+                                
+                                return `
+                                    <div class="${classes.join(' ')}">
+                                        <div class="answer-label">${String.fromCharCode(65 + answerIndex)}</div>
+                                        <div class="answer-text">${answer}</div>
+                                        ${statusText ? `<div class="answer-status ${statusText.includes('Correct') ? 'correct' : 'incorrect'}">${statusText}</div>` : ''}
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            questionsContainer.innerHTML = questionsHTML;
+        }
+
+        function filterQuestions(filterType) {
+            // Update filter button states
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.filter === filterType) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Filter questions
+            document.querySelectorAll('.question-review-item').forEach(item => {
+                const status = item.dataset.status;
+                
+                if (filterType === 'all') {
+                    item.style.display = 'block';
+                } else if (filterType === 'correct' && status === 'correct') {
+                    item.style.display = 'block';
+                } else if (filterType === 'incorrect' && status === 'incorrect') {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         }
     </script>
 </body>

@@ -874,6 +874,11 @@
             max-height: 200px;
             margin-bottom: var(--space-5);
         }
+        
+        /* Special handling for step-5 which has multiple fields */
+        .form-group.step-5.active {
+            max-height: 300px;
+        }
 
         .step-hint {
             font-size: 0.85rem;
@@ -989,13 +994,261 @@
             color: rgba(234, 242, 255, 0.5);
         }
         
+        /* ===== Form Validation States ===== */
+        .form-group {
+            position: relative;
+        }
+        
+        .form-input.valid {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+        
+        .form-input.invalid {
+            border-color: #EF4444;
+            background: rgba(239, 68, 68, 0.05);
+            animation: shakeError 0.5s ease-in-out;
+        }
+        
+        @keyframes shakeError {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .validation-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .form-group.valid .validation-icon.success {
+            opacity: 1;
+            color: #10B981;
+        }
+        
+        .form-group.invalid .validation-icon.error {
+            opacity: 1;
+            color: #EF4444;
+        }
+        
+        .error-message {
+            position: absolute;
+            bottom: -24px;
+            left: 0;
+            font-size: 0.8rem;
+            color: #EF4444;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 4px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+        
+        .form-group.invalid .error-message {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .success-message {
+            position: absolute;
+            bottom: -24px;
+            left: 0;
+            font-size: 0.8rem;
+            color: #10B981;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 4px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+        
+        .form-group.valid .success-message {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* ===== Inline form groups for card details ===== */
+        .form-group-inline {
+            position: relative;
+            margin-bottom: var(--space-3);
+        }
+        
+        .cvv-help {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background: rgba(100, 212, 255, 0.2);
+            border-radius: 50%;
+            text-align: center;
+            font-size: 0.7rem;
+            line-height: 16px;
+            cursor: help;
+            margin-left: 4px;
+            color: var(--accent);
+        }
+        
+        .cvv-help:hover {
+            background: rgba(100, 212, 255, 0.3);
+        }
+        
+        /* ===== Form Navigation ===== */
+        .form-navigation {
+            display: flex;
+            gap: var(--space-3);
+            margin-top: var(--space-4);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .form-navigation.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .nav-btn {
+            padding: var(--space-3) var(--space-5);
+            border: 2px solid rgba(100, 212, 255, 0.3);
+            border-radius: 12px;
+            background: rgba(234, 242, 255, 0.05);
+            color: var(--accent);
+            font-family: var(--font-stack);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .nav-btn:hover {
+            border-color: var(--accent);
+            background: rgba(100, 212, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .edit-step-btn {
+            position: absolute;
+            top: var(--space-2);
+            right: var(--space-2);
+            padding: var(--space-1) var(--space-2);
+            font-size: 0.75rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group.completed .edit-step-btn {
+            opacity: 0.7;
+            pointer-events: auto;
+        }
+        
+        .form-group.completed .edit-step-btn:hover {
+            opacity: 1;
+        }
+        
+        /* ===== Loading States ===== */
+        .btn-loading {
+            display: none;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .btn-loading.hidden {
+            display: none !important;
+        }
+        
+        .loading-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(7, 11, 26, 0.3);
+            border-top: 2px solid var(--bg-1);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .payment-btn.loading {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+        
+        .payment-btn.loading #btn-text {
+            display: none;
+        }
+        
+        .payment-btn.loading #btn-loading {
+            display: flex;
+        }
+        
+        /* ===== Global Error State ===== */
+        .form-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: var(--space-4);
+            margin: var(--space-4) 0;
+            color: #EF4444;
+            display: none;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .form-error.visible {
+            display: flex;
+        }
+        
+        .form-error .error-icon {
+            font-size: 1.2rem;
+        }
+        
+        .retry-btn {
+            margin-left: auto;
+            padding: var(--space-2) var(--space-3);
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            border-radius: 8px;
+            color: #EF4444;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+        
+        .retry-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+        
         /* ===== Card Number Field with Icon ===== */
         .card-input-container {
             position: relative;
         }
         
         .card-input-container .form-input {
-            padding-right: var(--space-8);
+            padding-right: calc(var(--space-8) + 45px);
+        }
+        
+        .card-input-container .validation-icon {
+            right: 45px;
         }
         
         .card-type-icon {
@@ -1711,6 +1964,41 @@
             .security-badges {
                 justify-content: center;
             }
+            
+            /* Mobile form improvements */
+            .form-input {
+                padding: var(--space-5) var(--space-4);
+                font-size: 16px; /* Prevents zoom on iOS */
+                min-height: 44px; /* Better touch target */
+            }
+            
+            .form-label {
+                font-size: 1rem;
+                margin-bottom: var(--space-3);
+            }
+            
+            .payment-btn {
+                padding: var(--space-6) var(--space-4);
+                font-size: 1.2rem;
+                min-height: 56px; /* Better touch target */
+            }
+            
+            .validation-icon {
+                font-size: 1.4rem;
+                right: 16px;
+            }
+            
+            .error-message,
+            .success-message {
+                font-size: 0.85rem;
+                padding: 6px 10px;
+            }
+            
+            /* Fix step-5 height on mobile for submit button visibility */
+            .form-group.step-5.active {
+                max-height: 350px;
+                margin-bottom: var(--space-6);
+            }
         }
         
         @media (max-width: 480px) {
@@ -1720,6 +2008,37 @@
             
             .section--hero {
                 padding-top: calc(80px + var(--space-6));
+            }
+            
+            /* Enhanced mobile form experience */
+            .form-input {
+                padding: var(--space-5);
+                font-size: 16px;
+                min-height: 48px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: var(--space-4);
+            }
+            
+            .payment-btn {
+                font-size: 1.1rem;
+                padding: var(--space-6);
+                min-height: 60px;
+            }
+            
+            .card-type-icon {
+                width: 42px;
+                height: 28px;
+                font-size: 0.7rem;
+            }
+            
+            .cvv-help {
+                width: 18px;
+                height: 18px;
+                font-size: 0.75rem;
+                line-height: 18px;
             }
         }
         
@@ -1968,56 +2287,87 @@
                 </div>
                 
                 <!-- Progress Indicator -->
-                <div class="form-progress">
-                    <div class="progress-dot active" data-step="1"></div>
-                    <div class="progress-dot" data-step="2"></div>
-                    <div class="progress-dot" data-step="3"></div>
-                    <div class="progress-dot" data-step="4"></div>
-                    <div class="progress-dot" data-step="5"></div>
+                <div class="form-progress" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5" aria-label="Payment form progress: step 1 of 5">
+                    <div class="progress-dot active" data-step="1" aria-label="Step 1: First name"></div>
+                    <div class="progress-dot" data-step="2" aria-label="Step 2: Last name"></div>
+                    <div class="progress-dot" data-step="3" aria-label="Step 3: Email address"></div>
+                    <div class="progress-dot" data-step="4" aria-label="Step 4: Card number"></div>
+                    <div class="progress-dot" data-step="5" aria-label="Step 5: Card details"></div>
                 </div>
                 
                 <form class="payment-form" id="payment-form">
+                    <!-- Global Error Display -->
+                    <div class="form-error" id="form-error" role="alert">
+                        <span class="error-icon">⚠️</span>
+                        <span class="error-text">Payment processing failed. Please check your information and try again.</span>
+                        <button type="button" class="retry-btn" onclick="hideFormError()">Retry</button>
+                    </div>
+                    
                     <!-- Step 1: First Name -->
                     <div class="form-group step-1 active">
                         <label class="form-label" for="firstName">👋 Let's start with your first name</label>
-                        <input class="form-input" type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
-                        <div class="step-hint">This will appear on your certificate</div>
+                        <input class="form-input" type="text" id="firstName" name="firstName" placeholder="Enter your first name" required autocomplete="given-name" aria-describedby="firstName-hint firstName-error" aria-invalid="false">
+                        <span class="validation-icon success" aria-hidden="true">✓</span>
+                        <span class="validation-icon error" aria-hidden="true">✗</span>
+                        <div class="error-message" id="firstName-error" role="alert" aria-live="polite">Please enter your first name</div>
+                        <div class="success-message" role="status" aria-live="polite">Great! Name looks good</div>
+                        <div class="step-hint" id="firstName-hint">This will appear on your certificate</div>
                     </div>
                     
                     <!-- Step 2: Last Name -->
                     <div class="form-group step-2 hidden">
                         <label class="form-label" for="lastName">✨ And your last name?</label>
-                        <input class="form-input" type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
-                        <div class="step-hint">Perfect! Your full name will look great on the certificate</div>
+                        <input class="form-input" type="text" id="lastName" name="lastName" placeholder="Enter your last name" required autocomplete="family-name" aria-describedby="lastName-hint lastName-error" aria-invalid="false">
+                        <span class="validation-icon success" aria-hidden="true">✓</span>
+                        <span class="validation-icon error" aria-hidden="true">✗</span>
+                        <div class="error-message" id="lastName-error" role="alert" aria-live="polite">Please enter your last name</div>
+                        <div class="success-message" role="status" aria-live="polite">Perfect! Full name ready</div>
+                        <div class="step-hint" id="lastName-hint">Perfect! Your full name will look great on the certificate</div>
                     </div>
                     
                     <!-- Step 3: Email -->
                     <div class="form-group step-3 hidden">
                         <label class="form-label" for="email">📧 Where should we send your results?</label>
-                        <input class="form-input" type="email" id="email" name="email" placeholder="your.email@example.com" required>
-                        <div class="step-hint">We'll send your IQ report and Academy access here</div>
+                        <input class="form-input" type="email" id="email" name="email" placeholder="your.email@example.com" required autocomplete="email" aria-describedby="email-hint email-error" aria-invalid="false">
+                        <span class="validation-icon success" aria-hidden="true">✓</span>
+                        <span class="validation-icon error" aria-hidden="true">✗</span>
+                        <div class="error-message" id="email-error" role="alert" aria-live="polite">Please enter a valid email address</div>
+                        <div class="success-message" role="status" aria-live="polite">Email confirmed!</div>
+                        <div class="step-hint" id="email-hint">We'll send your IQ report and Academy access here</div>
                     </div>
                     
                     <!-- Step 4: Card Number -->
                     <div class="form-group step-4 hidden">
                         <label class="form-label" for="cardNumber">💳 Secure payment information</label>
                         <div class="card-input-container">
-                            <input class="form-input" type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
-                            <div class="card-type-icon" id="cardTypeIcon">CARD</div>
+                            <input class="form-input" type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required autocomplete="cc-number" inputmode="numeric" aria-describedby="cardNumber-hint cardNumber-error" aria-invalid="false">
+                            <div class="card-type-icon" id="cardTypeIcon" aria-hidden="true">CARD</div>
                         </div>
-                        <div class="step-hint">Your payment is secured with 256-bit encryption</div>
+                        <span class="validation-icon success" aria-hidden="true">✓</span>
+                        <span class="validation-icon error" aria-hidden="true">✗</span>
+                        <div class="error-message" id="cardNumber-error" role="alert" aria-live="polite">Please enter a valid card number</div>
+                        <div class="success-message" role="status" aria-live="polite">Card number verified!</div>
+                        <div class="step-hint" id="cardNumber-hint">Your payment is secured with 256-bit encryption</div>
                     </div>
                     
                     <!-- Step 5: Card Details -->
                     <div class="form-group step-5 hidden">
                         <div class="form-row">
-                            <div>
+                            <div class="form-group-inline">
                                 <label class="form-label" for="expiry">Expiry Date</label>
-                                <input class="form-input" type="text" id="expiry" name="expiry" placeholder="MM/YY" maxlength="5" required>
+                                <input class="form-input" type="text" id="expiry" name="expiry" placeholder="MM/YY" maxlength="5" required autocomplete="cc-exp" inputmode="numeric" aria-describedby="expiry-error" aria-invalid="false">
+                                <span class="validation-icon success" aria-hidden="true">✓</span>
+                                <span class="validation-icon error" aria-hidden="true">✗</span>
+                                <div class="error-message" id="expiry-error" role="alert" aria-live="polite">Invalid expiry date</div>
+                                <div class="success-message" role="status" aria-live="polite">Valid date</div>
                             </div>
-                            <div>
-                                <label class="form-label" for="cvv">CVV</label>
-                                <input class="form-input" type="text" id="cvv" name="cvv" placeholder="123" maxlength="4" required>
+                            <div class="form-group-inline">
+                                <label class="form-label" for="cvv">CVV <span class="cvv-help" title="3-4 digit security code on back of card" aria-label="CVV help: 3-4 digit security code on back of card">?</span></label>
+                                <input class="form-input" type="text" id="cvv" name="cvv" placeholder="123" maxlength="4" required autocomplete="cc-csc" inputmode="numeric" aria-describedby="cvv-error" aria-invalid="false">
+                                <span class="validation-icon success" aria-hidden="true">✓</span>
+                                <span class="validation-icon error" aria-hidden="true">✗</span>
+                                <div class="error-message" id="cvv-error" role="alert" aria-live="polite">Invalid CVV</div>
+                                <div class="success-message" role="status" aria-live="polite">Verified</div>
                             </div>
                         </div>
                         <div class="step-hint">Final step - complete your secure payment</div>
@@ -2025,6 +2375,10 @@
 
                     <button type="submit" class="payment-btn step-6 hidden" id="payment-btn">
                         <span id="btn-text">🔓 Unlock My Genius Profile - €9.99</span>
+                        <span id="btn-loading" class="btn-loading hidden">
+                            <span class="loading-spinner"></span>
+                            Processing...
+                        </span>
                     </button>
                     
                     <div class="security-info">
@@ -2329,6 +2683,282 @@
             return /^\d{3,4}$/.test(cvv);
         }
         
+        // ===== Real-time Validation =====
+        function validateField(field, validationFn, customMessage = null) {
+            const value = field.value.trim();
+            const formGroup = field.closest('.form-group, .form-group-inline');
+            const errorMessage = formGroup.querySelector('.error-message');
+            
+            // Remove previous validation states
+            formGroup.classList.remove('valid', 'invalid');
+            field.classList.remove('valid', 'invalid');
+            
+            if (value.length === 0) {
+                // Empty field - no validation state
+                field.setAttribute('aria-invalid', 'false');
+                return false;
+            }
+            
+            const isValid = validationFn(value);
+            
+            if (isValid) {
+                formGroup.classList.add('valid');
+                field.classList.add('valid');
+                field.setAttribute('aria-invalid', 'false');
+                return true;
+            } else {
+                formGroup.classList.add('invalid');
+                field.classList.add('invalid');
+                field.setAttribute('aria-invalid', 'true');
+                if (customMessage && errorMessage) {
+                    errorMessage.textContent = customMessage;
+                }
+                return false;
+            }
+        }
+        
+        function validateName(name) {
+            return name.length >= 2 && /^[a-zA-Z\s'-]+$/.test(name);
+        }
+        
+        function addRealTimeValidation() {
+            const firstName = document.getElementById('firstName');
+            const lastName = document.getElementById('lastName');
+            const email = document.getElementById('email');
+            const cardNumber = document.getElementById('cardNumber');
+            const expiry = document.getElementById('expiry');
+            const cvv = document.getElementById('cvv');
+            
+            // First Name validation
+            firstName.addEventListener('input', () => {
+                validateField(firstName, validateName, 'Name must be at least 2 characters and contain only letters');
+            });
+            
+            firstName.addEventListener('blur', () => {
+                if (firstName.value.trim().length === 0) {
+                    const formGroup = firstName.closest('.form-group');
+                    formGroup.classList.add('invalid');
+                    firstName.classList.add('invalid');
+                }
+            });
+            
+            // Last Name validation
+            lastName.addEventListener('input', () => {
+                validateField(lastName, validateName, 'Last name must be at least 2 characters and contain only letters');
+            });
+            
+            lastName.addEventListener('blur', () => {
+                if (lastName.value.trim().length === 0) {
+                    const formGroup = lastName.closest('.form-group');
+                    formGroup.classList.add('invalid');
+                    lastName.classList.add('invalid');
+                }
+            });
+            
+            // Email validation
+            email.addEventListener('input', () => {
+                validateField(email, validateEmail, 'Please enter a valid email address (e.g., name@example.com)');
+            });
+            
+            email.addEventListener('blur', () => {
+                if (email.value.trim().length === 0) {
+                    const formGroup = email.closest('.form-group');
+                    formGroup.classList.add('invalid');
+                    email.classList.add('invalid');
+                }
+            });
+            
+            // Card Number validation with formatting
+            cardNumber.addEventListener('input', (e) => {
+                let value = e.target.value.replace(/\s/g, '');
+                e.target.value = formatCardNumber(value);
+                
+                // Update card type icon
+                const cardType = detectCardType(value);
+                updateCardIcon(cardType);
+                
+                // Validate if complete
+                if (value.length >= 13) {
+                    validateField(cardNumber, validateCardNumber, 'Please enter a valid 16-digit card number');
+                } else if (value.length > 0) {
+                    // Remove validation states while typing
+                    const formGroup = cardNumber.closest('.form-group');
+                    formGroup.classList.remove('valid', 'invalid');
+                    cardNumber.classList.remove('valid', 'invalid');
+                }
+            });
+            
+            // Expiry validation with formatting
+            expiry.addEventListener('input', (e) => {
+                e.target.value = formatExpiry(e.target.value);
+                
+                if (e.target.value.length === 5) {
+                    validateField(expiry, validateExpiry, 'Please enter a valid expiry date (MM/YY)');
+                } else if (e.target.value.length > 0) {
+                    const formGroup = expiry.closest('.form-group-inline');
+                    formGroup.classList.remove('valid', 'invalid');
+                    expiry.classList.remove('valid', 'invalid');
+                }
+            });
+            
+            // CVV validation
+            cvv.addEventListener('input', (e) => {
+                e.target.value = formatCVV(e.target.value);
+                
+                if (e.target.value.length >= 3) {
+                    validateField(cvv, validateCVV, 'CVV must be 3-4 digits');
+                } else if (e.target.value.length > 0) {
+                    const formGroup = cvv.closest('.form-group-inline');
+                    formGroup.classList.remove('valid', 'invalid');
+                    cvv.classList.remove('valid', 'invalid');
+                }
+            });
+        }
+        
+        // ===== Form Submission Handling =====
+        function handleFormSubmission() {
+            const form = document.getElementById('payment-form');
+            const submitBtn = document.getElementById('payment-btn');
+            
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // Show loading state
+                showLoadingState();
+                hideFormError();
+                
+                try {
+                    // Get form data
+                    const formData = new FormData(e.target);
+                    const data = {
+                        firstName: formData.get('firstName'),
+                        lastName: formData.get('lastName'),
+                        email: formData.get('email'),
+                        cardNumber: formData.get('cardNumber'),
+                        expiry: formData.get('expiry'),
+                        cvv: formData.get('cvv')
+                    };
+                    
+                    // Validate all fields
+                    const isValid = validateAllFields();
+                    
+                    if (!isValid) {
+                        throw new Error('Please complete all required fields correctly.');
+                    }
+                    
+                    // Validate required data
+                    if (!data.firstName || !data.lastName) {
+                        throw new Error('Please enter your full name.');
+                    }
+                    
+                    // Simulate payment processing
+                    await simulatePaymentProcessing();
+                    
+                    // Store payment data for dashboard
+                    const paymentData = {
+                        firstName: data.firstName || '',
+                        lastName: data.lastName || '', 
+                        email: data.email || '',
+                        cardNumber: '****-****-****-' + (data.cardNumber || '').slice(-4),
+                        plan: 'premium',
+                        amount: 9.99,
+                        paymentDate: new Date().toISOString(),
+                        paymentId: 'pay_' + Math.random().toString(36).substr(2, 9)
+                    };
+                    
+                    // Store payment success data
+                    localStorage.setItem('paymentSuccess', JSON.stringify(paymentData));
+                    
+                    // Also store user name separately for quick access
+                    if (paymentData.firstName && paymentData.lastName) {
+                        localStorage.setItem('userName', `${paymentData.firstName} ${paymentData.lastName}`);
+                    }
+                    
+                    console.log('✅ Payment data stored:', paymentData);
+                    
+                    // Success - redirect to dashboard
+                    window.location.href = 'dashboard.html';
+                    
+                } catch (error) {
+                    hideLoadingState();
+                    showFormError(error.message);
+                }
+            });
+        }
+        
+        function showLoadingState() {
+            const submitBtn = document.getElementById('payment-btn');
+            const btnText = document.getElementById('btn-text');
+            const btnLoading = document.getElementById('btn-loading');
+            
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            
+            // Hide text, show loading
+            btnText.style.display = 'none';
+            btnLoading.classList.remove('hidden');
+            btnLoading.style.display = 'flex';
+        }
+        
+        function hideLoadingState() {
+            const submitBtn = document.getElementById('payment-btn');
+            const btnText = document.getElementById('btn-text');
+            const btnLoading = document.getElementById('btn-loading');
+            
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+            
+            // Show text, hide loading
+            btnText.style.display = 'block';
+            btnLoading.classList.add('hidden');
+            btnLoading.style.display = 'none';
+        }
+        
+        function showFormError(message = 'Payment processing failed. Please check your information and try again.') {
+            const errorDiv = document.getElementById('form-error');
+            const errorText = errorDiv.querySelector('.error-text');
+            errorText.textContent = message;
+            errorDiv.classList.add('visible');
+            
+            // Scroll error into view
+            errorDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        function hideFormError() {
+            const errorDiv = document.getElementById('form-error');
+            errorDiv.classList.remove('visible');
+        }
+        
+        function validateAllFields() {
+            const firstName = document.getElementById('firstName');
+            const lastName = document.getElementById('lastName');
+            const email = document.getElementById('email');
+            const cardNumber = document.getElementById('cardNumber');
+            const expiry = document.getElementById('expiry');
+            const cvv = document.getElementById('cvv');
+            
+            const validations = [
+                validateField(firstName, validateName),
+                validateField(lastName, validateName),
+                validateField(email, validateEmail),
+                validateField(cardNumber, validateCardNumber),
+                validateField(expiry, validateExpiry),
+                validateField(cvv, validateCVV)
+            ];
+            
+            return validations.every(isValid => isValid);
+        }
+        
+        async function simulatePaymentProcessing() {
+            // Simulate network delay
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // Simulate random success/failure for demo
+            if (Math.random() > 0.8) {
+                throw new Error('Your card was declined. Please try a different payment method.');
+            }
+        }
+        
         // ===== Scroll Reveal Animation =====
         function initScrollReveal() {
             const revealElements = document.querySelectorAll('.reveal');
@@ -2349,7 +2979,155 @@
             });
         }
         
-        // ===== Progressive Form Revelation =====
+        // ===== Form Navigation Functions =====
+        let currentFormStep = 1;
+        const totalFormSteps = 5;
+        
+        function nextStep() {
+            if (currentFormStep < totalFormSteps) {
+                const currentStepElement = document.querySelector(`.step-${currentFormStep}`);
+                const nextStepElement = document.querySelector(`.step-${currentFormStep + 1}`);
+                
+                // Mark current step as completed
+                currentStepElement.classList.add('completed');
+                currentStepElement.classList.remove('active');
+                
+                // Hide current step
+                setTimeout(() => {
+                    currentStepElement.classList.add('hidden');
+                }, 150);
+                
+                // Show next step
+                setTimeout(() => {
+                    nextStepElement.classList.remove('hidden');
+                    setTimeout(() => {
+                        nextStepElement.classList.add('active');
+                        // Show navigation buttons
+                        const navigation = nextStepElement.querySelector('.form-navigation');
+                        if (navigation) {
+                            navigation.classList.add('visible');
+                        }
+                        // Focus the input
+                        const input = nextStepElement.querySelector('input');
+                        if (input) input.focus();
+                    }, 50);
+                }, 300);
+                
+                currentFormStep++;
+                updateFormProgress(currentFormStep);
+                
+                // Show submit button if on last step
+                if (currentFormStep === totalFormSteps) {
+                    setTimeout(() => {
+                        const submitBtn = document.getElementById('payment-btn');
+                        if (submitBtn) {
+                            submitBtn.classList.remove('hidden');
+                            setTimeout(() => {
+                                submitBtn.classList.add('active');
+                            }, 100);
+                        }
+                    }, 400);
+                }
+            }
+        }
+        
+        function previousStep() {
+            if (currentFormStep > 1) {
+                const currentStepElement = document.querySelector(`.step-${currentFormStep}`);
+                const previousStepElement = document.querySelector(`.step-${currentFormStep - 1}`);
+                
+                // Hide submit button if going back from last step
+                if (currentFormStep === totalFormSteps) {
+                    const submitBtn = document.getElementById('payment-btn');
+                    if (submitBtn) {
+                        submitBtn.classList.remove('active');
+                        setTimeout(() => {
+                            submitBtn.classList.add('hidden');
+                        }, 150);
+                    }
+                }
+                
+                // Hide current step
+                currentStepElement.classList.remove('active');
+                setTimeout(() => {
+                    currentStepElement.classList.add('hidden');
+                }, 150);
+                
+                // Show previous step
+                setTimeout(() => {
+                    previousStepElement.classList.remove('hidden', 'completed');
+                    setTimeout(() => {
+                        previousStepElement.classList.add('active');
+                        // Show navigation buttons
+                        const navigation = previousStepElement.querySelector('.form-navigation');
+                        if (navigation) {
+                            navigation.classList.add('visible');
+                        }
+                        // Focus the input
+                        const input = previousStepElement.querySelector('input');
+                        if (input) input.focus();
+                    }, 50);
+                }, 300);
+                
+                currentFormStep--;
+                updateFormProgress(currentFormStep);
+            }
+        }
+        
+        function editStep(stepNumber) {
+            // Hide current step
+            const currentStepElement = document.querySelector(`.step-${currentFormStep}`);
+            currentStepElement.classList.remove('active');
+            currentStepElement.classList.add('hidden');
+            
+            // Hide submit button if visible
+            const submitBtn = document.getElementById('payment-btn');
+            if (submitBtn && !submitBtn.classList.contains('hidden')) {
+                submitBtn.classList.remove('active');
+                submitBtn.classList.add('hidden');
+            }
+            
+            // Show target step
+            const targetStepElement = document.querySelector(`.step-${stepNumber}`);
+            targetStepElement.classList.remove('hidden', 'completed');
+            setTimeout(() => {
+                targetStepElement.classList.add('active');
+                // Show navigation buttons
+                const navigation = targetStepElement.querySelector('.form-navigation');
+                if (navigation) {
+                    navigation.classList.add('visible');
+                }
+                // Focus the input
+                const input = targetStepElement.querySelector('input');
+                if (input) input.focus();
+            }, 50);
+            
+            currentFormStep = stepNumber;
+            updateFormProgress(currentFormStep);
+        }
+        
+        function updateFormProgress(step) {
+            const progressIndicator = document.querySelector('.form-progress');
+            if (progressIndicator) {
+                progressIndicator.setAttribute('aria-valuenow', step);
+            }
+            
+            const dots = document.querySelectorAll('.progress-dot');
+            dots.forEach((dot, index) => {
+                const stepNum = index + 1;
+                if (stepNum < step) {
+                    dot.classList.add('completed');
+                    dot.classList.remove('active');
+                } else if (stepNum === step) {
+                    dot.classList.add('active');
+                    dot.classList.remove('completed');
+                } else {
+                    dot.classList.remove('active', 'completed');
+                }
+            });
+        }
+        
+        // ===== Natural Progressive Form =====
         function initProgressiveForm() {
             let currentStep = 1;
             const totalSteps = 5;
@@ -2362,10 +3140,14 @@
             const expiry = document.getElementById('expiry');
             const cvv = document.getElementById('cvv');
             const submitBtn = document.getElementById('payment-btn');
-
             
             // Progress tracking
             function updateProgress(step) {
+                const progressIndicator = document.querySelector('.form-progress');
+                if (progressIndicator) {
+                    progressIndicator.setAttribute('aria-valuenow', step);
+                }
+                
                 const dots = document.querySelectorAll('.progress-dot');
                 dots.forEach((dot, index) => {
                     const stepNum = index + 1;
@@ -2381,96 +3163,137 @@
                 });
             }
             
-            // Show next step with animation
-            function showStep(stepNumber) {
-                const stepElement = document.querySelector(`.step-${stepNumber}`);
-                if (stepElement) {
-                    stepElement.classList.remove('hidden');
+            // Show submit button when all fields are complete
+            function showSubmitButton() {
+                if (submitBtn && submitBtn.classList.contains('hidden')) {
+                    submitBtn.classList.remove('hidden');
                     setTimeout(() => {
-                        stepElement.classList.add('active');
-                    }, 50);
+                        submitBtn.classList.add('active');
+                    }, 150);
+                }
+            }
+            
+            // Smart field revelation - show while typing, no auto-focus
+            function setupFieldProgression() {
+                // Show next field while typing (visual preview)
+                function showNextFieldPreview(stepNumber) {
+                    if (stepNumber > totalSteps) return;
                     
-                    // Auto-focus the input in the new step
-                    setTimeout(() => {
-                        const input = stepElement.querySelector('input');
-                        if (input) input.focus();
-                    }, 300);
+                    const stepElement = document.querySelector(`.step-${stepNumber}`);
+                    if (stepElement && stepElement.classList.contains('hidden')) {
+                        stepElement.classList.remove('hidden');
+                        setTimeout(() => {
+                            stepElement.classList.add('active');
+                            // NO auto-focus - let user move naturally
+                        }, 100);
+                        updateProgress(stepNumber);
+                    }
                 }
                 
-                updateProgress(stepNumber);
-                currentStep = stepNumber;
-            }
-            
-            // Validation functions
-            function isValidName(name) {
-                return name.trim().length >= 2;
-            }
-            
-            function isValidEmail(email) {
-                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-            }
-            
-            function isValidCardNumber(number) {
-                return number.replace(/\s/g, '').length >= 13;
-            }
-            
-            function isValidExpiry(expiry) {
-                return /^\d{2}\/\d{2}$/.test(expiry);
-            }
-            
-            function isValidCVV(cvv) {
-                return cvv.length >= 3;
-            }
-            
-            // Step 1: First Name
-            firstName.addEventListener('input', function() {
-                if (isValidName(this.value) && currentStep === 1) {
-                    setTimeout(() => showStep(2), 500);
+                // Focus management only when user naturally moves
+                function handleNaturalAdvancement(targetInput) {
+                    if (targetInput) {
+                        setTimeout(() => targetInput.focus(), 100);
+                    }
                 }
-            });
-            
-            // Step 2: Last Name
-            lastName.addEventListener('input', function() {
-                if (isValidName(this.value) && currentStep === 2) {
-                    setTimeout(() => showStep(3), 500);
+                
+                // First Name -> Show Last Name while typing
+                firstName.addEventListener('input', () => {
+                    if (validateName(firstName.value.trim()) && currentStep === 1) {
+                        showNextFieldPreview(2);
+                        currentStep = 2;
+                    }
+                });
+                
+                firstName.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && validateName(firstName.value.trim())) {
+                        e.preventDefault();
+                        handleNaturalAdvancement(lastName);
+                    }
+                });
+                
+                // Last Name -> Show Email while typing
+                lastName.addEventListener('input', () => {
+                    if (validateName(lastName.value.trim()) && currentStep === 2) {
+                        showNextFieldPreview(3);
+                        currentStep = 3;
+                    }
+                });
+                
+                lastName.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && validateName(lastName.value.trim())) {
+                        e.preventDefault();
+                        handleNaturalAdvancement(email);
+                    }
+                });
+                
+                // Email -> Show Card Number while typing
+                email.addEventListener('input', () => {
+                    if (validateEmail(email.value.trim()) && currentStep === 3) {
+                        showNextFieldPreview(4);
+                        currentStep = 4;
+                    }
+                });
+                
+                email.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && validateEmail(email.value.trim())) {
+                        e.preventDefault();
+                        handleNaturalAdvancement(cardNumber);
+                    }
+                });
+                
+                // Card Number -> Show Expiry/CVV while typing
+                cardNumber.addEventListener('input', () => {
+                    if (validateCardNumber(cardNumber.value) && currentStep === 4) {
+                        showNextFieldPreview(5);
+                        currentStep = 5;
+                    }
+                });
+                
+                cardNumber.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && validateCardNumber(cardNumber.value)) {
+                        e.preventDefault();
+                        handleNaturalAdvancement(expiry);
+                    }
+                });
+                
+                // Final fields -> Show Submit Button
+                function checkFinalCompletion() {
+                    if (validateExpiry(expiry.value) && validateCVV(cvv.value)) {
+                        showSubmitButton();
+                    }
                 }
-            });
-            
-            // Step 3: Email
-            email.addEventListener('input', function() {
-                if (isValidEmail(this.value) && currentStep === 3) {
-                    setTimeout(() => showStep(4), 500);
-                }
-            });
-            
-            // Step 4: Card Number
-            cardNumber.addEventListener('input', function() {
-                if (isValidCardNumber(this.value) && currentStep === 4) {
-                    setTimeout(() => showStep(5), 500);
-                }
-            });
-            
-            // Step 5: Expiry and CVV
-            function checkFinalStep() {
-                if (isValidExpiry(expiry.value) && isValidCVV(cvv.value) && currentStep === 5) {
-                    setTimeout(() => {
-                        submitBtn.classList.remove('hidden');
-                        submitBtn.classList.add('active');
-                        updateProgress(6);
-                    }, 500);
-                }
+                
+                expiry.addEventListener('input', checkFinalCompletion);
+                cvv.addEventListener('input', checkFinalCompletion);
+                
+                expiry.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && validateExpiry(expiry.value)) {
+                        e.preventDefault();
+                        handleNaturalAdvancement(cvv);
+                    }
+                });
+                
+                cvv.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        checkFinalCompletion();
+                        if (submitBtn && !submitBtn.classList.contains('hidden')) {
+                            submitBtn.focus();
+                        }
+                    }
+                });
             }
             
-            expiry.addEventListener('input', checkFinalStep);
-            cvv.addEventListener('input', checkFinalStep);
-            
-            // Initialize first step
+            // Initialize
+            setupFieldProgression();
             updateProgress(1);
         }
         
         // ===== Certificate Preview Updates =====
         function initializeCertificatePreview() {
             const firstNameInput = document.getElementById('firstName');
+            const lastNameInput = document.getElementById('lastName');
             const previewName = document.getElementById('previewName');
             const previewScore = document.getElementById('previewScore');
             
@@ -2492,11 +3315,16 @@
             
             // Real-time name update
             firstNameInput.addEventListener('input', function() {
-                const name = this.value.trim();
+                const firstName = this.value.trim();
+                const lastName = lastNameInput.value.trim();
                 
-                if (name.length > 0) {
+                if (firstName.length > 0) {
                     // Update certificate with user's name
-                    previewName.textContent = name + ' [Last Name]';
+                    if (lastName.length > 0) {
+                        previewName.textContent = `${firstName} ${lastName}`;
+                    } else {
+                        previewName.textContent = firstName + ' [Last Name]';
+                    }
                     previewName.classList.add('highlight');
                     
                     // Remove highlight after animation
@@ -2506,7 +3334,7 @@
                     
                     // Update placeholder text
                     const encouragement = document.querySelector('.preview-encouragement p:first-child');
-                    encouragement.innerHTML = `🎉 <strong>Perfect! "${name}"</strong> will appear on your official certificate!`;
+                    encouragement.innerHTML = `🎉 <strong>Perfect! "${firstName}"</strong> will appear on your official certificate!`;
                 } else {
                     // Reset to placeholder
                     previewName.textContent = 'Your Name Here';
@@ -2516,7 +3344,6 @@
             });
             
             // Last name update for complete name
-            const lastNameInput = document.getElementById('lastName');
             lastNameInput.addEventListener('input', function() {
                 const firstName = firstNameInput.value.trim();
                 const lastName = this.value.trim();
@@ -2607,18 +3434,25 @@
                     firstName: data.firstName || '',
                     lastName: data.lastName || '', 
                     email: data.email || '',
-                    cardNumber: data.cardNumber || '',
-                    plan: 'basic',
-                    amount: 29.99,
-                    paymentDate: new Date().toISOString()
+                    cardNumber: '****-****-****-' + (data.cardNumber || '').slice(-4),
+                    plan: 'premium',
+                    amount: 9.99,
+                    paymentDate: new Date().toISOString(),
+                    paymentId: 'pay_' + Math.random().toString(36).substr(2, 9)
                 };
                 
                 console.log('💳 Payment data prepared:', paymentData);
-                console.log('💳 Data validation - firstName:', !!paymentData.firstName, 'email:', !!paymentData.email);
+                console.log('💳 Data validation - firstName:', !!paymentData.firstName, 'lastName:', !!paymentData.lastName, 'email:', !!paymentData.email);
                 
-                // Store payment success data
+                // Store payment success data with additional user info
                 localStorage.setItem('paymentSuccess', JSON.stringify(paymentData));
                 
+                // Also store user name separately for quick access
+                if (paymentData.firstName && paymentData.lastName) {
+                    localStorage.setItem('userName', `${paymentData.firstName} ${paymentData.lastName}`);
+                }
+                
+                console.log('🔍 Stored in localStorage:', JSON.parse(localStorage.getItem('paymentSuccess')));
                 console.log('🔍 About to call handlePaymentSuccess with:', paymentData);
                 console.log('🔍 handlePaymentSuccess function exists:', typeof handlePaymentSuccess);
                 
@@ -2643,6 +3477,16 @@
             initScrollReveal();
             initProgressiveForm(); // Add progressive form revelation
             initializeCertificatePreview(); // Add certificate preview functionality
+            addRealTimeValidation(); // Add real-time form validation
+            handleFormSubmission(); // Add form submission handling
+            
+            // Show navigation for first step
+            setTimeout(() => {
+                const firstStepNav = document.querySelector('.step-1 .form-navigation');
+                if (firstStepNav) {
+                    firstStepNav.classList.add('visible');
+                }
+            }, 500);
             
             // Form input formatting with card type detection
             const cardNumberInput = document.getElementById('cardNumber');

@@ -1359,10 +1359,21 @@
             // Clear saved progress since test is complete
             clearProgress();
             
+            // Prepare question data for review (simplified version to avoid storing too much data)
+            const questionReviewData = questions.map((q, index) => ({
+                id: q.id,
+                question: q.question,
+                answers: q.answers.map(a => a.label),
+                correctIndex: q.correctIndex,
+                userAnswer: userAnswers[index] ? userAnswers[index].selectedAnswer : null,
+                isCorrect: userAnswers[index] ? userAnswers[index].correct : false
+            }));
+            
             // Save the completed test data for the results page
             const testResults = {
                 totalQuestions: questions.length,
                 userAnswers: userAnswers,
+                questionData: questionReviewData,
                 completedAt: new Date().toISOString(),
                 testDuration: Date.now() - testStartTime
             };
