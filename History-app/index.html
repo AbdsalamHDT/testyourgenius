@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History Stories — Experience History Through Epic Stories</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           ENHANCED HISTORY APP — CREATIVE VERSION
+           More premium, cinematic, with advanced effects
+           ======================================== */
+
+        /* ----------------------------------------
+           ENHANCED DESIGN SYSTEM
+           ---------------------------------------- */
+        :root {
+            /* Enhanced Colors */
+            --color-bg: #070605;
+            --color-bg-elevated: #0f0d0a;
+            --color-bg-card: #1a1612;
+            --color-bg-glass: rgba(26, 22, 18, 0.6);
+            
+            --color-gold: #d4af37;
+            --color-gold-light: #f4d03f;
+            --color-gold-dark: #b8860b;
+            --color-gold-glow: rgba(212, 175, 55, 0.4);
+            
+            --color-bronze: #cd7f32;
+            --color-copper: #b87333;
+            
+            --color-text: #faf8f3;
+            --color-text-muted: #c7c0b5;
+            --color-text-subtle: #8a8275;
+            
+            /* Enhanced Typography */
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            
+            /* Enhanced Spacing */
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 40px;
+            --space-xl: 64px;
+            --space-xxl: 120px;
+            
+            /* Advanced Effects */
+            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.15);
+            --shadow-medium: 0 8px 40px rgba(0, 0, 0, 0.25);
+            --shadow-strong: 0 20px 80px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 40px var(--color-gold-glow);
+            
+            /* Glassmorphism */
+            --glass-backdrop: blur(20px);
+            --glass-border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        /* ----------------------------------------
+           ENHANCED RESET & BASE
+           ---------------------------------------- */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: radial-gradient(ellipse at center, var(--color-bg-elevated) 0%, var(--color-bg) 100%);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+        }
+
+        /* ----------------------------------------
+           ENHANCED TYPOGRAPHY
+           ---------------------------------------- */
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: var(--color-text);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 9vw, 5.5rem);
+            background: linear-gradient(135deg, var(--color-text) 0%, var(--color-gold) 50%, var(--color-bronze) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 6vw, 3rem);
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-gold) 0%, transparent 100%);
+            border-radius: 2px;
+        }
+
+        /* ----------------------------------------
+           ENHANCED BUTTONS
+           ---------------------------------------- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+            padding: 18px 48px;
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .btn:hover::before {
+            transform: translateX(100%);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 50%, var(--color-gold-dark) 100%);
+            color: var(--color-bg);
+            box-shadow: var(--shadow-medium), var(--shadow-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-strong), 0 0 60px var(--color-gold-glow);
+        }
+
+        .btn-secondary {
+            background: var(--color-bg-glass);
+            color: var(--color-gold);
+            border: 2px solid var(--color-gold);
+            backdrop-filter: var(--glass-backdrop);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-gold);
+            color: var(--color-bg);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* ----------------------------------------
+           ENHANCED HERO SECTION
+           ---------------------------------------- */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero__bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('./img/hero.png');
+            background-size: cover;
+            background-position: top center;
+            background-repeat: no-repeat;
+            z-index: 1;
+            filter: brightness(0.7) contrast(1.1);
+            animation: slowZoom 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes slowZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .hero__overlay {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                linear-gradient(180deg, 
+                    rgba(7, 6, 5, 0.2) 0%,
+                    rgba(7, 6, 5, 0.4) 30%,
+                    rgba(7, 6, 5, 0.7) 60%,
+                    rgba(7, 6, 5, 0.95) 100%
+                );
+            z-index: 2;
+        }
+
+        .hero__content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: 0 var(--space-md);
+            max-width: 900px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero__title {
+            margin-bottom: var(--space-md);
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8); }
+            100% { text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 175, 55, 0.3); }
+        }
+
+        .hero__subtitle {
+            font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-xl);
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            animation: fadeInUp 1.2s ease-out 0.3s both;
+        }
+
+        .hero__cta {
+            animation: fadeInUp 1.2s ease-out 0.6s both;
+        }
+
+        /* Floating particles effect */
+        .hero__particles {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--color-gold);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { top: 80%; left: 20%; animation-delay: 2s; }
+        .particle:nth-child(3) { top: 40%; left: 80%; animation-delay: 4s; }
+        .particle:nth-child(4) { top: 70%; left: 90%; animation-delay: 6s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+
+        /* Enhanced scroll indicator */
+        .hero__scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--color-gold);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-8px); }
+        }
+
+        .hero__scroll-line {
+            width: 2px;
+            height: 50px;
+            background: linear-gradient(to bottom, var(--color-gold), transparent);
+            border-radius: 1px;
+        }
+
+        /* ----------------------------------------
+           ENHANCED SECTIONS
+           ---------------------------------------- */
+        .section {
+            padding: var(--space-xxl) 0;
+            position: relative;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 1px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, var(--color-gold), transparent);
+            transform: translateX(-50%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-header__subtitle {
+            font-size: 1rem;
+            color: var(--color-text-subtle);
+            margin-top: var(--space-sm);
+            font-style: italic;
+        }
+
+        /* ----------------------------------------
+           ENHANCED STEPS SECTION
+           ---------------------------------------- */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+        }
+
+        .step {
+            background: var(--color-bg-glass);
+            backdrop-filter: var(--glass-backdrop);
+            border: var(--glass-border);
+            border-radius: 20px;
+            padding: var(--space-lg);
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--color-gold);
+        }
+
+        .step:hover::before {
+            left: 100%;
+        }
+
+        .step__number {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-bronze) 100%);
+            color: var(--color-bg);
+            border-radius: 50%;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0 auto var(--space-md);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .step__text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        /* ----------------------------------------
+           ENHANCED ERA CARDS
+           ---------------------------------------- */
+        .scroll-row {
+            display: flex;
+            gap: var(--space-md);
+            overflow-x: auto;
+            padding: var(--space-md) 0 var(--space-lg) 0;
+            margin: 0 calc(-1 * var(--space-md));
+            padding-left: var(--space-md);
+            padding-right: var(--space-md);
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .scroll-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .era-card {
+            flex-shrink: 0;
+            width: 180px;
+            scroll-snap-align: start;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .era-card:hover {
+            transform: translateY(-12px) scale(1.02);
+        }
+
+        .era-card__thumb {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            border-radius: 16px;
+            margin-bottom: var(--space-sm);
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s ease;
+        }
+
+        .era-card__thumb::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                transparent 60%,
+                rgba(7, 6, 5, 0.4) 80%,
+                rgba(7, 6, 5, 0.8) 100%
+            );
+            transition: opacity 0.4s ease;
+        }
+
+        .era-card__thumb::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, var(--color-gold), var(--color-bronze), var(--color-copper));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .era-card:hover .era-card__thumb {
+            box-shadow: var(--shadow-strong);
+        }
+
+        .era-card:hover .era-card__thumb::after {
+            opacity: 1;
+        }
+
+        .era-card__title {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text);
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+
+        .era-card:hover .era-card__title {
+            color: var(--color-gold);
+        }
+
+        /* ----------------------------------------
+           ENHANCED CTA SECTION
+           ---------------------------------------- */
+        .cta-section {
+            text-align: center;
+            padding: var(--space-xxl) var(--space-md);
+            background: 
+                radial-gradient(circle at center, var(--color-bg-elevated) 0%, var(--color-bg) 70%),
+                linear-gradient(135deg, transparent 0%, rgba(212, 175, 55, 0.05) 50%, transparent 100%);
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+        }
+
+        .cta-section__text {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 6vw, 3rem);
+            color: var(--color-text);
+            margin-bottom: var(--space-xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+        }
+
+        /* ----------------------------------------
+           ENHANCED RESPONSIVE
+           ---------------------------------------- */
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 var(--space-lg);
+            }
+            
+            .era-card {
+                width: 200px;
+            }
+            
+            .scroll-row {
+                gap: var(--space-lg);
+                margin: 0 calc(-1 * var(--space-lg));
+                padding-left: var(--space-lg);
+                padding-right: var(--space-lg);
+            }
+            
+            .steps {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .era-card {
+                width: 220px;
+            }
+        }
+
+        /* ----------------------------------------
+           REDUCED MOTION
+           ---------------------------------------- */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         ENHANCED HERO SECTION
+         ======================================== -->
+    <section class="hero">
+        <!-- Background image -->
+        <div class="hero__bg" aria-hidden="true"></div>
+        
+        <!-- Enhanced overlay with gradient -->
+        <div class="hero__overlay" aria-hidden="true"></div>
+        
+        <!-- Floating particles -->
+        <div class="hero__particles" aria-hidden="true">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        
+        <!-- Hero content -->
+        <div class="hero__content">
+            <h1 class="hero__title">Experience History Through Epic Stories</h1>
+            <p class="hero__subtitle">Civilizations, thinkers, leaders, and world-changing moments brought to life through immersive storytelling.</p>
+            <div class="hero__cta">
+                <a href="page2.html" class="btn btn-primary">Start Exploring</a>
+            </div>
+        </div>
+        
+        <!-- Enhanced scroll indicator -->
+        <div class="hero__scroll">
+            <span>Scroll</span>
+            <div class="hero__scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         ENHANCED HOW IT WORKS SECTION
+         ======================================== -->
+    <section class="section">
+        <div class="container">
+            <header class="section-header">
+                <h2>How it works</h2>
+                <p class="section-header__subtitle">Your journey through time in three simple steps</p>
+            </header>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step__number">1</div>
+                    <p class="step__text">Choose your era</p>
+                </div>
+                <div class="step">
+                    <div class="step__number">2</div>
+                    <p class="step__text">Personalize your experience</p>
+                </div>
+                <div class="step">
+                    <div class="step__number">3</div>
+                    <p class="step__text">Unlock full stories</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         ENHANCED EXPLORE BY ERA SECTION
+         ======================================== -->
+    <section class="section">
+        <div class="container">
+            <header class="section-header">
+                <h2>Explore by Era</h2>
+                <p class="section-header__subtitle">Journey through the greatest chapters of human history</p>
+            </header>
+        </div>
+        
+        <div class="container">
+            <div class="scroll-row" role="list">
+                <!-- Era Card: Ancient Egypt -->
+                <article class="era-card" role="listitem" tabindex="0">
+                    <div class="era-card__thumb" style="background-image: url('./img/ancien egypt.jpeg');"></div>
+                    <h3 class="era-card__title">Ancient Egypt</h3>
+                </article>
+                
+                <!-- Era Card: Classical World -->
+                <article class="era-card" role="listitem" tabindex="0">
+                    <div class="era-card__thumb" style="background-image: url('./img/classical world.jpeg');"></div>
+                    <h3 class="era-card__title">Classical World</h3>
+                </article>
+                
+                <!-- Era Card: Medieval Era -->
+                <article class="era-card" role="listitem" tabindex="0">
+                    <div class="era-card__thumb" style="background-image: url('./img/medevial.jpeg');"></div>
+                    <h3 class="era-card__title">Medieval Era</h3>
+                </article>
+                
+                <!-- Era Card: All Eras -->
+                <article class="era-card" role="listitem" tabindex="0">
+                    <div class="era-card__thumb" style="background-image: url('./img/all eras.jpeg');"></div>
+                    <h3 class="era-card__title">All Eras</h3>
+                </article>
+                
+                <!-- Era Card: Modern History -->
+                <article class="era-card" role="listitem" tabindex="0">
+                    <div class="era-card__thumb" style="background-image: url('./img/modern history.jpeg');"></div>
+                    <h3 class="era-card__title">Modern History</h3>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         ENHANCED FINAL CTA SECTION
+         ======================================== -->
+    <section class="cta-section">
+        <p class="cta-section__text">Start your journey through time.</p>
+        <a href="page2.html" class="btn btn-secondary">Continue</a>
+    </section>
+
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>

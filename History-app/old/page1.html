@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History Stories — Experience History Through Epic Stories</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ========================================
+         HERO SECTION
+         Full-screen cinematic introduction
+         ======================================== -->
+    <section class="hero">
+        <!-- Background image — replace with your own -->
+        <div class="hero__bg" style="background-image: url('./img/hero.png');" aria-hidden="true"></div>
+        
+        <!-- Dark gradient overlay -->
+        <div class="hero__overlay" aria-hidden="true"></div>
+        
+        <!-- Hero content -->
+        <div class="hero__content">
+            <h1 class="hero__title">Experience History Through Epic Stories</h1>
+            <p class="hero__subtitle">Civilizations, thinkers, leaders, and world-changing moments.</p>
+            <a href="page2.html" class="btn btn-primary">Start Exploring</a>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="hero__scroll">
+            <span>Scroll</span>
+            <div class="hero__scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         HOW IT WORKS SECTION
+         3 simple steps
+         ======================================== -->
+    <section class="section">
+        <div class="container">
+            <header class="section-header">
+                <h2 class="section-header__title">How it works</h2>
+            </header>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step__number">1</div>
+                    <p class="step__text">Choose your era</p>
+                </div>
+                <div class="step">
+                    <div class="step__number">2</div>
+                    <p class="step__text">Personalize your experience</p>
+                </div>
+                <div class="step">
+                    <div class="step__number">3</div>
+                    <p class="step__text">Unlock full stories</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         EXPLORE BY ERA SECTION
+         Horizontal scroll, Netflix-like row
+         ======================================== -->
+    <section class="section">
+        <div class="container">
+            <header class="section-header">
+                <h2 class="section-header__title">Explore by Era</h2>
+            </header>
+        </div>
+        
+        <div class="container">
+            <div class="scroll-row" role="list">
+                <!-- Era Card: Ancient Egypt -->
+                <article class="era-card" role="listitem" tabindex="0">
+                    <div class="era-card__thumb" style="background-image: url('./img/ancien egypt.jpeg'); background-size: cover; background-position: center;"></div>
+                    <h3 class="era-card__title">Ancient Egypt</h3>
+                </article>
+                
+                <!-- Era Card: Classical World -->
+                <article class="era-card" role="listitem" tabindex="0">
+                    <div class="era-card__thumb" style="background-image: url('./img/classical world.jpeg'); background-size: cover; background-position: center;"></div>
+                    <h3 class="era-card__title">Classical World</h3>
+                </article>
+                
+                <!-- Era Card: Medieval Era -->
+                <article class="era-card" role="listitem" tabindex="0">
+                    <div class="era-card__thumb" style="background-image: url('./img/medevial.jpeg'); background-size: cover; background-position: center;"></div>
+                    <h3 class="era-card__title">Medieval Era</h3>
+                </article>
+                
+                <!-- Era Card: All Eras -->
+                <article class="era-card" role="listitem" tabindex="0">
+                    <div class="era-card__thumb" style="background-image: url('./img/all eras.jpeg'); background-size: cover; background-position: center;"></div>
+                    <h3 class="era-card__title">All Eras</h3>
+                </article>
+                
+                <!-- Era Card: Modern History -->
+                <article class="era-card" role="listitem" tabindex="0">
+                    <div class="era-card__thumb" style="background-image: url('./img/modern history.jpeg'); background-size: cover; background-position: center;"></div>
+                    <h3 class="era-card__title">Modern History</h3>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FINAL CTA SECTION
+         Closing call-to-action
+         ======================================== -->
+    <section class="cta-section">
+        <p class="cta-section__text">Start your journey through time.</p>
+        <a href="page2.html" class="btn btn-secondary">Continue</a>
+    </section>
+
+    <!-- Shared JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>

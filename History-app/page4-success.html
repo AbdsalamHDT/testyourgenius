@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome — History Stories</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* ----------------------------------------
+           SUCCESS PAGE SPECIFIC STYLES
+           ---------------------------------------- */
+        .success-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-lg) var(--container-padding);
+            text-align: center;
+            background: radial-gradient(circle at center, var(--color-bg-elevated) 0%, var(--color-bg) 70%);
+            position: relative;
+        }
+        
+        .success-page::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--color-gold-muted) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.2); }
+        }
+        
+        .success-content {
+            position: relative;
+            z-index: 2;
+            max-width: 500px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--space-lg);
+            background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            animation: bounceIn 0.8s ease-out 0.3s both;
+        }
+        
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        
+        .success-title {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-family: var(--font-serif);
+            color: var(--color-text);
+            margin-bottom: var(--space-sm);
+            font-weight: 700;
+        }
+        
+        .success-subtitle {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-xl);
+            font-weight: 300;
+        }
+        
+        .success-cta {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .success-note {
+            font-size: 0.85rem;
+            color: var(--color-text-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+        }
+        
+        .success-note::before {
+            content: '✓';
+            color: var(--color-gold);
+            font-weight: 600;
+        }
+        
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         SUCCESS PAGE
+         ======================================== -->
+    <main class="success-page">
+        <div class="success-content">
+            <!-- Success Icon -->
+            <div class="success-icon">✓</div>
+            
+            <!-- Success Message -->
+            <h1 class="success-title">You're in.</h1>
+            <p class="success-subtitle">Your History Experience is unlocked.</p>
+            
+            <!-- Primary CTA -->
+            <div class="success-cta">
+                <a href="page5-generating.html" class="btn btn-primary">Generate My First Story</a>
+            </div>
+            
+            <!-- Receipt Note -->
+            <p class="success-note">Receipt sent to your email.</p>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+    <script>
+        // Mark payment as completed
+        window.HistoryApp.Storage.set('payment_completed', true);
+        window.HistoryApp.Storage.set('payment_timestamp', new Date().toISOString());
+    </script>
+</body>
+</html>
