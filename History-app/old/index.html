@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History Stories — Experience History Through Epic Stories</title>
+    
+    <!-- Google Fonts: Elegant serif + Clean sans-serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           CSS RESET & BASE STYLES
+           ======================================== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #0a0908;
+            color: #f5f5f5;
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ========================================
+           TYPOGRAPHY
+           ======================================== */
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        /* ========================================
+           COLOR VARIABLES
+           ======================================== */
+        :root {
+            --color-black: #0a0908;
+            --color-dark-brown: #1a1612;
+            --color-warm-brown: #2d241c;
+            --color-gold: #c9a227;
+            --color-gold-light: #d4b94a;
+            --color-cream: #f5f5f5;
+            --color-muted: #9a9a9a;
+        }
+
+        /* ========================================
+           HERO SECTION
+           Full-screen cinematic hero with overlay
+           ======================================== */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Background image - your cinematic hero image */
+        .hero__background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('img/hero.png');
+            background-size: cover;
+            background-position: top center;
+            background-repeat: no-repeat;
+            z-index: 1;
+        }
+
+        /* Dark gradient overlay for text contrast */
+        .hero__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(10, 9, 8, 0.4) 0%,
+                rgba(10, 9, 8, 0.6) 50%,
+                rgba(10, 9, 8, 0.95) 100%
+            );
+            z-index: 2;
+        }
+
+        /* Hero content container */
+        .hero__content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: 0 24px;
+            max-width: 800px;
+        }
+
+        /* Main headline - large, elegant */
+        .hero__headline {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.1;
+            color: var(--color-cream);
+            margin-bottom: 20px;
+            text-shadow: 0 2px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Subheadline - subtle, understated */
+        .hero__subheadline {
+            font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+            font-weight: 300;
+            color: var(--color-muted);
+            margin-bottom: 40px;
+            letter-spacing: 0.02em;
+        }
+
+        /* Primary CTA button */
+        .btn-primary {
+            display: inline-block;
+            padding: 16px 40px;
+            background-color: var(--color-gold);
+            color: var(--color-black);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.03em;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201, 162, 39, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* ========================================
+           SECTION BASE STYLES
+           ======================================== */
+        .section {
+            padding: 80px 0;
+            background-color: var(--color-black);
+        }
+
+        .section__title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: var(--color-cream);
+            margin-bottom: 32px;
+            padding: 0 24px;
+        }
+
+        /* ========================================
+           HORIZONTAL SCROLL CONTAINER
+           Mobile-friendly horizontal scrolling
+           ======================================== */
+        .scroll-container {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding: 0 24px 20px 24px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari */
+        }
+
+        /* ========================================
+           ERA BROWSE SECTION
+           Streaming-style thumbnail cards
+           ======================================== */
+        .era-card {
+            flex-shrink: 0;
+            width: 160px;
+            scroll-snap-align: start;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .era-card:hover {
+            transform: scale(1.03);
+        }
+
+        .era-card__image {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            background-color: var(--color-warm-brown);
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Subtle gold border on hover */
+        .era-card__image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .era-card:hover .era-card__image::after {
+            border-color: var(--color-gold);
+        }
+
+        .era-card__title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--color-cream);
+        }
+
+        /* Era card placeholder images */
+        .era-card--egypt .era-card__image {
+            background-image: url('https://images.unsplash.com/photo-1539650116574-8efeb43e2750?q=80&w=600&auto=format&fit=crop');
+        }
+        .era-card--classical .era-card__image {
+            background-image: url('https://images.unsplash.com/photo-1555993539-1732b0258235?q=80&w=600&auto=format&fit=crop');
+        }
+        .era-card--medieval .era-card__image {
+            background-image: url('https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?q=80&w=600&auto=format&fit=crop');
+        }
+        .era-card--empires .era-card__image {
+            background-image: url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?q=80&w=600&auto=format&fit=crop');
+        }
+        .era-card--modern .era-card__image {
+            background-image: url('https://images.unsplash.com/photo-1565711561500-49678a10a63f?q=80&w=600&auto=format&fit=crop');
+        }
+
+        /* ========================================
+           FEATURED STORIES SECTION
+           Wider cards for story content
+           ======================================== */
+        .story-card {
+            flex-shrink: 0;
+            width: 280px;
+            scroll-snap-align: start;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .story-card:hover {
+            transform: scale(1.02);
+        }
+
+        .story-card__image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: var(--color-warm-brown);
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            margin-bottom: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Gradient overlay on story cards */
+        .story-card__image::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(10, 9, 8, 0.6), transparent);
+        }
+
+        .story-card__image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .story-card:hover .story-card__image::after {
+            border-color: var(--color-gold);
+        }
+
+        .story-card__title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--color-cream);
+        }
+
+        /* Story card placeholder images */
+        .story-card--pharaohs .story-card__image {
+            background-image: url('https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?q=80&w=800&auto=format&fit=crop');
+        }
+        .story-card--rome .story-card__image {
+            background-image: url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?q=80&w=800&auto=format&fit=crop');
+        }
+        .story-card--medieval .story-card__image {
+            background-image: url('https://images.unsplash.com/photo-1599930113854-d6d7fd521f10?q=80&w=800&auto=format&fit=crop');
+        }
+        .story-card--napoleon .story-card__image {
+            background-image: url('https://images.unsplash.com/photo-1549144511-f099e773c147?q=80&w=800&auto=format&fit=crop');
+        }
+
+        /* ========================================
+           FINAL CTA SECTION
+           Simple, centered call-to-action
+           ======================================== */
+        .cta-section {
+            padding: 100px 24px;
+            text-align: center;
+            background: linear-gradient(
+                to bottom,
+                var(--color-black) 0%,
+                var(--color-dark-brown) 100%
+            );
+        }
+
+        .cta-section__text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.5rem, 5vw, 2.2rem);
+            font-weight: 500;
+            color: var(--color-cream);
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Secondary/outline style button */
+        .btn-secondary {
+            display: inline-block;
+            padding: 14px 36px;
+            background-color: transparent;
+            color: var(--color-gold);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 50px;
+            border: 1.5px solid var(--color-gold);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.03em;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-gold);
+            color: var(--color-black);
+            box-shadow: 0 10px 30px rgba(201, 162, 39, 0.2);
+        }
+
+        /* ========================================
+           DESKTOP ENHANCEMENTS
+           Secondary priority - enhances experience
+           ======================================== */
+        @media (min-width: 768px) {
+            .section {
+                padding: 100px 0;
+            }
+
+            .section__title {
+                padding: 0 48px;
+                margin-bottom: 40px;
+            }
+
+            .scroll-container {
+                padding: 0 48px 24px 48px;
+                gap: 24px;
+            }
+
+            .era-card {
+                width: 180px;
+            }
+
+            .story-card {
+                width: 340px;
+            }
+
+            .cta-section {
+                padding: 140px 48px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .section__title {
+                padding: 0 80px;
+            }
+
+            .scroll-container {
+                padding: 0 80px 24px 80px;
+            }
+
+            .era-card {
+                width: 200px;
+            }
+
+            .story-card {
+                width: 380px;
+            }
+        }
+
+        /* ========================================
+           ACCESSIBILITY
+           ======================================== */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            
+            .btn-primary,
+            .btn-secondary,
+            .era-card,
+            .story-card {
+                transition: none;
+            }
+        }
+
+        /* Focus states for keyboard navigation */
+        .btn-primary:focus-visible,
+        .btn-secondary:focus-visible {
+            outline: 2px solid var(--color-gold);
+            outline-offset: 3px;
+        }
+
+        .era-card:focus-visible,
+        .story-card:focus-visible {
+            outline: 2px solid var(--color-gold);
+            outline-offset: 4px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         HERO SECTION
+         Full-screen cinematic introduction
+         ======================================== -->
+    <section class="hero">
+        <!-- Background image layer -->
+        <div class="hero__background" aria-hidden="true"></div>
+        
+        <!-- Dark gradient overlay -->
+        <div class="hero__overlay" aria-hidden="true"></div>
+        
+        <!-- Hero content -->
+        <div class="hero__content">
+            <h1 class="hero__headline">Experience History Through Epic Stories</h1>
+            <p class="hero__subheadline">Civilizations, thinkers, leaders, and world-changing moments.</p>
+            <a href="#explore" class="btn-primary">Start Exploring</a>
+        </div>
+    </section>
+
+    <!-- ========================================
+         ERA BROWSE SECTION
+         Horizontal scrolling era selection
+         ======================================== -->
+    <section class="section" id="explore">
+        <h2 class="section__title">Explore by Era</h2>
+        <div class="scroll-container" role="list">
+            <!-- Era Card: Ancient Egypt -->
+            <article class="era-card era-card--egypt" role="listitem" tabindex="0">
+                <div class="era-card__image" aria-hidden="true"></div>
+                <h3 class="era-card__title">Ancient Egypt</h3>
+            </article>
+
+            <!-- Era Card: Classical World -->
+            <article class="era-card era-card--classical" role="listitem" tabindex="0">
+                <div class="era-card__image" aria-hidden="true"></div>
+                <h3 class="era-card__title">Classical World</h3>
+            </article>
+
+            <!-- Era Card: Medieval Era -->
+            <article class="era-card era-card--medieval" role="listitem" tabindex="0">
+                <div class="era-card__image" aria-hidden="true"></div>
+                <h3 class="era-card__title">Medieval Era</h3>
+            </article>
+
+            <!-- Era Card: Great Empires -->
+            <article class="era-card era-card--empires" role="listitem" tabindex="0">
+                <div class="era-card__image" aria-hidden="true"></div>
+                <h3 class="era-card__title">Great Empires</h3>
+            </article>
+
+            <!-- Era Card: Modern History -->
+            <article class="era-card era-card--modern" role="listitem" tabindex="0">
+                <div class="era-card__image" aria-hidden="true"></div>
+                <h3 class="era-card__title">Modern History</h3>
+            </article>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FEATURED STORIES SECTION
+         Horizontal scrolling story highlights
+         ======================================== -->
+    <section class="section">
+        <h2 class="section__title">Featured Stories</h2>
+        <div class="scroll-container" role="list">
+            <!-- Story Card: Rise of the Pharaohs -->
+            <article class="story-card story-card--pharaohs" role="listitem" tabindex="0">
+                <div class="story-card__image" aria-hidden="true"></div>
+                <h3 class="story-card__title">Rise of the Pharaohs</h3>
+            </article>
+
+            <!-- Story Card: Fall of the Roman Empire -->
+            <article class="story-card story-card--rome" role="listitem" tabindex="0">
+                <div class="story-card__image" aria-hidden="true"></div>
+                <h3 class="story-card__title">Fall of the Roman Empire</h3>
+            </article>
+
+            <!-- Story Card: Medieval Minds -->
+            <article class="story-card story-card--medieval" role="listitem" tabindex="0">
+                <div class="story-card__image" aria-hidden="true"></div>
+                <h3 class="story-card__title">Medieval Minds</h3>
+            </article>
+
+            <!-- Story Card: Napoleon -->
+            <article class="story-card story-card--napoleon" role="listitem" tabindex="0">
+                <div class="story-card__image" aria-hidden="true"></div>
+                <h3 class="story-card__title">Napoleon: Vision & Legacy</h3>
+            </article>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FINAL CTA SECTION
+         Closing call-to-action
+         ======================================== -->
+    <section class="cta-section">
+        <p class="cta-section__text">Start your journey through time.</p>
+        <a href="#" class="btn-secondary">Continue</a>
+    </section>
+
+    <!-- ========================================
+         JAVASCRIPT
+         Minimal interactivity enhancements
+         ======================================== -->
+    <script>
+        /**
+         * History Stories Homepage
+         * Minimal JavaScript for enhanced interactivity
+         */
+
+        (function() {
+            'use strict';
+
+            /**
+             * Smooth scroll enhancement for anchor links
+             * Falls back to CSS scroll-behavior in supported browsers
+             */
+            function initSmoothScroll() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function(e) {
+                        const targetId = this.getAttribute('href');
+                        if (targetId === '#') return;
+                        
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            e.preventDefault();
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    });
+                });
+            }
+
+            /**
+             * Add keyboard support for interactive cards
+             * Allows Enter/Space to activate cards
+             */
+            function initCardInteraction() {
+                const cards = document.querySelectorAll('.era-card, .story-card');
+                
+                cards.forEach(card => {
+                    card.addEventListener('keydown', function(e) {
+                        // Activate on Enter or Space
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            // Placeholder: Add navigation logic here
+                            console.log('Card activated:', this.querySelector('h3').textContent);
+                            
+                            // Visual feedback
+                            this.style.transform = 'scale(0.98)';
+                            setTimeout(() => {
+                                this.style.transform = '';
+                            }, 150);
+                        }
+                    });
+
+                    // Click handler for cards
+                    card.addEventListener('click', function() {
+                        // Placeholder: Add navigation logic here
+                        console.log('Card clicked:', this.querySelector('h3').textContent);
+                    });
+                });
+            }
+
+            /**
+             * Subtle parallax effect on hero background
+             * Only active on devices that prefer motion
+             */
+            function initHeroParallax() {
+                // Respect user's motion preferences
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    return;
+                }
+
+                const heroBackground = document.querySelector('.hero__background');
+                if (!heroBackground) return;
+
+                let ticking = false;
+
+                window.addEventListener('scroll', function() {
+                    if (!ticking) {
+                        requestAnimationFrame(function() {
+                            const scrolled = window.pageYOffset;
+                            const heroHeight = window.innerHeight;
+                            
+                            // Only apply parallax when hero is visible
+                            if (scrolled < heroHeight) {
+                                const parallaxOffset = scrolled * 0.4;
+                                heroBackground.style.transform = `translateY(${parallaxOffset}px)`;
+                            }
+                            
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                });
+            }
+
+            /**
+             * Initialize all functionality when DOM is ready
+             */
+            function init() {
+                initSmoothScroll();
+                initCardInteraction();
+                initHeroParallax();
+            }
+
+            // Run on DOM ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Eras — History Stories</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* ----------------------------------------
+           ERA BROWSE SPECIFIC STYLES
+           ---------------------------------------- */
+        .era-browse {
+            min-height: 100vh;
+            background: var(--color-bg);
+        }
+        
+        /* Hero Banner */
+        .era-hero {
+            background: var(--color-bg-elevated);
+            border-bottom: 1px solid var(--color-border);
+            position: relative;
+            overflow: hidden;
+            padding: var(--space-xl) 0;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .era-hero__bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+        }
+        
+        .era-hero__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(10, 9, 8, 0.9) 0%,
+                rgba(26, 23, 20, 0.7) 100%
+            );
+        }
+        
+        .era-hero__content {
+            position: relative;
+            z-index: 2;
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+            text-align: center;
+        }
+        
+        .era-hero__title {
+            font-family: var(--font-serif);
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .era-hero__subtitle {
+            color: var(--color-text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+        
+        /* Story Rows (Netflix Style) */
+        .story-row {
+            margin-bottom: var(--space-xl);
+        }
+        
+        .story-row__title {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: var(--space-md);
+            padding: 0 var(--container-padding);
+        }
+        
+        .story-row__container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .story-row__scroll {
+            display: flex;
+            gap: var(--space-sm);
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 0 var(--container-padding);
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .story-row__scroll::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Story Cards in Rows */
+        .row-story-card {
+            flex: 0 0 auto;
+            width: 200px;
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            position: relative;
+        }
+        
+        .row-story-card:hover {
+            border-color: var(--color-border-hover);
+            transform: scale(1.02);
+        }
+        
+        @media (min-width: 640px) {
+            .row-story-card {
+                width: 240px;
+            }
+        }
+        
+        .row-story-card__poster {
+            width: 100%;
+            height: 280px;
+            background-size: cover;
+            background-position: center;
+            background-color: var(--color-bg-elevated);
+            position: relative;
+        }
+        
+        .row-story-card__poster::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                transparent 70%,
+                rgba(10, 9, 8, 0.9) 100%
+            );
+        }
+        
+        .row-story-card__content {
+            padding: var(--space-sm);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 2;
+        }
+        
+        .row-story-card__title {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-text);
+            line-height: 1.3;
+            margin-bottom: 4px;
+        }
+        
+        .row-story-card__era {
+            font-size: 0.8rem;
+            color: var(--color-gold);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Hover Overlay for Desktop */
+        .row-story-card__overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 9, 8, 0.8);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+        }
+        
+        .row-story-card__overlay-btn {
+            background: var(--color-gold);
+            color: var(--color-bg);
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+        }
+        
+        .row-story-card__overlay-btn:hover {
+            background: var(--color-gold-light);
+        }
+        
+        @media (min-width: 640px) {
+            .row-story-card:hover .row-story-card__overlay {
+                opacity: 1;
+            }
+        }
+        
+        /* Mobile-first: no overlay on small screens */
+        @media (max-width: 639px) {
+            .row-story-card__overlay {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="era-browse">
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="page6-dashboard.html" class="nav-logo">History Stories</a>
+            <div class="nav-links">
+                <a href="page10-search.html" class="nav-link">Search</a>
+                <a href="page6-dashboard.html" class="nav-link">Dashboard</a>
+                <a href="page8-library.html" class="nav-link">Library</a>
+                <a href="#account" class="nav-link">Account</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Era Hero Banner -->
+    <section class="era-hero">
+        <div class="era-hero__bg" id="era-hero-bg"></div>
+        <div class="era-hero__overlay"></div>
+        <div class="era-hero__content">
+            <h1 class="era-hero__title" id="era-title">Explore All Eras</h1>
+            <p class="era-hero__subtitle" id="era-subtitle">Journey through the most fascinating periods of human history</p>
+        </div>
+    </section>
+
+    <!-- Story Rows Container -->
+    <div id="story-rows-container">
+        <!-- Dynamic content loaded by JavaScript -->
+    </div>
+
+    <!-- Shared JavaScript -->
+    <script src="app.js"></script>
+    
+    <script>
+        /* ========================================
+           ERA BROWSE PAGE LOGIC
+           ======================================== */
+        
+        class EraBrowsePage {
+            constructor() {
+                this.currentEra = this.getEraFromUrl();
+                this.library = HistoryApp.Storage.get('library', []);
+                this.init();
+            }
+            
+            getEraFromUrl() {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get('era') || 'all';
+            }
+            
+            init() {
+                this.setupEraInfo();
+                this.renderStoryRows();
+            }
+            
+            setupEraInfo() {
+                const eraData = {
+                    ancient: {
+                        name: 'Ancient World',
+                        subtitle: 'Discover the earliest civilizations and their remarkable achievements',
+                        bg: './img/egypt.jpg'
+                    },
+                    classical: {
+                        name: 'Classical Antiquity',
+                        subtitle: 'Explore the golden age of Greece and Rome',
+                        bg: './img/rome.jpg'
+                    },
+                    medieval: {
+                        name: 'Medieval Era',
+                        subtitle: 'Journey through knights, kingdoms, and medieval life',
+                        bg: './img/viking.jpg'
+                    },
+                    modern: {
+                        name: 'Modern History',
+                        subtitle: 'Experience the revolutions and innovations that shaped our world',
+                        bg: './img/napoleon.jpg'
+                    },
+                    all: {
+                        name: 'All Eras',
+                        subtitle: 'Journey through the most fascinating periods of human history',
+                        bg: './img/hero.png'
+                    }
+                };
+                
+                const era = eraData[this.currentEra] || eraData.all;
+                
+                document.getElementById('era-title').textContent = `Explore: ${era.name}`;
+                document.getElementById('era-subtitle').textContent = era.subtitle;
+                document.getElementById('era-hero-bg').style.backgroundImage = `url('${era.bg}')`;
+            }
+            
+            renderStoryRows() {
+                const container = document.getElementById('story-rows-container');
+                
+                // Filter library stories by era if not 'all'
+                let libraryStories = this.library;
+                if (this.currentEra !== 'all') {
+                    libraryStories = this.library.filter(story => 
+                        this.matchEra(story.era, this.currentEra)
+                    );
+                }
+                
+                // Generate story rows
+                const rows = [
+                    { title: 'Top Picks', stories: this.getTopPicks(libraryStories) },
+                    { title: 'Recommended', stories: this.getRecommended(libraryStories) },
+                    { title: 'More Stories', stories: this.getMoreStories(libraryStories) }
+                ];
+                
+                const rowsHtml = rows.map(row => this.renderStoryRow(row)).join('');
+                container.innerHTML = rowsHtml;
+            }
+            
+            matchEra(storyEra, targetEra) {
+                const eraMapping = {
+                    ancient: ['Ancient Egypt', 'Ancient civilizations', 'Lost worlds'],
+                    classical: ['Ancient Rome', 'Ancient Greece', 'Classical antiquity'],
+                    medieval: ['Medieval', 'Vikings', 'Knights'],
+                    modern: ['Modern', 'Napoleon', 'Industrial', 'World War']
+                };
+                
+                const keywords = eraMapping[targetEra] || [];
+                return keywords.some(keyword => 
+                    storyEra.toLowerCase().includes(keyword.toLowerCase())
+                );
+            }
+            
+            getTopPicks(stories) {
+                // Mix library stories with some generated ones
+                const generated = this.generateStories(4);
+                return [...stories.slice(0, 2), ...generated.slice(0, 3)].slice(0, 5);
+            }
+            
+            getRecommended(stories) {
+                const generated = this.generateStories(5);
+                return [...stories.slice(2, 4), ...generated.slice(3, 7)].slice(0, 5);
+            }
+            
+            getMoreStories(stories) {
+                const generated = this.generateStories(6);
+                return [...stories.slice(4), ...generated.slice(5)].slice(0, 6);
+            }
+            
+            generateStories(count) {
+                const templates = [
+                    {
+                        title: 'The Fall of Rome',
+                        era: 'Ancient Rome',
+                        heroPosterUrl: './img/rome.jpg'
+                    },
+                    {
+                        title: 'Secrets of the Pharaohs',
+                        era: 'Ancient Egypt',
+                        heroPosterUrl: './img/egypt.jpg'
+                    },
+                    {
+                        title: 'Viking Conquests',
+                        era: 'Medieval Era',
+                        heroPosterUrl: './img/viking.jpg'
+                    },
+                    {
+                        title: 'Napoleon\'s Empire',
+                        era: 'Modern History',
+                        heroPosterUrl: './img/napoleon.jpg'
+                    },
+                    {
+                        title: 'The Golden Age of Athens',
+                        era: 'Classical Antiquity',
+                        heroPosterUrl: './img/greece.jpg'
+                    },
+                    {
+                        title: 'Medieval Kingdoms',
+                        era: 'Medieval Era',
+                        heroPosterUrl: './img/medieval.jpg'
+                    },
+                    {
+                        title: 'Lost Civilizations',
+                        era: 'Ancient World',
+                        heroPosterUrl: './img/hero.png'
+                    },
+                    {
+                        title: 'Renaissance Masters',
+                        era: 'Renaissance',
+                        heroPosterUrl: './img/renaissance.jpg'
+                    }
+                ];
+                
+                // Filter by era if not 'all'
+                let filtered = templates;
+                if (this.currentEra !== 'all') {
+                    filtered = templates.filter(story => 
+                        this.matchEra(story.era, this.currentEra)
+                    );
+                }
+                
+                // Add IDs and return shuffled subset
+                return filtered
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, count)
+                    .map((story, index) => ({
+                        ...story,
+                        id: `generated-${this.currentEra}-${index}`,
+                        isGenerated: true
+                    }));
+            }
+            
+            renderStoryRow(row) {
+                if (row.stories.length === 0) return '';
+                
+                const storiesHtml = row.stories.map(story => `
+                    <div class="row-story-card" onclick="EraBrowsePage.openStory('${story.id}', ${story.isGenerated ? 'true' : 'false'})">
+                        <div class="row-story-card__poster" style="background-image: url('${story.heroPosterUrl || './img/hero.png'}');"></div>
+                        <div class="row-story-card__content">
+                            <h3 class="row-story-card__title">${story.title}</h3>
+                            <div class="row-story-card__era">${story.era}</div>
+                        </div>
+                        <div class="row-story-card__overlay">
+                            <button class="row-story-card__overlay-btn">Open</button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                return `
+                    <section class="story-row">
+                        <h2 class="story-row__title">${row.title}</h2>
+                        <div class="story-row__container">
+                            <div class="story-row__scroll">
+                                ${storiesHtml}
+                            </div>
+                        </div>
+                    </section>
+                `;
+            }
+            
+            static openStory(storyId, isGenerated = false) {
+                if (isGenerated === 'true' || isGenerated === true) {
+                    // For generated stories, create a full story object and save it
+                    const generatedStory = EraBrowsePage.createFullStory(storyId);
+                    
+                    // Add to library
+                    const library = HistoryApp.Storage.get('library', []);
+                    if (!library.find(s => s.id === generatedStory.id)) {
+                        library.push(generatedStory);
+                        HistoryApp.Storage.set('library', library);
+                    }
+                    
+                    // Set as last story
+                    HistoryApp.Storage.set('lastStory', generatedStory);
+                }
+                
+                window.location.href = `page7-story.html?id=${storyId}`;
+            }
+            
+            static createFullStory(storyId) {
+                // Create a complete story object from the generated template
+                const templates = {
+                    'generated-ancient-0': {
+                        title: 'Secrets of the Pharaohs',
+                        era: 'Ancient Egypt',
+                        summaryLines: [
+                            'Uncover the mysteries of ancient Egypt\'s most powerful rulers',
+                            'From Tutankhamun to Ramesses II, explore royal tombs and treasures',
+                            'Discover the secrets that shaped one of history\'s greatest civilizations'
+                        ],
+                        timeline: ['3100 BCE: Unification of Egypt', '2686 BCE: Old Kingdom begins', '1550 BCE: New Kingdom era'],
+                        characters: ['Tutankhamun', 'Cleopatra', 'Ramesses II'],
+                        heroVideoUrl: './video/video1.mp4',
+                        heroPosterUrl: './img/egypt.jpg'
+                    },
+                    'generated-all-0': {
+                        title: 'The Fall of Rome',
+                        era: 'Ancient Rome',
+                        summaryLines: [
+                            'Witness the dramatic collapse of the world\'s greatest empire',
+                            'From political corruption to barbarian invasions',
+                            'Understand how the eternal city met its end'
+                        ],
+                        timeline: ['27 BCE: Roman Empire begins', '476 CE: Western Empire falls', '1453 CE: Eastern Empire ends'],
+                        characters: ['Julius Caesar', 'Marcus Aurelius', 'Constantine'],
+                        heroVideoUrl: './video/video2.mp4',
+                        heroPosterUrl: './img/rome.jpg'
+                    }
+                    // Add more templates as needed
+                };
+                
+                // Default template if specific one not found
+                const defaultStory = {
+                    title: 'Historical Discovery',
+                    era: 'Ancient World',
+                    summaryLines: [
+                        'Explore a fascinating chapter in human history',
+                        'Uncover the stories that shaped our world',
+                        'Journey through time with expert storytelling'
+                    ],
+                    timeline: ['Beginning of story', 'Major events unfold', 'Historical significance'],
+                    characters: ['Historical Figure 1', 'Historical Figure 2'],
+                    heroVideoUrl: './video/video1.mp4',
+                    heroPosterUrl: './img/hero.png'
+                };
+                
+                const story = templates[storyId] || defaultStory;
+                return {
+                    id: storyId,
+                    ...story
+                };
+            }
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new EraBrowsePage();
+        });
+    </script>
+</body>
+</html>

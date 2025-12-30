@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story — History Stories</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* ----------------------------------------
+           STORY PAGE SPECIFIC STYLES
+           ---------------------------------------- */
+        .story-page {
+            min-height: 100vh;
+            background: var(--color-bg);
+        }
+        
+        /* Video Hero Section */
+        .story-hero {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+            min-height: 400px;
+            max-height: 600px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        
+        .story-hero__video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        
+        .story-hero__poster {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+        }
+        
+        .story-hero__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(7, 6, 5, 0.1) 0%,
+                rgba(7, 6, 5, 0.3) 40%,
+                rgba(7, 6, 5, 0.7) 80%,
+                rgba(7, 6, 5, 0.95) 100%
+            );
+            z-index: 2;
+        }
+        
+        .story-hero__content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: var(--space-lg) var(--container-padding) var(--space-xl);
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: var(--space-md);
+            left: var(--container-padding);
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            transition: all var(--transition-fast);
+            z-index: 4;
+        }
+        
+        .back-button:hover {
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--color-gold);
+        }
+        
+        .story-hero__title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 8vw, 4rem);
+            color: var(--color-text);
+            margin-bottom: var(--space-sm);
+            font-weight: 700;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+        }
+        
+        .story-hero__meta {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .story-hero__tag {
+            padding: 6px 16px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            color: var(--color-text);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .story-hero__actions {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            align-items: center;
+        }
+        
+        .hero-btn {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border: 1.5px solid rgba(212, 175, 55, 0.6);
+            color: var(--color-text);
+            padding: 14px 32px;
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all var(--transition-base);
+            cursor: pointer;
+            min-width: 200px;
+        }
+        
+        .hero-btn:hover {
+            background: var(--color-gold);
+            color: var(--color-bg);
+            border-color: var(--color-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+        
+        .hero-btn-primary {
+            background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+            color: var(--color-bg);
+            border-color: var(--color-gold);
+        }
+        
+        .hero-btn-primary:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
+        }
+        
+        .story-title {
+            font-family: var(--font-serif);
+            font-size: clamp(1.8rem, 6vw, 3rem);
+            color: var(--color-text);
+            margin-bottom: var(--space-sm);
+            font-weight: 700;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .story-meta {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+            font-size: 0.85rem;
+            color: var(--color-text-subtle);
+            margin-bottom: var(--space-md);
+        }
+        
+        .story-meta span {
+            padding: 4px 12px;
+            background: var(--color-bg-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-full);
+        }
+        
+        /* Story Content */
+        .story-content {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--container-padding);
+        }
+        
+        .story-summary {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-xl);
+            text-align: justify;
+        }
+        
+        .story-summary p {
+            margin-bottom: var(--space-md);
+        }
+        
+        /* Timeline Section */
+        .timeline-section {
+            background: var(--color-bg-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .timeline-title {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--color-text);
+            margin-bottom: var(--space-md);
+            text-align: center;
+        }
+        
+        .timeline-list {
+            list-style: none;
+            display: grid;
+            gap: var(--space-md);
+        }
+        
+        .timeline-item {
+            display: flex;
+            gap: var(--space-md);
+            align-items: flex-start;
+        }
+        
+        .timeline-item__icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+            color: var(--color-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .timeline-item__content h4 {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            color: var(--color-text);
+            margin-bottom: var(--space-xs);
+            font-weight: 600;
+        }
+        
+        .timeline-item__content p {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        /* Characters Section */
+        .characters-section {
+            margin-bottom: var(--space-xl);
+        }
+        
+        .characters-title {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--color-text);
+            margin-bottom: var(--space-md);
+            text-align: center;
+        }
+        
+        .characters-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+            justify-content: center;
+        }
+        
+        .character-chip {
+            padding: var(--space-sm) var(--space-md);
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            color: var(--color-text);
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            cursor: pointer;
+        }
+        
+        .character-chip:hover {
+            border-color: var(--color-gold);
+            color: var(--color-gold);
+            transform: translateY(-1px);
+        }
+        
+        /* Action Buttons */
+        .story-actions {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            margin-top: var(--space-xl);
+        }
+        
+        .action-primary {
+            background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        }
+        
+        .action-secondary {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            color: var(--color-text);
+        }
+        
+        .action-secondary:hover {
+            border-color: var(--color-gold);
+            color: var(--color-gold);
+        }
+        
+        /* Success Messages */
+        .success-message {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            color: #81C784;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            margin-top: var(--space-md);
+            font-size: 0.9rem;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all var(--transition-base);
+        }
+        
+        .success-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive */
+        @media (min-width: 768px) {
+            .timeline-list {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .story-actions {
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .story-actions .btn {
+                flex: 0 0 auto;
+                min-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         STORY PAGE
+         ======================================== -->
+    <div class="story-page">
+        <!-- Video Hero Section -->
+        <section class="story-hero">
+            <video 
+                class="story-hero__video" 
+                id="story-video"
+                autoplay 
+                muted 
+                loop 
+                playsinline 
+                preload="metadata"
+                poster="./img/ancien egypt.jpeg"
+            >
+                <source src="./video/video1.mp4" type="video/mp4">
+            </video>
+            
+            <div class="story-hero__poster" id="story-poster"></div>
+            <div class="story-hero__overlay"></div>
+            
+            <a href="page6-dashboard.html" class="back-button">← Dashboard</a>
+            
+            <div class="story-hero__content">
+                <h1 class="story-hero__title" id="story-title">Rise of the Pharaohs</h1>
+                
+                <div class="story-hero__meta" id="story-meta">
+                    <span class="story-hero__tag" id="story-era">Ancient Egypt</span>
+                    <span class="story-hero__tag" id="story-style">Epic</span>
+                </div>
+                
+                <div class="story-hero__actions">
+                    <button class="hero-btn hero-btn-primary" id="generate-next-hero">Generate Next Episode</button>
+                    <button class="hero-btn" id="add-to-library-hero">Add to Library</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Story Content -->
+        <main class="story-content">
+            <!-- Story Summary -->
+            <div class="story-summary" id="story-summary">
+                <p>In the scorching sands of ancient Egypt, a civilization unlike any other emerged from the fertile banks of the Nile. The pharaohs, believed to be living gods, ruled over a kingdom that would endure for over three millennia.</p>
+                
+                <p>From the legendary Narmer who first united Upper and Lower Egypt, to the great pyramid builders like Khufu, these divine rulers commanded the loyalty of millions. They wielded absolute power, controlling vast resources to create monuments that still inspire wonder today.</p>
+                
+                <p>The pharaohs established a complex bureaucracy, a sophisticated writing system, and architectural marvels that defied the limitations of their time. Their tombs, filled with golden treasures and guarded by ancient curses, were designed to ensure their eternal journey to the afterlife.</p>
+                
+                <p>This is the story of how mortal men became gods, how a desert kingdom became the world's first great empire, and how the pharaohs' legacy continues to captivate us thousands of years later.</p>
+            </div>
+            
+            <!-- Timeline Section -->
+            <section class="timeline-section">
+                <h2 class="timeline-title">Historical Timeline</h2>
+                <ul class="timeline-list">
+                    <li class="timeline-item">
+                        <div class="timeline-item__icon">C</div>
+                        <div class="timeline-item__content">
+                            <h4>Cause</h4>
+                            <p>The Nile's predictable flooding created agricultural surplus, allowing complex civilization to develop</p>
+                        </div>
+                    </li>
+                    <li class="timeline-item">
+                        <div class="timeline-item__icon">E</div>
+                        <div class="timeline-item__content">
+                            <h4>Event</h4>
+                            <p>Narmer unifies Upper and Lower Egypt (~3100 BCE), establishing the first pharaonic dynasty</p>
+                        </div>
+                    </li>
+                    <li class="timeline-item">
+                        <div class="timeline-item__icon">R</div>
+                        <div class="timeline-item__content">
+                            <h4>Consequence</h4>
+                            <p>Three millennia of pharaonic rule creates lasting monuments and influences world civilization</p>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+            
+            <!-- Key Characters -->
+            <section class="characters-section">
+                <h2 class="characters-title">Key Figures</h2>
+                <div class="characters-list">
+                    <span class="character-chip">Pharaoh Narmer</span>
+                    <span class="character-chip">Pharaoh Khufu</span>
+                    <span class="character-chip">High Priest Imhotep</span>
+                </div>
+            </section>
+            
+            <!-- Action Buttons -->
+            <div class="story-actions">
+                <button class="btn btn-primary action-primary" id="generate-next">Generate Next Episode</button>
+                <button class="btn btn-secondary action-secondary" id="add-to-library">Add to Library</button>
+            </div>
+            
+            <!-- Success Message -->
+            <div class="success-message" id="success-message">
+                Story added to your library!
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+    <script>
+        (function() {
+            'use strict';
+            
+            // Enhanced story database with video assets
+            const storyTemplates = {
+                'Ancient civilizations': {
+                    id: 'ancient-egypt-pharaohs',
+                    title: 'Rise of the Pharaohs',
+                    era: 'Ancient Egypt',
+                    focus: 'Ancient civilizations',
+                    style: 'Epic Cinematic',
+                    heroVideoUrl: './video/video1.mp4',
+                    heroPosterUrl: './img/ancien egypt.jpeg',
+                    duration: '8 min',
+                    summaryLines: [
+                        'In the scorching sands of ancient Egypt, a civilization unlike any other emerged from the fertile banks of the Nile. The pharaohs, believed to be living gods, ruled over a kingdom that would endure for over three millennia.',
+                        'From the legendary Narmer who first united Upper and Lower Egypt, to the great pyramid builders like Khufu, these divine rulers commanded the loyalty of millions. They wielded absolute power, controlling vast resources to create monuments that still inspire wonder today.',
+                        'The pharaohs established a complex bureaucracy, a sophisticated writing system, and architectural marvels that defied the limitations of their time. Their tombs, filled with golden treasures and guarded by ancient curses, were designed to ensure their eternal journey to the afterlife.',
+                        'This is the story of how mortal men became gods, how a desert kingdom became the world\'s first great empire, and how the pharaohs\' legacy continues to captivate us thousands of years later.'
+                    ],
+                    timeline: {
+                        cause: 'The Nile\'s predictable flooding created agricultural surplus, allowing complex civilization to develop',
+                        event: 'Narmer unifies Upper and Lower Egypt (~3100 BCE), establishing the first pharaonic dynasty',
+                        consequence: 'Three millennia of pharaonic rule creates lasting monuments and influences world civilization'
+                    },
+                    characters: ['Pharaoh Narmer', 'Pharaoh Khufu', 'High Priest Imhotep']
+                },
+                'Great leaders': {
+                    id: 'alexander-conquest',
+                    title: 'Alexander\'s Conquest',
+                    era: 'Classical World',
+                    focus: 'Great leaders',
+                    style: 'Epic Conquest',
+                    heroVideoUrl: './video/video2.mp4',
+                    heroPosterUrl: './img/classical world.jpeg',
+                    duration: '12 min',
+                    summaryLines: [
+                        'At just twenty years old, Alexander of Macedon inherited not just a throne, but a burning ambition to conquer the known world. Tutored by Aristotle and trained in the arts of war by his father Philip II, Alexander possessed both brilliant tactical genius and boundless charisma.',
+                        'In thirteen short years, Alexander carved out the largest empire the ancient world had ever seen, stretching from Greece to India. His victories at Granicus, Issus, and Gaugamela became legendary, each battle showcasing his innovative tactics and personal courage.',
+                        'More than a conqueror, Alexander was a visionary who sought to blend Greek and Persian cultures, founding dozens of cities and spreading Hellenistic civilization across three continents. His soldiers followed him to the ends of the earth, driven by his magnetic leadership.',
+                        'Though he died at thirty-two, Alexander\'s legacy shaped the ancient world for centuries. His empire may have fragmented, but the cultural fusion he created laid the groundwork for the development of both Roman civilization and early Christianity.'
+                    ],
+                    timeline: {
+                        cause: 'Philip II\'s military reforms create the strongest army in Greece, setting stage for expansion',
+                        event: 'Alexander launches campaign against Persian Empire (334 BCE), winning decisive battles',
+                        consequence: 'Hellenistic culture spreads across three continents, influencing art, philosophy, and politics'
+                    },
+                    characters: ['Alexander the Great', 'Darius III', 'Aristotle']
+                },
+                'Empires & battles': {
+                    id: 'fall-constantinople',
+                    title: 'Fall of Constantinople',
+                    era: 'Medieval Era',
+                    focus: 'Empires & battles',
+                    style: 'Epic Warfare',
+                    heroVideoUrl: './video/video1.mp4',
+                    heroPosterUrl: './img/medevial.jpeg',
+                    duration: '10 min',
+                    summaryLines: [
+                        'For over a thousand years, Constantinople stood as the jewel of the Byzantine Empire, the last remnant of ancient Rome\'s glory. Its massive walls had repelled countless sieges, earning it the reputation as the world\'s most impregnable city.',
+                        'In 1453, Sultan Mehmed II of the Ottoman Empire brought the largest cannons ever built to bear against those ancient walls. The young sultan, driven by dreams of glory and Islamic expansion, marshaled over 100,000 troops for the final assault.',
+                        'Emperor Constantine XI, last of the Byzantine rulers, knew his empire\'s end was near. With only 7,000 defenders, he chose to die fighting rather than flee, making a final stand that would echo through history.',
+                        'The fall of Constantinople marked more than the end of an empire—it was the closing of the medieval world and the dawn of a new age. The city that had preserved classical learning for centuries now became the heart of a new Islamic empire.'
+                    ],
+                    timeline: {
+                        cause: 'Ottoman Empire expands westward while Byzantine Empire weakens over centuries',
+                        event: 'Mehmed II\'s siege breaks Constantinople\'s walls with massive cannons (May 1453)',
+                        consequence: 'End of Byzantine Empire triggers European exploration and Ottoman dominance'
+                    },
+                    characters: ['Mehmed II', 'Constantine XI', 'Giovanni Giustiniani']
+                },
+                'Science & discoveries': {
+                    id: 'galileo-telescope',
+                    title: 'Galileo\'s Telescope',
+                    era: 'Renaissance',
+                    focus: 'Science & discoveries',
+                    style: 'Scientific Revolution',
+                    heroVideoUrl: './video/video2.mp4',
+                    heroPosterUrl: './img/classical world.jpeg',
+                    duration: '9 min',
+                    summaryLines: [
+                        'In 1609, Galileo Galilei heard rumors of a Dutch invention that could make distant objects appear closer. Within days, he had built his own version and turned it skyward, becoming the first human to systematically observe the heavens through a telescope.',
+                        'What he saw shattered the accepted view of the universe. The Moon had mountains and craters, not the perfect crystalline sphere described by ancient philosophy. Jupiter had four moons of its own, proving that not everything orbited Earth.',
+                        'His observations of Venus showed phases like our Moon, confirming Copernicus\'s theory that planets orbit the Sun. The Milky Way resolved into countless individual stars, revealing a universe far vaster than anyone had imagined.',
+                        'Galileo\'s discoveries launched the Scientific Revolution, but also brought him into conflict with the Catholic Church. His willingness to follow evidence over doctrine established the foundation of modern scientific method.'
+                    ],
+                    timeline: {
+                        cause: 'Telescope invention in Netherlands reaches Italy, inspiring Galileo to build improved versions',
+                        event: 'Galileo makes astronomical observations supporting heliocentric theory (1609-1610)',
+                        consequence: 'Scientific Revolution accelerates, challenging religious authority and ancient philosophy'
+                    },
+                    characters: ['Galileo Galilei', 'Johannes Kepler', 'Pope Urban VIII']
+                },
+                'Lost worlds & mysteries': {
+                    id: 'atlantis-legend',
+                    title: 'Atlantis Legend',
+                    era: 'Ancient World',
+                    focus: 'Lost worlds & mysteries',
+                    style: 'Mythical Mystery',
+                    heroVideoUrl: './video/video1.mp4',
+                    heroPosterUrl: './img/all eras.jpeg',
+                    duration: '11 min',
+                    summaryLines: [
+                        'Around 360 BCE, the philosopher Plato described a magnificent island civilization called Atlantis, more advanced than any society of his time. Located beyond the Pillars of Hercules, this maritime empire supposedly ruled much of Europe and Africa.',
+                        'According to Plato\'s account, Atlantis was a paradise of circular canals, golden temples, and wise rulers descended from the sea god Poseidon. Their technology surpassed all others—they had flying machines, crystal power sources, and weapons that could level mountains.',
+                        'But the Atlanteans grew corrupt and warlike, seeking to conquer the known world. In a single day and night, the gods punished their hubris with earthquakes and floods, and the entire civilization vanished beneath the waves.',
+                        'Was Atlantis real history, philosophical allegory, or inspired fiction? For over two millennia, explorers and scholars have searched for this lost world, finding possible connections in sunken cities from the Mediterranean to the Caribbean.'
+                    ],
+                    timeline: {
+                        cause: 'Plato seeks to illustrate ideal society versus corruption in his philosophical dialogues',
+                        event: 'Plato describes Atlantis civilization and its destruction in Timaeus and Critias (~360 BCE)',
+                        consequence: 'Legend inspires thousands of years of exploration and speculation about lost civilizations'
+                    },
+                    characters: ['Plato', 'Solon the Lawgiver', 'Egyptian Priests']
+                }
+            };
+            
+            function loadStoryContent() {
+                const userFocus = window.HistoryApp.Storage.get('history_focus') || 'Ancient civilizations';
+                const template = storyTemplates[userFocus];
+                
+                if (template) {
+                    // Update video and poster
+                    const video = document.getElementById('story-video');
+                    const poster = document.getElementById('story-poster');
+                    
+                    if (video) {
+                        video.src = template.heroVideoUrl;
+                        video.poster = template.heroPosterUrl;
+                        
+                        // Handle video load errors
+                        video.onerror = function() {
+                            console.warn('Video failed to load, using poster fallback');
+                            video.style.display = 'none';
+                            poster.style.backgroundImage = `url('${template.heroPosterUrl}')`;
+                            poster.style.display = 'block';
+                        };
+                        
+                        // Show video when loaded
+                        video.onloadeddata = function() {
+                            video.style.display = 'block';
+                            poster.style.display = 'none';
+                        };
+                    }
+                    
+                    // Update hero content
+                    document.getElementById('story-title').textContent = template.title;
+                    document.getElementById('story-era').textContent = template.era;
+                    document.getElementById('story-style').textContent = template.style;
+                    
+                    // Update story summary
+                    const summaryContainer = document.getElementById('story-summary');
+                    summaryContainer.innerHTML = template.summaryLines.map(line => `<p>${line}</p>`).join('');
+                    
+                    // Update timeline with new structure
+                    const timelineList = document.querySelector('.timeline-list');
+                    timelineList.innerHTML = `
+                        <li class="timeline-item">
+                            <div class="timeline-item__icon">C</div>
+                            <div class="timeline-item__content">
+                                <h4>Cause</h4>
+                                <p>${template.timeline.cause}</p>
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-item__icon">E</div>
+                            <div class="timeline-item__content">
+                                <h4>Event</h4>
+                                <p>${template.timeline.event}</p>
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-item__icon">R</div>
+                            <div class="timeline-item__content">
+                                <h4>Result</h4>
+                                <p>${template.timeline.consequence}</p>
+                            </div>
+                        </li>
+                    `;
+                    
+                    // Update characters
+                    const charactersList = document.querySelector('.characters-list');
+                    charactersList.innerHTML = template.characters.map(character => 
+                        `<span class="character-chip">${character}</span>`
+                    ).join('');
+                    
+                    // Save as current story
+                    window.HistoryApp.Storage.set('current_story', template);
+                }
+            }
+            
+            function addToLibrary() {
+                const userFocus = window.HistoryApp.Storage.get('history_focus') || 'Ancient civilizations';
+                const template = storyTemplates[userFocus];
+                
+                if (template) {
+                    // Get current library
+                    const library = window.HistoryApp.Storage.get('story_library') || [];
+                    
+                    // Check if already exists
+                    const exists = library.some(story => story.title === template.title);
+                    
+                    if (!exists) {
+                        // Add to library
+                        const storyData = {
+                            title: template.title,
+                            subtitle: template.summary[0].substring(0, 100) + '...',
+                            era: template.era,
+                            duration: '8 min',
+                            dateAdded: new Date().toISOString()
+                        };
+                        
+                        library.push(storyData);
+                        window.HistoryApp.Storage.set('story_library', library);
+                        
+                        // Show success message
+                        const message = document.getElementById('success-message');
+                        message.classList.add('show');
+                        
+                        setTimeout(() => {
+                            message.classList.remove('show');
+                        }, 3000);
+                    } else {
+                        // Already in library
+                        const message = document.getElementById('success-message');
+                        message.textContent = 'Story already in your library!';
+                        message.classList.add('show');
+                        
+                        setTimeout(() => {
+                            message.classList.remove('show');
+                            message.textContent = 'Story added to your library!';
+                        }, 3000);
+                    }
+                }
+            }
+            
+            function generateNext() {
+                // Simulate generating next episode
+                const titles = Object.values(storyTemplates).map(t => t.title);
+                const currentTitle = document.getElementById('story-title').textContent;
+                const otherTitles = titles.filter(t => t !== currentTitle);
+                const nextTitle = otherTitles[Math.floor(Math.random() * otherTitles.length)];
+                
+                // Find the template for the next title
+                const nextTemplate = Object.values(storyTemplates).find(t => t.title === nextTitle);
+                
+                if (nextTemplate) {
+                    // Update the current story focus temporarily
+                    const userFocus = Object.keys(storyTemplates).find(key => storyTemplates[key].title === nextTitle);
+                    window.HistoryApp.Storage.set('temp_focus', userFocus);
+                    
+                    // Reload page with new content
+                    setTimeout(() => {
+                        loadStoryContent();
+                    }, 300);
+                }
+            }
+            
+            // Event listeners - both hero and content buttons
+            document.getElementById('add-to-library').addEventListener('click', addToLibrary);
+            document.getElementById('add-to-library-hero').addEventListener('click', addToLibrary);
+            document.getElementById('generate-next').addEventListener('click', generateNext);
+            document.getElementById('generate-next-hero').addEventListener('click', generateNext);
+            
+            // Initialize
+            loadStoryContent();
+        })();
+    </script>
+</body>
+</html>
