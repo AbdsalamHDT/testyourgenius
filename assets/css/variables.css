@@ -1,0 +1,27 @@
+:root {
+  /* Colors */
+  --bg-1: #070B1A;
+  --bg-2: #0E1A3A;
+  --ink: #EAF2FF;
+  --accent: #64D4FF;
+  --gold: #F4D37E;
+
+  /* Spacing Scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Typography */
+  --font-base: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+  --font-size-base: 16px;
+  --line-height-base: 1.6;
+  --letter-spacing-heading: -0.02em;
+
+  /* Transitions */
+  --transition-base: 300ms ease;
+}
