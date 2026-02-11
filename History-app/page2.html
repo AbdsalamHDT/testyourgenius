@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalize Your Experience — History Stories</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ========================================
+         QUESTIONNAIRE CONTAINER
+         JavaScript will render questions here
+         ======================================== -->
+    <main id="questionnaire-container">
+        <!-- Questions will be rendered dynamically by app.js -->
+        
+        <!-- Initial loading state (will be replaced) -->
+        <header class="progress-header">
+            <p class="progress-header__step">Loading...</p>
+            <div class="progress-bar">
+                <div class="progress-bar__fill" style="width: 0%"></div>
+            </div>
+        </header>
+    </main>
+
+    <!-- Shared JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — History Stories</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* ----------------------------------------
+           DASHBOARD SPECIFIC STYLES
+           ---------------------------------------- */
+        .dashboard {
+            min-height: 100vh;
+            background: var(--color-bg);
+        }
+
+        /* Continue Section (Featured) */
+        .continue-card {
+            background: linear-gradient(135deg, var(--color-bg-elevated) 0%, var(--color-bg-card) 100%);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin: 0 var(--container-padding) var(--space-lg);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            position: relative;
+            height: 200px;
+        }
+        
+        .continue-card__video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        
+        .continue-card__poster {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+        }
+        
+        .continue-card__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                transparent 40%,
+                rgba(7, 6, 5, 0.8) 80%,
+                rgba(7, 6, 5, 0.95) 100%
+            );
+            z-index: 2;
+        }
+        
+        .continue-card__content {
+            position: relative;
+            z-index: 3;
+            padding: var(--space-lg);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        
+        .continue-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .continue-card:hover {
+            border-color: var(--color-gold-muted);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .continue-card:hover::before {
+            left: 100%;
+        }
+        
+        .continue-card__badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--color-gold);
+            color: var(--color-bg);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: var(--radius-full);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .continue-card__title {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            color: var(--color-text);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .continue-card__subtitle {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .continue-card__meta {
+            display: flex;
+            gap: var(--space-md);
+            font-size: 0.8rem;
+            color: var(--color-text-subtle);
+        }
+        
+        /* Story Cards Row */
+        .cards-row {
+            display: flex;
+            gap: var(--space-sm);
+            overflow-x: auto;
+            padding: 0 var(--container-padding) var(--space-md);
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        
+        .cards-row::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .story-card {
+            flex-shrink: 0;
+            width: 200px;
+            cursor: pointer;
+            transition: transform var(--transition-base);
+            scroll-snap-align: start;
+        }
+        
+        .story-card:hover {
+            transform: translateY(-4px) scale(1.02);
+        }
+        
+        .story-card__thumb {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            background: linear-gradient(135deg, var(--color-bg-card) 0%, var(--color-bg-elevated) 100%);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-sm);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            transition: border-color var(--transition-base);
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .story-card__thumb::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                transparent 60%,
+                rgba(7, 6, 5, 0.4) 80%,
+                rgba(7, 6, 5, 0.8) 100%
+            );
+        }
+        
+        .story-card:hover .story-card__thumb {
+            border-color: var(--color-gold-muted);
+        }
+        
+        .story-card__title {
+            font-family: var(--font-serif);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: var(--space-xs);
+            line-height: 1.3;
+        }
+        
+        .story-card__meta {
+            font-size: 0.75rem;
+            color: var(--color-text-subtle);
+            display: flex;
+            gap: var(--space-xs);
+        }
+        
+        .story-card__era {
+            padding: 2px 8px;
+            background: var(--color-bg-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-full);
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-xl) var(--container-padding);
+            color: var(--color-text-subtle);
+        }
+        
+        .empty-state__icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-md);
+            opacity: 0.5;
+        }
+        
+        .empty-state__text {
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (min-width: 768px) {
+            .story-card {
+                width: 240px;
+            }
+            
+            .cards-row {
+                gap: var(--space-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         DASHBOARD PAGE
+         ======================================== -->
+    <div class="dashboard">
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <div class="nav-container">
+                <a href="page6-dashboard.html" class="nav-logo">History Stories</a>
+                <div class="nav-links">
+                    <a href="page10-search.html" class="nav-link">Search</a>
+                    <a href="page6-dashboard.html" class="nav-link active">Dashboard</a>
+                    <a href="page8-library.html" class="nav-link">Library</a>
+                    <a href="#account" class="nav-link">Account</a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Continue Section -->
+        <section class="dashboard-section">
+            <h2 class="section-title">Continue</h2>
+            <div class="continue-card" id="continue-story" onclick="openStory('last-story')">
+                <video 
+                    class="continue-card__video" 
+                    id="continue-video"
+                    muted 
+                    loop 
+                    playsinline 
+                    preload="none"
+                >
+                    <source src="./video/video1.mp4" type="video/mp4">
+                </video>
+                <div class="continue-card__poster" id="continue-poster"></div>
+                <div class="continue-card__overlay"></div>
+                
+                <div class="continue-card__content">
+                    <span class="continue-card__badge">Continue Reading</span>
+                    <h3 class="continue-card__title" id="continue-title">Rise of the Pharaohs</h3>
+                    <p class="continue-card__subtitle" id="continue-subtitle">The divine rulers who built eternal monuments</p>
+                    <div class="continue-card__meta">
+                        <span>Ancient Egypt</span>
+                        <span>•</span>
+                        <span>8 min read</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Recommended Section -->
+        <section class="dashboard-section">
+            <h2 class="section-title">Recommended for you</h2>
+            <div class="cards-row" id="recommended-stories">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </section>
+        
+        <!-- Explore by Era Section -->
+        <section class="dashboard-section">
+            <h2 class="section-title">Explore by Era</h2>
+            <div class="cards-row" id="era-stories">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </section>
+        
+        <!-- My Library Section -->
+        <section class="dashboard-section">
+            <h2 class="section-title">My Library</h2>
+            <div class="cards-row" id="library-stories">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </section>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+    <script>
+        (function() {
+            'use strict';
+            
+            // Enhanced story database with video assets
+            const storyDatabase = {
+                'Ancient civilizations': [
+                    { 
+                        title: 'Rise of the Pharaohs', 
+                        subtitle: 'Divine rulers of ancient Egypt', 
+                        era: 'Ancient Egypt', 
+                        duration: '8 min',
+                        heroVideoUrl: './video/video1.mp4',
+                        heroPosterUrl: './img/ancien egypt.jpeg'
+                    },
+                    { 
+                        title: 'Babylon\'s Golden Age', 
+                        subtitle: 'Hammurabi\'s code and city wonders', 
+                        era: 'Ancient World', 
+                        duration: '6 min',
+                        heroVideoUrl: './video/video2.mp4',
+                        heroPosterUrl: './img/all eras.jpeg'
+                    },
+                    { 
+                        title: 'The First Dynasties', 
+                        subtitle: 'Birth of organized civilization', 
+                        era: 'Ancient World', 
+                        duration: '10 min',
+                        heroVideoUrl: './video/video1.mp4',
+                        heroPosterUrl: './img/ancien egypt.jpeg'
+                    }
+                ],
+                'Great leaders': [
+                    { 
+                        title: 'Alexander\'s Conquest', 
+                        subtitle: 'From Macedonia to the world', 
+                        era: 'Classical', 
+                        duration: '12 min',
+                        heroVideoUrl: './video/video2.mp4',
+                        heroPosterUrl: './img/classical world.jpeg'
+                    },
+                    { 
+                        title: 'Caesar\'s Ambition', 
+                        subtitle: 'The fall of the Roman Republic', 
+                        era: 'Classical', 
+                        duration: '9 min',
+                        heroVideoUrl: './video/video1.mp4',
+                        heroPosterUrl: './img/classical world.jpeg'
+                    },
+                    { 
+                        title: 'Napoleon\'s Vision', 
+                        subtitle: 'Emperor of a new Europe', 
+                        era: 'Modern', 
+                        duration: '11 min',
+                        heroVideoUrl: './video/video2.mp4',
+                        heroPosterUrl: './img/modern history.jpeg'
+                    }
+                ],
+                'Empires & battles': [
+                    { 
+                        title: 'Fall of Constantinople', 
+                        subtitle: 'End of the Byzantine Empire', 
+                        era: 'Medieval', 
+                        duration: '7 min',
+                        heroVideoUrl: './video/video1.mp4',
+                        heroPosterUrl: './img/medevial.jpeg'
+                    },
+                    { 
+                        title: 'The Mongol Storm', 
+                        subtitle: 'Genghis Khan\'s unstoppable force', 
+                        era: 'Medieval', 
+                        duration: '10 min',
+                        heroVideoUrl: './video/video2.mp4',
+                        heroPosterUrl: './img/medevial.jpeg'
+                    },
+                    { 
+                        title: 'Spartacus Rebellion', 
+                        subtitle: 'Gladiator who defied Rome', 
+                        era: 'Classical', 
+                        duration: '8 min',
+                        heroVideoUrl: './video/video1.mp4',
+                        heroPosterUrl: './img/classical world.jpeg'
+                    }
+                ],
+                'Science & discoveries': [
+                    { 
+                        title: 'Galileo\'s Telescope', 
+                        subtitle: 'Revolutionary view of the cosmos', 
+                        era: 'Modern', 
+                        duration: '6 min',
+                        heroVideoUrl: './video/video2.mp4',
+                        heroPosterUrl: './img/modern history.jpeg'
+                    },
+                    { 
+                        title: 'The Library of Alexandria', 
+                        subtitle: 'Ancient center of knowledge', 
+                        era: 'Classical', 
+                        duration: '8 min',
+                        heroVideoUrl: './video/video1.mp4',
+                        heroPosterUrl: './img/classical world.jpeg'
+                    },
+                    { 
+                        title: 'Medieval Alchemists', 
+                        subtitle: 'Precursors to modern science', 
+                        era: 'Medieval', 
+                        duration: '7 min',
+                        heroVideoUrl: './video/video2.mp4',
+                        heroPosterUrl: './img/medevial.jpeg'
+                    }
+                ],
+                'Lost worlds & mysteries': [
+                    { 
+                        title: 'Atlantis Legend', 
+                        subtitle: 'Plato\'s mysterious civilization', 
+                        era: 'Ancient World', 
+                        duration: '9 min',
+                        heroVideoUrl: './video/video1.mp4',
+                        heroPosterUrl: './img/all eras.jpeg'
+                    },
+                    { 
+                        title: 'The Mayan Collapse', 
+                        subtitle: 'Disappearance of a great empire', 
+                        era: 'Ancient World', 
+                        duration: '11 min',
+                        heroVideoUrl: './video/video2.mp4',
+                        heroPosterUrl: './img/all eras.jpeg'
+                    },
+                    { 
+                        title: 'Knights Templar', 
+                        subtitle: 'Secrets of the crusading order', 
+                        era: 'Medieval', 
+                        duration: '10 min',
+                        heroVideoUrl: './video/video1.mp4',
+                        herePosterUrl: './img/medevial.jpeg'
+                    }
+                ]
+            };
+            
+            const eraStories = [
+                { title: 'Cleopatra\'s Egypt', subtitle: 'Last pharaoh of Egypt', era: 'Ancient Egypt', duration: '9 min' },
+                { title: 'Roman Gladiators', subtitle: 'Blood and sand in the Colosseum', era: 'Classical', duration: '7 min' },
+                { title: 'Medieval Knights', subtitle: 'Code of chivalry and honor', era: 'Medieval', duration: '8 min' },
+                { title: 'Renaissance Masters', subtitle: 'Art and genius in Florence', era: 'Modern', duration: '10 min' },
+                { title: 'Viking Sagas', subtitle: 'Nordic warriors and exploration', era: 'Medieval', duration: '9 min' }
+            ];
+            
+            function openStory(storyId) {
+                // Store the story ID for the story page
+                window.HistoryApp.Storage.set('current_story_id', storyId);
+                window.location.href = 'page7-story.html';
+            }
+            
+            function openEra(era) {
+                window.location.href = `page9-era.html?era=${era}`;
+            }
+            
+            function openEra(era) {
+                window.location.href = `page9-era.html?era=${era}`;
+            }
+            
+            function createStoryCard(story, index) {
+                const posterStyle = story.heroPosterUrl ? `background-image: url('${story.heroPosterUrl}');` : '';
+                return `
+                    <div class="story-card" onclick="openStory('story-${index}')">
+                        <div class="story-card__thumb" style="${posterStyle}"></div>
+                        <h3 class="story-card__title">${story.title}</h3>
+                        <div class="story-card__meta">
+                            <span class="story-card__era">${story.era}</span>
+                            <span>${story.duration}</span>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            function populateRecommended() {
+                const container = document.getElementById('recommended-stories');
+                const userFocus = window.HistoryApp.Storage.get('history_focus') || 'Ancient civilizations';
+                const stories = storyDatabase[userFocus] || storyDatabase['Ancient civilizations'];
+                
+                container.innerHTML = stories.map((story, index) => createStoryCard(story, `rec-${index}`)).join('');
+            }
+            
+            function populateEraStories() {
+                const container = document.getElementById('era-stories');
+                const eraCards = [
+                    { name: 'Ancient World', era: 'ancient', image: './img/ancien egypt.jpeg' },
+                    { name: 'Classical Era', era: 'classical', image: './img/classical world.jpeg' },
+                    { name: 'Medieval Times', era: 'medieval', image: './img/medevial.jpeg' },
+                    { name: 'Modern History', era: 'modern', image: './img/all eras.jpeg' }
+                ];
+                
+                container.innerHTML = eraCards.map(era => `
+                    <div class="story-card" onclick="openEra('${era.era}')" style="cursor: pointer;">
+                        <div class="story-card__thumb" style="background-image: url('${era.image}');"></div>
+                        <h3 class="story-card__title">${era.name}</h3>
+                        <div class="story-card__meta">
+                            <span class="story-card__era">Browse Era</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            function populateLibrary() {
+                const container = document.getElementById('library-stories');
+                const library = window.HistoryApp.Storage.get('story_library') || [];
+                
+                if (library.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state__icon">📚</div>
+                            <p class="empty-state__text">No stories saved yet. Start exploring!</p>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = library.map((story, index) => createStoryCard(story, `lib-${index}`)).join('');
+                }
+            }
+            
+            function updateContinueCard() {
+                const userFocus = window.HistoryApp.Storage.get('history_focus') || 'Ancient civilizations';
+                const title = document.getElementById('continue-title');
+                const subtitle = document.getElementById('continue-subtitle');
+                const video = document.getElementById('continue-video');
+                const poster = document.getElementById('continue-poster');
+                
+                let storyData = {};
+                
+                // Customize based on user preferences
+                if (userFocus === 'Great leaders') {
+                    storyData = {
+                        title: 'Alexander\'s Conquest',
+                        subtitle: 'From Macedonia to the ends of the world',
+                        videoUrl: './video/video2.mp4',
+                        posterUrl: './img/classical world.jpeg'
+                    };
+                } else if (userFocus === 'Empires & battles') {
+                    storyData = {
+                        title: 'Fall of Constantinople',
+                        subtitle: 'The end of the Byzantine Empire',
+                        videoUrl: './video/video1.mp4',
+                        posterUrl: './img/medevial.jpeg'
+                    };
+                } else if (userFocus === 'Science & discoveries') {
+                    storyData = {
+                        title: 'Galileo\'s Telescope',
+                        subtitle: 'Revolutionary view of the cosmos',
+                        videoUrl: './video/video2.mp4',
+                        posterUrl: './img/modern history.jpeg'
+                    };
+                } else if (userFocus === 'Lost worlds & mysteries') {
+                    storyData = {
+                        title: 'Atlantis Legend',
+                        subtitle: 'Plato\'s mysterious lost civilization',
+                        videoUrl: './video/video1.mp4',
+                        posterUrl: './img/all eras.jpeg'
+                    };
+                } else {
+                    storyData = {
+                        title: 'Rise of the Pharaohs',
+                        subtitle: 'The divine rulers who built eternal monuments',
+                        videoUrl: './video/video1.mp4',
+                        posterUrl: './img/ancien egypt.jpeg'
+                    };
+                }
+                
+                // Update content
+                title.textContent = storyData.title;
+                subtitle.textContent = storyData.subtitle;
+                
+                // Update video and poster
+                if (video && poster) {
+                    video.src = storyData.videoUrl;
+                    poster.style.backgroundImage = `url('${storyData.posterUrl}')`;
+                    
+                    // Handle video hover play
+                    const continueCard = document.getElementById('continue-story');
+                    continueCard.addEventListener('mouseenter', () => {
+                        video.play().catch(() => {
+                            // Video failed to play, show poster
+                            video.style.display = 'none';
+                        });
+                    });
+                    
+                    continueCard.addEventListener('mouseleave', () => {
+                        video.pause();
+                        video.currentTime = 0;
+                    });
+                }
+            }
+            
+            // Initialize dashboard
+            updateContinueCard();
+            populateRecommended();
+            populateEraStories();
+            populateLibrary();
+            
+            // Make functions global for onclick handlers
+            window.openStory = openStory;
+            window.openEra = openEra;
+            window.openEra = openEra;
+        })();
+    </script>
+</body>
+</html>

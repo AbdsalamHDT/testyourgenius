@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generating Your Story — History Stories</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* ----------------------------------------
+           GENERATING PAGE SPECIFIC STYLES
+           ---------------------------------------- */
+        .generating-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-lg) var(--container-padding);
+            text-align: center;
+            background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-bg-elevated) 100%);
+        }
+        
+        .generating-content {
+            max-width: 600px;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .generating-title {
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            font-family: var(--font-serif);
+            color: var(--color-text);
+            margin-bottom: var(--space-sm);
+            font-weight: 600;
+        }
+        
+        .generating-subtitle {
+            font-size: 1rem;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-xl);
+            font-weight: 300;
+        }
+        
+        /* Enhanced Loading Animation */
+        .generating-loader {
+            margin: var(--space-xl) 0;
+        }
+        
+        .loader-dots {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .loader-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--color-gold);
+            border-radius: 50%;
+            animation: dotWave 1.4s ease-in-out infinite;
+        }
+        
+        .loader-dot:nth-child(2) { animation-delay: 0.2s; }
+        .loader-dot:nth-child(3) { animation-delay: 0.4s; }
+        .loader-dot:nth-child(4) { animation-delay: 0.6s; }
+        .loader-dot:nth-child(5) { animation-delay: 0.8s; }
+        
+        @keyframes dotWave {
+            0%, 80%, 100% { 
+                opacity: 0.4; 
+                transform: scale(1); 
+            }
+            40% { 
+                opacity: 1; 
+                transform: scale(1.3); 
+            }
+        }
+        
+        .loader-bar {
+            width: 100%;
+            max-width: 300px;
+            height: 4px;
+            background: var(--color-bg-card);
+            border-radius: 2px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .loader-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+            border-radius: 2px;
+            animation: progressFill 4s ease-out forwards;
+        }
+        
+        @keyframes progressFill {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        /* User Picks Display */
+        .user-picks {
+            background: var(--color-bg-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            margin: var(--space-xl) 0;
+            max-width: 400px;
+        }
+        
+        .user-picks__title {
+            font-size: 0.8rem;
+            color: var(--color-text-subtle);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: var(--space-md);
+            text-align: center;
+        }
+        
+        .user-picks__list {
+            list-style: none;
+        }
+        
+        .user-picks__item {
+            padding: var(--space-xs) 0;
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .user-picks__item::before {
+            content: '→';
+            color: var(--color-gold);
+            font-weight: 600;
+        }
+        
+        /* Continue Button (initially hidden) */
+        .generating-cta {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            margin-top: var(--space-xl);
+        }
+        
+        .generating-cta.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         GENERATING PAGE
+         ======================================== -->
+    <main class="generating-page">
+        <div class="generating-content">
+            <!-- Title & Subtitle -->
+            <h1 class="generating-title">Building your journey…</h1>
+            <p class="generating-subtitle">Crafting your personalized historical experience</p>
+            
+            <!-- Loading Animation -->
+            <div class="generating-loader">
+                <div class="loader-dots">
+                    <div class="loader-dot"></div>
+                    <div class="loader-dot"></div>
+                    <div class="loader-dot"></div>
+                    <div class="loader-dot"></div>
+                    <div class="loader-dot"></div>
+                </div>
+                <div class="loader-bar">
+                    <div class="loader-bar-fill"></div>
+                </div>
+            </div>
+            
+            <!-- User Picks -->
+            <div class="user-picks" id="user-picks-display">
+                <p class="user-picks__title">Based on your preferences</p>
+                <ul class="user-picks__list" id="picks-list">
+                    <!-- Will be populated by JavaScript -->
+                </ul>
+            </div>
+            
+            <!-- Continue Button (shown after loading) -->
+            <div class="generating-cta" id="continue-cta">
+                <a href="page7-story.html" class="btn btn-primary">Continue to Your Story</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+    <script>
+        (function() {
+            'use strict';
+            
+            // Load and display user picks
+            function displayUserPicks() {
+                const picksList = document.getElementById('picks-list');
+                if (!picksList) return;
+                
+                const focus = window.HistoryApp.Storage.get('history_focus');
+                const style = window.HistoryApp.Storage.get('experience_style');
+                const era = window.HistoryApp.Storage.get('era_interest');
+                
+                const picks = [];
+                if (focus) picks.push(focus);
+                if (style) picks.push(style);
+                if (era) picks.push(era);
+                
+                if (picks.length > 0) {
+                    picksList.innerHTML = picks.map(pick => 
+                        `<li class="user-picks__item">${pick}</li>`
+                    ).join('');
+                } else {
+                    picksList.innerHTML = '<li class="user-picks__item">Personalized historical content</li>';
+                }
+            }
+            
+            // Auto redirect after loading
+            function initAutoRedirect() {
+                const continueBtn = document.getElementById('continue-cta');
+                
+                // Show continue button after 4 seconds
+                setTimeout(() => {
+                    if (continueBtn) {
+                        continueBtn.classList.add('show');
+                    }
+                }, 4000);
+                
+                // Auto redirect after 6 seconds (optional)
+                // setTimeout(() => {
+                //     window.location.href = 'page7-story.html';
+                // }, 6000);
+            }
+            
+            // Initialize
+            displayUserPicks();
+            initAutoRedirect();
+        })();
+    </script>
+</body>
+</html>

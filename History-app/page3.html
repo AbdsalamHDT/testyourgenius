@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlock Full Access — History Stories</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ========================================
+         PAYMENT PAGE
+         Minimal checkout-style layout
+         ======================================== -->
+    <main class="payment-page">
+        <div class="container">
+            <!-- Header -->
+            <header class="payment-header">
+                <h1 class="payment-header__title">Unlock Your Full History Experience</h1>
+            </header>
+            
+            <!-- Benefits List -->
+            <ul class="benefits-list">
+                <li>Unlimited cinematic stories</li>
+                <li>Personalized era recommendations</li>
+                <li>Save & revisit your journey</li>
+            </ul>
+            
+            <!-- User Picks Summary (populated from localStorage) -->
+            <div class="picks-summary hidden">
+                <p class="picks-summary__title">Your picks</p>
+                <div class="picks-summary__list" id="user-picks">
+                    <!-- Tags will be inserted here by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Offer Selector -->
+            <div class="offer-selector">
+                <!-- Monthly Plan -->
+                <div class="offer-card" data-plan="monthly" tabindex="0">
+                    <div class="offer-card__radio"></div>
+                    <div class="offer-card__content">
+                        <p class="offer-card__name">Monthly</p>
+                        <p class="offer-card__price">$9.99 / month</p>
+                    </div>
+                </div>
+                
+                <!-- Lifetime Plan (pre-selected) -->
+                <div class="offer-card selected" data-plan="lifetime" tabindex="0">
+                    <div class="offer-card__radio"></div>
+                    <div class="offer-card__content">
+                        <p class="offer-card__name">Lifetime</p>
+                        <p class="offer-card__price">$39 one-time</p>
+                    </div>
+                    <span class="offer-card__badge">Best Value</span>
+                </div>
+            </div>
+            
+            <!-- Checkout Button -->
+            <button class="btn btn-primary btn-block" id="checkout-btn">
+                Unlock Now
+            </button>
+            
+            <!-- Trust Section -->
+            <div class="trust-section">
+                <p class="trust-section__text">🔒 Secure checkout</p>
+                <p class="trust-section__text">Cancel anytime (monthly)</p>
+                
+                <div class="legal-links">
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Shared JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>

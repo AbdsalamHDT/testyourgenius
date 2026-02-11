@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Library — History Stories</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* ----------------------------------------
+           LIBRARY SPECIFIC STYLES
+           ---------------------------------------- */
+        .library {
+            min-height: 100vh;
+            background: var(--color-bg);
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-xxl) var(--container-padding);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .empty-state__icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto var(--space-md);
+            background: var(--color-bg-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--color-text-muted);
+        }
+        
+        .empty-state__title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-text);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .empty-state__subtitle {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            margin-bottom: var(--space-lg);
+            line-height: 1.5;
+        }
+        
+        /* Story Grid */
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-md);
+            padding: 0 var(--container-padding);
+        }
+        
+        @media (min-width: 640px) {
+            .story-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                max-width: var(--container-max);
+                margin: 0 auto;
+                padding: 0 var(--container-padding);
+            }
+        }
+        
+        /* Story Cards */
+        .story-card {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: all var(--transition-base);
+            position: relative;
+        }
+        
+        .story-card:hover {
+            border-color: var(--color-border-hover);
+            transform: translateY(-2px);
+        }
+        
+        .story-card__poster {
+            width: 100%;
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            background-color: var(--color-bg-elevated);
+            position: relative;
+        }
+        
+        .story-card__poster::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                transparent 60%,
+                rgba(10, 9, 8, 0.8) 100%
+            );
+        }
+        
+        .story-card__content {
+            padding: var(--space-sm);
+            position: relative;
+        }
+        
+        .story-card__era {
+            font-size: 0.8rem;
+            color: var(--color-gold);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        
+        .story-card__title {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: var(--space-sm);
+            line-height: 1.3;
+        }
+        
+        .story-card__actions {
+            display: flex;
+            gap: var(--space-xs);
+            margin-top: var(--space-sm);
+        }
+        
+        .story-card__btn {
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            flex: 1;
+            text-align: center;
+        }
+        
+        .story-card__btn--primary {
+            background: var(--color-gold);
+            color: var(--color-bg);
+        }
+        
+        .story-card__btn--primary:hover {
+            background: var(--color-gold-light);
+        }
+        
+        .story-card__btn--secondary {
+            background: transparent;
+            color: var(--color-text-muted);
+            border: 1px solid var(--color-border);
+        }
+        
+        .story-card__btn--secondary:hover {
+            color: var(--color-text);
+            border-color: var(--color-border-hover);
+        }
+        
+        /* Continue Card (wide format) */
+        .continue-section {
+            margin-bottom: var(--space-xl);
+        }
+        
+        .continue-card-wide {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin: 0 var(--container-padding);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            position: relative;
+            height: 200px;
+            max-width: var(--container-max);
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .continue-card-wide:hover {
+            border-color: var(--color-border-hover);
+            transform: translateY(-2px);
+        }
+        
+        .continue-card-wide__bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.6;
+        }
+        
+        .continue-card-wide__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(10, 9, 8, 0.9) 0%,
+                rgba(26, 23, 20, 0.8) 100%
+            );
+        }
+        
+        .continue-card-wide__content {
+            position: relative;
+            z-index: 2;
+            padding: var(--space-md);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .continue-card-wide__header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .continue-badge {
+            background: var(--color-gold);
+            color: var(--color-bg);
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .continue-card-wide__title {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 4px;
+        }
+        
+        .continue-card-wide__era {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .continue-card-wide__footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .continue-progress {
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+        }
+        
+        .continue-btn {
+            background: var(--color-gold);
+            color: var(--color-bg);
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+        }
+        
+        .continue-btn:hover {
+            background: var(--color-gold-light);
+        }
+    </style>
+</head>
+
+<body class="library">
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="page6-dashboard.html" class="nav-logo">History Stories</a>
+            <div class="nav-links">
+                <a href="page10-search.html" class="nav-link">Search</a>
+                <a href="page6-dashboard.html" class="nav-link">Dashboard</a>
+                <a href="page8-library.html" class="nav-link active">Library</a>
+                <a href="#account" class="nav-link">Account</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Continue Section -->
+    <section class="dashboard-section continue-section">
+        <h2 class="section-title">Continue</h2>
+        <div id="continue-container">
+            <!-- Dynamic content loaded by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Saved Stories Section -->
+    <section class="dashboard-section">
+        <h2 class="section-title">Saved Stories</h2>
+        <div id="stories-container">
+            <!-- Dynamic content loaded by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Shared JavaScript -->
+    <script src="app.js"></script>
+    
+    <script>
+        /* ========================================
+           LIBRARY PAGE LOGIC
+           ======================================== */
+        
+        class LibraryPage {
+            constructor() {
+                this.library = HistoryApp.Storage.get('library', []);
+                this.lastStory = HistoryApp.Storage.get('lastStory', null);
+                this.init();
+            }
+            
+            init() {
+                this.renderContinueSection();
+                this.renderStoriesSection();
+            }
+            
+            renderContinueSection() {
+                const container = document.getElementById('continue-container');
+                
+                if (this.lastStory) {
+                    container.innerHTML = `
+                        <div class="continue-card-wide" onclick="window.location.href='page7-story.html?id=${this.lastStory.id}'">
+                            <div class="continue-card-wide__bg" style="background-image: url('${this.lastStory.heroPosterUrl || './img/hero.png'}');"></div>
+                            <div class="continue-card-wide__overlay"></div>
+                            <div class="continue-card-wide__content">
+                                <div>
+                                    <div class="continue-card-wide__header">
+                                        <span class="continue-badge">Continue</span>
+                                    </div>
+                                    <h3 class="continue-card-wide__title">${this.lastStory.title}</h3>
+                                    <p class="continue-card-wide__era">${this.lastStory.era}</p>
+                                </div>
+                                <div class="continue-card-wide__footer">
+                                    <span class="continue-progress">Last viewed</span>
+                                    <button class="continue-btn">Resume</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state__icon">📚</div>
+                            <p class="empty-state__subtitle">Your journey starts with your first story.</p>
+                            <a href="page6-dashboard.html" class="btn btn-primary">Explore Stories</a>
+                        </div>
+                    `;
+                }
+            }
+            
+            renderStoriesSection() {
+                const container = document.getElementById('stories-container');
+                
+                if (this.library.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state__icon">📖</div>
+                            <h3 class="empty-state__title">No stories saved yet</h3>
+                            <p class="empty-state__subtitle">Discover amazing historical stories and save them to build your personal library.</p>
+                            <a href="page9-era.html?era=all" class="btn btn-primary">Explore by Era</a>
+                        </div>
+                    `;
+                } else {
+                    const storiesHtml = this.library.map(story => `
+                        <div class="story-card">
+                            <div class="story-card__poster" style="background-image: url('${story.heroPosterUrl || './img/hero.png'}');"></div>
+                            <div class="story-card__content">
+                                <div class="story-card__era">${story.era}</div>
+                                <h3 class="story-card__title">${story.title}</h3>
+                                <div class="story-card__actions">
+                                    <button class="story-card__btn story-card__btn--primary" onclick="LibraryPage.openStory('${story.id}')">
+                                        Open
+                                    </button>
+                                    <button class="story-card__btn story-card__btn--secondary" onclick="LibraryPage.removeStory('${story.id}')">
+                                        Remove
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                    
+                    container.innerHTML = `<div class="story-grid">${storiesHtml}</div>`;
+                }
+            }
+            
+            static openStory(storyId) {
+                window.location.href = `page7-story.html?id=${storyId}`;
+            }
+            
+            static removeStory(storyId) {
+                const library = HistoryApp.Storage.get('library', []);
+                const updatedLibrary = library.filter(story => story.id !== storyId);
+                HistoryApp.Storage.set('library', updatedLibrary);
+                
+                // Reload the page to refresh the view
+                window.location.reload();
+            }
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new LibraryPage();
+        });
+    </script>
+</body>
+</html>

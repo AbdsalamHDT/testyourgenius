@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search — History Stories</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* ----------------------------------------
+           SEARCH SPECIFIC STYLES
+           ---------------------------------------- */
+        .search-page {
+            min-height: 100vh;
+            background: var(--color-bg);
+        }
+        
+        /* Search Header */
+        .search-header {
+            padding: var(--space-lg) 0;
+            background: var(--color-bg-elevated);
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .search-container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+        
+        .search-input-container {
+            position: relative;
+            margin-bottom: var(--space-md);
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 16px 50px 16px 20px;
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            color: var(--color-text);
+            font-size: 1rem;
+            font-family: var(--font-sans);
+            transition: all var(--transition-base);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-gold);
+            box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.1);
+        }
+        
+        .search-input::placeholder {
+            color: var(--color-text-muted);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-text-muted);
+            font-size: 1.1rem;
+        }
+        
+        /* Suggestion Chips */
+        .suggestion-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-xs);
+        }
+        
+        .suggestion-chip {
+            background: transparent;
+            border: 1px solid var(--color-border);
+            color: var(--color-text-muted);
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            cursor: pointer;
+        }
+        
+        .suggestion-chip:hover {
+            border-color: var(--color-gold);
+            color: var(--color-gold);
+        }
+        
+        .suggestion-chip:active {
+            transform: scale(0.95);
+        }
+        
+        /* Search Results */
+        .search-results {
+            padding: var(--space-lg) 0;
+        }
+        
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-md);
+            padding: 0 var(--container-padding);
+        }
+        
+        .results-title {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+        
+        .results-count {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Result Items */
+        .results-list {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+        
+        .result-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm);
+            margin-bottom: var(--space-sm);
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+        
+        .result-item:hover {
+            border-color: var(--color-border-hover);
+            transform: translateY(-1px);
+        }
+        
+        .result-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .result-poster {
+            width: 60px;
+            height: 80px;
+            background-size: cover;
+            background-position: center;
+            background-color: var(--color-bg-elevated);
+            border-radius: var(--radius-sm);
+            flex-shrink: 0;
+        }
+        
+        .result-content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .result-title {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+        
+        .result-era {
+            color: var(--color-gold);
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .result-snippet {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+        
+        /* Highlight matched text */
+        .highlight {
+            background: rgba(201, 162, 39, 0.2);
+            color: var(--color-gold-light);
+            padding: 1px 2px;
+            border-radius: 2px;
+        }
+        
+        /* Empty States */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-xxl) var(--container-padding);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .empty-state__icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto var(--space-md);
+            background: var(--color-bg-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--color-text-muted);
+        }
+        
+        .empty-state__title {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--color-text);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .empty-state__subtitle {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        /* Loading State */
+        .loading-state {
+            text-align: center;
+            padding: var(--space-xl) var(--container-padding);
+        }
+        
+        .loading-dots {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .loading-dots span {
+            width: 8px;
+            height: 8px;
+            background: var(--color-gold);
+            border-radius: 50%;
+            animation: loading-bounce 1.4s infinite ease-in-out both;
+        }
+        
+        .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+        .loading-dots span:nth-child(3) { animation-delay: 0s; }
+        
+        @keyframes loading-bounce {
+            0%, 80%, 100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body class="search-page">
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="page6-dashboard.html" class="nav-logo">History Stories</a>
+            <div class="nav-links">
+                <a href="page10-search.html" class="nav-link active">Search</a>
+                <a href="page6-dashboard.html" class="nav-link">Dashboard</a>
+                <a href="page8-library.html" class="nav-link">Library</a>
+                <a href="#account" class="nav-link">Account</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Header -->
+    <section class="search-header">
+        <div class="search-container">
+            <div class="search-input-container">
+                <input 
+                    type="text" 
+                    id="search-input"
+                    class="search-input" 
+                    placeholder="Search eras, leaders, civilizations…"
+                    autocomplete="off"
+                />
+                <span class="search-icon">🔍</span>
+            </div>
+            
+            <div class="suggestion-chips" id="suggestion-chips">
+                <button class="suggestion-chip" data-query="Napoleon">Napoleon</button>
+                <button class="suggestion-chip" data-query="Egypt">Egypt</button>
+                <button class="suggestion-chip" data-query="Rome">Rome</button>
+                <button class="suggestion-chip" data-query="Vikings">Vikings</button>
+                <button class="suggestion-chip" data-query="Samurai">Samurai</button>
+                <button class="suggestion-chip" data-query="WW2">WW2</button>
+                <button class="suggestion-chip" data-query="Philosophy">Philosophy</button>
+                <button class="suggestion-chip" data-query="Discoveries">Discoveries</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Results -->
+    <section class="search-results">
+        <div id="search-results-container">
+            <!-- Initial empty state -->
+            <div class="empty-state">
+                <div class="empty-state__icon">🔍</div>
+                <h2 class="empty-state__title">Discover History</h2>
+                <p class="empty-state__subtitle">Search for eras, civilizations, leaders, or historical events to begin your journey through time.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shared JavaScript -->
+    <script src="app.js"></script>
+    
+    <script>
+        /* ========================================
+           SEARCH PAGE LOGIC
+           ======================================== */
+        
+        class SearchPage {
+            constructor() {
+                this.library = HistoryApp.Storage.get('library', []);
+                this.searchData = this.buildSearchData();
+                this.debounceTimer = null;
+                this.init();
+            }
+            
+            init() {
+                this.bindEvents();
+            }
+            
+            bindEvents() {
+                const searchInput = document.getElementById('search-input');
+                const suggestionChips = document.querySelectorAll('.suggestion-chip');
+                
+                // Search input with debouncing
+                searchInput.addEventListener('input', (e) => {
+                    clearTimeout(this.debounceTimer);
+                    this.debounceTimer = setTimeout(() => {
+                        this.performSearch(e.target.value.trim());
+                    }, 200);
+                });
+                
+                // Suggestion chips
+                suggestionChips.forEach(chip => {
+                    chip.addEventListener('click', (e) => {
+                        const query = e.target.dataset.query;
+                        searchInput.value = query;
+                        this.performSearch(query);
+                    });
+                });
+                
+                // Focus search input
+                searchInput.focus();
+            }
+            
+            buildSearchData() {
+                // Combine library stories with additional searchable content
+                const additionalStories = [
+                    {
+                        id: 'napoleon-empire',
+                        title: 'Napoleon\'s Empire',
+                        era: 'Modern History',
+                        characters: ['Napoleon Bonaparte', 'Josephine'],
+                        searchTerms: ['napoleon', 'french', 'empire', 'emperor', 'waterloo', 'france'],
+                        heroPosterUrl: './img/napoleon.jpg'
+                    },
+                    {
+                        id: 'ancient-egypt',
+                        title: 'Secrets of Ancient Egypt',
+                        era: 'Ancient World',
+                        characters: ['Cleopatra', 'Tutankhamun', 'Ramesses II'],
+                        searchTerms: ['egypt', 'pharaoh', 'pyramid', 'nile', 'cleopatra', 'tutankhamun'],
+                        heroPosterUrl: './img/egypt.jpg'
+                    },
+                    {
+                        id: 'roman-empire',
+                        title: 'The Roman Empire',
+                        era: 'Classical Antiquity',
+                        characters: ['Julius Caesar', 'Augustus', 'Marcus Aurelius'],
+                        searchTerms: ['rome', 'roman', 'caesar', 'gladiator', 'colosseum', 'senate'],
+                        heroPosterUrl: './img/rome.jpg'
+                    },
+                    {
+                        id: 'viking-age',
+                        title: 'The Viking Age',
+                        era: 'Medieval Era',
+                        characters: ['Ragnar Lothbrok', 'Erik the Red'],
+                        searchTerms: ['viking', 'norse', 'scandinavia', 'raids', 'longship', 'valhalla'],
+                        heroPosterUrl: './img/viking.jpg'
+                    },
+                    {
+                        id: 'samurai-japan',
+                        title: 'Way of the Samurai',
+                        era: 'Medieval Era',
+                        characters: ['Miyamoto Musashi', 'Oda Nobunaga'],
+                        searchTerms: ['samurai', 'japan', 'katana', 'bushido', 'shogun', 'ninja'],
+                        heroPosterUrl: './img/japan.jpg'
+                    },
+                    {
+                        id: 'ww2-stories',
+                        title: 'World War II Chronicles',
+                        era: 'Modern History',
+                        characters: ['Winston Churchill', 'Franklin Roosevelt'],
+                        searchTerms: ['ww2', 'world war', 'hitler', 'churchill', 'dday', 'holocaust'],
+                        heroPosterUrl: './img/ww2.jpg'
+                    },
+                    {
+                        id: 'greek-philosophy',
+                        title: 'Greek Philosophy',
+                        era: 'Classical Antiquity',
+                        characters: ['Socrates', 'Plato', 'Aristotle'],
+                        searchTerms: ['philosophy', 'socrates', 'plato', 'aristotle', 'athens', 'wisdom'],
+                        heroPosterUrl: './img/greece.jpg'
+                    },
+                    {
+                        id: 'scientific-revolution',
+                        title: 'The Scientific Revolution',
+                        era: 'Renaissance',
+                        characters: ['Galileo', 'Newton', 'Copernicus'],
+                        searchTerms: ['science', 'discoveries', 'galileo', 'newton', 'telescope', 'astronomy'],
+                        heroPosterUrl: './img/renaissance.jpg'
+                    }
+                ];
+                
+                return [...this.library, ...additionalStories];
+            }
+            
+            performSearch(query) {
+                const container = document.getElementById('search-results-container');
+                
+                if (!query || query.length < 2) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state__icon">🔍</div>
+                            <h2 class="empty-state__title">Discover History</h2>
+                            <p class="empty-state__subtitle">Search for eras, civilizations, leaders, or historical events to begin your journey through time.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Show loading state
+                container.innerHTML = `
+                    <div class="loading-state">
+                        <div class="loading-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                `;
+                
+                // Simulate slight delay for better UX
+                setTimeout(() => {
+                    const results = this.searchStories(query);
+                    this.displayResults(results, query);
+                }, 150);
+            }
+            
+            searchStories(query) {
+                const queryLower = query.toLowerCase();
+                const words = queryLower.split(' ').filter(word => word.length > 1);
+                
+                return this.searchData
+                    .map(story => {
+                        let score = 0;
+                        let matchedFields = [];
+                        
+                        // Title match (highest score)
+                        if (story.title.toLowerCase().includes(queryLower)) {
+                            score += 100;
+                            matchedFields.push('title');
+                        }
+                        
+                        // Era match
+                        if (story.era.toLowerCase().includes(queryLower)) {
+                            score += 50;
+                            matchedFields.push('era');
+                        }
+                        
+                        // Character match
+                        if (story.characters) {
+                            story.characters.forEach(character => {
+                                if (character.toLowerCase().includes(queryLower)) {
+                                    score += 30;
+                                    matchedFields.push('character');
+                                }
+                            });
+                        }
+                        
+                        // Search terms match
+                        if (story.searchTerms) {
+                            story.searchTerms.forEach(term => {
+                                if (term.includes(queryLower)) {
+                                    score += 20;
+                                    matchedFields.push('searchTerm');
+                                }
+                            });
+                        }
+                        
+                        // Word-based matching
+                        words.forEach(word => {
+                            const titleWords = story.title.toLowerCase().split(' ');
+                            const eraWords = story.era.toLowerCase().split(' ');
+                            
+                            titleWords.forEach(titleWord => {
+                                if (titleWord.includes(word)) score += 10;
+                            });
+                            
+                            eraWords.forEach(eraWord => {
+                                if (eraWord.includes(word)) score += 5;
+                            });
+                        });
+                        
+                        return score > 0 ? { ...story, score, matchedFields } : null;
+                    })
+                    .filter(story => story !== null)
+                    .sort((a, b) => b.score - a.score);
+            }
+            
+            displayResults(results, query) {
+                const container = document.getElementById('search-results-container');
+                
+                if (results.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state__icon">❌</div>
+                            <h2 class="empty-state__title">No matches found</h2>
+                            <p class="empty-state__subtitle">Try a different keyword or browse our collection by era.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                const resultsHtml = results.map(story => {
+                    const snippet = this.generateSnippet(story, query);
+                    const highlightedTitle = this.highlightText(story.title, query);
+                    const highlightedEra = this.highlightText(story.era, query);
+                    
+                    return `
+                        <div class="result-item" onclick="SearchPage.openStory('${story.id}', ${!this.library.find(s => s.id === story.id)})">
+                            <div class="result-poster" style="background-image: url('${story.heroPosterUrl || './img/hero.png'}');"></div>
+                            <div class="result-content">
+                                <h3 class="result-title">${highlightedTitle}</h3>
+                                <div class="result-era">${highlightedEra}</div>
+                                ${snippet ? `<div class="result-snippet">${snippet}</div>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                container.innerHTML = `
+                    <div class="results-header">
+                        <h2 class="results-title">Search Results</h2>
+                        <span class="results-count">${results.length} result${results.length !== 1 ? 's' : ''}</span>
+                    </div>
+                    <div class="results-list">
+                        ${resultsHtml}
+                    </div>
+                `;
+            }
+            
+            generateSnippet(story, query) {
+                // Generate a relevant snippet based on what matched
+                if (story.characters && story.characters.some(c => c.toLowerCase().includes(query.toLowerCase()))) {
+                    return `Features: ${story.characters.join(', ')}`;
+                }
+                
+                if (story.searchTerms) {
+                    const matchedTerms = story.searchTerms.filter(term => 
+                        term.toLowerCase().includes(query.toLowerCase())
+                    );
+                    if (matchedTerms.length > 0) {
+                        return `Related: ${matchedTerms.slice(0, 3).join(', ')}`;
+                    }
+                }
+                
+                return '';
+            }
+            
+            highlightText(text, query) {
+                if (!query || query.length < 2) return text;
+                
+                const regex = new RegExp(`(${query})`, 'gi');
+                return text.replace(regex, '<span class="highlight">$1</span>');
+            }
+            
+            static openStory(storyId, isGenerated = false) {
+                if (isGenerated) {
+                    // For generated stories, add to library first
+                    const searchPage = new SearchPage();
+                    const story = searchPage.searchData.find(s => s.id === storyId);
+                    
+                    if (story) {
+                        const fullStory = SearchPage.createFullStory(story);
+                        const library = HistoryApp.Storage.get('library', []);
+                        
+                        if (!library.find(s => s.id === fullStory.id)) {
+                            library.push(fullStory);
+                            HistoryApp.Storage.set('library', library);
+                        }
+                        
+                        HistoryApp.Storage.set('lastStory', fullStory);
+                    }
+                }
+                
+                window.location.href = `page7-story.html?id=${storyId}`;
+            }
+            
+            static createFullStory(searchStory) {
+                return {
+                    id: searchStory.id,
+                    title: searchStory.title,
+                    era: searchStory.era,
+                    summaryLines: [
+                        `Explore the fascinating world of ${searchStory.title.toLowerCase()}`,
+                        'Discover the key events and figures that shaped history',
+                        'Experience immersive storytelling with expert narration'
+                    ],
+                    timeline: ['Story begins', 'Key events unfold', 'Historical impact'],
+                    characters: searchStory.characters || ['Historical Figure'],
+                    heroVideoUrl: './video/video1.mp4',
+                    heroPosterUrl: searchStory.heroPosterUrl || './img/hero.png'
+                };
+            }
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new SearchPage();
+        });
+    </script>
+</body>
+</html>
