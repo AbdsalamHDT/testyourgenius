@@ -436,234 +436,273 @@ function computeResults() {
     needs: { Autonomy: { pos: 0, neg: 0 }, Competence: { pos: 0, neg: 0 }, Relatedness: { pos: 0, neg: 0 } },
     attachment: { Anxiety: 0, Avoidance: 0, AnxietyCount: 0, AvoidanceCount: 0 },
     stressModes: {},
-    healthyAdult: 0,
-    healthyAdultCount: 0,
-    resilience: 0,
-    resilienceCount: 0,
+    healthyAdult: 0, healthyAdultCount: 0,
+    resilience: 0, resilienceCount: 0,
   };
-
   QUESTIONS.forEach(q => {
-    const val = state.answers[q.id];
-    if (val == null) return;
+    const val = state.answers[q.id]; if (val == null) return;
     const scored = q.reverse ? (8 - val) : val;
-
     if (q.module === "A") {
       const { primary, secondary } = q.map;
-      if (primary && primary !== "ImpulsivityNoise") {
-        raw.islands[primary] = (raw.islands[primary] || 0) + scored;
-      }
-      if (secondary) {
-        raw.islands[secondary] = (raw.islands[secondary] || 0) + scored * 0.5;
-      }
+      if (primary && primary !== "ImpulsivityNoise") raw.islands[primary] = (raw.islands[primary] || 0) + scored;
+      if (secondary) raw.islands[secondary] = (raw.islands[secondary] || 0) + scored * 0.5;
     }
-    if (q.module === "B") {
-      const { dimension, polarity } = q.map;
-      if (polarity === "+") raw.needs[dimension].pos += val;
-      else raw.needs[dimension].neg += val;
-    }
-    if (q.module === "C") {
-      const { dimension } = q.map;
-      raw.attachment[dimension] += scored;
-      raw.attachment[dimension + "Count"]++;
-    }
+    if (q.module === "B") { const { dimension, polarity } = q.map; if (polarity === "+") raw.needs[dimension].pos += val; else raw.needs[dimension].neg += val; }
+    if (q.module === "C") { const { dimension } = q.map; raw.attachment[dimension] += scored; raw.attachment[dimension + "Count"]++; }
     if (q.module === "D") {
       const { mode } = q.map;
       if (mode === "HealthyAdult") { raw.healthyAdult += scored; raw.healthyAdultCount++; }
       else if (mode === "Resilience") { raw.resilience += scored; raw.resilienceCount++; }
-      else {
-        if (!raw.stressModes[mode]) raw.stressModes[mode] = { total: 0, count: 0 };
-        raw.stressModes[mode].total += scored;
-        raw.stressModes[mode].count++;
-      }
+      else { if (!raw.stressModes[mode]) raw.stressModes[mode] = { total: 0, count: 0 }; raw.stressModes[mode].total += scored; raw.stressModes[mode].count++; }
     }
   });
-
   return raw;
 }
 
 function normalizeResults(raw) {
-  // Islands
   const allIslands = ["Grounded","Sensitive","Driven","Curious","Expressive","Independent"];
-  const islands = {};
-  allIslands.forEach(k => { islands[k] = raw.islands[k] || 0; });
+  const islands = {}; allIslands.forEach(k => { islands[k] = raw.islands[k] || 0; });
   const islandEntries = Object.entries(islands).sort((a,b) => b[1] - a[1]);
-  const primaryIsland = islandEntries[0][0];
-  const secondaryIsland = islandEntries[1][0];
+  const primaryIsland = islandEntries[0][0], secondaryIsland = islandEntries[1][0];
   const gap = islandEntries[0][1] - islandEntries[1][1];
-
-  let confidenceLevel = "Medium";
-  let confidenceScore = Math.round(((gap / 14) * 100));
-  if (confidenceScore > 100) confidenceScore = 100;
-  let confidenceReason = "";
+  let confidenceLevel = "Medium", confidenceScore = Math.min(100, Math.round((gap / 14) * 100)), confidenceReason = "";
   if (gap >= 8) { confidenceLevel = "High"; confidenceReason = "Your primary island scored well above the rest, indicating a clear dominant style."; }
   else if (gap <= 3) { confidenceLevel = "Low"; confidenceReason = "Your top two islands scored very similarly — you likely draw from both patterns."; }
   else { confidenceReason = "Your primary island is distinct but shares some overlap with your secondary style."; }
 
-  // Needs
-  const needs = {};
+  const needsBalance = {}, needsRaw = {};
   for (const dim of ["Autonomy","Competence","Relatedness"]) {
-    const p = raw.needs[dim].pos;
-    const n = raw.needs[dim].neg;
-    const balance = Math.max(-1, Math.min(1, (p - n) / 14));
-    needs["autonomyPlus"] = needs["autonomyPlus"] || 0;
-    needs[dim.toLowerCase() + "Plus"] = p;
-    needs[dim.toLowerCase() + "Minus"] = n;
-    needs[dim.toLowerCase() + "Balance"] = balance;
+    const p = raw.needs[dim].pos, n = raw.needs[dim].neg;
+    const key = dim.toLowerCase();
+    needsBalance[key] = Math.max(-1, Math.min(1, (p - n) / 14));
+    needsRaw[key + "Plus"] = p; needsRaw[key + "Minus"] = n;
   }
 
-  // Attachment
   const anxietyAvg = raw.attachment.AnxietyCount ? raw.attachment.Anxiety / raw.attachment.AnxietyCount : 0;
   const avoidanceAvg = raw.attachment.AvoidanceCount ? raw.attachment.Avoidance / raw.attachment.AvoidanceCount : 0;
-  const attachment = { anxiety: anxietyAvg, avoidance: avoidanceAvg };
 
-  // Stress Modes
   const modes = {};
   Object.entries(raw.stressModes).forEach(([k, d]) => { modes[k] = d.total / d.count; });
-  const healthyAvg = raw.healthyAdultCount ? raw.healthyAdult / raw.healthyAdultCount : 0;
-  const resilienceAvg = raw.resilienceCount ? raw.resilience / raw.resilienceCount : 0;
-  modes.HealthyAdult = healthyAvg;
-  modes.Resilience = resilienceAvg;
+  const healthyAdult = raw.healthyAdultCount ? raw.healthyAdult / raw.healthyAdultCount : 0;
+  const resilience = raw.resilienceCount ? raw.resilience / raw.resilienceCount : 0;
 
-  const topModes = Object.entries(modes)
-    .filter(([k]) => k !== "HealthyAdult" && k !== "Resilience")
-    .map(([key, score]) => ({ key, score }))
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 3);
+  const topModes = Object.entries(modes).map(([key, score]) => ({ key, score })).sort((a, b) => b.score - a.score).slice(0, 3);
 
-  // Archetype placeholder
-  const ARCHETYPE_MAP = {
-    Grounded: "The Steady Builder",
-    Sensitive: "The Deep Feeler",
-    Driven: "The Relentless Achiever",
-    Curious: "The Systems Thinker",
-    Expressive: "The Creative Spark",
-    Independent: "The Self-Reliant Lone Wolf"
-  };
+  const ARCHETYPE_MAP = { Grounded:"The Steady Builder", Sensitive:"The Deep Feeler", Driven:"The Relentless Achiever", Curious:"The Systems Thinker", Expressive:"The Creative Spark", Independent:"The Self-Reliant Lone Wolf" };
+
+  // Secondary influences
+  const secondaryInfluences = deriveSecondaryInfluences(secondaryIsland, topModes);
 
   return {
-    islands,
-    primaryIsland,
-    secondaryIsland,
-    needs,
-    attachment,
-    modes,
-    topModes,
+    islands, primaryIsland, secondaryIsland,
+    needsBalance, needsRaw,
+    attachment: { anxiety: anxietyAvg, avoidance: avoidanceAvg },
+    modes, topModes,
+    healthyAdult, resilience,
     confidence: { level: confidenceLevel, score: confidenceScore, reason: confidenceReason },
-    archetype: { island: primaryIsland, name: ARCHETYPE_MAP[primaryIsland] || "The Explorer" }
+    archetypePrimary: { island: primaryIsland, name: ARCHETYPE_MAP[primaryIsland] || "The Explorer" },
+    archetypeSecondary: secondaryInfluences
   };
 }
 
-// ── MODE DESCRIPTIONS ───────────────────────────────────────────
+function deriveSecondaryInfluences(secondaryIsland, topModes) {
+  const influences = [];
+  const ISLAND_INFLUENCE = { Grounded:"The Calm Anchor", Sensitive:"The Empathic Mirror", Driven:"The Quiet Achiever", Curious:"The Pattern Finder", Expressive:"The Expressive Channel", Independent:"The Boundary Keeper" };
+  const ISLAND_REASONS = { Grounded:"Your secondary Grounded energy gives you a stabilising presence others rely on.", Sensitive:"Your secondary Sensitive energy means you absorb emotional signals others miss.", Driven:"Your secondary Driven energy fuels a quiet ambition beneath the surface.", Curious:"Your secondary Curious energy means you're always looking for the deeper pattern.", Expressive:"Your secondary Expressive energy gives you a natural ability to communicate what others feel.", Independent:"Your secondary Independent energy means you instinctively protect your inner space." };
+  influences.push({ name: ISLAND_INFLUENCE[secondaryIsland] || "The Explorer", reason: ISLAND_REASONS[secondaryIsland] || `Your secondary ${secondaryIsland} style adds depth to your primary pattern.` });
 
-const MODE_DESC = {
-  VulnerableActivation: "feel overwhelmed, small, or powerless",
-  PunitiveInnerCritic: "attack yourself with harsh self-blame",
-  DetachedSelfSoother: "numb out with distractions or comfort",
-  DetachedProtector: "shut down feelings to avoid pain",
-  AnxiousHypervigilance: "scan for signs of rejection or danger",
-  Overcontrol: "try to control every detail to feel safe",
-  DemandingPressure: "push yourself relentlessly, resenting rest",
-  DemandingParent: "hold yourself and others to impossible standards",
-  PerfectionParalysis: "freeze because nothing feels good enough",
-  DrivePressure: "feel anxious unless you're progressing",
-  CompliantSurrender: "people-please to keep the peace",
-  NeedsInhibition: "suppress your own needs to avoid conflict",
-  AngryProtector: "become sharp or irritable with others",
-  EmotionalInhibition: "hide emotions so you won't be a burden",
-  PressureExplosion: "explode after holding too much inside",
-  DetachedWithdrawal: "withdraw and handle everything alone",
-  OvercompensatorAvoidant: "rely only on yourself, trusting no one",
-  OvercompensatorDrive: "work harder instead of resting or asking for help",
-  TrustWound: "struggle to believe people will be there for you"
-};
-
-// ── WHY-THIS-FITS GENERATOR ─────────────────────────────────────
-
-function generateWhyBullets(r) {
-  const bullets = [];
-
-  // 1) Needs
-  const needsDims = ["autonomy","competence","relatedness"];
-  const needsLabels = { autonomy: "Autonomy", competence: "Competence", relatedness: "Relatedness" };
-  let lowestNeed = null, lowestVal = 2;
-  needsDims.forEach(d => {
-    if (r.needs[d + "Balance"] < lowestVal) { lowestVal = r.needs[d + "Balance"]; lowestNeed = d; }
-  });
-  if (lowestNeed && lowestVal < 0) {
-    const descs = { autonomy: "feeling controlled or pressured by external expectations", competence: "doubting your abilities or avoiding challenges from fear of failure", relatedness: "feeling unseen or emotionally disconnected from others" };
-    bullets.push({ icon: "🎯", title: `Your ${needsLabels[lowestNeed]} need is under-nourished`, desc: `Your pattern suggests ${descs[lowestNeed]}.` });
-  } else {
-    let highestNeed = null, highestVal = -2;
-    needsDims.forEach(d => { if (r.needs[d + "Balance"] > highestVal) { highestVal = r.needs[d + "Balance"]; highestNeed = d; } });
-    if (highestNeed) {
-      const descs = { autonomy: "You feel a genuine sense of choice in how you live.", competence: "You trust your ability to handle what matters.", relatedness: "You feel meaningfully connected to people around you." };
-      bullets.push({ icon: "🎯", title: `${needsLabels[highestNeed]} is your strongest fuel`, desc: descs[highestNeed] });
+  const topKey = topModes.length > 0 ? topModes[0].key : null;
+  const MODE_INFLUENCES = {
+    PunitiveInnerCritic: { name:"The Quiet Improver", reason:"Your strong inner critic reveals a deep desire for growth — it's harsh, but it comes from caring about standards." },
+    DemandingParent: { name:"The Quiet Improver", reason:"Your demanding inner voice pushes you toward excellence, but it needs softening with self-compassion." },
+    DemandingPressure: { name:"The Quiet Improver", reason:"You constantly raise the bar for yourself — this drive is powerful when balanced with rest." },
+    DetachedProtector: { name:"The Boundary Keeper", reason:"You build walls to stay safe — this protection served you, but it now limits connection." },
+    DetachedWithdrawal: { name:"The Boundary Keeper", reason:"Withdrawal is your shield — you handle pain by handling it alone." },
+    DetachedSelfSoother: { name:"The Comfort Seeker", reason:"You reach for numbing when overwhelmed — this is your nervous system asking for gentler rest." },
+    AnxiousHypervigilance: { name:"The Vigilant Heart", reason:"You scan constantly for danger signals — your sensitivity is high because your care is real." },
+    VulnerableActivation: { name:"The Vigilant Heart", reason:"You feel things at full volume — vulnerability is close to the surface and needs a safe container." },
+    CompliantSurrender: { name:"The Gentle Giver", reason:"You keep the peace by giving in — your kindness is real, but it costs you when your own needs stay silent." },
+    NeedsInhibition: { name:"The Gentle Giver", reason:"You suppress your needs to avoid burdening others — generosity that needs boundaries." },
+    EmotionalInhibition: { name:"The Gentle Giver", reason:"You hide your emotions to protect others from your pain — a quiet form of care that exhausts you." },
+    Overcontrol: { name:"The Control Seeker", reason:"You manage uncertainty by controlling details — order is your anchor when the world feels unpredictable." },
+    PerfectionParalysis: { name:"The Control Seeker", reason:"Perfectionism freezes you — you'd rather not start than risk doing it wrong." },
+    DrivePressure: { name:"The Quiet Improver", reason:"You feel anxious unless you're progressing — rest feels like falling behind." },
+    AngryProtector: { name:"The Fire Wall", reason:"Anger is your emergency boundary — it flares when something crosses a line you can't articulate calmly." },
+    PressureExplosion: { name:"The Fire Wall", reason:"You hold everything in until it breaks through — the explosion is release, not aggression." },
+    OvercompensatorAvoidant: { name:"The Boundary Keeper", reason:"You trust only yourself — self-reliance is your fortress, but it can become a prison." },
+    OvercompensatorDrive: { name:"The Quiet Improver", reason:"Under pressure, you work harder rather than ask for help — productivity is your armour." },
+    TrustWound: { name:"The Vigilant Heart", reason:"Trust doesn't come easily — past experiences taught you to protect yourself first." }
+  };
+  if (topKey && MODE_INFLUENCES[topKey]) {
+    const inf = MODE_INFLUENCES[topKey];
+    if (inf.name !== influences[0].name) influences.push(inf);
+    else {
+      const secondKey = topModes.length > 1 ? topModes[1].key : null;
+      if (secondKey && MODE_INFLUENCES[secondKey]) influences.push(MODE_INFLUENCES[secondKey]);
     }
   }
+  return influences.slice(0, 2);
+}
 
-  // 2) Attachment
-  const anx = r.attachment.anxiety;
-  const avd = r.attachment.avoidance;
-  if (anx > 4.5 && avd > 4.5) {
-    bullets.push({ icon: "🔗", title: "You crave closeness but protect yourself from it", desc: "High anxiety and avoidance suggest an inner conflict between wanting connection and fearing vulnerability." });
-  } else if (anx > 4.5) {
-    bullets.push({ icon: "🔗", title: "You seek reassurance in relationships", desc: "Elevated attachment anxiety means you're highly attuned to signs of disconnection or rejection." });
-  } else if (avd > 4.5) {
-    bullets.push({ icon: "🔗", title: "You default to self-reliance in closeness", desc: "Higher avoidance suggests you protect your independence, sometimes at the cost of emotional openness." });
-  } else {
-    bullets.push({ icon: "🔗", title: "Your connection style is relatively grounded", desc: "You can tolerate closeness and distance without significant distress." });
-  }
+// ── DESCRIPTIONS & TEMPLATES ────────────────────────────────────
 
-  // 3) Top stress mode
-  if (r.topModes.length > 0) {
-    const tm = r.topModes[0];
-    const desc = MODE_DESC[tm.key] || "activate a protective pattern";
-    bullets.push({ icon: "⚡", title: `Under stress, you tend to ${desc}`, desc: `Your strongest stress response is ${camelToWords(tm.key)} (${tm.score.toFixed(1)}/7).` });
-  }
+const MODE_DESC = {
+  VulnerableActivation: { when:"feel overwhelmed, small, or powerless", protects:"Signals genuine distress so your system can seek safety.", cost:"Can make you feel helpless even when you have resources." },
+  PunitiveInnerCritic: { when:"attack yourself with harsh self-blame", protects:"Tries to prevent future mistakes by punishing past ones.", cost:"Erodes self-worth and makes recovery from setbacks harder." },
+  DetachedSelfSoother: { when:"numb out with distractions or comfort", protects:"Shields you from emotional overload by turning down the volume.", cost:"Delays processing and can create avoidance loops." },
+  DetachedProtector: { when:"shut down feelings to avoid pain", protects:"Creates emotional distance so nothing can hurt you.", cost:"Blocks both pain and joy — you feel less of everything." },
+  AnxiousHypervigilance: { when:"scan for signs of rejection or danger", protects:"Keeps you alert to threats before they fully arrive.", cost:"Exhausts your nervous system and amplifies false alarms." },
+  Overcontrol: { when:"try to control every detail to feel safe", protects:"Creates predictability in an unpredictable world.", cost:"Rigidity blocks adaptation and increases pressure when things shift." },
+  DemandingPressure: { when:"push yourself relentlessly, resenting rest", protects:"Ensures you never fall behind or waste potential.", cost:"Burns out your body and makes rest feel like failure." },
+  DemandingParent: { when:"hold yourself and others to impossible standards", protects:"Aims for excellence to earn love or respect.", cost:"Nothing ever feels good enough — for you or others." },
+  PerfectionParalysis: { when:"freeze because nothing feels good enough", protects:"Prevents the shame of producing imperfect work.", cost:"Keeps you stuck and unfulfilled while anxiety grows." },
+  DrivePressure: { when:"feel anxious unless you're progressing", protects:"Keeps you moving toward goals and relevance.", cost:"You can't rest without guilt — downtime feels dangerous." },
+  CompliantSurrender: { when:"people-please to keep the peace", protects:"Maintains harmony and avoids conflict.", cost:"Your own needs stay invisible — resentment builds silently." },
+  NeedsInhibition: { when:"suppress your own needs to avoid conflict", protects:"Keeps relationships smooth by minimising friction.", cost:"You lose touch with what you actually want." },
+  AngryProtector: { when:"become sharp or irritable with others", protects:"Sets emergency boundaries when you feel threatened.", cost:"Damages relationships and creates guilt cycles." },
+  EmotionalInhibition: { when:"hide emotions so you won't be a burden", protects:"Protects others from your pain and protects you from vulnerability.", cost:"Isolation increases and authentic connection fades." },
+  PressureExplosion: { when:"explode after holding too much inside", protects:"Releases unbearable internal pressure.", cost:"Creates damage that feeds guilt and withdrawal." },
+  DetachedWithdrawal: { when:"withdraw and handle everything alone", protects:"Removes you from situations that feel overwhelming.", cost:"Builds walls that become harder to take down over time." },
+  OvercompensatorAvoidant: { when:"rely only on yourself, trusting no one", protects:"Ensures you're never dependent or let down.", cost:"Loneliness grows even when people are reaching out." },
+  OvercompensatorDrive: { when:"work harder instead of resting or asking for help", protects:"Proves your worth through output and achievement.", cost:"You become a machine — efficient but disconnected." },
+  TrustWound: { when:"struggle to believe people will be there for you", protects:"Prevents the pain of being let down again.", cost:"Keeps real intimacy at a distance even with safe people." }
+};
 
-  // 4) Island combination
-  const combDescs = {
-    "Grounded+Sensitive": "You anchor others with stability while absorbing emotional undercurrents deeply.",
-    "Grounded+Driven": "You combine reliability with quiet ambition — you build steadily toward meaningful goals.",
-    "Grounded+Curious": "You think carefully before acting, blending practicality with intellectual depth.",
-    "Grounded+Expressive": "You balance creative energy with a need for calm structure.",
-    "Grounded+Independent": "You're self-contained and reliable — you value both autonomy and consistency.",
-    "Sensitive+Driven": "You push yourself hard while feeling everything deeply — a powerful but tiring combination.",
-    "Sensitive+Curious": "You process the world through emotion and intellect equally, often seeing what others miss.",
-    "Sensitive+Expressive": "You channel deep feelings into creative expression, drawing others in with authenticity.",
-    "Sensitive+Independent": "You feel deeply but guard your inner world — closeness is selective and meaningful.",
-    "Driven+Curious": "You combine intellectual hunger with goal-driven focus — systems thinking meets execution.",
-    "Driven+Expressive": "You pursue achievement with charisma, inspiring others toward your vision.",
-    "Driven+Independent": "You're fiercely self-directed, expecting high standards from yourself above all.",
-    "Curious+Expressive": "You connect ideas and people naturally — your mind is both analytical and creative.",
-    "Curious+Independent": "You're a self-guided thinker who questions norms and seeks your own understanding.",
-    "Expressive+Independent": "You express yourself boldly from a place of autonomy, valuing freedom in creativity."
+const ARCHETYPE_NARRATIVES = {
+  Grounded: { narrative:"You move through life with a quiet steadiness that others instinctively trust. Your mind gravitates toward what's real, tested, and reliable. Where others chase novelty, you build foundations. You're the person who shows up — consistently, calmly, and without drama. This doesn't mean you lack depth; it means your depth is expressed through dependability and presence rather than intensity.", strengths:["Calm under pressure — you're the anchor when things get chaotic","Consistent and reliable — people trust your follow-through","Practical problem-solving — you focus on what actually works","Emotionally steady — you don't get swept up in reactive spirals","Patient with process — you understand that real growth takes time"], growth:["You may resist change even when it's needed — comfort zones can become traps","Expressing vulnerability may feel unnecessary, but it deepens connection","Your stability can sometimes read as rigidity to those who need flexibility"] },
+  Sensitive: { narrative:"You experience the world with the volume turned up. Emotions, atmospheres, unspoken tensions — you absorb them all. This isn't weakness; it's a finely tuned perceptual system that lets you understand people at a depth most can't access. You often know what someone needs before they say it. The challenge is that this sensitivity has a cost — you carry weight that isn't always yours.", strengths:["Deep empathy — you understand people at an intuitive level","Emotional intelligence — you read rooms and relationships with precision","Creative sensitivity — your inner world is rich and nuanced","Loyalty — when you care, you care completely","Conflict awareness — you sense tension early and can de-escalate naturally"], growth:["You may absorb others' emotions and lose track of your own","Setting boundaries feels like rejection, but it's actually self-respect","Your sensitivity needs regular decompression — burnout sneaks up quietly"] },
+  Driven: { narrative:"You're wired for forward motion. Goals, progress, achievement — these aren't just preferences, they're how you make sense of the world. You measure yourself by what you've built, and standing still feels like going backward. This intensity is your engine, but it can also become your prison when you can't separate your worth from your output.", strengths:["Goal clarity — you know what you're aiming for and why","Execution power — you don't just plan, you follow through","Resilience under challenge — obstacles motivate rather than stop you","High standards — your work reflects genuine care for quality","Self-discipline — you can delay gratification for long-term gain"], growth:["Your identity may be too fused with achievement — rest isn't failure","You may dismiss others who move slower, missing what they offer","Burnout is your blind spot — you'll push past your limits without noticing"] },
+  Curious: { narrative:"Your mind is a pattern-recognition machine. You see connections others miss, question assumptions others accept, and think in systems rather than soundbites. You're drawn to complexity — not to show off, but because simplistic answers feel dishonest to you. Your challenge is that not everything needs to be understood before it can be experienced.", strengths:["Systems thinking — you see how parts connect to form the whole","Intellectual honesty — you question your own beliefs as much as others'","Learning agility — you absorb new frameworks quickly and deeply","Innovation — you spot opportunities hidden in complexity","Strategic patience — you think before acting, which often saves you"], growth:["Analysis paralysis — thinking can become a substitute for doing","You may undervalue emotional data because it's less 'logical'","Your need to understand everything can delay commitment and action"] },
+  Expressive: { narrative:"You process life through expression. Words, images, energy, presence — you turn inner experience into something others can feel. You light up rooms not through artifice but through genuine emotional broadcast. People are drawn to your energy because it gives them permission to feel more openly too. The risk is that you may perform even when you're hurting.", strengths:["Emotional expressiveness — you make the invisible visible","Natural influence — your energy shifts group dynamics positively","Creative communication — you find unique ways to share ideas","Social intelligence — you read and respond to group energy intuitively","Authenticity — when you're real, you're magnetic"], growth:["You may confuse being seen with being understood — depth requires slowing down","Your energy can mask pain — make sure expression includes honesty, not just performance","Validation-seeking can quietly drive your behaviour if you're not careful"] },
+  Independent: { narrative:"You trust yourself first — not out of arrogance, but because experience taught you that relying on others has a cost. Your autonomy isn't isolation; it's a deliberate choice to stay sovereign over your inner world. You solve problems alone, set boundaries firmly, and value freedom above almost everything. The challenge is knowing when self-reliance becomes self-imprisonment.", strengths:["Self-reliance — you can function and decide without external validation","Boundary clarity — you know where you end and others begin","Focus — fewer dependencies mean fewer distractions","Courage — you'll walk alone when the crowd is wrong","Honest self-assessment — you don't sugarcoat your own flaws"], growth:["Your independence can become isolation — connection isn't weakness","Asking for help is a skill, not a failure — practice it deliberately","You may dismiss emotional needs as unnecessary, but they're real and valid"] }
+};
+
+// ── MIND ORIENTATION COMPUTED TRAITS ────────────────────────────
+
+function computeMindOrientation(r) {
+  const isl = r.islands;
+  const maxIsland = Math.max(...Object.values(isl), 1);
+  const norm = k => Math.min(100, Math.round((isl[k] || 0) / maxIsland * 100));
+
+  // Thinking Style
+  const curiousVsGrounded = Math.round(((norm("Curious") - norm("Grounded")) + 100) / 2);
+  const expressiveVsStructured = Math.round(((norm("Expressive") - norm("Grounded")) + 100) / 2);
+  const independentVsCollab = Math.round(((norm("Independent") - norm("Sensitive")) + 100) / 2);
+
+  // Drive & Standards
+  const drivenIntensity = Math.min(100, Math.round(((isl.Driven || 0) / maxIsland * 70) + ((r.modes.DrivePressure || 0) / 7 * 30)));
+  const perfSensitivity = Math.min(100, Math.round((((r.modes.PerfectionParalysis || 0) + (r.modes.DemandingParent || 0) + (r.modes.PunitiveInnerCritic || 0)) / 3 / 7) * 100));
+  const flexibility = Math.min(100, Math.round((1 - (r.modes.Overcontrol || 0) / 7) * 100));
+
+  // Emotional Texture
+  const sensitivity = Math.min(100, Math.round(((isl.Sensitive || 0) / maxIsland * 60) + ((r.modes.VulnerableActivation || 0) / 7 * 40)));
+  const calmUnderPressure = Math.min(100, Math.round(((r.healthyAdult / 7) * 60) + ((isl.Grounded || 0) / maxIsland * 40)));
+  const ruminationRisk = Math.min(100, Math.round(((r.attachment.anxiety / 7) * 50) + ((r.modes.AnxiousHypervigilance || 0) / 7 * 50)));
+
+  return {
+    thinking: [
+      { label:"Curious vs Grounded", value: curiousVsGrounded, leftLabel:"Grounded", rightLabel:"Curious" },
+      { label:"Expressive vs Structured", value: expressiveVsStructured, leftLabel:"Structured", rightLabel:"Expressive" },
+      { label:"Independent vs Collaborative", value: independentVsCollab, leftLabel:"Collaborative", rightLabel:"Independent" },
+    ],
+    drive: [
+      { label:"Driven Intensity", value: drivenIntensity },
+      { label:"Perfection Sensitivity", value: perfSensitivity },
+      { label:"Flexibility", value: flexibility },
+    ],
+    emotional: [
+      { label:"Sensitivity", value: sensitivity },
+      { label:"Calm Under Pressure", value: calmUnderPressure },
+      { label:"Rumination Risk", value: ruminationRisk },
+    ]
   };
-  const combo1 = r.primaryIsland + "+" + r.secondaryIsland;
-  const combo2 = r.secondaryIsland + "+" + r.primaryIsland;
-  const comboDesc = combDescs[combo1] || combDescs[combo2] || `Your blend of ${r.primaryIsland} and ${r.secondaryIsland} creates a unique cognitive signature.`;
-  bullets.push({ icon: "🏝️", title: `${r.primaryIsland} + ${r.secondaryIsland} combination`, desc: comboDesc });
-
-  return bullets;
 }
 
-// ── CONNECTION STYLE LABEL ──────────────────────────────────────
-
-function getConnectionLabel(anx, avd) {
-  if (anx <= 4 && avd <= 4) return { label: "Grounded Secure", desc: "You feel relatively comfortable with closeness and independence." };
-  if (anx > 4 && avd <= 4)  return { label: "Reassurance-Seeking", desc: "You value connection deeply and notice quickly when it feels at risk." };
-  if (anx <= 4 && avd > 4)  return { label: "Self-Protective", desc: "You safeguard your independence, sometimes keeping emotional walls up." };
-  return { label: "Guarded & Sensitive", desc: "You want closeness but something in you pulls back to stay safe." };
+function meterLevel(v) {
+  if (v <= 25) return "Low"; if (v <= 50) return "Moderate"; if (v <= 75) return "High"; return "Very High";
 }
 
-// ── GROWTH PATH GENERATOR ───────────────────────────────────────
+// ── YOU IN CONTEXT GENERATOR ────────────────────────────────────
 
-function generateGrowthPath(r) {
+function generateYouInContext(r) {
+  const pri = r.primaryIsland, sec = r.secondaryIsland;
+  const anx = r.attachment.anxiety, avd = r.attachment.avoidance;
+  const nb = r.needsBalance;
+  const tm0 = r.topModes.length > 0 ? r.topModes[0].key : "";
+  const ha = r.healthyAdult;
+
+  const blocks = [];
+
+  // Relationships
+  const relBullets = [];
+  if (pri === "Sensitive" || sec === "Sensitive") relBullets.push("You pick up on emotional shifts before anyone says a word.");
+  if (pri === "Grounded" || sec === "Grounded") relBullets.push("You bring stability to relationships — people feel safe around you.");
+  if (pri === "Independent" || sec === "Independent") relBullets.push("You need space in relationships and may pull back when things feel too close.");
+  if (pri === "Expressive" || sec === "Expressive") relBullets.push("You express care openly and notice when others don't match your energy.");
+  if (anx > 4.5) relBullets.push("You tend to monitor relationship signals closely — silence can feel like rejection.");
+  if (avd > 4.5) relBullets.push("You may keep emotional distance as a default, even with people you trust.");
+  if (anx <= 3.5 && avd <= 3.5) relBullets.push("You're relatively secure in closeness — you can tolerate uncertainty without spiralling.");
+  if (nb.relatedness < -0.1) relBullets.push("You may feel unseen even in close relationships — a gap between being present and being understood.");
+  blocks.push({ title:"In Relationships", bullets: relBullets.slice(0, 7) });
+
+  // Decisions
+  const decBullets = [];
+  if (pri === "Curious" || sec === "Curious") decBullets.push("You gather more data than most before deciding — thoroughness is your default.");
+  if (pri === "Driven" || sec === "Driven") decBullets.push("You decide fast when the goal is clear — hesitation frustrates you.");
+  if (pri === "Grounded" || sec === "Grounded") decBullets.push("You favour practical, low-risk choices grounded in what's worked before.");
+  if (pri === "Independent" || sec === "Independent") decBullets.push("You prefer to decide alone — too many opinions cloud your clarity.");
+  if (nb.autonomy < -0.1) decBullets.push("You may avoid decisions to sidestep the pressure of being responsible for the outcome.");
+  if (nb.competence < -0.1) decBullets.push("Fear of making the wrong choice can freeze you — perfectionism disguised as caution.");
+  if (["Overcontrol","PerfectionParalysis"].includes(tm0)) decBullets.push("You may over-research or over-plan as a way to feel safe before committing.");
+  if (ha > 5) decBullets.push("Your Healthy Adult voice helps you weigh options without catastrophising.");
+  blocks.push({ title:"When Making Decisions", bullets: decBullets.slice(0, 7) });
+
+  // Learning
+  const learnBullets = [];
+  if (pri === "Curious" || sec === "Curious") learnBullets.push("You learn best by understanding the system behind the facts — not just memorising.");
+  if (pri === "Sensitive" || sec === "Sensitive") learnBullets.push("You absorb learning through emotional connection — dry content loses you fast.");
+  if (pri === "Driven" || sec === "Driven") learnBullets.push("You're motivated when learning has a clear payoff or skill-building trajectory.");
+  if (pri === "Expressive" || sec === "Expressive") learnBullets.push("You learn by teaching or sharing — you process by externalising ideas.");
+  if (pri === "Independent" || sec === "Independent") learnBullets.push("You prefer self-directed learning — structured courses may feel constraining.");
+  if (pri === "Grounded" || sec === "Grounded") learnBullets.push("Step-by-step methods suit you — you build mastery through repetition and practice.");
+  if (nb.competence > 0.2) learnBullets.push("You trust your ability to learn new things — challenge feels stimulating rather than threatening.");
+  if (nb.competence < -0.1) learnBullets.push("You may avoid learning new skills if failure feels too personal.");
+  blocks.push({ title:"When Learning", bullets: learnBullets.slice(0, 7) });
+
+  // Under Stress
+  const stressBullets = [];
+  if (r.topModes.length > 0) stressBullets.push(`Your first reflex under stress is to ${MODE_DESC[r.topModes[0].key]?.when || "activate a protective pattern"}.`);
+  if (r.topModes.length > 1) stressBullets.push(`Your secondary pattern is to ${MODE_DESC[r.topModes[1].key]?.when || "shift into another protective mode"}.`);
+  if (anx > 4.5) stressBullets.push("Stress amplifies your attachment alarm — you may seek reassurance urgently.");
+  if (avd > 4.5) stressBullets.push("Under pressure, you default to isolation — even when support is available.");
+  if (pri === "Driven") stressBullets.push("You respond to stress by working harder — productivity becomes your coping mechanism.");
+  if (pri === "Sensitive") stressBullets.push("Stress hits you somatically — you feel it in your body before your mind catches up.");
+  if (ha > 5) stressBullets.push("Your Healthy Adult is relatively strong — you can often pause before reacting.");
+  if (r.resilience > 5) stressBullets.push("You recover from setbacks without losing your core sense of self.");
+  blocks.push({ title:"Under Stress", bullets: stressBullets.slice(0, 7) });
+
+  // Habit Change
+  const habitBullets = [];
+  if (pri === "Driven" || sec === "Driven") habitBullets.push("You start strong with new habits but risk burning out through over-intensity.");
+  if (pri === "Grounded" || sec === "Grounded") habitBullets.push("You sustain habits well once they're routinised — consistency is your strength.");
+  if (pri === "Curious" || sec === "Curious") habitBullets.push("You need to understand why a habit matters, or you'll silently drop it.");
+  if (["PerfectionParalysis","Overcontrol"].includes(tm0)) habitBullets.push("Perfectionism sabotages habit change — incomplete progress feels like failure.");
+  if (["DetachedSelfSoother","DetachedProtector"].includes(tm0)) habitBullets.push("Old comfort habits pull you back when stress rises — awareness is your first defence.");
+  if (nb.autonomy < -0.1) habitBullets.push("You may abandon habits that feel imposed rather than chosen — ownership matters.");
+  if (nb.competence < -0.1) habitBullets.push("Past failures at habit change may make you sceptical — start smaller than you think.");
+  if (ha > 4) habitBullets.push("Your Healthy Adult can anchor new habits if you frame them as choices, not obligations.");
+  blocks.push({ title:"When Trying to Change Habits", bullets: habitBullets.slice(0, 7) });
+
+  return blocks;
+}
+
+// ── GROWTH BLUEPRINT GENERATOR ──────────────────────────────────
+
+function generateGrowthBlueprint(r) {
   const topKey = r.topModes.length > 0 ? r.topModes[0].key : null;
-  const topScore = r.topModes.length > 0 ? r.topModes[0].score : 0;
-
-  // Determine growth lever
-  let lever = { title: "", actions: [], boundary: "", trap: "" };
+  const nb = r.needsBalance;
+  let weakestNeed = "autonomy", weakestVal = 2;
+  ["autonomy","competence","relatedness"].forEach(d => { if (nb[d] < weakestVal) { weakestVal = nb[d]; weakestNeed = d; } });
 
   const criticModes = ["PunitiveInnerCritic","DemandingParent","DemandingPressure"];
   const detachModes = ["DetachedProtector","DetachedWithdrawal","DetachedSelfSoother"];
@@ -671,444 +710,397 @@ function generateGrowthPath(r) {
   const controlModes = ["Overcontrol","PerfectionParalysis","DrivePressure"];
   const peopleModes = ["CompliantSurrender","NeedsInhibition","EmotionalInhibition"];
 
+  let lever = { title:"", explanation:"", actions:[], boundary:"", trap:"" };
   if (topKey && criticModes.includes(topKey)) {
-    lever = {
-      title: "Shift from punishment to standards + care",
-      actions: [
-        "Once a day, catch a self-critical thought and rewrite it as advice you'd give a friend.",
-        "After a mistake this week, say out loud: \"That was hard, and I'm still okay.\"",
-        "Each evening, name one thing you handled well — even something small."
-      ],
-      boundary: "\"I can hold myself to high standards without punishing myself for being human.\"",
-      trap: "Trying to be perfect at self-compassion — that's the same pattern in disguise."
-    };
+    lever = { title:"Shift from punishment to standards + care", explanation:`Your ${camelToWords(topKey)} pattern drives you hard, but punishing yourself for every misstep erodes resilience. The lever: keep the standards, soften the voice.`, actions:["Once a day, catch a self-critical thought and rewrite it as advice you'd give a friend.","After a mistake, say: \"That was hard, and I'm still okay.\"","Each evening, name one thing you handled well — even something small."], boundary:"\"I can hold myself to high standards without punishing myself for being human.\"", trap:"Trying to be perfect at self-compassion — that's the same pattern in disguise." };
   } else if (topKey && detachModes.includes(topKey)) {
-    lever = {
-      title: "Reconnect through small honesty",
-      actions: [
-        "Share one real feeling with someone this week — even just \"I had a hard day.\"",
-        "When you reach for a distraction, pause for 10 seconds and notice what you're avoiding.",
-        "Write down one emotion you felt today that you normally wouldn't name."
-      ],
-      boundary: "\"I can let someone see me without giving them everything.\"",
-      trap: "Confusing isolation with peace — detachment feels calm but keeps you stuck."
-    };
+    lever = { title:"Reconnect through small honesty", explanation:`Your ${camelToWords(topKey)} pattern shields you from pain by shutting down or numbing. The lever: start with tiny acts of emotional honesty — not big reveals.`, actions:["Share one real feeling with someone this week — even just \"I had a hard day.\"","When you reach for a distraction, pause for 10 seconds and notice what you're avoiding.","Write down one emotion you felt today that you normally wouldn't name."], boundary:"\"I can let someone see me without giving them everything.\"", trap:"Confusing isolation with peace — detachment feels calm but keeps you stuck." };
   } else if (topKey && anxiousModes.includes(topKey)) {
-    lever = {
-      title: "Calm the alarm before seeking reassurance",
-      actions: [
-        "When anxiety spikes, place a hand on your chest and take 3 slow breaths before reaching out.",
-        "Write down what you're actually afraid of — then ask: is this happening right now?",
-        "Practice waiting 20 minutes before sending a reassurance-seeking message."
-      ],
-      boundary: "\"I can feel anxious and still choose not to act from that place.\"",
-      trap: "Seeking constant reassurance — it soothes for a moment but reinforces the alarm."
-    };
+    lever = { title:"Calm the alarm before seeking reassurance", explanation:`Your ${camelToWords(topKey)} pattern keeps your threat-detection system on high alert. The lever: learn to soothe the alarm before acting on it.`, actions:["When anxiety spikes, place a hand on your chest and take 3 slow breaths before reaching out.","Write down what you're afraid of — then ask: is this actually happening right now?","Practice waiting 20 minutes before sending a reassurance-seeking message."], boundary:"\"I can feel anxious and still choose not to act from that place.\"", trap:"Seeking constant reassurance — it soothes momentarily but reinforces the alarm." };
   } else if (topKey && controlModes.includes(topKey)) {
-    lever = {
-      title: "Act at 70% clarity",
-      actions: [
-        "Start one task this week at 'good enough' instead of waiting for perfect conditions.",
-        "Set a 15-minute timer for a task you've been avoiding — stop when it rings, even if unfinished.",
-        "At day's end, write one thing you progressed on, even imperfectly."
-      ],
-      boundary: "\"I don't need certainty to begin. Starting is enough.\"",
-      trap: "Replacing one form of control with another — flexibility is the goal, not a new system."
-    };
+    lever = { title:"Act at 70% clarity", explanation:`Your ${camelToWords(topKey)} pattern demands certainty before action. The lever: learn to move before you're fully ready — momentum creates clarity faster than planning.`, actions:["Start one task this week at 'good enough' instead of waiting for perfect conditions.","Set a 15-minute timer for a task you've been avoiding — stop when it rings.","At day's end, write one thing you progressed on, even imperfectly."], boundary:"\"I don't need certainty to begin. Starting is enough.\"", trap:"Replacing one form of control with another — flexibility is the goal, not a new system." };
   } else if (topKey && peopleModes.includes(topKey)) {
-    lever = {
-      title: "Practise voicing one need per day",
-      actions: [
-        "Say \"I need a moment\" before automatically agreeing to something this week.",
-        "Identify one thing you did this week purely because you wanted to, not because someone expected it.",
-        "Write down one need you usually suppress and share it with someone safe."
-      ],
-      boundary: "\"Saying what I need is not selfish — it's honest.\"",
-      trap: "Swinging to the opposite extreme and being aggressive rather than assertive."
-    };
+    lever = { title:"Practise voicing one need per day", explanation:`Your ${camelToWords(topKey)} pattern keeps your needs hidden, prioritising others' comfort. The lever: start naming what you need — even silently at first.`, actions:["Say \"I need a moment\" before automatically agreeing to something.","Identify one thing you did purely because you wanted to, not because someone expected it.","Write down one need you usually suppress and share it with someone safe."], boundary:"\"Saying what I need is not selfish — it's honest.\"", trap:"Swinging to the opposite extreme — being aggressive rather than assertive." };
   } else {
-    // Fallback
-    lever = {
-      title: "Strengthen your Healthy Adult voice",
-      actions: [
-        "When a stress pattern shows up, name it: \"That's my [pattern], not my whole self.\"",
-        "Once a day, ask: \"What would my calmest, wisest self do right now?\"",
-        "Do one thing this week that aligns with how you want to live, not how you're expected to."
-      ],
-      boundary: "\"I'm allowed to respond differently than I always have.\"",
-      trap: "Expecting change to feel comfortable — growth often starts with mild discomfort."
-    };
+    lever = { title:"Strengthen your Healthy Adult voice", explanation:"Your stress patterns are relatively balanced, but strengthening your inner adult — the part that can observe without reacting — will make the biggest difference.", actions:["When a stress pattern shows up, name it: \"That's my [pattern], not my whole self.\"","Once a day, ask: \"What would my calmest self do right now?\"","Do one thing this week that aligns with how you want to live, not how you're expected to."], boundary:"\"I'm allowed to respond differently than I always have.\"", trap:"Expecting change to feel comfortable — growth often starts with mild discomfort." };
   }
 
-  return lever;
-}
-
-// ── REFLECTION PROMPTS GENERATOR ────────────────────────────────
-
-function generateReflectionPrompts(r) {
+  // Reflection prompts
   const prompts = [];
+  if (nb.autonomy < -0.1) prompts.push({ id:"bp-aut", text:"Where do you feel most pressured or controlled right now? What would 10% more choice look like?" });
+  if (nb.relatedness < -0.1) prompts.push({ id:"bp-rel", text:"When was the last time you felt truly seen? What made that moment different?" });
+  if (nb.competence < -0.1) prompts.push({ id:"bp-comp", text:"What challenge are you avoiding because you're afraid you'll fail? What would 'good enough' look like?" });
+  if (r.attachment.anxiety > 4.5) prompts.push({ id:"bp-anx", text:"When you feel the urge to check if someone still cares, what are you really looking for?" });
+  if (r.attachment.avoidance > 4.5) prompts.push({ id:"bp-avd", text:"Think of someone you trust. What would change if you let them see one thing you usually keep hidden?" });
+  const fallbackPrompts = [
+    { id:"bp-stress", text:"Think of the last time you felt overwhelmed. What was the first thing you did — was it a choice or a reflex?" },
+    { id:"bp-island", text:`Your primary pattern is ${r.primaryIsland}. When does it serve you, and when does it hold you back?` },
+    { id:"bp-adult", text:"Imagine your wisest self giving you advice. What would they say about this week?" }
+  ];
+  for (const fb of fallbackPrompts) { if (prompts.length >= 3) break; if (!prompts.find(p => p.id === fb.id)) prompts.push(fb); }
 
-  if (r.needs.autonomyBalance < -0.1)
-    prompts.push({ id: "ref-aut", text: "Where in your life right now do you feel most pressured or controlled? What would it look like to have even 10% more choice there?" });
-  if (r.needs.relatednessBalance < -0.1)
-    prompts.push({ id: "ref-rel", text: "When was the last time you felt truly seen by someone? What made that moment different from others?" });
-  if (r.needs.competenceBalance < -0.1)
-    prompts.push({ id: "ref-comp", text: "What challenge have you been avoiding because you're afraid you'll fail? What would 'good enough' look like for it?" });
-  if (r.attachment.anxiety > 4.5)
-    prompts.push({ id: "ref-anx", text: "When you feel the urge to check whether someone still cares, what are you really looking for? What would reassure the deeper need?" });
-  if (r.attachment.avoidance > 4.5)
-    prompts.push({ id: "ref-avd", text: "Think of someone you trust. What would change if you let them see one thing you usually keep hidden?" });
-
-  // If we have fewer than 3, add contextual ones
-  if (prompts.length < 3) {
-    const fallbacks = [
-      { id: "ref-stress", text: "Think of the last time you felt overwhelmed. What was the first thing you did? Was it a choice, or a reflex?" },
-      { id: "ref-island", text: `Your primary island is ${r.primaryIsland}. When does this pattern serve you well, and when does it hold you back?` },
-      { id: "ref-adult", text: "Imagine your wisest, calmest self giving you advice. What would they say about how this week went?" }
-    ];
-    for (const fb of fallbacks) {
-      if (prompts.length >= 3) break;
-      if (!prompts.find(p => p.id === fb.id)) prompts.push(fb);
-    }
-  }
-
-  return prompts.slice(0, 3);
-}
-
-// ── WORLD RECOMMENDATIONS ───────────────────────────────────────
-
-function generateWorldRecommendations(r) {
+  // Worlds
   const worlds = [];
-
-  // Reflection World
   let refReason = "Your patterns suggest depth of thought";
   if (r.topModes.length > 0) refReason = `Your ${camelToWords(r.topModes[0].key)} pattern would benefit from structured reflection`;
-  worlds.push({ name: "Reflection World", icon: "🪞", desc: "Guided journaling and inner dialogue exercises.", reason: refReason });
-
-  // History World
+  worlds.push({ name:"Reflection World", icon:"🪞", desc:"Guided journaling and inner dialogue exercises.", reason:refReason });
   let histReason = "Learning through stories builds pattern recognition";
-  if (r.primaryIsland === "Curious" || r.primaryIsland === "Sensitive") histReason = `As a ${r.primaryIsland} type, you naturally learn through understanding other people's stories`;
-  worlds.push({ name: "History World", icon: "📜", desc: "Wisdom through stories of real people who faced similar patterns.", reason: histReason });
+  if (r.primaryIsland === "Curious" || r.primaryIsland === "Sensitive") histReason = `As a ${r.primaryIsland} type, you learn naturally through other people's stories`;
+  worlds.push({ name:"History World", icon:"📜", desc:"Wisdom through stories of real people who faced similar patterns.", reason:histReason });
+  let decReason = "Practise making values-aligned choices under pressure";
+  if (nb.autonomy < 0) decReason = "Your under-nourished autonomy need means practising intentional decisions would help most";
+  worlds.push({ name:"Decision World", icon:"⚖️", desc:"Clarity through ethical dilemmas and scenario-based choices.", reason:decReason });
 
-  // Decision World
-  let decReason = "Practice making values-aligned choices under pressure";
-  if (r.needs.autonomyBalance < 0) decReason = "Your under-nourished autonomy need suggests practising intentional decisions would help";
-  else if (r.primaryIsland === "Driven" || r.primaryIsland === "Independent") decReason = `Your ${r.primaryIsland} style means you thrive when choices are clear and deliberate`;
-  worlds.push({ name: "Decision World", icon: "⚖️", desc: "Clarity through ethical dilemmas and scenario-based choices.", reason: decReason });
+  return { lever, prompts: prompts.slice(0, 3), worlds };
+}
 
-  return worlds;
+// ── CONNECTION LABEL ────────────────────────────────────────────
+
+function getConnectionLabel(anx, avd) {
+  if (anx <= 4 && avd <= 4) return { label:"Grounded Secure", desc:"You feel relatively comfortable with closeness and independence." };
+  if (anx > 4 && avd <= 4) return { label:"Reassurance-Seeking", desc:"You value connection deeply and notice quickly when it feels at risk." };
+  if (anx <= 4 && avd > 4) return { label:"Self-Protective", desc:"You safeguard your independence, sometimes keeping emotional walls up." };
+  return { label:"Guarded & Sensitive", desc:"You want closeness but something in you pulls back to stay safe." };
+}
+
+function getConnectionHelp(nb) {
+  let weakest = "autonomy", weakVal = 2;
+  ["autonomy","competence","relatedness"].forEach(d => { if (nb[d] < weakVal) { weakVal = nb[d]; weakest = d; } });
+  const helps = {
+    autonomy: ["Give yourself permission to choose differently — even small choices count","Notice where you're performing obligation vs genuine desire"],
+    competence: ["Start with challenges you can complete in under 15 minutes — stack small wins","Separate 'not good enough' feelings from actual evidence"],
+    relatedness: ["Initiate one honest moment with someone safe this week","Let yourself be seen before you feel ready — start small"]
+  };
+  return { need: weakest, tips: helps[weakest] || helps.autonomy };
 }
 
 // ── COPY SUMMARY ────────────────────────────────────────────────
 
 function buildTextSummary(r) {
   const conn = getConnectionLabel(r.attachment.anxiety, r.attachment.avoidance);
-  const topModesStr = r.topModes.map(m => camelToWords(m.key) + " (" + m.score.toFixed(1) + "/7)").join(", ");
-  return `TestYourGenius — My Result\n\nArchetype: ${r.archetype.name}\nPrimary Island: ${r.primaryIsland}\nSecondary Island: ${r.secondaryIsland}\nConfidence: ${r.confidence.level}\n\nNeeds Balance:\n  Autonomy: ${r.needs.autonomyBalance > 0 ? "+" : ""}${r.needs.autonomyBalance.toFixed(2)}\n  Competence: ${r.needs.competenceBalance > 0 ? "+" : ""}${r.needs.competenceBalance.toFixed(2)}\n  Relatedness: ${r.needs.relatednessBalance > 0 ? "+" : ""}${r.needs.relatednessBalance.toFixed(2)}\n\nConnection Style: ${conn.label}\n  Anxiety: ${r.attachment.anxiety.toFixed(1)}/7\n  Avoidance: ${r.attachment.avoidance.toFixed(1)}/7\n\nTop Stress Modes: ${topModesStr}\nHealthy Adult: ${r.modes.HealthyAdult.toFixed(1)}/7\nResilience: ${r.modes.Resilience.toFixed(1)}/7\n\nThis is not a diagnosis — it's a map for self-understanding.`;
+  const tm = r.topModes.map(m => camelToWords(m.key) + " (" + m.score.toFixed(1) + "/7)").join(", ");
+  return `TestYourGenius — My Report\n\nArchetype: ${r.archetypePrimary.name}\nPrimary Island: ${r.primaryIsland}\nSecondary Island: ${r.secondaryIsland}\nConfidence: ${r.confidence.level}\n\nNeeds Balance:\n  Autonomy: ${r.needsBalance.autonomy > 0 ? "+" : ""}${r.needsBalance.autonomy.toFixed(2)}\n  Competence: ${r.needsBalance.competence > 0 ? "+" : ""}${r.needsBalance.competence.toFixed(2)}\n  Relatedness: ${r.needsBalance.relatedness > 0 ? "+" : ""}${r.needsBalance.relatedness.toFixed(2)}\n\nConnection: ${conn.label}\n  Anxiety: ${r.attachment.anxiety.toFixed(1)}/7\n  Avoidance: ${r.attachment.avoidance.toFixed(1)}/7\n\nTop Stress Modes: ${tm}\nHealthy Adult: ${r.healthyAdult.toFixed(1)}/7 | Resilience: ${r.resilience.toFixed(1)}/7\n\nThis is not a diagnosis — it's a map for self-understanding.`;
 }
 
 // ── REFLECTION STORAGE ──────────────────────────────────────────
 
 const REFLECTION_KEY = "tyg_reflections";
+function loadReflections() { try { const d = localStorage.getItem(REFLECTION_KEY); return d ? JSON.parse(d) : {}; } catch(e) { return {}; } }
+function saveReflection(id, text) { const all = loadReflections(); all[id] = { text, timestamp: Date.now() }; try { localStorage.setItem(REFLECTION_KEY, JSON.stringify(all)); } catch(e) {} }
 
-function loadReflections() {
-  try { const d = localStorage.getItem(REFLECTION_KEY); return d ? JSON.parse(d) : {}; } catch(e) { return {}; }
-}
+// ── REPORT NAV SECTIONS ─────────────────────────────────────────
 
-function saveReflection(id, text) {
-  const all = loadReflections();
-  all[id] = { text, timestamp: Date.now() };
-  try { localStorage.setItem(REFLECTION_KEY, JSON.stringify(all)); } catch(e) { /* silent */ }
-}
+const REPORT_SECTIONS = [
+  { id:"sec-overview", label:"Overview", icon:"◉" },
+  { id:"sec-archetype", label:"Archetype", icon:"✦" },
+  { id:"sec-mind", label:"Mind", icon:"◎" },
+  { id:"sec-connection", label:"Connection", icon:"∞" },
+  { id:"sec-stress", label:"Stress", icon:"⚡" },
+  { id:"sec-context", label:"In Context", icon:"◈" },
+  { id:"sec-growth", label:"Growth", icon:"↗" },
+];
 
-// ── RENDER RESULTS ──────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════
+//  RENDER REPORT
+// ══════════════════════════════════════════════════════════════════
 
 function renderResults() {
   progressBar.style.display = "none";
   footerEl.style.display = "none";
+  document.getElementById("assessment-app").classList.add("report-mode");
 
   const raw = computeResults();
   const r = normalizeResults(raw);
-  const whyBullets = generateWhyBullets(r);
-  const growth = generateGrowthPath(r);
-  const prompts = generateReflectionPrompts(r);
-  const worlds = generateWorldRecommendations(r);
+  const mind = computeMindOrientation(r);
   const connStyle = getConnectionLabel(r.attachment.anxiety, r.attachment.avoidance);
+  const connHelp = getConnectionHelp(r.needsBalance);
+  const context = generateYouInContext(r);
+  const blueprint = generateGrowthBlueprint(r);
   const savedReflections = loadReflections();
+  const arch = ARCHETYPE_NARRATIVES[r.primaryIsland] || ARCHETYPE_NARRATIVES.Grounded;
 
-  // ── A) RESULT HERO ──
-
-  let heroHtml = `
-    <section class="rp-hero">
-      <p class="rp-hero-label">Your Result</p>
-      <h1 class="rp-archetype-name">${r.archetype.name}</h1>
-      <p class="rp-hero-subtitle">A map of your patterns — not a diagnosis.</p>
-      <div class="rp-pills">
-        <span class="rp-pill rp-pill--primary">${r.primaryIsland}</span>
-        <span class="rp-pill rp-pill--secondary">${r.secondaryIsland}</span>
-      </div>
-      <div class="rp-confidence">
-        <span class="rp-confidence-badge rp-confidence-badge--${r.confidence.level.toLowerCase()}">${r.confidence.level} Confidence</span>
-        <button class="rp-confidence-why" aria-expanded="false" aria-controls="confidence-detail">Why?</button>
-      </div>
-      <div class="rp-confidence-detail" id="confidence-detail" hidden>
-        <p>${r.confidence.reason}</p>
-      </div>
-    </section>`;
-
-  // ── B) WHY THIS FITS ──
-
-  let whyHtml = `<section class="rp-section"><h2 class="rp-section-title">Why This Fits</h2><div class="rp-why-list">`;
-  whyBullets.forEach(b => {
-    whyHtml += `
-      <div class="rp-why-item">
-        <span class="rp-why-icon">${b.icon}</span>
-        <div>
-          <strong>${b.title}</strong>
-          <p class="rp-why-desc">${b.desc}</p>
-        </div>
-      </div>`;
-  });
-  whyHtml += `</div></section>`;
-
-  // ── C) INNER MAP DASHBOARD ──
-
-  function needsMeter(label, balance) {
-    const pct = ((balance + 1) / 2) * 100;
-    const thumbPct = Math.max(2, Math.min(98, pct));
-    return `
-      <div class="rp-meter-row">
-        <span class="rp-meter-label">${label}</span>
-        <div class="rp-meter-track">
-          <div class="rp-meter-center"></div>
-          <div class="rp-meter-thumb" style="left:${thumbPct}%"></div>
-        </div>
-        <div class="rp-meter-ends"><span>Drain</span><span>Fuel</span></div>
-      </div>`;
-  }
-
+  // helpers
   const needsDims = ["autonomy","competence","relatedness"];
-  const needsLabels = { autonomy:"Autonomy", competence:"Competence", relatedness:"Relatedness" };
-  let lowestNeed = needsDims[0], lowestVal = 2;
-  needsDims.forEach(d => { if (r.needs[d+"Balance"] < lowestVal) { lowestVal = r.needs[d+"Balance"]; lowestNeed = d; } });
-  const underfedNote = lowestVal < 0 ? `<p class="rp-underfed">Most underfed: <strong>${needsLabels[lowestNeed]}</strong></p>` : `<p class="rp-underfed rp-underfed--good">All needs relatively met</p>`;
+  const needsLabelsMap = { autonomy:"Autonomy", competence:"Competence", relatedness:"Relatedness" };
+  let highestNeed = needsDims[0], highestVal = -2, lowestNeed = needsDims[0], lowestVal = 2;
+  needsDims.forEach(d => {
+    if (r.needsBalance[d] > highestVal) { highestVal = r.needsBalance[d]; highestNeed = d; }
+    if (r.needsBalance[d] < lowestVal) { lowestVal = r.needsBalance[d]; lowestNeed = d; }
+  });
 
-  let needsCardHtml = `
-    <div class="rp-map-card">
-      <h3 class="rp-map-card-title">Needs Map</h3>
-      ${needsMeter("Autonomy", r.needs.autonomyBalance)}
-      ${needsMeter("Competence", r.needs.competenceBalance)}
-      ${needsMeter("Relatedness", r.needs.relatednessBalance)}
-      ${underfedNote}
-    </div>`;
+  // ── Build sidebar ──
+  let sidebarHtml = `<nav class="rpt-sidebar" id="rpt-sidebar" role="navigation" aria-label="Report sections"><ul>`;
+  REPORT_SECTIONS.forEach((s, i) => {
+    sidebarHtml += `<li><a href="#${s.id}" class="rpt-nav-link${i === 0 ? ' active' : ''}" data-section="${s.id}"><span class="rpt-nav-icon">${s.icon}</span><span class="rpt-nav-text">${s.label}</span></a></li>`;
+  });
+  sidebarHtml += `</ul></nav>`;
 
-  function attachMeter(label, val) {
-    const pct = Math.max(2, Math.min(98, (val / 7) * 100));
-    return `
-      <div class="rp-meter-row">
-        <span class="rp-meter-label">${label}</span>
-        <div class="rp-meter-track rp-meter-track--simple">
-          <div class="rp-meter-fill" style="width:${pct}%"></div>
+  // ── Build mobile tabs ──
+  let tabsHtml = `<div class="rpt-tabs" id="rpt-tabs" role="tablist" aria-label="Report sections">`;
+  REPORT_SECTIONS.forEach((s, i) => {
+    tabsHtml += `<button class="rpt-tab${i === 0 ? ' active' : ''}" data-section="${s.id}" role="tab" aria-selected="${i === 0}">${s.label}</button>`;
+  });
+  tabsHtml += `</div>`;
+
+  // ── SECTION 1: OVERVIEW ──
+  const fuelLabel = needsLabelsMap[highestNeed];
+  const drainLabel = needsLabelsMap[lowestNeed];
+  const topModeLabel = r.topModes.length > 0 ? camelToWords(r.topModes[0].key) : "—";
+
+  let s1 = `<section class="rpt-section" id="sec-overview">
+    <div class="rpt-hero">
+      <p class="rpt-hero-label">Your Report</p>
+      <h1 class="rpt-hero-name">${r.archetypePrimary.name}</h1>
+      <p class="rpt-hero-sub">A map of patterns — not a diagnosis.</p>
+      <div class="rpt-pills"><span class="rpt-pill rpt-pill--pri">${r.primaryIsland}</span><span class="rpt-pill rpt-pill--sec">${r.secondaryIsland}</span></div>
+      <div class="rpt-confidence">
+        <span class="rpt-badge rpt-badge--${r.confidence.level.toLowerCase()}">${r.confidence.level} Confidence</span>
+        <button class="rpt-acc-toggle rpt-conf-why" aria-expanded="false" data-target="conf-detail">Why?</button>
+      </div>
+      <div class="rpt-acc-body" id="conf-detail" hidden><p>${r.confidence.reason}</p></div>
+    </div>
+    <div class="rpt-highlights">
+      <div class="rpt-hl-card rpt-hl-card--fuel"><span class="rpt-hl-icon">⚡</span><span class="rpt-hl-label">Strongest Fuel</span><strong>${fuelLabel}</strong></div>
+      <div class="rpt-hl-card rpt-hl-card--drain"><span class="rpt-hl-icon">🩸</span><span class="rpt-hl-label">Main Drain</span><strong>${drainLabel}</strong></div>
+      <div class="rpt-hl-card rpt-hl-card--stress"><span class="rpt-hl-icon">🛡️</span><span class="rpt-hl-label">Top Stress Mode</span><strong>${topModeLabel}</strong></div>
+    </div>
+  </section>`;
+
+  // ── SECTION 2: ARCHETYPE & INFLUENCES ──
+  let s2 = `<section class="rpt-section" id="sec-archetype">
+    <h2 class="rpt-title">Archetype &amp; Influences</h2>
+    <div class="rpt-arch-primary">
+      <h3 class="rpt-arch-name">${r.archetypePrimary.name}</h3>
+      <p class="rpt-arch-narrative">${arch.narrative}</p>
+      <div class="rpt-arch-cols">
+        <div class="rpt-arch-col">
+          <h4>Strengths</h4><ul>${arch.strengths.map(s => `<li>${s}</li>`).join("")}</ul>
         </div>
-        <span class="rp-meter-value">${val.toFixed(1)}</span>
-      </div>`;
+        <div class="rpt-arch-col rpt-arch-col--growth">
+          <h4>Growth Needs</h4><ul>${arch.growth.map(s => `<li>${s}</li>`).join("")}</ul>
+        </div>
+      </div>
+    </div>
+    <h3 class="rpt-subtitle">Secondary Influences</h3>
+    <div class="rpt-influences">`;
+  r.archetypeSecondary.forEach(inf => {
+    s2 += `<div class="rpt-influence-card"><h4>${inf.name}</h4><p>${inf.reason}</p></div>`;
+  });
+  s2 += `</div></section>`;
+
+  // ── SECTION 3: MIND ORIENTATION ──
+  function dualMeter(item) {
+    return `<div class="rpt-meter-dual"><span class="rpt-meter-edge">${item.leftLabel}</span><div class="rpt-meter-track"><div class="rpt-meter-thumb" style="left:${item.value}%"></div><div class="rpt-meter-mid"></div></div><span class="rpt-meter-edge">${item.rightLabel}</span></div>`;
+  }
+  function singleMeter(item) {
+    const lvl = meterLevel(item.value);
+    return `<div class="rpt-meter-single"><div class="rpt-meter-info"><span>${item.label}</span><span class="rpt-meter-lvl">${lvl} · ${item.value}%</span></div><div class="rpt-meter-track rpt-meter-track--fill"><div class="rpt-meter-bar" style="width:${item.value}%"></div></div></div>`;
   }
 
-  let connectionCardHtml = `
-    <div class="rp-map-card">
-      <h3 class="rp-map-card-title">Connection Style</h3>
-      ${attachMeter("Anxiety", r.attachment.anxiety)}
-      ${attachMeter("Avoidance", r.attachment.avoidance)}
-      <div class="rp-conn-label">
-        <strong>${connStyle.label}</strong>
-        <p>${connStyle.desc}</p>
+  let s3 = `<section class="rpt-section" id="sec-mind">
+    <h2 class="rpt-title">Mind Orientation</h2>
+    <div class="rpt-mind-grid">
+      <div class="rpt-card"><h4>Thinking Style</h4>${mind.thinking.map(dualMeter).join("")}</div>
+      <div class="rpt-card"><h4>Drive &amp; Standards</h4>${mind.drive.map(singleMeter).join("")}</div>
+      <div class="rpt-card"><h4>Emotional Texture</h4>${mind.emotional.map(singleMeter).join("")}</div>
+    </div>
+  </section>`;
+
+  // ── SECTION 4: CONNECTION & NEEDS ──
+  function balanceMeter(label, balance) {
+    const pct = Math.max(2, Math.min(98, ((balance + 1) / 2) * 100));
+    return `<div class="rpt-bal-row"><span class="rpt-bal-label">${label}</span><div class="rpt-meter-track"><div class="rpt-meter-mid"></div><div class="rpt-meter-thumb" style="left:${pct}%"></div></div><div class="rpt-bal-ends"><span>Drain</span><span>Fuel</span></div></div>`;
+  }
+  function attachBar(label, val) {
+    const pct = Math.max(2, Math.min(98, (val / 7) * 100));
+    return `<div class="rpt-meter-single"><div class="rpt-meter-info"><span>${label}</span><span class="rpt-meter-lvl">${val.toFixed(1)} / 7</span></div><div class="rpt-meter-track rpt-meter-track--fill"><div class="rpt-meter-bar" style="width:${pct}%"></div></div></div>`;
+  }
+
+  let s4 = `<section class="rpt-section" id="sec-connection">
+    <h2 class="rpt-title">Connection &amp; Needs</h2>
+    <div class="rpt-conn-grid">
+      <div class="rpt-card"><h4>Needs Balance</h4>${balanceMeter("Autonomy", r.needsBalance.autonomy)}${balanceMeter("Competence", r.needsBalance.competence)}${balanceMeter("Relatedness", r.needsBalance.relatedness)}</div>
+      <div class="rpt-card"><h4>Connection Style</h4>${attachBar("Anxiety", r.attachment.anxiety)}${attachBar("Avoidance", r.attachment.avoidance)}<div class="rpt-conn-type"><strong>${connStyle.label}</strong><p>${connStyle.desc}</p></div></div>
+    </div>
+    <div class="rpt-card rpt-card--help"><h4>What Helps You Most</h4><p class="rpt-help-need">Your most under-nourished need: <strong>${needsLabelsMap[connHelp.need]}</strong></p><ul>${connHelp.tips.map(t => `<li>${t}</li>`).join("")}</ul></div>
+  </section>`;
+
+  // ── SECTION 5: STRESS PATTERNS ──
+  let s5 = `<section class="rpt-section" id="sec-stress">
+    <h2 class="rpt-title">Stress Patterns</h2><div class="rpt-stress-list">`;
+  r.topModes.forEach(m => {
+    const d = MODE_DESC[m.key] || { when:"activate a protective pattern", protects:"Attempts to keep you safe.", cost:"Has long-term side effects." };
+    const pct = Math.max(2, Math.min(98, (m.score / 7) * 100));
+    s5 += `<div class="rpt-card rpt-stress-card">
+      <div class="rpt-stress-top"><span class="rpt-stress-name">${camelToWords(m.key)}</span><span class="rpt-stress-score">${m.score.toFixed(1)}/7</span></div>
+      <div class="rpt-meter-track rpt-meter-track--fill"><div class="rpt-meter-bar rpt-meter-bar--stress" style="width:${pct}%"></div></div>
+      <p class="rpt-stress-line"><em>When stressed:</em> ${d.when}.</p>
+      <p class="rpt-stress-line"><em>What it protects:</em> ${d.protects}</p>
+      <p class="rpt-stress-line"><em>Cost:</em> ${d.cost}</p>
+    </div>`;
+  });
+  s5 += `</div><div class="rpt-healthy-row">
+    <div class="rpt-healthy-item"><span>Healthy Adult</span><strong>${r.healthyAdult.toFixed(1)}<small>/7</small></strong></div>
+    <div class="rpt-healthy-item"><span>Resilience</span><strong>${r.resilience.toFixed(1)}<small>/7</small></strong></div>
+  </div></section>`;
+
+  // ── SECTION 6: YOU IN CONTEXT ──
+  let s6 = `<section class="rpt-section" id="sec-context"><h2 class="rpt-title">You in Context</h2>`;
+  context.forEach((block, i) => {
+    s6 += `<div class="rpt-acc">
+      <button class="rpt-acc-toggle" aria-expanded="${i === 0 ? 'true' : 'false'}" data-target="ctx-${i}">${block.title}</button>
+      <div class="rpt-acc-body" id="ctx-${i}" ${i === 0 ? '' : 'hidden'}>
+        <ul>${block.bullets.map(b => `<li>${b}</li>`).join("")}</ul>
       </div>
     </div>`;
-
-  let stressCardHtml = `<div class="rp-map-card"><h3 class="rp-map-card-title">Stress Modes</h3>`;
-  r.topModes.forEach(m => {
-    const pct = Math.max(2, Math.min(98, (m.score / 7) * 100));
-    const desc = MODE_DESC[m.key] || "activate a protective pattern";
-    stressCardHtml += `
-      <div class="rp-stress-item">
-        <div class="rp-stress-header">
-          <span class="rp-stress-name">${camelToWords(m.key)}</span>
-          <span class="rp-stress-score">${m.score.toFixed(1)}</span>
-        </div>
-        <div class="rp-meter-track rp-meter-track--simple">
-          <div class="rp-meter-fill rp-meter-fill--stress" style="width:${pct}%"></div>
-        </div>
-        <p class="rp-stress-desc">When stressed, you tend to ${desc}.</p>
-      </div>`;
   });
-  stressCardHtml += `
-    <div class="rp-healthy-row">
-      <div class="rp-healthy-item"><span>Healthy Adult</span><strong>${r.modes.HealthyAdult.toFixed(1)}</strong></div>
-      <div class="rp-healthy-item"><span>Resilience</span><strong>${r.modes.Resilience.toFixed(1)}</strong></div>
+  s6 += `</section>`;
+
+  // ── SECTION 7: GROWTH BLUEPRINT ──
+  let s7 = `<section class="rpt-section" id="sec-growth">
+    <h2 class="rpt-title">Growth Blueprint</h2>
+    <div class="rpt-card rpt-growth-card">
+      <span class="rpt-growth-tag">7-Day Reset</span>
+      <h3>${blueprint.lever.title}</h3>
+      <p class="rpt-growth-exp">${blueprint.lever.explanation}</p>
+      <div class="rpt-growth-trap"><strong>⚠ Trap to Avoid:</strong> ${blueprint.lever.trap}</div>
+      <h4>3 Micro-Actions</h4>
+      <ol class="rpt-growth-actions">${blueprint.lever.actions.map(a => `<li>${a}</li>`).join("")}</ol>
+      <h4>Boundary Script</h4>
+      <blockquote class="rpt-growth-bq">${blueprint.lever.boundary}</blockquote>
     </div>
-  </div>`;
-
-  let mapHtml = `
-    <section class="rp-section">
-      <h2 class="rp-section-title">Your Inner Map</h2>
-      <div class="rp-map-grid">
-        ${needsCardHtml}
-        ${connectionCardHtml}
-        ${stressCardHtml}
-      </div>
-    </section>`;
-
-  // ── D) GROWTH PATH ──
-
-  let growthHtml = `
-    <section class="rp-section">
-      <h2 class="rp-section-title">Your 7-Day Reset</h2>
-      <div class="rp-growth-card">
-        <div class="rp-growth-lever">
-          <span class="rp-growth-lever-tag">Growth Lever</span>
-          <h3>${growth.title}</h3>
-        </div>
-        <div class="rp-growth-actions">
-          <h4>3 Micro-Actions</h4>
-          <ol class="rp-growth-list">
-            ${growth.actions.map(a => `<li>${a}</li>`).join("")}
-          </ol>
-        </div>
-        <div class="rp-growth-boundary">
-          <h4>Boundary to Practise</h4>
-          <blockquote>${growth.boundary}</blockquote>
-        </div>
-        <div class="rp-growth-trap">
-          <h4>⚠ Avoid This Trap</h4>
-          <p>${growth.trap}</p>
-        </div>
-      </div>
-    </section>`;
-
-  // ── E) REFLECTION PROMPTS ──
-
-  let promptsHtml = `
-    <section class="rp-section">
-      <h2 class="rp-section-title">Reflection Prompts</h2>
-      <div class="rp-prompts-grid">`;
-  prompts.forEach((p, idx) => {
+    <h3 class="rpt-subtitle">Reflection Prompts</h3>
+    <div class="rpt-prompts">`;
+  blueprint.prompts.forEach(p => {
     const saved = savedReflections[p.id];
-    promptsHtml += `
-        <div class="rp-prompt-card">
-          <p class="rp-prompt-text">${p.text}</p>
-          <button class="rp-prompt-toggle" data-prompt-id="${p.id}" aria-expanded="${saved ? 'true' : 'false'}">
-            ${saved ? 'Edit Response' : 'Write a Response'}
-          </button>
-          <div class="rp-prompt-editor" id="editor-${p.id}" ${saved ? '' : 'hidden'}>
-            <textarea class="rp-prompt-textarea" data-prompt-id="${p.id}" placeholder="Write freely — this stays on your device…">${saved ? saved.text : ''}</textarea>
-            <button class="rp-prompt-save" data-prompt-id="${p.id}">Save</button>
-          </div>
-        </div>`;
-  });
-  promptsHtml += `</div></section>`;
-
-  // ── F) WORLDS CTA ──
-
-  let worldsHtml = `
-    <section class="rp-section">
-      <h2 class="rp-section-title">Where to Go Next</h2>
-      <div class="rp-worlds-grid">`;
-  worlds.forEach(w => {
-    worldsHtml += `
-        <div class="rp-world-card">
-          <span class="rp-world-icon">${w.icon}</span>
-          <h4>${w.name}</h4>
-          <p class="rp-world-desc">${w.desc}</p>
-          <p class="rp-world-reason">Best for you because: ${w.reason}</p>
-          <button class="rp-world-btn" onclick="alert('Coming soon — this world is being built.')">Explore</button>
-        </div>`;
-  });
-  worldsHtml += `</div></section>`;
-
-  // ── G) SHARE / SAVE ──
-
-  let footerHtml = `
-    <section class="rp-section rp-footer-section">
-      <div class="rp-footer-actions">
-        <button class="rp-action-btn rp-action-btn--disabled" disabled>Download PDF — coming soon</button>
-        <button class="rp-action-btn" id="btn-copy-result">Copy My Result</button>
-        <button class="rp-action-btn rp-action-btn--muted" id="btn-retake">Retake Assessment</button>
+    s7 += `<div class="rpt-prompt-card">
+      <p>${p.text}</p>
+      <button class="rpt-prompt-btn" data-prompt-id="${p.id}" aria-expanded="${saved ? 'true' : 'false'}">${saved ? 'Edit Response' : 'Write a Response'}</button>
+      <div class="rpt-prompt-editor" id="ed-${p.id}" ${saved ? '' : 'hidden'}>
+        <textarea class="rpt-prompt-ta" data-prompt-id="${p.id}" placeholder="Write freely — stays on your device…">${saved ? saved.text : ''}</textarea>
+        <button class="rpt-prompt-save" data-prompt-id="${p.id}">Save</button>
       </div>
-      <p class="rp-footer-note">Your data stays on this device. Nothing is sent anywhere.</p>
-    </section>`;
+    </div>`;
+  });
+  s7 += `</div>
+    <h3 class="rpt-subtitle">Where to Go Next</h3>
+    <div class="rpt-worlds">`;
+  blueprint.worlds.forEach(w => {
+    s7 += `<div class="rpt-world-card"><span class="rpt-world-icon">${w.icon}</span><h4>${w.name}</h4><p>${w.desc}</p><p class="rpt-world-reason">Best for you because: ${w.reason}</p><button class="rpt-world-btn" onclick="alert('Coming soon.')">Explore</button></div>`;
+  });
+  s7 += `</div>
+    <div class="rpt-footer-actions">
+      <button class="rpt-action-btn" disabled>Export PDF — coming soon</button>
+      <button class="rpt-action-btn" id="btn-copy-result">Copy Summary</button>
+      <button class="rpt-action-btn rpt-action-btn--muted" id="btn-retake">Retake Assessment</button>
+    </div>
+    <p class="rpt-footer-note">Your data stays on this device. Nothing is sent anywhere.</p>
+  </section>`;
 
   // ── ASSEMBLE ──
+  const mainHtml = `${tabsHtml}${sidebarHtml}<main class="rpt-main" id="rpt-main">${s1}${s2}${s3}${s4}${s5}${s6}${s7}</main>`;
 
-  const fullHtml = `
-    <div class="rp-container fade-enter" id="qcard">
-      ${heroHtml}
-      ${whyHtml}
-      ${mapHtml}
-      ${growthHtml}
-      ${promptsHtml}
-      ${worldsHtml}
-      ${footerHtml}
-    </div>`;
-
-  bodyEl.innerHTML = fullHtml;
+  bodyEl.innerHTML = mainHtml;
   bodyEl.scrollTop = 0;
   window.scrollTo(0, 0);
 
-  // Fade in
-  requestAnimationFrame(() => {
-    const card = document.getElementById("qcard");
-    if (card) { card.classList.remove("fade-enter"); card.classList.add("fade-active"); }
+  // ── EVENT BINDINGS ──
+  bindReportEvents(r);
+}
+
+function bindReportEvents(r) {
+  // Accordion toggles
+  document.querySelectorAll(".rpt-acc-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const targetId = btn.dataset.target;
+      const body = document.getElementById(targetId);
+      if (!body) return;
+      const expanded = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", !expanded);
+      body.hidden = expanded;
+    });
   });
 
-  // ── EVENT BINDINGS ──
-
-  // Confidence "Why?"
-  const whyBtn = bodyEl.querySelector(".rp-confidence-why");
-  if (whyBtn) {
-    whyBtn.addEventListener("click", () => {
-      const detail = document.getElementById("confidence-detail");
-      const expanded = whyBtn.getAttribute("aria-expanded") === "true";
-      whyBtn.setAttribute("aria-expanded", !expanded);
-      detail.hidden = expanded;
+  // Sidebar navigation
+  const sidebar = document.getElementById("rpt-sidebar");
+  const main = document.getElementById("rpt-main");
+  if (sidebar && main) {
+    sidebar.querySelectorAll(".rpt-nav-link").forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        const secId = link.dataset.section;
+        const sec = document.getElementById(secId);
+        if (sec) {
+          sec.scrollIntoView({ behavior: "smooth", block: "start" });
+          sidebar.querySelectorAll(".rpt-nav-link").forEach(l => l.classList.remove("active"));
+          link.classList.add("active");
+          document.querySelectorAll(".rpt-tab").forEach(t => { t.classList.toggle("active", t.dataset.section === secId); t.setAttribute("aria-selected", t.dataset.section === secId); });
+        }
+      });
     });
   }
 
+  // Mobile tabs
+  document.querySelectorAll(".rpt-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      const secId = tab.dataset.section;
+      const sec = document.getElementById(secId);
+      if (sec) {
+        sec.scrollIntoView({ behavior: "smooth", block: "start" });
+        document.querySelectorAll(".rpt-tab").forEach(t => { t.classList.remove("active"); t.setAttribute("aria-selected", false); });
+        tab.classList.add("active"); tab.setAttribute("aria-selected", true);
+        if (sidebar) sidebar.querySelectorAll(".rpt-nav-link").forEach(l => l.classList.toggle("active", l.dataset.section === secId));
+      }
+    });
+  });
+
+  // Scroll spy
+  if (main) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          document.querySelectorAll(".rpt-nav-link").forEach(l => l.classList.toggle("active", l.dataset.section === id));
+          document.querySelectorAll(".rpt-tab").forEach(t => { t.classList.toggle("active", t.dataset.section === id); t.setAttribute("aria-selected", t.dataset.section === id); });
+          // scroll tab into view
+          const activeTab = document.querySelector(`.rpt-tab[data-section="${id}"]`);
+          if (activeTab) activeTab.scrollIntoView({ behavior:"smooth", block:"nearest", inline:"center" });
+        }
+      });
+    }, { rootMargin:"-20% 0px -70% 0px", threshold: 0 });
+    REPORT_SECTIONS.forEach(s => { const el = document.getElementById(s.id); if (el) observer.observe(el); });
+  }
+
   // Reflection prompts
-  bodyEl.querySelectorAll(".rp-prompt-toggle").forEach(btn => {
+  document.querySelectorAll(".rpt-prompt-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       const pid = btn.dataset.promptId;
-      const editor = document.getElementById("editor-" + pid);
+      const editor = document.getElementById("ed-" + pid);
       const expanded = btn.getAttribute("aria-expanded") === "true";
       btn.setAttribute("aria-expanded", !expanded);
       editor.hidden = expanded;
       if (!expanded) editor.querySelector("textarea").focus();
     });
   });
-
-  bodyEl.querySelectorAll(".rp-prompt-save").forEach(btn => {
+  document.querySelectorAll(".rpt-prompt-save").forEach(btn => {
     btn.addEventListener("click", () => {
       const pid = btn.dataset.promptId;
-      const ta = bodyEl.querySelector(`textarea[data-prompt-id="${pid}"]`);
+      const ta = document.querySelector(`textarea[data-prompt-id="${pid}"]`);
       saveReflection(pid, ta.value);
-      btn.textContent = "Saved ✓";
-      setTimeout(() => { btn.textContent = "Save"; }, 1500);
+      btn.textContent = "Saved ✓"; setTimeout(() => { btn.textContent = "Save"; }, 1500);
     });
   });
 
-  // Copy result
+  // Copy
   const copyBtn = document.getElementById("btn-copy-result");
   if (copyBtn) {
     copyBtn.addEventListener("click", () => {
       const summary = buildTextSummary(r);
       navigator.clipboard.writeText(summary).then(() => {
-        copyBtn.textContent = "Copied ✓";
-        setTimeout(() => { copyBtn.textContent = "Copy My Result"; }, 2000);
+        copyBtn.textContent = "Copied ✓"; setTimeout(() => { copyBtn.textContent = "Copy Summary"; }, 2000);
       }).catch(() => {
-        // Fallback
-        const ta = document.createElement("textarea");
-        ta.value = summary; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
-        copyBtn.textContent = "Copied ✓";
-        setTimeout(() => { copyBtn.textContent = "Copy My Result"; }, 2000);
+        const ta = document.createElement("textarea"); ta.value = summary; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+        copyBtn.textContent = "Copied ✓"; setTimeout(() => { copyBtn.textContent = "Copy Summary"; }, 2000);
       });
     });
   }
@@ -1117,8 +1109,8 @@ function renderResults() {
   const retakeBtn = document.getElementById("btn-retake");
   if (retakeBtn) {
     retakeBtn.addEventListener("click", () => {
-      clearProgress();
-      renderRouter();
+      document.getElementById("assessment-app").classList.remove("report-mode");
+      clearProgress(); renderRouter();
     });
   }
 }
