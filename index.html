@@ -11,6 +11,15 @@
 </head>
 <body>
 
+  <!-- Preloader -->
+  <div id="preloader" class="preloader">
+    <div class="preloader__ring"></div>
+    <div class="preloader__dot preloader__dot--1"></div>
+    <div class="preloader__dot preloader__dot--2"></div>
+    <div class="preloader__dot preloader__dot--3"></div>
+    <span class="preloader__text">TestYourGenius</span>
+  </div>
+
   <!-- Navbar -->
   <nav class="navbar" role="navigation" aria-label="Main navigation">
     <div class="navbar-inner">
@@ -21,28 +30,26 @@
         <li><a href="assessment.html">Start Assessment</a></li>
         <li><a href="assessment.html" class="navbar-cta">Start the Journey</a></li>
       </ul>
-      <button class="hamburger" aria-expanded="false" aria-controls="mobile-nav" aria-label="Toggle menu">
+      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
-  <div class="mobile-nav" id="mobile-nav" role="navigation" aria-label="Mobile navigation">
+  <nav id="mobile-menu" class="mobile-menu" role="navigation" aria-label="Mobile navigation">
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="about-test.html">About the Test</a></li>
       <li><a href="assessment.html">Start Assessment</a></li>
       <li><a href="assessment.html" class="navbar-cta" style="display:inline-block;text-align:center;margin-top:var(--space-2);">Start the Journey</a></li>
     </ul>
-  </div>
+  </nav>
 
   <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-media">
-      <video class="hero-video" autoplay muted loop playsinline preload="metadata">
-        <source src="assets/videos/homepage/hero.mp4" type="video/mp4" />
-      </video>
-      <div class="hero-overlay"></div>
-    </div>
+  <section class="hero hero--video">
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata">
+      <source src="assets/videos/homepage/hero.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-overlay"></div>
     <div class="hero-content">
       <h1 class="hero-title heading-xl">
         Understand Your Mind.<br>Grow With Clarity.
@@ -121,6 +128,69 @@
     </div>
   </section>
 
+  <!-- Worlds -->
+  <section class="worlds-section section section-large">
+    <div class="container">
+      <h2 class="heading-lg text-center mb-4">Beyond Insight. Enter Your Worlds.</h2>
+      <p class="text-muted text-center mb-8" style="max-width:640px;margin-left:auto;margin-right:auto;">Your result is only the beginning. Each world trains a different dimension of intelligence.</p>
+      <div class="worlds-grid">
+        <div class="world-card">
+          <div class="world-video-wrapper">
+            <video autoplay muted loop playsinline preload="metadata">
+              <source src="assets/videos/worlds/world-mirror.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="world-card-body">
+            <h3>Self Awareness</h3>
+            <p>Revisit your patterns, track emotional shifts, and deepen your relationship with yourself over time.</p>
+            <a href="#" class="btn-primary world-btn">Enter Mirror</a>
+          </div>
+        </div>
+        <div class="world-card">
+          <div class="world-video-wrapper">
+            <video autoplay muted loop playsinline preload="metadata">
+              <source src="assets/videos/worlds/world-decision.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="world-card-body">
+            <h3>Decision Intelligence</h3>
+            <p>Practice high-stakes reasoning through adaptive scenarios calibrated to your cognitive style.</p>
+            <a href="#" class="btn-primary world-btn">Enter Decision</a>
+          </div>
+        </div>
+        <div class="world-card">
+          <div class="world-video-wrapper">
+            <video autoplay muted loop playsinline preload="metadata">
+              <source src="assets/videos/worlds/world-history.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="world-card-body">
+            <h3>Historical Insight</h3>
+            <p>Walk through the minds of history's greatest thinkers and discover who you think like — and why.</p>
+            <a href="#" class="btn-primary world-btn">Enter History</a>
+          </div>
+        </div>
+      </div>
+      <div class="worlds-progression">
+        <span>Test</span>
+        <span class="worlds-prog-line"></span>
+        <span>Insight</span>
+        <span class="worlds-prog-line"></span>
+        <span>Practice</span>
+        <span class="worlds-prog-line"></span>
+        <span class="worlds-prog-active">Evolution</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research -->
+  <section class="research-section section section-large">
+    <div class="container-narrow text-center">
+      <h2 class="heading-lg mb-5">Built on Psychological &amp; Cognitive Research</h2>
+      <p class="text-muted">Every question, scoring algorithm, and archetype model in TestYourGenius is rooted in established frameworks from cognitive psychology, attachment theory, schema therapy, and behavioral neuroscience. This isn't a personality quiz — it's a structured instrument designed to surface meaningful self-knowledge with clinical-grade intentionality.</p>
+    </div>
+  </section>
+
   <!-- Trust / Ethics -->
   <section class="section trust-section">
     <div class="container-narrow text-center">
@@ -180,5 +250,6 @@
   </footer>
 
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/preloader.js"></script>
 </body>
 </html>

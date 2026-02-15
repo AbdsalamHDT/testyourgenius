@@ -20,18 +20,18 @@
         <li><a href="about-test.html">About the Test</a></li>
         <li><a href="assessment.html">Start Assessment</a></li>
       </ul>
-      <button class="hamburger" aria-expanded="false" aria-controls="mobile-nav-assess" aria-label="Toggle menu">
+      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
-  <div class="mobile-nav" id="mobile-nav-assess" role="navigation" aria-label="Mobile navigation">
+  <nav id="mobile-menu" class="mobile-menu" role="navigation" aria-label="Mobile navigation">
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="about-test.html">About the Test</a></li>
       <li><a href="assessment.html">Start Assessment</a></li>
     </ul>
-  </div>
+  </nav>
 
   <!-- Assessment Shell -->
   <div class="assessment-shell" id="assessment-app">
@@ -48,6 +48,9 @@
     <div class="assessment-footer" id="assessment-footer" style="display:none;">
       Your progress is automatically saved.
     </div>
+
+    <!-- Admin: Skip to Results -->
+    <button id="admin-skip-btn" style="position:fixed;bottom:20px;right:20px;z-index:9999;padding:10px 18px;background:var(--accent);color:var(--bg-1);border:none;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;opacity:0.75;transition:opacity 0.3s;">Skip to Results</button>
 
   </div>
 
@@ -98,5 +101,18 @@
 
   <script src="assets/js/main.js"></script>
   <script src="assets/js/assessment.js"></script>
+  <script>
+    document.getElementById("admin-skip-btn").addEventListener("click", function() {
+      QUESTIONS.forEach(function(q) {
+        state.answers[q.id] = Math.floor(Math.random() * 5) + 1;
+      });
+      state.completed = true;
+      state.startedAt = Date.now() - 600000;
+      var overlay = document.getElementById("resume-overlay");
+      if (overlay) overlay.style.display = "none";
+      document.getElementById("admin-skip-btn").style.display = "none";
+      renderRouter();
+    });
+  </script>
 </body>
 </html>

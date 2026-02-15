@@ -3,36 +3,34 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ── Navbar Mobile Toggle ── */
-  const hamburger = document.querySelector('.hamburger');
-  const mobileNav = document.querySelector('.mobile-nav');
+  const toggle = document.querySelector('.nav-toggle');
+  const menu = document.querySelector('.mobile-menu');
 
-  if (hamburger && mobileNav) {
-    hamburger.addEventListener('click', () => {
-      const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-      hamburger.setAttribute('aria-expanded', String(!expanded));
-      if (!expanded) {
-        mobileNav.classList.add('open');
-        // Force reflow then animate
-        void mobileNav.offsetWidth;
-      } else {
-        mobileNav.classList.remove('open');
-      }
+  if (toggle && menu) {
+    function closeMenu() {
+      menu.classList.remove('open');
+      toggle.classList.remove('active');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    toggle.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      toggle.classList.toggle('active');
+      toggle.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 
     // Close on link click
-    mobileNav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileNav.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-      });
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => closeMenu());
     });
 
     // Close on Escape key
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
-        mobileNav.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        hamburger.focus();
+      if (e.key === 'Escape' && menu.classList.contains('open')) {
+        closeMenu();
+        toggle.focus();
       }
     });
   }
@@ -47,4 +45,24 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  /* ── Navbar scroll state ── */
+  const navbar = document.querySelector('.navbar');
+  const hasHeroVideo = !!document.querySelector('.hero--video');
+  if (navbar) {
+    if (!hasHeroVideo) {
+      // Non-homepage: always solid
+      navbar.classList.add('nav--scrolled');
+    } else {
+      function updateNavScroll() {
+        if (window.scrollY > 10) {
+          navbar.classList.add('nav--scrolled');
+        } else {
+          navbar.classList.remove('nav--scrolled');
+        }
+      }
+      window.addEventListener('scroll', updateNavScroll, { passive: true });
+      updateNavScroll();
+    }
+  }
 });

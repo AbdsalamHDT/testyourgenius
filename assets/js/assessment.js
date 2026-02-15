@@ -743,13 +743,13 @@ function generateGrowthBlueprint(r) {
   const worlds = [];
   let refReason = "Your patterns suggest depth of thought";
   if (r.topModes.length > 0) refReason = `Your ${camelToWords(r.topModes[0].key)} pattern would benefit from structured reflection`;
-  worlds.push({ name:"Reflection World", icon:"🪞", desc:"Guided journaling and inner dialogue exercises.", reason:refReason });
+  worlds.push({ name:"Reflection World", desc:"Guided journaling and inner dialogue exercises.", reason:refReason });
   let histReason = "Learning through stories builds pattern recognition";
   if (r.primaryIsland === "Curious" || r.primaryIsland === "Sensitive") histReason = `As a ${r.primaryIsland} type, you learn naturally through other people's stories`;
-  worlds.push({ name:"History World", icon:"📜", desc:"Wisdom through stories of real people who faced similar patterns.", reason:histReason });
+  worlds.push({ name:"History World", desc:"Wisdom through stories of real people who faced similar patterns.", reason:histReason });
   let decReason = "Practise making values-aligned choices under pressure";
   if (nb.autonomy < 0) decReason = "Your under-nourished autonomy need means practising intentional decisions would help most";
-  worlds.push({ name:"Decision World", icon:"⚖️", desc:"Clarity through ethical dilemmas and scenario-based choices.", reason:decReason });
+  worlds.push({ name:"Decision World", desc:"Clarity through ethical dilemmas and scenario-based choices.", reason:decReason });
 
   return { lever, prompts: prompts.slice(0, 3), worlds };
 }
@@ -808,6 +808,8 @@ function renderResults() {
   progressBar.style.display = "none";
   footerEl.style.display = "none";
   document.getElementById("assessment-app").classList.add("report-mode");
+  const skipBtn = document.getElementById("admin-skip-btn");
+  if (skipBtn) skipBtn.style.display = "none";
 
   const raw = computeResults();
   const r = normalizeResults(raw);
@@ -985,8 +987,22 @@ function renderResults() {
   s7 += `</div>
     <h3 class="rpt-subtitle">Where to Go Next</h3>
     <div class="rpt-worlds">`;
+  const worldVideoMap = { "Reflection World": "world-mirror", "History World": "world-history", "Decision World": "world-decision" };
   blueprint.worlds.forEach(w => {
-    s7 += `<div class="rpt-world-card"><span class="rpt-world-icon">${w.icon}</span><h4>${w.name}</h4><p>${w.desc}</p><p class="rpt-world-reason">Best for you because: ${w.reason}</p><button class="rpt-world-btn" onclick="alert('Coming soon.')">Explore</button></div>`;
+    const vid = worldVideoMap[w.name] || "world-mirror";
+    s7 += `<div class="rpt-world-card">
+      <div class="rpt-world-media">
+        <video class="world-video" autoplay muted loop playsinline preload="metadata">
+          <source src="assets/videos/worlds/${vid}.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="rpt-world-body">
+        <h4>${w.name}</h4>
+        <p>${w.desc}</p>
+        <p class="rpt-world-reason">Best for you because: ${w.reason}</p>
+        <button class="rpt-world-btn" onclick="alert('Coming soon.')">Explore</button>
+      </div>
+    </div>`;
   });
   s7 += `</div>
     <div class="rpt-footer-actions">
