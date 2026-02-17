@@ -111,7 +111,8 @@
   border: none;
   cursor: pointer;
   padding: var(--space-2);
-  z-index: 110;
+  z-index: 101;
+  position: relative;
 }
 
 .nav-toggle span {
@@ -162,7 +163,7 @@
     transform 0.5s cubic-bezier(0.77, 0, 0.18, 1),
     opacity 0.35s ease,
     visibility 0s 0.5s;
-  z-index: 100;
+  z-index: 999;
 }
 
 .mobile-menu.open {
@@ -1368,9 +1369,11 @@
 .rpt-tabs {
   display: none;
   position: sticky;
-  top: 60px;
-  z-index: 20;
-  background: var(--bg-1);
+  top: 72px;
+  z-index: 900;
+  background: rgba(7, 11, 26, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(100, 212, 255, 0.08);
   overflow-x: auto;
   white-space: nowrap;
@@ -1468,6 +1471,8 @@
   font-size: 1rem;
   color: rgba(234, 242, 255, 0.5);
   margin-bottom: var(--space-5);
+  position: relative;
+  z-index: 2;
 }
 
 .rpt-pills {
@@ -1475,6 +1480,8 @@
   justify-content: center;
   gap: var(--space-3);
   margin-bottom: var(--space-5);
+  position: relative;
+  z-index: 2;
   flex-wrap: wrap;
 }
 
@@ -2406,6 +2413,8 @@
 
 .rpt-hero-name {
   display: block;
+  position: relative;
+  z-index: 2;
 }
 
 /* Section 2 archetype icon above name */
@@ -2439,6 +2448,8 @@
 
 .rpt-arch-name {
   display: block;
+  position: relative;
+  z-index: 2;
 }
 
 .rpt-arch-name .archetype-icon,
