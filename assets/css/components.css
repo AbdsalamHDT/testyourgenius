@@ -27,13 +27,15 @@
 }
 
 .navbar-logo {
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  background: linear-gradient(135deg, var(--accent), var(--gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  display: inline-flex;
+  align-items: center;
+}
+
+.navbar-logo img {
+  height: 36px;
+  width: auto;
+  display: block;
+  object-fit: contain;
 }
 
 .navbar-links {
@@ -1209,6 +1211,10 @@
   pointer-events: auto;
 }
 
+.footer-brand .navbar-logo img {
+  height: 32px;
+}
+
 .footer-tagline {
   margin-top: var(--space-4);
   font-size: 0.9rem;
@@ -2273,4 +2279,141 @@
   .world-media {
     background: rgba(7, 11, 26, 0.5);
   }
+}
+
+/* ===== ARCHETYPE ICONS ===== */
+
+.archetype-icon {
+  display: block;
+  object-fit: contain;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.archetype-icon-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(100, 212, 255, 0.08);
+  border: 1px solid rgba(100, 212, 255, 0.15);
+  flex-shrink: 0;
+}
+
+.archetype-icon-fallback::after {
+  content: '';
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(100, 212, 255, 0.25), rgba(244, 211, 126, 0.15));
+}
+
+/* Island grid on About page */
+.island-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  margin-top: var(--space-7);
+  text-align: left;
+}
+
+.island-card {
+  background: rgba(14, 26, 58, 0.5);
+  border: 1px solid rgba(100, 212, 255, 0.08);
+  border-radius: 16px;
+  padding: var(--space-5);
+  transition: border-color var(--transition-base);
+}
+
+.island-card:hover {
+  border-color: rgba(100, 212, 255, 0.2);
+}
+
+.island-card-header {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.01em;
+}
+
+.island-archetypes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.archetype-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.archetype-row .archetype-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.archetype-label {
+  font-size: 0.92rem;
+  color: rgba(234, 242, 255, 0.8);
+  font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+  .island-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .island-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+/* Result page archetype icons */
+.rpt-hero-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.rpt-hero-name .archetype-icon,
+.rpt-hero-name .archetype-icon-fallback {
+  width: 56px;
+  height: 56px;
+}
+
+.rpt-arch-name {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.rpt-arch-name .archetype-icon,
+.rpt-arch-name .archetype-icon-fallback {
+  width: 48px;
+  height: 48px;
+}
+
+.rpt-influence-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.rpt-influence-card .archetype-icon,
+.rpt-influence-card .archetype-icon-fallback {
+  width: 40px;
+  height: 40px;
+  margin-top: 2px;
+}
+
+.rpt-influence-card > div {
+  flex: 1;
+  min-width: 0;
 }

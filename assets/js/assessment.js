@@ -103,6 +103,63 @@ const LIKERT_LABELS = [
 const BLOCK_SIZE = 4;
 const STORAGE_KEY = "tyg_assessment_progress";
 
+// ── ARCHETYPE ICON HELPER ───────────────────────────────────────
+
+const ARCHETYPE_ICON_LOOKUP = {
+  'explorer mind':        'Curious/Explorer%20Mind',
+  'idea architect':       'Curious/Idea%20Architect',
+  'pattern reader':       'Curious/Pattern%20Reader',
+  'systems thinker':      'Curious/Systems%20Thinker',
+  'competitive fire':     'Driven/Competitive%20Fire',
+  'control seeker':       'Driven/Control%20Seeker',
+  'relentless achiever':  'Driven/Relentless%20Achiever',
+  'standard bearer':      'Driven/Standard%20Bearer',
+  'charismatic mover':    'expressive/Charismatic%20Mover',
+  'creative spark':       'expressive/Creative%20Spark',
+  'social catalyst':      'expressive/Social%20Catalyst',
+  'story weaver':         'expressive/Story%20Weaver',
+  'calm protector':       'Grounded/Calm%20Protector',
+  'practical stabilizer': 'Grounded/Practical%20Stabilizer',
+  'quiet improver':       'Grounded/Quiet%20Improver',
+  'steady builder':       'Grounded/Steady%20Builder',
+  'boundary keeper':      'Independent/Boundary%20Keeper',
+  'free spirit':          'Independent/Free%20Spirit',
+  'inner rebel':          'Independent/Inner%20Rebel',
+  'self reliant':         'Independent/Self-Reliant',
+  'deep feeler':          'Sensitive/Deep%20Feeler',
+  'gentle giver':         'Sensitive/Gentle%20Giver',
+  'loyal connector':      'Sensitive/Loyal%20Connector',
+  'vigilant heart':       'Sensitive/Vigilant%20Heart',
+};
+
+function normalizeArchetypeName(name) {
+  return name
+    .replace(/^the\s+/i, '')
+    .trim()
+    .toLowerCase()
+    .replace(/[\s_-]+/g, ' ');
+}
+
+function getArchetypeIconHtml(name, size, lazy) {
+  const stripped = normalizeArchetypeName(name);
+  const sz = size || 48;
+  const loadAttr = lazy ? ' loading="lazy"' : '';
+  let match = ARCHETYPE_ICON_LOOKUP[stripped];
+  if (!match) {
+    const keys = Object.keys(ARCHETYPE_ICON_LOOKUP);
+    for (let i = 0; i < keys.length; i++) {
+      if (stripped.indexOf(keys[i]) !== -1 || keys[i].indexOf(stripped) !== -1) {
+        match = ARCHETYPE_ICON_LOOKUP[keys[i]];
+        break;
+      }
+    }
+  }
+  if (match) {
+    return '<img src="assets/images/Archetypes-icons/' + match + '.png" alt="' + name + '" width="' + sz + '" height="' + sz + '" class="archetype-icon"' + loadAttr + '>';
+  }
+  return '<span class="archetype-icon-fallback" style="width:' + sz + 'px;height:' + sz + 'px;" aria-label="' + name + '"></span>';
+}
+
 // ── BLOCKS PRE-COMPUTATION ──────────────────────────────────────
 
 function buildBlocks() {
@@ -852,7 +909,7 @@ function renderResults() {
   let s1 = `<section class="rpt-section" id="sec-overview">
     <div class="rpt-hero">
       <p class="rpt-hero-label">Your Report</p>
-      <h1 class="rpt-hero-name">${r.archetypePrimary.name}</h1>
+      <h1 class="rpt-hero-name">${getArchetypeIconHtml(r.archetypePrimary.name, 56, false)}${r.archetypePrimary.name}</h1>
       <p class="rpt-hero-sub">A map of patterns — not a diagnosis.</p>
       <div class="rpt-pills"><span class="rpt-pill rpt-pill--pri">${r.primaryIsland}</span><span class="rpt-pill rpt-pill--sec">${r.secondaryIsland}</span></div>
       <div class="rpt-confidence">
@@ -872,7 +929,7 @@ function renderResults() {
   let s2 = `<section class="rpt-section" id="sec-archetype">
     <h2 class="rpt-title">Archetype &amp; Influences</h2>
     <div class="rpt-arch-primary">
-      <h3 class="rpt-arch-name">${r.archetypePrimary.name}</h3>
+      <h3 class="rpt-arch-name">${getArchetypeIconHtml(r.archetypePrimary.name, 48, true)}${r.archetypePrimary.name}</h3>
       <p class="rpt-arch-narrative">${arch.narrative}</p>
       <div class="rpt-arch-cols">
         <div class="rpt-arch-col">
@@ -886,7 +943,7 @@ function renderResults() {
     <h3 class="rpt-subtitle">Secondary Influences</h3>
     <div class="rpt-influences">`;
   r.archetypeSecondary.forEach(inf => {
-    s2 += `<div class="rpt-influence-card"><h4>${inf.name}</h4><p>${inf.reason}</p></div>`;
+    s2 += `<div class="rpt-influence-card">${getArchetypeIconHtml(inf.name, 40, true)}<div><h4>${inf.name}</h4><p>${inf.reason}</p></div></div>`;
   });
   s2 += `</div></section>`;
 
