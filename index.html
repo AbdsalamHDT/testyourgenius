@@ -3,253 +3,209 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mental Health Assessment | Understand Your Mind</title>
+  <title>TestYourGenius</title>
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
-  <link rel="stylesheet" href="assets/css/components.css">
-  <link rel="stylesheet" href="assets/css/layout.css">
+  <style>
+    .uc-page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: var(--space-6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle animated background gradient */
+    .uc-page::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at 30% 20%, rgba(100, 212, 255, 0.06) 0%, transparent 50%),
+                  radial-gradient(ellipse at 70% 80%, rgba(244, 211, 126, 0.04) 0%, transparent 50%);
+      animation: uc-drift 20s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes uc-drift {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(-3%, 3%) rotate(4deg); }
+    }
+
+    .uc-content {
+      position: relative;
+      z-index: 1;
+      max-width: 560px;
+    }
+
+    .uc-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--accent), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--space-8);
+      display: inline-block;
+      cursor: default;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .uc-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto var(--space-7);
+      position: relative;
+    }
+
+    .uc-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.5;
+      opacity: 0.7;
+    }
+
+    .uc-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: var(--space-5);
+      color: var(--ink);
+    }
+
+    .uc-subtitle {
+      font-size: 1.1rem;
+      color: rgba(234, 242, 255, 0.5);
+      line-height: 1.6;
+      margin-bottom: var(--space-8);
+    }
+
+    .uc-divider {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      border: none;
+      margin: 0 auto var(--space-7);
+      border-radius: 1px;
+      opacity: 0.5;
+    }
+
+    .uc-dots {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: var(--space-5);
+    }
+
+    .uc-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(100, 212, 255, 0.3);
+      animation: uc-pulse 2s ease-in-out infinite;
+    }
+
+    .uc-dot:nth-child(2) { animation-delay: 0.3s; }
+    .uc-dot:nth-child(3) { animation-delay: 0.6s; }
+
+    @keyframes uc-pulse {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.4); }
+    }
+
+    .uc-footer {
+      position: absolute;
+      bottom: var(--space-6);
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(234, 242, 255, 0.2);
+      font-size: 0.8rem;
+      z-index: 1;
+    }
+
+    /* Tap feedback on logo */
+    .uc-logo:active {
+      opacity: 0.85;
+    }
+
+    @media (max-width: 768px) {
+      .uc-title {
+        font-size: 2rem;
+      }
+      .uc-subtitle {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Preloader -->
-  <div id="preloader" class="preloader">
-    <div class="preloader__ring"></div>
-    <div class="preloader__dot preloader__dot--1"></div>
-    <div class="preloader__dot preloader__dot--2"></div>
-    <div class="preloader__dot preloader__dot--3"></div>
-    <span class="preloader__text">TestYourGenius</span>
+  <div class="uc-page">
+    <div class="uc-content">
+
+      <!-- Hidden entry: tap this logo 4 times to enter the real site -->
+      <div class="uc-logo" id="secret-entry">TestYourGenius</div>
+
+      <div class="uc-icon">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="28" stroke-dasharray="4 6" />
+          <path d="M24 28 L32 20 L40 28" stroke-linecap="round" stroke-linejoin="round" />
+          <line x1="32" y1="20" x2="32" y2="44" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <h1 class="uc-title">Under Construction</h1>
+
+      <hr class="uc-divider">
+
+      <p class="uc-subtitle">
+        We're building something meaningful.<br>
+        This space isn't ready yet — but it will be worth the wait.
+      </p>
+
+      <div class="uc-dots">
+        <div class="uc-dot"></div>
+        <div class="uc-dot"></div>
+        <div class="uc-dot"></div>
+      </div>
+
+    </div>
+
+    <div class="uc-footer">&copy; 2025 TestYourGenius</div>
   </div>
 
-  <!-- Navbar -->
-  <nav class="navbar" role="navigation" aria-label="Main navigation">
-    <div class="navbar-inner">
-      <a href="index.html" class="navbar-logo">TestYourGenius</a>
-      <ul class="navbar-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about-test.html">About the Test</a></li>
-        <li><a href="assessment.html">Start Assessment</a></li>
-        <li><a href="assessment.html" class="navbar-cta">Start the Journey</a></li>
-      </ul>
-      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
-  <nav id="mobile-menu" class="mobile-menu" role="navigation" aria-label="Mobile navigation">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about-test.html">About the Test</a></li>
-      <li><a href="assessment.html">Start Assessment</a></li>
-      <li><a href="assessment.html" class="navbar-cta" style="display:inline-block;text-align:center;margin-top:var(--space-2);">Start the Journey</a></li>
-    </ul>
-  </nav>
+  <script>
+    (function() {
+      var tapCount = 0;
+      var tapTimer = null;
+      var REQUIRED_TAPS = 4;
+      var TAP_WINDOW = 2000; // 2 seconds to complete all taps
 
-  <!-- Hero Section -->
-  <section class="hero hero--video">
-    <video class="hero-video" autoplay muted loop playsinline preload="metadata">
-      <source src="assets/videos/homepage/hero.mp4" type="video/mp4" />
-    </video>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h1 class="hero-title heading-xl">
-        Understand Your Mind.<br>Grow With Clarity.
-      </h1>
-      <p class="hero-subtitle text-muted">
-        A mental-health-first assessment that maps how you think, what you need, and how you respond to stress.
-      </p>
-      <div class="hero-buttons">
-        <a href="assessment.html" class="btn-primary" style="display:inline-block;text-decoration:none;">Start the Journey</a>
-        <a href="about-test.html" class="btn-secondary" style="display:inline-block;text-decoration:none;">Learn How It Works</a>
-      </div>
-    </div>
-  </section>
+      document.getElementById('secret-entry').addEventListener('click', function() {
+        tapCount++;
+        if (tapCount === 1) {
+          tapTimer = setTimeout(function() { tapCount = 0; }, TAP_WINDOW);
+        }
+        if (tapCount >= REQUIRED_TAPS) {
+          clearTimeout(tapTimer);
+          tapCount = 0;
+          window.location.href = 'homepage.html';
+        }
+      });
+    })();
+  </script>
 
-  <!-- What This Measures -->
-  <section id="about" class="section section-large">
-    <div class="container">
-      <h2 class="heading-lg text-center mb-7">What This Measures</h2>
-      <div class="cards-grid">
-        <div class="card">
-          <h3>How You Think</h3>
-          <p>
-            Explore your cognitive patterns, decision-making style, and how you process information naturally.
-          </p>
-        </div>
-        <div class="card">
-          <h3>What You Need</h3>
-          <p>
-            Discover your emotional needs, core values, and the environments where you feel most aligned.
-          </p>
-        </div>
-        <div class="card">
-          <h3>How You Cope</h3>
-          <p>
-            Understand your stress responses, resilience patterns, and how you navigate challenging moments.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- The Journey -->
-  <section class="section section-large">
-    <div class="container">
-      <h2 class="heading-lg text-center mb-8">The Journey</h2>
-      <div class="journey-steps">
-        <div class="step-item">
-          <div class="step-number">1</div>
-          <div class="step-content">
-            <h4>Discover Your Archetype</h4>
-            <p>Uncover the fundamental patterns that shape your worldview and responses.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-number">2</div>
-          <div class="step-content">
-            <h4>Explore Your Inner Map</h4>
-            <p>Navigate the unique landscape of your thoughts, emotions, and motivations.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-number">3</div>
-          <div class="step-content">
-            <h4>Understand Your Stress Patterns</h4>
-            <p>Learn how you respond under pressure and what triggers your protective mechanisms.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-number">4</div>
-          <div class="step-content">
-            <h4>Begin Your Growth Path</h4>
-            <p>Receive personalized insights to guide your journey toward deeper self-awareness.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Worlds -->
-  <section class="worlds-section section section-large">
-    <div class="container">
-      <h2 class="heading-lg text-center mb-4">Beyond Insight. Enter Your Worlds.</h2>
-      <p class="text-muted text-center mb-8" style="max-width:640px;margin-left:auto;margin-right:auto;">Your result is only the beginning. Each world trains a different dimension of intelligence.</p>
-      <div class="worlds-grid">
-        <div class="world-card">
-          <div class="world-video-wrapper">
-            <video autoplay muted loop playsinline preload="metadata">
-              <source src="assets/videos/worlds/world-mirror.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="world-card-body">
-            <h3>Self Awareness</h3>
-            <p>Revisit your patterns, track emotional shifts, and deepen your relationship with yourself over time.</p>
-            <a href="#" class="btn-primary world-btn">Enter Mirror</a>
-          </div>
-        </div>
-        <div class="world-card">
-          <div class="world-video-wrapper">
-            <video autoplay muted loop playsinline preload="metadata">
-              <source src="assets/videos/worlds/world-decision.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="world-card-body">
-            <h3>Decision Intelligence</h3>
-            <p>Practice high-stakes reasoning through adaptive scenarios calibrated to your cognitive style.</p>
-            <a href="#" class="btn-primary world-btn">Enter Decision</a>
-          </div>
-        </div>
-        <div class="world-card">
-          <div class="world-video-wrapper">
-            <video autoplay muted loop playsinline preload="metadata">
-              <source src="assets/videos/worlds/world-history.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="world-card-body">
-            <h3>Historical Insight</h3>
-            <p>Walk through the minds of history's greatest thinkers and discover who you think like — and why.</p>
-            <a href="#" class="btn-primary world-btn">Enter History</a>
-          </div>
-        </div>
-      </div>
-      <div class="worlds-progression">
-        <span>Test</span>
-        <span class="worlds-prog-line"></span>
-        <span>Insight</span>
-        <span class="worlds-prog-line"></span>
-        <span>Practice</span>
-        <span class="worlds-prog-line"></span>
-        <span class="worlds-prog-active">Evolution</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Research -->
-  <section class="research-section section section-large">
-    <div class="container-narrow text-center">
-      <h2 class="heading-lg mb-5">Built on Psychological &amp; Cognitive Research</h2>
-      <p class="text-muted">Every question, scoring algorithm, and archetype model in TestYourGenius is rooted in established frameworks from cognitive psychology, attachment theory, schema therapy, and behavioral neuroscience. This isn't a personality quiz — it's a structured instrument designed to surface meaningful self-knowledge with clinical-grade intentionality.</p>
-    </div>
-  </section>
-
-  <!-- Trust / Ethics -->
-  <section class="section trust-section">
-    <div class="container-narrow text-center">
-      <h3 class="gold-text mb-5">Designed for Clarity, Not Labels</h3>
-      <p class="text-muted">
-        This is not a diagnosis. It's a tool for self-understanding, built with care to help you explore your inner world without judgment. Your results are private, nuanced, and designed to empower—not to define you.
-      </p>
-    </div>
-  </section>
-
-  <!-- Final CTA -->
-  <section class="cta-section">
-    <div class="cta-media">
-      <video class="cta-video" autoplay muted loop playsinline preload="metadata">
-        <source src="assets/videos/homepage/final-cta.mp4" type="video/mp4" />
-      </video>
-      <div class="cta-overlay"></div>
-    </div>
-    <div class="cta-content">
-      <h2>Ready to Begin?</h2>
-      <p>Take the first step toward deeper self-awareness and meaningful growth.</p>
-      <a href="assessment.html" class="btn-primary cta-btn">Start Assessment</a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="footer-brand">
-        <a href="index.html" class="navbar-logo">TestYourGenius</a>
-        <p class="footer-tagline">A mental-health-first platform for clarity, growth, and self-understanding.</p>
-      </div>
-      <div class="footer-links">
-        <div class="footer-col">
-          <h4>Platform</h4>
-          <a href="index.html">Home</a>
-          <a href="about-test.html">About the Test</a>
-          <a href="assessment.html">Start Assessment</a>
-        </div>
-        <div class="footer-col">
-          <h4>Resources</h4>
-          <a href="#">Archetypes</a>
-          <a href="#">Reflection</a>
-          <a href="#">Worlds of Genius</a>
-        </div>
-        <div class="footer-col">
-          <h4>Legal</h4>
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
-          <a href="#">Ethics</a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 TestYourGenius. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/preloader.js"></script>
 </body>
 </html>
