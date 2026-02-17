@@ -32,7 +32,7 @@
 }
 
 .navbar-logo img {
-  height: 36px;
+  height: 48px;
   width: auto;
   display: block;
   object-fit: contain;
@@ -1212,7 +1212,7 @@
 }
 
 .footer-brand .navbar-logo img {
-  height: 32px;
+  height: 42px;
 }
 
 .footer-tagline {
@@ -2374,30 +2374,76 @@
 }
 
 /* Result page archetype icons */
-.rpt-hero-name {
+
+/* Hero icon above title */
+.rpt-hero-icon-wrap {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-4);
-  flex-wrap: wrap;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto var(--space-5);
 }
 
-.rpt-hero-name .archetype-icon,
-.rpt-hero-name .archetype-icon-fallback {
-  width: 56px;
-  height: 56px;
+.rpt-hero-icon-wrap canvas.archetype-particles {
+  position: absolute;
+  inset: -50px;
+  width: calc(100% + 100px);
+  height: calc(100% + 100px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.rpt-hero-icon-wrap .archetype-icon,
+.rpt-hero-icon-wrap .archetype-icon-fallback {
+  position: relative;
+  z-index: 1;
+  width: 120px;
+  height: 120px;
+  filter: drop-shadow(0 0 22px rgba(100, 212, 255, 0.3));
+}
+
+.rpt-hero-name {
+  display: block;
+}
+
+/* Section 2 archetype icon above name */
+.rpt-arch-icon-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  margin-bottom: var(--space-4);
+}
+
+.rpt-arch-icon-wrap canvas.archetype-particles {
+  position: absolute;
+  inset: -40px;
+  width: calc(100% + 80px);
+  height: calc(100% + 80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.rpt-arch-icon-wrap .archetype-icon,
+.rpt-arch-icon-wrap .archetype-icon-fallback {
+  position: relative;
+  z-index: 1;
+  width: 88px;
+  height: 88px;
+  filter: drop-shadow(0 0 14px rgba(100, 212, 255, 0.22));
 }
 
 .rpt-arch-name {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
+  display: block;
 }
 
 .rpt-arch-name .archetype-icon,
 .rpt-arch-name .archetype-icon-fallback {
-  width: 48px;
-  height: 48px;
+  display: none;
 }
 
 .rpt-influence-card {

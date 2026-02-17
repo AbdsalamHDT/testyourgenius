@@ -909,7 +909,11 @@ function renderResults() {
   let s1 = `<section class="rpt-section" id="sec-overview">
     <div class="rpt-hero">
       <p class="rpt-hero-label">Your Report</p>
-      <h1 class="rpt-hero-name">${getArchetypeIconHtml(r.archetypePrimary.name, 56, false)}${r.archetypePrimary.name}</h1>
+      <div class="rpt-hero-icon-wrap" data-island="${r.primaryIsland}">
+        <canvas class="archetype-particles"></canvas>
+        ${getArchetypeIconHtml(r.archetypePrimary.name, 120, false)}
+      </div>
+      <h1 class="rpt-hero-name">${r.archetypePrimary.name}</h1>
       <p class="rpt-hero-sub">A map of patterns — not a diagnosis.</p>
       <div class="rpt-pills"><span class="rpt-pill rpt-pill--pri">${r.primaryIsland}</span><span class="rpt-pill rpt-pill--sec">${r.secondaryIsland}</span></div>
       <div class="rpt-confidence">
@@ -929,7 +933,11 @@ function renderResults() {
   let s2 = `<section class="rpt-section" id="sec-archetype">
     <h2 class="rpt-title">Archetype &amp; Influences</h2>
     <div class="rpt-arch-primary">
-      <h3 class="rpt-arch-name">${getArchetypeIconHtml(r.archetypePrimary.name, 48, true)}${r.archetypePrimary.name}</h3>
+      <div class="rpt-arch-icon-wrap" data-island="${r.primaryIsland}">
+        <canvas class="archetype-particles"></canvas>
+        ${getArchetypeIconHtml(r.archetypePrimary.name, 88, true)}
+      </div>
+      <h3 class="rpt-arch-name">${r.archetypePrimary.name}</h3>
       <p class="rpt-arch-narrative">${arch.narrative}</p>
       <div class="rpt-arch-cols">
         <div class="rpt-arch-col">
@@ -1079,6 +1087,9 @@ function renderResults() {
 
   // ── EVENT BINDINGS ──
   bindReportEvents(r);
+
+  // ── LAUNCH PARTICLES ──
+  initArchetypeParticles();
 }
 
 function bindReportEvents(r) {
@@ -1192,6 +1203,232 @@ function bindReportEvents(r) {
 
 function camelToWords(str) {
   return str.replace(/([A-Z])/g, ' $1').replace(/^ /, '');
+}
+
+// ── ARCHETYPE PARTICLE SYSTEM ───────────────────────────────────
+
+const PARTICLE_THEMES = {
+  Sensitive: {
+    colors: ['rgba(200,160,255,A)', 'rgba(255,180,200,A)', 'rgba(180,200,255,A)', 'rgba(255,200,230,A)'],
+    count: 18,
+    speed: 0.3,
+    sizeRange: [2, 5],
+    behavior: 'float',     // gentle floating orbs, pulsing softly
+    glow: 12,
+  },
+  Driven: {
+    colors: ['rgba(255,120,40,A)', 'rgba(255,180,50,A)', 'rgba(255,80,60,A)', 'rgba(255,200,80,A)'],
+    count: 24,
+    speed: 1.2,
+    sizeRange: [1.5, 4],
+    behavior: 'rise',      // sparks rising like fire
+    glow: 10,
+  },
+  Curious: {
+    colors: ['rgba(100,212,255,A)', 'rgba(130,230,200,A)', 'rgba(180,200,255,A)', 'rgba(100,255,220,A)'],
+    count: 20,
+    speed: 0.6,
+    sizeRange: [1.5, 3.5],
+    behavior: 'orbit',     // particles orbiting in ellipses
+    glow: 8,
+  },
+  Grounded: {
+    colors: ['rgba(160,200,140,A)', 'rgba(200,180,130,A)', 'rgba(180,210,160,A)', 'rgba(140,170,120,A)'],
+    count: 14,
+    speed: 0.2,
+    sizeRange: [2, 5],
+    behavior: 'drift',     // slow, steady, earthy drift
+    glow: 6,
+  },
+  Expressive: {
+    colors: ['rgba(255,150,200,A)', 'rgba(255,200,80,A)', 'rgba(150,120,255,A)', 'rgba(80,220,255,A)', 'rgba(255,120,150,A)'],
+    count: 22,
+    speed: 0.9,
+    sizeRange: [1.5, 4.5],
+    behavior: 'burst',     // radial bursts with spiraling trails
+    glow: 14,
+  },
+  Independent: {
+    colors: ['rgba(180,200,220,A)', 'rgba(140,160,200,A)', 'rgba(200,210,230,A)', 'rgba(100,130,170,A)'],
+    count: 12,
+    speed: 0.5,
+    sizeRange: [1.5, 3],
+    behavior: 'scatter',   // lone particles drifting independently
+    glow: 6,
+  },
+};
+
+function initArchetypeParticles() {
+  document.querySelectorAll('[data-island]').forEach(function(wrap) {
+    var canvas = wrap.querySelector('canvas.archetype-particles');
+    if (!canvas) return;
+    var island = wrap.getAttribute('data-island');
+    var theme = PARTICLE_THEMES[island] || PARTICLE_THEMES.Curious;
+    startParticles(canvas, theme);
+  });
+}
+
+function startParticles(canvas, theme) {
+  var ctx = canvas.getContext('2d');
+  var dpr = window.devicePixelRatio || 1;
+  var w, h, cx, cy;
+
+  function resize() {
+    var rect = canvas.parentElement;
+    w = canvas.offsetWidth;
+    h = canvas.offsetHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cx = w / 2;
+    cy = h / 2;
+  }
+  resize();
+
+  var particles = [];
+  for (var i = 0; i < theme.count; i++) {
+    particles.push(createParticle(theme, w, h, cx, cy, i));
+  }
+
+  var raf;
+  function loop() {
+    ctx.clearRect(0, 0, w, h);
+    for (var i = 0; i < particles.length; i++) {
+      updateParticle(particles[i], theme, w, h, cx, cy);
+      drawParticle(ctx, particles[i], theme);
+    }
+    raf = requestAnimationFrame(loop);
+  }
+  loop();
+
+  // Pause when not visible
+  var observer = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting) {
+      if (!raf) loop();
+    } else {
+      cancelAnimationFrame(raf);
+      raf = null;
+    }
+  }, { threshold: 0 });
+  observer.observe(canvas);
+}
+
+function createParticle(theme, w, h, cx, cy, index) {
+  var sz = theme.sizeRange;
+  var p = {
+    x: Math.random() * w,
+    y: Math.random() * h,
+    size: sz[0] + Math.random() * (sz[1] - sz[0]),
+    alpha: 0.3 + Math.random() * 0.5,
+    alphaDir: (Math.random() > 0.5 ? 1 : -1) * (0.003 + Math.random() * 0.006),
+    color: theme.colors[index % theme.colors.length],
+    angle: Math.random() * Math.PI * 2,
+    orbitRadius: 20 + Math.random() * (Math.min(w, h) * 0.3),
+    orbitSpeed: (0.005 + Math.random() * 0.01) * (Math.random() > 0.5 ? 1 : -1),
+    vx: (Math.random() - 0.5) * theme.speed,
+    vy: (Math.random() - 0.5) * theme.speed,
+    baseY: Math.random() * h,
+    phase: Math.random() * Math.PI * 2,
+    life: Math.random() * 200,
+  };
+  return p;
+}
+
+function updateParticle(p, theme, w, h, cx, cy) {
+  p.life++;
+
+  // Pulse alpha
+  p.alpha += p.alphaDir;
+  if (p.alpha > 0.85) { p.alpha = 0.85; p.alphaDir *= -1; }
+  if (p.alpha < 0.15) { p.alpha = 0.15; p.alphaDir *= -1; }
+
+  switch (theme.behavior) {
+
+    case 'float':
+      // Sensitive: gentle floating with sinusoidal sway
+      p.x += Math.sin(p.life * 0.015 + p.phase) * 0.4;
+      p.y -= 0.15 + Math.sin(p.life * 0.02) * 0.1;
+      if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w; }
+      break;
+
+    case 'rise':
+      // Driven: sparks rising fast with flicker
+      p.vy -= 0.02;
+      p.x += Math.sin(p.life * 0.08 + p.phase) * 0.6;
+      p.y += p.vy;
+      p.alpha = 0.4 + Math.abs(Math.sin(p.life * 0.1)) * 0.5;
+      p.size = theme.sizeRange[0] + Math.abs(Math.sin(p.life * 0.06)) * (theme.sizeRange[1] - theme.sizeRange[0]);
+      if (p.y < -10) {
+        p.y = h + 5;
+        p.x = cx + (Math.random() - 0.5) * w * 0.6;
+        p.vy = -(0.5 + Math.random() * 1.0);
+      }
+      break;
+
+    case 'orbit':
+      // Curious: orbiting ellipses around center
+      p.angle += p.orbitSpeed;
+      p.x = cx + Math.cos(p.angle) * p.orbitRadius * 0.9;
+      p.y = cy + Math.sin(p.angle) * p.orbitRadius * 0.55;
+      p.alpha = 0.35 + Math.abs(Math.sin(p.angle * 2)) * 0.45;
+      break;
+
+    case 'drift':
+      // Grounded: slow, steady drift with slight gravity
+      p.x += Math.sin(p.life * 0.008 + p.phase) * 0.3;
+      p.y += 0.1 + Math.sin(p.life * 0.01) * 0.05;
+      if (p.y > h + 10) { p.y = -10; p.x = Math.random() * w; }
+      break;
+
+    case 'burst':
+      // Expressive: spiraling outward from center then resetting
+      var dist = Math.sqrt((p.x - cx) * (p.x - cx) + (p.y - cy) * (p.y - cy));
+      p.angle += 0.03 + (1 / (dist + 20)) * 0.5;
+      var expand = 0.4 + Math.sin(p.life * 0.02) * 0.2;
+      p.x += Math.cos(p.angle) * expand;
+      p.y += Math.sin(p.angle) * expand;
+      p.alpha = Math.max(0.1, 0.8 - dist / (w * 0.5));
+      if (dist > Math.min(w, h) * 0.48) {
+        p.x = cx + (Math.random() - 0.5) * 10;
+        p.y = cy + (Math.random() - 0.5) * 10;
+        p.angle = Math.random() * Math.PI * 2;
+      }
+      break;
+
+    case 'scatter':
+      // Independent: lone drifting particles, each going their own way
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vx += (Math.random() - 0.5) * 0.03;
+      p.vy += (Math.random() - 0.5) * 0.03;
+      // Clamp velocity
+      var maxV = theme.speed * 1.2;
+      if (p.vx > maxV) p.vx = maxV;
+      if (p.vx < -maxV) p.vx = -maxV;
+      if (p.vy > maxV) p.vy = maxV;
+      if (p.vy < -maxV) p.vy = -maxV;
+      // Wrap
+      if (p.x < -10) p.x = w + 10;
+      if (p.x > w + 10) p.x = -10;
+      if (p.y < -10) p.y = h + 10;
+      if (p.y > h + 10) p.y = -10;
+      break;
+  }
+}
+
+function drawParticle(ctx, p, theme) {
+  var col = p.color.replace('A', p.alpha.toFixed(2));
+  ctx.save();
+  ctx.globalAlpha = 1;
+  if (theme.glow > 0) {
+    ctx.shadowColor = col;
+    ctx.shadowBlur = theme.glow;
+  }
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+  ctx.fillStyle = col;
+  ctx.fill();
+  ctx.restore();
 }
 
 // ── BOOT ────────────────────────────────────────────────────────
