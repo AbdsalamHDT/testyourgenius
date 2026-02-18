@@ -1409,7 +1409,7 @@
   flex: 1;
   min-width: 0;
   max-width: 800px;
-  padding: var(--space-6) var(--space-7);
+  padding: 100px var(--space-7) var(--space-6);
   margin: 0 auto;
 }
 
@@ -2260,7 +2260,7 @@
   .rpt-tabs { display: flex; }
   .report-mode { flex-direction: column; }
   .report-mode .assessment-body { flex-direction: column; }
-  .rpt-main { padding: var(--space-5) var(--space-4); max-width: 100%; }
+  .rpt-main { padding: 80px var(--space-4) var(--space-5); max-width: 100%; }
   .rpt-section { scroll-margin-top: 120px; }
   .rpt-hero-name { font-size: 2rem; }
   .rpt-highlights { grid-template-columns: 1fr; gap: var(--space-3); }

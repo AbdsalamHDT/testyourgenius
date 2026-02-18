@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enter the Map of Your Mind | TestYourGenius</title>
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <style>
+    /* ===== START PAGE ===== */
+
+    /* Hero */
+    .assessment-hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      padding: 100px var(--space-5) var(--space-8);
+    }
+
+    .assessment-hero::before {
+      content: "";
+      position: absolute;
+      top: 18%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(100,212,255,0.07), transparent 70%);
+      filter: blur(60px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .assessment-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+    }
+
+    .assessment-hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: var(--letter-spacing-heading);
+      line-height: 1.1;
+      margin-bottom: var(--space-5);
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .assessment-hero-lead {
+      font-size: 1.2rem;
+      color: rgba(234,242,255,0.65);
+      line-height: 1.7;
+      font-weight: 500;
+      margin-bottom: var(--space-5);
+      opacity: 0;
+      animation: fadeInUp 1s ease 0.15s forwards;
+    }
+
+    .assessment-hero-body {
+      font-size: 1.05rem;
+      color: rgba(234,242,255,0.55);
+      line-height: 1.75;
+      max-width: 620px;
+      margin: 0 auto var(--space-7);
+      opacity: 0;
+      animation: fadeInUp 1s ease 0.3s forwards;
+    }
+
+    .assessment-hero-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-4);
+      opacity: 0;
+      animation: fadeInUp 1s ease 0.45s forwards;
+    }
+
+    .hero-link-subtle {
+      font-size: 0.9rem;
+      color: rgba(234,242,255,0.45);
+      transition: color var(--transition-base);
+      font-weight: 500;
+    }
+
+    .hero-link-subtle:hover {
+      color: var(--accent);
+    }
+
+    /* How It Works */
+    .how-section {
+      background: linear-gradient(180deg, var(--bg-1) 0%, rgba(14,26,58,0.25) 100%);
+    }
+
+    .steps-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      margin-top: var(--space-7);
+    }
+
+    .step-card {
+      background: rgba(14,26,58,0.5);
+      border: 1px solid rgba(100,212,255,0.1);
+      border-radius: 14px;
+      padding: var(--space-6);
+      text-align: center;
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .step-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(100,212,255,0.25);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    }
+
+    .step-card-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+      opacity: 0.8;
+    }
+
+    .step-card h3 {
+      font-size: 1.5rem;
+      color: var(--ink);
+      margin-bottom: var(--space-3);
+    }
+
+    .step-card p {
+      font-size: 0.95rem;
+      color: rgba(234,242,255,0.6);
+      line-height: 1.65;
+    }
+
+    /* Discover Section */
+    .discover-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-5);
+      margin-top: var(--space-7);
+    }
+
+    .discover-item {
+      background: rgba(14,26,58,0.35);
+      border: 1px solid rgba(100,212,255,0.08);
+      border-radius: 12px;
+      padding: var(--space-5) var(--space-6);
+      transition: border-color var(--transition-base);
+    }
+
+    .discover-item:hover {
+      border-color: rgba(100,212,255,0.2);
+    }
+
+    .discover-item h4 {
+      font-size: 1.1rem;
+      color: var(--accent);
+      margin-bottom: var(--space-2);
+      font-weight: 600;
+    }
+
+    .discover-item p {
+      font-size: 0.95rem;
+      color: rgba(234,242,255,0.6);
+      line-height: 1.6;
+    }
+
+    /* Trust */
+    .trust-block {
+      background: rgba(7,11,26,0.5);
+      border-top: 1px solid rgba(100,212,255,0.06);
+      border-bottom: 1px solid rgba(100,212,255,0.06);
+    }
+
+    .trust-block p {
+      color: rgba(234,242,255,0.65);
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    /* Final CTA */
+    .final-cta {
+      position: relative;
+      text-align: center;
+      padding: 120px var(--space-5);
+    }
+
+    .final-cta::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, rgba(100,212,255,0.08), transparent 70%);
+      filter: blur(50px);
+      pointer-events: none;
+    }
+
+    .final-cta h2 {
+      position: relative;
+      z-index: 1;
+      margin-bottom: var(--space-6);
+    }
+
+    .final-cta .btn-primary {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .assessment-hero-title {
+        font-size: 2.5rem;
+      }
+
+      .assessment-hero-lead {
+        font-size: 1.05rem;
+      }
+
+      .assessment-hero-body {
+        font-size: 0.95rem;
+      }
+
+      .steps-row {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .discover-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .final-cta {
+        padding: 80px var(--space-5);
+      }
+
+      .final-cta::before {
+        width: 280px;
+        height: 280px;
+      }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .assessment-hero-title,
+      .assessment-hero-lead,
+      .assessment-hero-body,
+      .assessment-hero-actions {
+        animation: none;
+        opacity: 1;
+      }
+
+      .step-card:hover,
+      .discover-item:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Preloader -->
+  <div id="preloader" class="preloader">
+    <div class="preloader__ring"></div>
+    <div class="preloader__dot preloader__dot--1"></div>
+    <div class="preloader__dot preloader__dot--2"></div>
+    <div class="preloader__dot preloader__dot--3"></div>
+    <span class="preloader__text">TestYourGenius</span>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar nav--scrolled" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="homepage.html" class="navbar-logo"><img src="assets/images/logo.png" alt="TestYourGenius" height="48" width="186"></a>
+      <ul class="navbar-links">
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="about-test.html">About the Test</a></li>
+        <li><a href="start.html" class="nav-active">Start Assessment</a></li>
+        <li><a href="assessment.html" class="navbar-cta">Start the Journey</a></li>
+      </ul>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <nav id="mobile-menu" class="mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <ul>
+      <li><a href="homepage.html">Home</a></li>
+      <li><a href="about-test.html">About the Test</a></li>
+      <li><a href="start.html" class="nav-active">Start Assessment</a></li>
+      <li><a href="assessment.html" class="navbar-cta" style="display:inline-block;text-align:center;margin-top:var(--space-2);">Start the Journey</a></li>
+    </ul>
+  </nav>
+
+  <!-- 1. Hero Section -->
+  <section class="assessment-hero">
+    <div class="assessment-hero-content">
+      <h1 class="assessment-hero-title">Enter the Map of Your Mind</h1>
+      <p class="assessment-hero-lead">
+        This is not a quiz.<br>
+        It is a structured journey through the architecture of your thinking.
+      </p>
+      <p class="assessment-hero-body">
+        Across six cognitive islands and twenty-four archetypes, you will uncover your default patterns, strengths, blind spots, and the direction of your growth.
+      </p>
+      <div class="assessment-hero-actions">
+        <a href="assessment.html" class="btn-primary" style="display:inline-block;text-decoration:none;">Begin the Assessment</a>
+        <a href="#how-it-works" class="hero-link-subtle">Learn how it works</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. How It Works -->
+  <section id="how-it-works" class="how-section section section-large">
+    <div class="container">
+      <h2 class="heading-lg text-center">How the System Works</h2>
+      <div class="steps-row">
+        <div class="step-card">
+          <span class="step-card-label">Step 1</span>
+          <h3>6 Islands</h3>
+          <p>Your dominant cognitive energy center — the foundation of how you process the world.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-card-label">Step 2</span>
+          <h3>24 Archetypes</h3>
+          <p>Your behavioral and strategic pattern — the lens through which you act and decide.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-card-label">Step 3</span>
+          <h3>Your Growth Path</h3>
+          <p>A personalized direction across the Worlds of Genius — your next evolution.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. What You Will Discover -->
+  <section class="section section-large">
+    <div class="container">
+      <h2 class="heading-lg text-center">What You Will Discover</h2>
+      <div class="discover-grid">
+        <div class="discover-item">
+          <h4>Your Primary Archetype</h4>
+          <p>The cognitive signature that defines your default way of engaging with problems, people, and possibilities.</p>
+        </div>
+        <div class="discover-item">
+          <h4>Your Strength Profile</h4>
+          <p>A precise map of your natural advantages — the domains where your thinking operates at its sharpest.</p>
+        </div>
+        <div class="discover-item">
+          <h4>Your Blind Spot Analysis</h4>
+          <p>The patterns you don't see — the cognitive tendencies that quietly shape your decisions and limit your range.</p>
+        </div>
+        <div class="discover-item">
+          <h4>Your Strategic Growth Direction</h4>
+          <p>A clear, actionable path forward — built from your results, not from generic advice.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Trust / Credibility -->
+  <section class="trust-block section section-large">
+    <div class="container-narrow text-center">
+      <h2 class="heading-lg mb-5">Built for Clarity. Designed for Depth.</h2>
+      <p>
+        This assessment is structured around cognitive patterns, behavioral psychology principles, and identity-based development frameworks.
+      </p>
+      <p style="margin-top: var(--space-4);">
+        It is not a diagnosis.<br>
+        It is a structured mirror.
+      </p>
+    </div>
+  </section>
+
+  <!-- 5. Final CTA -->
+  <section class="final-cta">
+    <h2 class="heading-lg">Ready to See Yourself Clearly?</h2>
+    <a href="assessment.html" class="btn-primary" style="display:inline-block;text-decoration:none;">Start Now</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="homepage.html" class="navbar-logo"><img src="assets/images/logo.png" alt="TestYourGenius" height="42" width="162"></a>
+        <p class="footer-tagline">A mental-health-first platform for clarity, growth, and self-understanding.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <a href="homepage.html">Home</a>
+          <a href="about-test.html">About the Test</a>
+          <a href="start.html">Start Assessment</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="#">Archetypes</a>
+          <a href="#">Reflection</a>
+          <a href="#">Worlds of Genius</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Ethics</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 TestYourGenius. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/preloader.js"></script>
+</body>
+</html>
