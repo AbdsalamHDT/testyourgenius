@@ -4,10 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TestYourGenius — The Cognitive Identity System</title>
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="TestYourGenius — Map Your Cognitive Architecture" />
+  <meta property="og:description" content="A precision assessment that decodes how you think, what drives you, and how you perform under pressure." />
+  <meta property="og:image" content="assets/images/logo.png" />
+  <meta property="og:url" content="https://www.testyourgenius.com/homepage.html" />
+  <meta property="og:type" content="website" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/images/logo.png" type="image/png">
+
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/homepage-enhancements.css">
 </head>
 <body>
 
@@ -60,6 +72,16 @@
       <div class="hero-buttons">
         <a href="start.html" class="btn-primary" style="display:inline-block;text-decoration:none;">Begin Assessment</a>
         <a href="about-test.html" class="btn-secondary" style="display:inline-block;text-decoration:none;">View the System</a>
+      </div>
+      <!-- Live Activity Indicator -->
+      <div class="live-activity">
+        <span class="live-dot"></span>
+        <span class="live-text">47 people mapping right now</span>
+      </div>
+      <!-- Social Proof Counter -->
+      <div class="social-proof">
+        <span class="social-proof-number" data-target="14283">0</span>
+        <span class="social-proof-label">Cognitive profiles mapped</span>
       </div>
     </div>
   </section>
@@ -122,6 +144,43 @@
           <div class="step-content">
             <h4>Strategic Growth Path</h4>
             <p>Delivers a precise, structured output — your cognitive identity profile and a targeted framework for strategic development.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sample Profile Preview -->
+  <section class="section section-large profile-preview-section">
+    <div class="container">
+      <h2 class="heading-lg text-center mb-7">Your Output Looks Like This</h2>
+      <div class="profile-preview-card">
+        <div class="profile-preview-header">
+          <div class="profile-archetype-badge">Archetype</div>
+          <h3 class="profile-archetype-name">The Strategic Architect</h3>
+          <p class="profile-archetype-desc">You operate through structured foresight and systemic control. Your cognition builds frameworks before acting — every decision is an architecture choice.</p>
+        </div>
+        <div class="profile-traits">
+          <div class="trait-bar-item">
+            <div class="trait-bar-label"><span>Analytical Precision</span><span>92%</span></div>
+            <div class="trait-bar-track"><div class="trait-bar-fill" style="width:92%"></div></div>
+          </div>
+          <div class="trait-bar-item">
+            <div class="trait-bar-label"><span>Strategic Foresight</span><span>87%</span></div>
+            <div class="trait-bar-track"><div class="trait-bar-fill" style="width:87%"></div></div>
+          </div>
+          <div class="trait-bar-item">
+            <div class="trait-bar-label"><span>Stress Regulation</span><span>74%</span></div>
+            <div class="trait-bar-track"><div class="trait-bar-fill" style="width:74%"></div></div>
+          </div>
+        </div>
+        <div class="profile-locked">
+          <div class="profile-locked-blur">
+            <p>Full cognitive breakdown, stress response model, growth vectors, historical match, and strategic path...</p>
+          </div>
+          <div class="profile-locked-overlay">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>Complete your assessment to unlock your full profile</span>
           </div>
         </div>
       </div>
@@ -191,6 +250,39 @@
     </div>
   </section>
 
+  <!-- Testimonial Strip -->
+  <section class="section section-large testimonials-section">
+    <div class="container">
+      <h2 class="heading-lg text-center mb-8">What People Are Saying</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-quote">&ldquo;I&rsquo;ve taken every personality test out there. This is the only one that felt accurate.&rdquo;</p>
+          <div class="testimonial-author">
+            <span class="testimonial-name">Mehdi R.</span>
+            <span class="testimonial-title">Entrepreneur</span>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-quote">&ldquo;The stress response section described me better than I could describe myself.&rdquo;</p>
+          <div class="testimonial-author">
+            <span class="testimonial-name">Sara L.</span>
+            <span class="testimonial-title">Product Manager</span>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-quote">&ldquo;History World matched me to someone I actually relate to. Insane.&rdquo;</p>
+          <div class="testimonial-author">
+            <span class="testimonial-name">James K.</span>
+            <span class="testimonial-title">Strategist</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Trust / Ethics -->
   <section class="section trust-section">
     <div class="container-narrow text-center">
@@ -249,7 +341,13 @@
     </div>
   </footer>
 
+  <!-- Sticky Mobile CTA -->
+  <div class="sticky-mobile-cta">
+    <a href="start.html" class="sticky-mobile-cta-btn">Begin Assessment</a>
+  </div>
+
   <script src="assets/js/main.js"></script>
   <script src="assets/js/preloader.js"></script>
+  <script src="assets/js/homepage-enhancements.js"></script>
 </body>
 </html>

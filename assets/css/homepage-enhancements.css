@@ -1,0 +1,374 @@
+/* ===== HOMEPAGE ENHANCEMENTS ===== */
+
+/* 11. Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 4. Hero Subtitle - increased size & readability */
+.hero-subtitle {
+  font-size: 18px !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* 12. Hero Video Fallback */
+.hero--video {
+  background-color: #0a0e1a;
+  background-image: linear-gradient(135deg, #0a0e1a 0%, #0E1A3A 50%, #0a0e1a 100%);
+}
+
+/* 1. Social Proof Counter */
+.social-proof {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 32px;
+  opacity: 0;
+  animation: fadeInUp 1s ease 0.7s forwards;
+}
+
+.social-proof-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.social-proof-label {
+  font-size: 0.95rem;
+  color: rgba(234, 242, 255, 0.55);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* 2. Live Activity Indicator */
+.live-activity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  opacity: 0;
+  animation: fadeInUp 1s ease 0.6s forwards;
+}
+
+.live-dot {
+  width: 10px;
+  height: 10px;
+  background: #22c55e;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+  animation: livePulse 2s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+    opacity: 1;
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(34, 197, 94, 0.9);
+    opacity: 0.85;
+  }
+}
+
+.live-text {
+  font-size: 0.9rem;
+  color: rgba(234, 242, 255, 0.6);
+  font-weight: 500;
+}
+
+/* 3. Sample Profile Preview */
+.profile-preview-section {
+  background: rgba(7, 11, 26, 0.5);
+}
+
+.profile-preview-card {
+  max-width: 600px;
+  margin: 0 auto;
+  background: rgba(14, 26, 58, 0.5);
+  border: 1px solid rgba(100, 212, 255, 0.15);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.profile-preview-header {
+  padding: 32px 32px 24px;
+  text-align: center;
+}
+
+.profile-archetype-badge {
+  display: inline-block;
+  padding: 4px 16px;
+  background: rgba(100, 212, 255, 0.1);
+  border: 1px solid rgba(100, 212, 255, 0.25);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.profile-archetype-name {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.profile-archetype-desc {
+  font-size: 0.95rem;
+  color: rgba(234, 242, 255, 0.7);
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.profile-traits {
+  padding: 0 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.trait-bar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.trait-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: rgba(234, 242, 255, 0.75);
+  font-weight: 500;
+}
+
+.trait-bar-track {
+  height: 8px;
+  background: rgba(100, 212, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.trait-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), rgba(100, 212, 255, 0.6));
+  border-radius: 4px;
+  transition: width 1.2s ease;
+}
+
+.profile-locked {
+  position: relative;
+  margin: 0 32px 32px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.profile-locked-blur {
+  padding: 24px;
+  filter: blur(6px);
+  user-select: none;
+  pointer-events: none;
+}
+
+.profile-locked-blur p {
+  color: rgba(234, 242, 255, 0.5);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.profile-locked-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 11, 26, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 16px;
+}
+
+.profile-locked-overlay svg {
+  opacity: 0.8;
+}
+
+/* 5. Sticky Mobile CTA */
+.sticky-mobile-cta {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sticky-mobile-cta {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: rgba(7, 11, 26, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 12px 16px;
+    border-top: 1px solid rgba(100, 212, 255, 0.1);
+  }
+
+  .sticky-mobile-cta-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: var(--accent);
+    color: var(--bg-1);
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 0 20px rgba(100, 212, 255, 0.3);
+    transition: all var(--transition-base);
+  }
+
+  .sticky-mobile-cta-btn:hover,
+  .sticky-mobile-cta-btn:active {
+    box-shadow: 0 0 30px rgba(100, 212, 255, 0.5);
+  }
+
+  /* Add bottom padding to footer so sticky CTA doesn't overlap */
+  .site-footer {
+    padding-bottom: 72px;
+  }
+}
+
+/* 6. World Cards Hover Effect */
+.world-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.world-card:hover {
+  transform: scale(1.03);
+  border-color: rgba(0, 150, 255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 150, 255, 0.4);
+}
+
+/* 7. Scroll Animation on Process Steps */
+.step-item {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.step-item.step-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 8. Testimonial Strip */
+.testimonials-section {
+  background: rgba(7, 11, 26, 0.4);
+  border-top: 1px solid rgba(100, 212, 255, 0.06);
+  border-bottom: 1px solid rgba(100, 212, 255, 0.06);
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.testimonial-card {
+  background: rgba(14, 26, 58, 0.45);
+  border: 1px solid rgba(100, 212, 255, 0.12);
+  border-radius: 14px;
+  padding: 28px 24px;
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  border-color: rgba(100, 212, 255, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.testimonial-stars {
+  color: var(--gold);
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.testimonial-quote {
+  font-size: 1rem;
+  color: rgba(234, 242, 255, 0.85);
+  line-height: 1.65;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.testimonial-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.testimonial-title {
+  font-size: 0.8rem;
+  color: rgba(234, 242, 255, 0.45);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .profile-preview-header {
+    padding: 24px 20px 20px;
+  }
+
+  .profile-traits {
+    padding: 0 20px 20px;
+  }
+
+  .profile-locked {
+    margin: 0 20px 24px;
+  }
+}
+
+/* Reduced motion support for enhancements */
+@media (prefers-reduced-motion: reduce) {
+  .live-dot {
+    animation: none;
+  }
+
+  .step-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
