@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TestYourGenius — The Cognitive Identity System</title>
+  <title>TestYourGenius — Understand How Your Mind Works</title>
 
   <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="TestYourGenius — Map Your Cognitive Architecture" />
-  <meta property="og:description" content="A precision assessment that decodes how you think, what drives you, and how you perform under pressure." />
+  <meta property="og:title" content="TestYourGenius — Understand How Your Mind Works" />
+  <meta property="og:description" content="A cognitive assessment that reveals how you think, what drives you, and how you respond under pressure. 70 questions. About 8 minutes." />
   <meta property="og:image" content="assets/images/logo.png" />
   <meta property="og:url" content="https://www.testyourgenius.com/homepage.html" />
   <meta property="og:type" content="website" />
@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <link rel="stylesheet" href="assets/css/homepage-enhancements.css">
+  <link rel="stylesheet" href="assets/css/scroll-reveal.css">
 </head>
 <body>
 
@@ -40,7 +41,7 @@
         <li><a href="homepage.html">Home</a></li>
         <li><a href="about-test.html">About the Test</a></li>
         <li><a href="start.html">Start Assessment</a></li>
-        <li><a href="start.html" class="navbar-cta">Begin Assessment</a></li>
+        <li><a href="start.html" class="navbar-cta">Start Assessment</a></li>
       </ul>
       <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -52,117 +53,127 @@
       <li><a href="homepage.html">Home</a></li>
       <li><a href="about-test.html">About the Test</a></li>
       <li><a href="start.html">Start Assessment</a></li>
-      <li><a href="start.html" class="navbar-cta" style="display:inline-block;text-align:center;margin-top:var(--space-2);">Begin Assessment</a></li>
+      <li><a href="start.html" class="navbar-cta" style="display:inline-block;text-align:center;margin-top:var(--space-2);">Start Assessment</a></li>
     </ul>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- ════════════════════════════════════════════
+       1. HERO
+       ════════════════════════════════════════════ -->
   <section class="hero hero--video">
-    <video class="hero-video" autoplay muted loop playsinline preload="metadata">
-      <source src="assets/videos/homepage/hero.mp4" type="video/mp4" />
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata" disablepictureinpicture controlslist="nodownload">
+      <source src="assets/videos/homepage/hero3.mp4" type="video/mp4" />
     </video>
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <h1 class="hero-title heading-xl">
-        Map Your Cognitive Architecture.
+        Understand How Your Mind Works.
       </h1>
       <p class="hero-subtitle text-muted">
-        A precision assessment that decodes how you think, what drives you, and how you perform under pressure.
+        A structured assessment that reveals how you think, what drives your decisions, and how you respond under pressure.
       </p>
+      <p class="hero-micro">70 questions · About 8 minutes · Instant cognitive profile</p>
       <div class="hero-buttons">
-        <a href="start.html" class="btn-primary" style="display:inline-block;text-decoration:none;">Begin Assessment</a>
-        <a href="about-test.html" class="btn-secondary" style="display:inline-block;text-decoration:none;">View the System</a>
-      </div>
-      <!-- Live Activity Indicator -->
-      <div class="live-activity">
-        <span class="live-dot"></span>
-        <span class="live-text">47 people mapping right now</span>
-      </div>
-      <!-- Social Proof Counter -->
-      <div class="social-proof">
-        <span class="social-proof-number" data-target="14283">0</span>
-        <span class="social-proof-label">Cognitive profiles mapped</span>
+        <a href="start.html" class="btn-primary" style="display:inline-block;text-decoration:none;">Start the Assessment</a>
+        <a href="about-test.html" class="btn-secondary" style="display:inline-block;text-decoration:none;">About the Test</a>
       </div>
     </div>
   </section>
 
-  <!-- What This Measures -->
-  <section id="about" class="section section-large">
+  <!-- ════════════════════════════════════════════
+       2. WHAT THE ASSESSMENT REVEALS
+       ════════════════════════════════════════════ -->
+  <section id="reveals" class="section section-large">
     <div class="container">
-      <h2 class="heading-lg text-center mb-7">What This Measures</h2>
-      <div class="cards-grid">
-        <div class="card">
-          <h3>Cognitive Pattern</h3>
-          <p>
-            Identifies the structural model behind how you process information, frame problems, and construct decisions. Not what you think — how the system operates.
-          </p>
+      <h2 class="heading-lg text-center mb-7 reveal">What the Assessment Reveals</h2>
+      <div class="cards-grid cards-grid--4 reveal-stagger reveal">
+        <div class="card reveal reveal-delay-1">
+          <div class="card-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3>How Your Mind Processes Information</h3>
+          <p>How you absorb information, organize it, and reach conclusions — the underlying structure behind your thinking.</p>
         </div>
-        <div class="card">
-          <h3>Motivational Drivers</h3>
-          <p>
-            Maps the core drivers that govern your priorities, ambitions, and operating conditions. Pinpoints the architecture beneath your performance baseline.
-          </p>
+        <div class="card reveal reveal-delay-2">
+          <div class="card-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3>What Motivates You</h3>
+          <p>The core motivations that shape your priorities, choices, and what naturally keeps your mind engaged.</p>
         </div>
-        <div class="card">
-          <h3>Stress Response Model</h3>
-          <p>
-            Calibrates your behavioral patterns under pressure. Surfaces the default response architecture that activates when stakes rise and control narrows.
-          </p>
+        <div class="card reveal reveal-delay-3">
+          <div class="card-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>How You Relate to Others</h3>
+          <p>How you connect, communicate, and navigate relationships — your natural social patterns and what they reveal.</p>
+        </div>
+        <div class="card reveal reveal-delay-4">
+          <div class="card-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3>How You Handle Pressure</h3>
+          <p>What happens to your thinking when stakes rise and control narrows — your default stress patterns and what they mean.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- The Journey -->
+  <!-- ════════════════════════════════════════════
+       3. HOW IT WORKS
+       ════════════════════════════════════════════ -->
   <section class="section section-large">
     <div class="container">
-      <h2 class="heading-lg text-center mb-8">The Cognitive Mapping Process</h2>
+      <h2 class="heading-lg text-center mb-8 reveal">How It Works</h2>
       <div class="journey-steps">
         <div class="step-item">
           <div class="step-number">1</div>
           <div class="step-content">
-            <h4>Structural Assessment</h4>
-            <p>A calibrated sequence of inputs designed to surface your dominant cognitive model. No guesswork. No abstraction.</p>
+            <h4>Answer the Assessment</h4>
+            <p>70 carefully designed questions that capture how you think, decide, and respond — not what you know.</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-number">2</div>
           <div class="step-content">
-            <h4>Pattern Deconstruction</h4>
-            <p>Your responses are mapped against validated cognitive frameworks to isolate your core operational patterns.</p>
+            <h4>Your Mind Is Mapped</h4>
+            <p>Your responses are analyzed across multiple cognitive dimensions to build a clear picture of how your mind operates.</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-number">3</div>
           <div class="step-content">
-            <h4>Stress Calibration</h4>
-            <p>Identifies how your system shifts under constraint. Reveals the architecture that governs high-pressure decisions.</p>
+            <h4>Your Archetype Emerges</h4>
+            <p>The system identifies your cognitive archetype — a structured reflection of your unique thinking pattern.</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-number">4</div>
           <div class="step-content">
-            <h4>Strategic Growth Path</h4>
-            <p>Delivers a precise, structured output — your cognitive identity profile and a targeted framework for strategic development.</p>
+            <h4>Explore Your Full Report</h4>
+            <p>Get your archetype, dimension scores, stress patterns, growth blueprint, and historical parallels — all in one report.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Sample Profile Preview -->
+  <!-- ════════════════════════════════════════════
+       4. RESULT PREVIEW
+       ════════════════════════════════════════════ -->
   <section class="section section-large profile-preview-section">
     <div class="container">
-      <h2 class="heading-lg text-center mb-7">Your Output Looks Like This</h2>
-      <div class="profile-preview-card">
+      <h2 class="heading-lg text-center mb-4 reveal">What Your Result Looks Like</h2>
+      <p class="text-muted text-center mb-7 reveal" style="max-width:600px;margin-left:auto;margin-right:auto;">Your report maps your cognitive identity across multiple layers — from your archetype to your stress patterns and growth blueprint.</p>
+      <div class="profile-preview-card reveal-scale">
         <div class="profile-preview-header">
-          <div class="profile-archetype-badge">Archetype</div>
+          <div class="profile-archetype-badge">Your Archetype</div>
           <h3 class="profile-archetype-name">The Strategic Architect</h3>
-          <p class="profile-archetype-desc">You operate through structured foresight and systemic control. Your cognition builds frameworks before acting — every decision is an architecture choice.</p>
+          <p class="profile-archetype-desc">You think in systems and structures. Before acting, your mind builds frameworks — weighing options, mapping outcomes, and designing the path forward.</p>
         </div>
         <div class="profile-traits">
           <div class="trait-bar-item">
-            <div class="trait-bar-label"><span>Analytical Precision</span><span>92%</span></div>
+            <div class="trait-bar-label"><span>Analytical Thinking</span><span>92%</span></div>
             <div class="trait-bar-track"><div class="trait-bar-fill" style="width:92%"></div></div>
           </div>
           <div class="trait-bar-item">
@@ -176,124 +187,153 @@
         </div>
         <div class="profile-locked">
           <div class="profile-locked-blur">
-            <p>Full cognitive breakdown, stress response model, growth vectors, historical match, and strategic path...</p>
+            <p>Dimension scores, stress response profile, growth blueprint, historical parallels, and full cognitive breakdown...</p>
           </div>
           <div class="profile-locked-overlay">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <span>Complete your assessment to unlock your full profile</span>
+            <span>Unlock your full cognitive profile after completing the assessment</span>
+          </div>
+        </div>
+      </div>
+      <div class="result-includes reveal">
+        <div class="result-includes-grid">
+          <div class="result-includes-item">
+            <span class="result-includes-icon">◈</span>
+            <span>Cognitive Archetype</span>
+          </div>
+          <div class="result-includes-item">
+            <span class="result-includes-icon">◈</span>
+            <span>Dimension Scores</span>
+          </div>
+          <div class="result-includes-item">
+            <span class="result-includes-icon">◈</span>
+            <span>Stress Patterns</span>
+          </div>
+          <div class="result-includes-item">
+            <span class="result-includes-icon">◈</span>
+            <span>Growth Blueprint</span>
+          </div>
+          <div class="result-includes-item">
+            <span class="result-includes-icon">◈</span>
+            <span>Historical Parallels</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Worlds -->
+  <!-- ════════════════════════════════════════════
+       5. ARCHETYPE ISLAND SYSTEM
+       ════════════════════════════════════════════ -->
+  <section class="section section-large archetype-system-section">
+    <div class="container">
+      <h2 class="heading-lg text-center mb-4 reveal">The Archetype System</h2>
+      <p class="text-muted text-center mb-4" style="max-width:640px;margin-left:auto;margin-right:auto;">Your cognitive profile belongs to one of six archetype islands. Each island represents a different way of thinking and navigating the world.</p>
+      <p class="text-muted text-center mb-8" style="max-width:640px;margin-left:auto;margin-right:auto;font-size:1rem;">Together, they form a system of 24 unique archetypes mapped across six fundamental cognitive structures.</p>
+      <div class="archetype-stats reveal">
+        <div class="archetype-stat">
+          <span class="archetype-stat-number">6</span>
+          <span class="archetype-stat-label">Archetype Islands</span>
+        </div>
+        <div class="archetype-stat-divider"></div>
+        <div class="archetype-stat">
+          <span class="archetype-stat-number">24</span>
+          <span class="archetype-stat-label">Unique Archetypes</span>
+        </div>
+      </div>
+      <div class="archetype-islands-grid reveal-stagger reveal">
+        <div class="island-card reveal reveal-delay-1">
+          <h4>The Curious</h4>
+          <p>Minds driven by inquiry, exploration, and the need to understand.</p>
+        </div>
+        <div class="island-card reveal reveal-delay-2">
+          <h4>The Driven</h4>
+          <p>Minds built around ambition, structure, and forward momentum.</p>
+        </div>
+        <div class="island-card reveal reveal-delay-3">
+          <h4>The Expressive</h4>
+          <p>Minds that lead with creativity, communication, and emotional clarity.</p>
+        </div>
+        <div class="island-card reveal reveal-delay-4">
+          <h4>The Grounded</h4>
+          <p>Minds anchored in stability, consistency, and deliberate thought.</p>
+        </div>
+        <div class="island-card reveal reveal-delay-5">
+          <h4>The Independent</h4>
+          <p>Minds that operate on autonomy, originality, and self-direction.</p>
+        </div>
+        <div class="island-card reveal reveal-delay-6">
+          <h4>The Sensitive</h4>
+          <p>Minds attuned to depth, nuance, and the emotional layers beneath the surface.</p>
+        </div>
+      </div>
+      <p class="text-muted text-center" style="margin-top:var(--space-7);font-size:1rem;">Each island contains 4 archetypes — 24 distinct cognitive profiles in total. Your result places you within this system based on how your mind actually operates.</p>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       6. THREE WAYS TO EXPLORE YOUR MIND
+       ════════════════════════════════════════════ -->
   <section class="worlds-section section section-large">
     <div class="container">
-      <h2 class="heading-lg text-center mb-4">The Intelligence Worlds</h2>
-      <p class="text-muted text-center mb-8" style="max-width:640px;margin-left:auto;margin-right:auto;">Your cognitive profile unlocks three operational environments. Each world is an applied system — designed to stress-test, refine, and extend a distinct dimension of your intelligence.</p>
-      <div class="worlds-grid">
-        <div class="world-card">
+      <h2 class="heading-lg text-center mb-4 reveal">Three Ways to Explore Your Mind</h2>
+      <p class="text-muted text-center mb-8" style="max-width:640px;margin-left:auto;margin-right:auto;">After your assessment, your cognitive profile unlocks three exploration layers — each designed to deepen a different dimension of self-understanding.</p>
+      <div class="worlds-grid reveal-stagger reveal">
+        <div class="world-card reveal reveal-delay-1">
           <div class="world-video-wrapper">
             <video autoplay muted loop playsinline preload="metadata">
               <source src="assets/videos/worlds/world-mirror.mp4" type="video/mp4" />
             </video>
           </div>
           <div class="world-card-body">
-            <h3>Mirror World</h3>
-            <p>A recursive system for pattern recognition. Tracks shifts in your cognitive model over time and recalibrates your self-architecture against new data.</p>
-            <a href="#" class="btn-primary world-btn">Enter Mirror World</a>
+            <h3>Mirror</h3>
+            <span class="world-label">See Your Inner Patterns</span>
+            <p>Understand your cognitive patterns, blind spots, and how your thinking evolves over time.</p>
           </div>
         </div>
-        <div class="world-card">
+        <div class="world-card reveal reveal-delay-2">
           <div class="world-video-wrapper">
             <video autoplay muted loop playsinline preload="metadata">
               <source src="assets/videos/worlds/world-decision.mp4" type="video/mp4" />
             </video>
           </div>
           <div class="world-card-body">
-            <h3>Decision World</h3>
-            <p>High-stakes adaptive scenarios calibrated to your cognitive profile. Trains structural reasoning, risk assessment, and strategic execution under constraint.</p>
-            <a href="#" class="btn-primary world-btn">Enter Decision World</a>
+            <h3>Decision</h3>
+            <span class="world-label">How Your Mind Makes Choices</span>
+            <p>Scenarios calibrated to your profile that reveal how you reason, adapt, and choose when stakes are high.</p>
           </div>
         </div>
-        <div class="world-card">
+        <div class="world-card reveal reveal-delay-3">
           <div class="world-video-wrapper">
             <video autoplay muted loop playsinline preload="metadata">
               <source src="assets/videos/worlds/world-history.mp4" type="video/mp4" />
             </video>
           </div>
           <div class="world-card-body">
-            <h3>History World</h3>
-            <p>Maps your cognitive identity against history’s most consequential minds. Structural pattern-matching — not trivia. Understand who operated like you, and why.</p>
-            <a href="#" class="btn-primary world-btn">Enter History World</a>
-          </div>
-        </div>
-      </div>
-      <div class="worlds-progression">
-        <span>Assessment</span>
-        <span class="worlds-prog-line"></span>
-        <span>Mapping</span>
-        <span class="worlds-prog-line"></span>
-        <span>Application</span>
-        <span class="worlds-prog-line"></span>
-        <span class="worlds-prog-active">Calibration</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Research -->
-  <section class="research-section section section-large">
-    <div class="container-narrow text-center">
-      <h2 class="heading-lg mb-5">Engineered on Validated Science</h2>
-      <p class="text-muted">TestYourGenius integrates frameworks from cognitive psychology, decision science, attachment theory, and behavioral neuroscience. Every input, scoring model, and output structure is architecturally grounded — not approximated. This is a precision instrument, not a personality quiz.</p>
-    </div>
-  </section>
-
-  <!-- Testimonial Strip -->
-  <section class="section section-large testimonials-section">
-    <div class="container">
-      <h2 class="heading-lg text-center mb-8">What People Are Saying</h2>
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="testimonial-quote">&ldquo;I&rsquo;ve taken every personality test out there. This is the only one that felt accurate.&rdquo;</p>
-          <div class="testimonial-author">
-            <span class="testimonial-name">Mehdi R.</span>
-            <span class="testimonial-title">Entrepreneur</span>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="testimonial-quote">&ldquo;The stress response section described me better than I could describe myself.&rdquo;</p>
-          <div class="testimonial-author">
-            <span class="testimonial-name">Sara L.</span>
-            <span class="testimonial-title">Product Manager</span>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="testimonial-quote">&ldquo;History World matched me to someone I actually relate to. Insane.&rdquo;</p>
-          <div class="testimonial-author">
-            <span class="testimonial-name">James K.</span>
-            <span class="testimonial-title">Strategist</span>
+            <h3>History</h3>
+            <span class="world-label">Genius Minds With Similar Structures</span>
+            <p>Discover historical figures who share your cognitive structure — and how minds like yours have shaped the world.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Trust / Ethics -->
+  <!-- ════════════════════════════════════════════
+       7. BRAND STATEMENT / TRUST
+       ════════════════════════════════════════════ -->
   <section class="section trust-section">
     <div class="container-narrow text-center">
-      <h3 class="gold-text mb-5">Precision Without Reduction</h3>
-      <p class="text-muted">
-        This system does not label. It maps. Your cognitive identity is a structural output — private, high-resolution, and designed for strategic application, not simplification.
+      <h3 class="gold-text mb-5 reveal">It doesn't label you. It maps how your mind works.</h3>
+      <p class="text-muted reveal">
+        This is not a personality quiz. It is a structured system designed to reveal deeper patterns in how you think.
       </p>
     </div>
   </section>
 
-  <!-- Final CTA -->
+  <!-- ════════════════════════════════════════════
+       8. FINAL CTA
+       ════════════════════════════════════════════ -->
   <section class="cta-section">
     <div class="cta-media">
       <video class="cta-video" autoplay muted loop playsinline preload="metadata">
@@ -301,10 +341,10 @@
       </video>
       <div class="cta-overlay"></div>
     </div>
-    <div class="cta-content">
-      <h2>Know the System You Operate On.</h2>
-      <p>The structure is already there. This maps it.</p>
-      <a href="start.html" class="btn-primary cta-btn">Begin Assessment</a>
+    <div class="cta-content reveal">
+      <h2>Discover Your Cognitive Archetype</h2>
+      <p>70 questions · About 8 minutes</p>
+      <a href="start.html" class="btn-primary cta-btn">Start the Assessment</a>
     </div>
   </section>
 
@@ -313,7 +353,7 @@
     <div class="container footer-inner">
       <div class="footer-brand">
         <a href="homepage.html" class="navbar-logo"><img src="assets/images/logo.png" alt="TestYourGenius" height="42" width="162"></a>
-        <p class="footer-tagline">The Cognitive Identity System.</p>
+        <p class="footer-tagline">Understand how your mind works.</p>
       </div>
       <div class="footer-links">
         <div class="footer-col">
@@ -323,16 +363,16 @@
           <a href="start.html">Start Assessment</a>
         </div>
         <div class="footer-col">
-          <h4>Resources</h4>
+          <h4>Explore</h4>
           <a href="#">Archetypes</a>
-          <a href="#">Reflection</a>
-          <a href="#">Worlds of Genius</a>
+          <a href="#">Mirror</a>
+          <a href="#">Decision</a>
+          <a href="#">History</a>
         </div>
         <div class="footer-col">
           <h4>Legal</h4>
           <a href="#">Privacy</a>
           <a href="#">Terms</a>
-          <a href="#">Ethics</a>
         </div>
       </div>
     </div>
@@ -343,11 +383,12 @@
 
   <!-- Sticky Mobile CTA -->
   <div class="sticky-mobile-cta">
-    <a href="start.html" class="sticky-mobile-cta-btn">Begin Assessment</a>
+    <a href="start.html" class="sticky-mobile-cta-btn">Start the Assessment</a>
   </div>
 
   <script src="assets/js/main.js"></script>
   <script src="assets/js/preloader.js"></script>
   <script src="assets/js/homepage-enhancements.js"></script>
+  <script src="assets/js/scroll-reveal.js"></script>
 </body>
 </html>

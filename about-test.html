@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/about-enhancements.css">
+  <link rel="stylesheet" href="assets/css/scroll-reveal.css">
 </head>
 <body>
 
@@ -41,41 +43,40 @@
       <h1 class="hero-title heading-xl">About the TYG Assessment</h1>
       <p class="hero-subtitle text-muted">
         A multi-dimensional self-discovery tool that maps how you think, what you need, and how you respond under pressure â€” giving you a rich, personal inner map.
-      </p>
-      <div class="about-disclaimer">
-        <span class="about-disclaimer-icon">&#9432;</span>
-        This is not a medical diagnosis. It is a self-awareness tool designed for personal growth and reflection.
-      </div>
-    </div>
+      </p>      <div class="hero-pills">
+        <span class="hero-pill">~8 minutes</span>
+        <span class="hero-pill">4 modules</span>
+        <span class="hero-pill">One complete picture</span>
+      </div>    </div>
   </section>
 
   <!-- What It Measures -->
   <section class="section section-large">
     <div class="container">
-      <h2 class="heading-lg text-center mb-7">What It Measures</h2>
-      <div class="cards-grid about-cards-grid">
-        <div class="card">
+      <h2 class="heading-lg text-center mb-7 reveal">What It Measures</h2>
+      <div class="cards-grid about-cards-grid reveal-stagger reveal">
+        <div class="card reveal reveal-delay-1">
           <div class="card-icon">&#129504;</div>
           <h3>Core Mind Style</h3>
           <p>
             Maps your dominant cognitive archetype â€” how you naturally process information, make decisions, and view the world. Identifies which of six core "islands" shape your thinking.
           </p>
         </div>
-        <div class="card">
+        <div class="card reveal reveal-delay-2">
           <div class="card-icon">&#127919;</div>
           <h3>Needs Map</h3>
           <p>
             Measures your psychological needs across three dimensions: Autonomy, Competence, and Relatedness. Reveals what drives you and where you may feel unfulfilled.
           </p>
         </div>
-        <div class="card">
+        <div class="card reveal reveal-delay-3">
           <div class="card-icon">&#128279;</div>
           <h3>Connection Style</h3>
           <p>
             Explores how you form and maintain close relationships. Assesses attachment patterns â€” your comfort with intimacy, independence, and emotional vulnerability.
           </p>
         </div>
-        <div class="card">
+        <div class="card reveal reveal-delay-4">
           <div class="card-icon">&#9889;</div>
           <h3>Stress &amp; Coping</h3>
           <p>
@@ -89,9 +90,13 @@
   <!-- Archetype Islands -->
   <section class="section section-large">
     <div class="container text-center">
-      <h2 class="heading-lg text-center mb-4">Your Archetype Islands</h2>
-      <p class="text-muted mb-7">The 24 archetypes are organized into 6 core islands â€” each representing a dominant way of thinking and relating.</p>
-      <div class="archetypes-media">
+      <h2 class="heading-lg text-center mb-4 reveal">Your Archetype Islands</h2>
+      <p class="text-muted mb-5 reveal">The 24 archetypes are organized into 6 core islands â€" each representing a dominant way of thinking and relating.</p>
+
+      <!-- Curiosity Hook -->
+      <p class="island-curiosity-hook">Which island do you belong to? Complete the assessment to find out.</p>
+
+      <div class="archetypes-media reveal-scale">
         <video class="archetypes-video"
                autoplay
                muted
@@ -103,65 +108,70 @@
       </div>
       <p class="text-muted archetype-map-caption">Each island contains four archetypes shaped by your thinking style, emotional needs, and stress patterns.</p>
 
-      <div class="island-grid">
+      <!-- Island Tabs -->
+      <div class="island-tabs" role="tablist">
+        <button class="island-tab active" data-island="Curious" role="tab" aria-selected="true">Curious</button>
+        <button class="island-tab" data-island="Driven" role="tab" aria-selected="false">Driven</button>
+        <button class="island-tab" data-island="Expressive" role="tab" aria-selected="false">Expressive</button>
+        <button class="island-tab" data-island="Grounded" role="tab" aria-selected="false">Grounded</button>
+        <button class="island-tab" data-island="Independent" role="tab" aria-selected="false">Independent</button>
+        <button class="island-tab" data-island="Sensitive" role="tab" aria-selected="false">Sensitive</button>
+      </div>
 
-        <div class="island-card">
-          <div class="island-card-header">Curious</div>
-          <div class="island-archetypes">
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Curious/Explorer%20Mind.png" alt="Explorer Mind" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Explorer Mind</span></div>
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Curious/Idea%20Architect.png" alt="Idea Architect" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Idea Architect</span></div>
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Curious/Pattern%20Reader.png" alt="Pattern Reader" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Pattern Reader</span></div>
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Curious/Systems%20Thinker.png" alt="Systems Thinker" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Systems Thinker</span></div>
+      <!-- Island Panels -->
+      <div class="island-panels">
+
+        <div class="island-panel active" data-island="Curious" role="tabpanel">
+          <div class="island-panel-grid">
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Curious/Explorer%20Mind.png" alt="Explorer Mind" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Explorer Mind</h4><p>Driven by discovery, always seeking new ideas and experiences</p></div>
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Curious/Idea%20Architect.png" alt="Idea Architect" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Idea Architect</h4><p>Connects abstract concepts into structured visions</p></div>
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Curious/Pattern%20Reader.png" alt="Pattern Reader" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Pattern Reader</h4><p>Sees hidden connections others miss</p></div>
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Curious/Systems%20Thinker.png" alt="Systems Thinker" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Systems Thinker</h4><p>Understands how everything fits together</p></div>
           </div>
         </div>
 
-        <div class="island-card">
-          <div class="island-card-header">Driven</div>
-          <div class="island-archetypes">
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Driven/Competitive%20Fire.png" alt="Competitive Fire" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Competitive Fire</span></div>
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Driven/Control%20Seeker.png" alt="Control Seeker" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Control Seeker</span></div>
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Driven/Relentless%20Achiever.png" alt="Relentless Achiever" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Relentless Achiever</span></div>
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Driven/Standard%20Bearer.png" alt="Standard Bearer" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Standard Bearer</span></div>
+        <div class="island-panel" data-island="Driven" role="tabpanel">
+          <div class="island-panel-grid">
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Driven/Competitive%20Fire.png" alt="Competitive Fire" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Competitive Fire</h4><p>Thrives on challenge and outperforming limits</p></div>
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Driven/Control%20Seeker.png" alt="Control Seeker" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Control Seeker</h4><p>Needs order and precision to feel secure</p></div>
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Driven/Relentless%20Achiever.png" alt="Relentless Achiever" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Relentless Achiever</h4><p>Pursues goals with relentless focus</p></div>
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Driven/Standard%20Bearer.png" alt="Standard Bearer" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Standard Bearer</h4><p>Holds themselves and others to the highest bar</p></div>
           </div>
         </div>
 
-        <div class="island-card">
-          <div class="island-card-header">Expressive</div>
-          <div class="island-archetypes">
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/expressive/Charismatic%20Mover.png" alt="Charismatic Mover" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Charismatic Mover</span></div>
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/expressive/Creative%20Spark.png" alt="Creative Spark" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Creative Spark</span></div>
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/expressive/Social%20Catalyst.png" alt="Social Catalyst" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Social Catalyst</span></div>
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/expressive/Story%20Weaver.png" alt="Story Weaver" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Story Weaver</span></div>
+        <div class="island-panel" data-island="Expressive" role="tabpanel">
+          <div class="island-panel-grid">
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/expressive/Charismatic%20Mover.png" alt="Charismatic Mover" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Charismatic Mover</h4><p>Energizes rooms and influences people naturally</p></div>
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/expressive/Creative%20Spark.png" alt="Creative Spark" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Creative Spark</h4><p>Turns emotion and imagination into original work</p></div>
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/expressive/Social%20Catalyst.png" alt="Social Catalyst" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Social Catalyst</h4><p>Brings people together and sparks connection</p></div>
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/expressive/Story%20Weaver.png" alt="Story Weaver" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Story Weaver</h4><p>Communicates through narrative and meaning</p></div>
           </div>
         </div>
 
-        <div class="island-card">
-          <div class="island-card-header">Grounded</div>
-          <div class="island-archetypes">
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Grounded/Calm%20Protector.png" alt="Calm Protector" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Calm Protector</span></div>
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Grounded/Practical%20Stabilizer.png" alt="Practical Stabilizer" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Practical Stabilizer</span></div>
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Grounded/Quiet%20Improver.png" alt="Quiet Improver" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Quiet Improver</span></div>
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Grounded/Steady%20Builder.png" alt="Steady Builder" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Steady Builder</span></div>
+        <div class="island-panel" data-island="Grounded" role="tabpanel">
+          <div class="island-panel-grid">
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Grounded/Calm%20Protector.png" alt="Calm Protector" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Calm Protector</h4><p>Steady presence that others rely on in crisis</p></div>
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Grounded/Practical%20Stabilizer.png" alt="Practical Stabilizer" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Practical Stabilizer</h4><p>Solves real problems with practical thinking</p></div>
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Grounded/Quiet%20Improver.png" alt="Quiet Improver" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Quiet Improver</h4><p>Consistently refines without needing the spotlight</p></div>
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Grounded/Steady%20Builder.png" alt="Steady Builder" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Steady Builder</h4><p>Creates lasting structures through patience and effort</p></div>
           </div>
         </div>
 
-        <div class="island-card">
-          <div class="island-card-header">Independent</div>
-          <div class="island-archetypes">
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Independent/Boundary%20Keeper.png" alt="Boundary Keeper" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Boundary Keeper</span></div>
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Independent/Free%20Spirit.png" alt="Free Spirit" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Free Spirit</span></div>
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Independent/Inner%20Rebel.png" alt="Inner Rebel" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Inner Rebel</span></div>
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Independent/Self-Reliant.png" alt="Self-Reliant" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Self-Reliant</span></div>
+        <div class="island-panel" data-island="Independent" role="tabpanel">
+          <div class="island-panel-grid">
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Independent/Boundary%20Keeper.png" alt="Boundary Keeper" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Boundary Keeper</h4><p>Protects their energy and values fiercely</p></div>
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Independent/Free%20Spirit.png" alt="Free Spirit" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Free Spirit</h4><p>Resists constraints and follows their own path</p></div>
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Independent/Inner%20Rebel.png" alt="Inner Rebel" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Inner Rebel</h4><p>Challenges norms and questions everything</p></div>
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Independent/Self-Reliant.png" alt="Self-Reliant" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Self-Reliant</h4><p>Trusts their own judgment above all else</p></div>
           </div>
         </div>
 
-        <div class="island-card">
-          <div class="island-card-header">Sensitive</div>
-          <div class="island-archetypes">
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Sensitive/Deep%20Feeler.png" alt="Deep Feeler" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Deep Feeler</span></div>
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Sensitive/Gentle%20Giver.png" alt="Gentle Giver" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Gentle Giver</span></div>
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Sensitive/Loyal%20Connector.png" alt="Loyal Connector" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Loyal Connector</span></div>
-            <div class="archetype-row"><img src="assets/images/Archetypes-icons/Sensitive/Vigilant%20Heart.png" alt="Vigilant Heart" width="40" height="40" loading="lazy" class="archetype-icon"><span class="archetype-label">Vigilant Heart</span></div>
+        <div class="island-panel" data-island="Sensitive" role="tabpanel">
+          <div class="island-panel-grid">
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Sensitive/Deep%20Feeler.png" alt="Deep Feeler" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Deep Feeler</h4><p>Experiences emotions with rare intensity and depth</p></div>
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Sensitive/Gentle%20Giver.png" alt="Gentle Giver" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Gentle Giver</h4><p>Nurtures others with empathy and care</p></div>
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Sensitive/Loyal%20Connector.png" alt="Loyal Connector" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Loyal Connector</h4><p>Builds deep, lasting bonds through trust</p></div>
+            <div class="island-archetype-card"><img src="assets/images/Archetypes-icons/Sensitive/Vigilant%20Heart.png" alt="Vigilant Heart" width="56" height="56" loading="lazy" class="archetype-icon"><h4>Vigilant Heart</h4><p>Protects loved ones with quiet devotion</p></div>
           </div>
         </div>
 
@@ -173,23 +183,23 @@
   <!-- Why It's Different -->
   <section class="section section-large">
     <div class="container">
-      <h2 class="heading-lg text-center mb-7">Why It's Different</h2>
-      <div class="about-diff-grid">
-        <div class="about-diff-item">
+      <h2 class="heading-lg text-center mb-7 reveal">Why It's Different</h2>
+      <div class="about-diff-grid reveal-stagger reveal">
+        <div class="about-diff-item reveal reveal-delay-1">
           <div class="about-diff-number">01</div>
           <h4>Multi-Dimensional</h4>
           <p>
             Most assessments give you one label. TYG maps four interconnected dimensions simultaneously â€” cognition, needs, attachment, and stress â€” for a complete picture.
           </p>
         </div>
-        <div class="about-diff-item">
+        <div class="about-diff-item reveal reveal-delay-2">
           <div class="about-diff-number">02</div>
           <h4>Emergent Archetypes</h4>
           <p>
             Your archetype isn't assigned from a preset list. It emerges from the unique combination of your scores â€” meaning your result is genuinely yours, not a box to fit into.
           </p>
         </div>
-        <div class="about-diff-item">
+        <div class="about-diff-item reveal reveal-delay-3">
           <div class="about-diff-number">03</div>
           <h4>Designed as a Journey</h4>
           <p>
@@ -203,12 +213,12 @@
   <!-- How Results Work -->
   <section class="section section-large">
     <div class="container">
-      <h2 class="heading-lg text-center mb-7">How Your Results Work</h2>
-      <div class="about-flow">
+      <h2 class="heading-lg text-center mb-7 reveal">How Your Results Work</h2>
+      <div class="about-flow reveal">
         <div class="about-flow-step">
           <div class="about-flow-icon">&#128221;</div>
           <div class="about-flow-label">Your Answers</div>
-          <div class="about-flow-desc">72 questions across 4 modules</div>
+          <div class="about-flow-desc">Your responses across 4 calibrated modules</div>
         </div>
         <div class="about-flow-arrow">&rarr;</div>
         <div class="about-flow-step">
@@ -232,11 +242,65 @@
     </div>
   </section>
 
+  <!-- FAQ Section -->
+  <section class="section section-large faq-section">
+    <div class="container">
+      <h2 class="heading-lg text-center mb-8 reveal">Common Questions</h2>
+      <div class="faq-accordion reveal">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>How accurate is this assessment?</span>
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>It's built on validated frameworks from cognitive psychology and behavioral science. Accuracy improves when you answer instinctively, not analytically.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>How long does it take?</span>
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Most people complete it in 7–10 minutes. There's no time pressure.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Can I retake it?</span>
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. We recommend retaking every 3–6 months to track how you evolve.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Is my data private?</span>
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Your results are processed entirely in your browser. Nothing is sent to a server or stored externally.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>What do I get at the end?</span>
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>A full cognitive identity profile: your archetype, mind orientation, stress patterns, needs map, and a personalized growth blueprint.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Ethics & Safety -->
   <section class="section trust-section">
     <div class="container-narrow text-center">
-      <h3 class="gold-text mb-5">Designed for Clarity, Not Labels.</h3>
-      <ul class="about-ethics-list">
+      <h3 class="gold-text mb-5 reveal">Designed for Clarity, Not Labels.</h3>
+      <ul class="about-ethics-list reveal">
         <li>Your results are processed entirely in your browser â€” nothing is sent to a server.</li>
         <li>No data is collected, stored externally, or shared with anyone.</li>
         <li>This tool does not diagnose, label, or categorise you clinically.</li>
@@ -249,15 +313,25 @@
   <!-- Final CTA -->
   <section class="section section-large cta-section">
     <div class="container-narrow">
-      <div class="cta-card">
+      <div class="cta-card reveal">
         <h2 class="heading-lg mb-5">Ready to Discover Your Inner Map?</h2>
         <p class="text-muted mb-6">
-          72 questions. 4 dimensions. One comprehensive profile built just for you.
+          ~8 minutes. 4 dimensions. One comprehensive profile built just for you.
         </p>
         <a href="start.html" class="btn-primary" style="display:inline-block;text-decoration:none;">Start Assessment</a>
       </div>
     </div>
   </section>
+
+  <!-- Disclaimer -->
+  <div class="about-disclaimer-bottom">
+    <p>This is not a medical diagnosis. It is a self-awareness tool designed for personal growth and reflection.</p>
+  </div>
+
+  <!-- Sticky Mobile CTA -->
+  <div class="sticky-mobile-cta">
+    <a href="start.html" class="sticky-mobile-cta-btn">Start Assessment</a>
+  </div>
 
   <!-- Footer -->
   <footer class="site-footer">
@@ -293,5 +367,7 @@
   </footer>
 
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/about-enhancements.js"></script>
+  <script src="assets/js/scroll-reveal.js"></script>
 </body>
 </html>

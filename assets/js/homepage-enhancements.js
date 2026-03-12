@@ -2,37 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ── 1. Social Proof Animated Counter ── */
-  const counterEl = document.querySelector('.social-proof-number');
-  if (counterEl) {
-    const target = parseInt(counterEl.getAttribute('data-target'), 10);
-    const duration = 2000; // ms
-    const startTime = performance.now();
-
-    function formatNumber(n) {
-      return n.toLocaleString('en-US');
-    }
-
-    function animateCounter(currentTime) {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // Ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.round(eased * target);
-      counterEl.textContent = formatNumber(current);
-
-      if (progress < 1) {
-        requestAnimationFrame(animateCounter);
-      }
-    }
-
-    // Slight delay so it starts after hero animations
-    setTimeout(() => {
-      requestAnimationFrame(animateCounter);
-    }, 800);
-  }
-
-  /* ── 7. Scroll Animation on Process Steps (Intersection Observer) ── */
+  /* ── Scroll Animation on Process Steps (Intersection Observer) ── */
   const stepItems = document.querySelectorAll('.step-item');
   if (stepItems.length > 0 && 'IntersectionObserver' in window) {
     const stepObserver = new IntersectionObserver((entries) => {

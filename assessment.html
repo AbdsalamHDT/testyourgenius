@@ -100,6 +100,7 @@
   </div>
 
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/tyg-data.js"></script>
   <script src="assets/js/assessment.js"></script>
   <script>
     document.getElementById("admin-skip-btn").addEventListener("click", function() {
@@ -111,7 +112,8 @@
       var overlay = document.getElementById("resume-overlay");
       if (overlay) overlay.style.display = "none";
       document.getElementById("admin-skip-btn").style.display = "none";
-      renderRouter();
+      saveResultData(state.answers);
+      window.location.href = "result.html";
     });
   </script>
 </body>
