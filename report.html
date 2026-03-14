@@ -1,13 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Assessment | TestYourGenius</title>
+  <title>Your Full Report | TestYourGenius</title>
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/result-enhancements.css">
 </head>
 <body>
 
@@ -18,7 +19,7 @@
       <ul class="navbar-links">
         <li><a href="homepage.html">Home</a></li>
         <li><a href="about-test.html">About the Test</a></li>
-        <li><a href="start.html">Start Assessment</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
       </ul>
       <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -29,29 +30,15 @@
     <ul>
       <li><a href="homepage.html">Home</a></li>
       <li><a href="about-test.html">About the Test</a></li>
-      <li><a href="start.html">Start Assessment</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
     </ul>
   </nav>
 
-  <!-- Assessment Shell -->
-  <div class="assessment-shell" id="assessment-app">
-
-    <!-- Progress Bar -->
-    <div class="progress-bar" id="progress-bar" style="display:none;"></div>
-
-    <!-- Main Content Area -->
-    <div class="assessment-body" id="assessment-body">
-      <!-- Content injected by JS -->
+  <!-- Report Shell (reuses result page classes for full CSS compatibility) -->
+  <div class="assessment-shell" id="result-shell">
+    <div class="assessment-body" id="result-body">
+      <!-- Content injected by result.js -->
     </div>
-
-    <!-- Autosave Footer -->
-    <div class="assessment-footer" id="assessment-footer" style="display:none;">
-      Your progress is automatically saved.
-    </div>
-
-    <!-- Admin: Skip to Results -->
-    <button id="admin-skip-btn" style="position:fixed;bottom:20px;right:20px;z-index:9999;padding:10px 18px;background:var(--accent);color:var(--bg-1);border:none;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;opacity:0.75;transition:opacity 0.3s;">Skip to Results</button>
-
   </div>
 
   <!-- Footer -->
@@ -87,35 +74,17 @@
     </div>
   </footer>
 
-  <!-- Resume Overlay (hidden by default) -->
-  <div class="resume-overlay" id="resume-overlay" style="display:none;" role="dialog" aria-modal="true" aria-label="Resume your assessment">
-    <div class="resume-card">
-      <h2>Resume Your Journey?</h2>
-      <p>You have a saved session. Would you like to continue where you left off?</p>
-      <div class="resume-actions">
-        <button class="btn-back" id="btn-restart">Restart</button>
-        <button class="btn-continue" id="btn-resume">Resume</button>
-      </div>
-    </div>
-  </div>
-
   <script src="assets/js/main.js"></script>
   <script src="assets/js/tyg-data.js"></script>
-  <script src="assets/js/assessment.js"></script>
   <script>
-    document.getElementById("admin-skip-btn").addEventListener("click", function() {
-      QUESTIONS.forEach(function(q) {
-        state.answers[q.id] = Math.floor(Math.random() * 5) + 1;
-      });
-      state.completed = true;
-      state.startedAt = Date.now() - 600000;
-      var overlay = document.getElementById("resume-overlay");
-      if (overlay) overlay.style.display = "none";
-      document.getElementById("admin-skip-btn").style.display = "none";
-      saveResultData(state.answers);
-      var dest = localStorage.getItem('tyg_unlocked') === 'true' ? 'report.html' : (localStorage.getItem('tyg_user') ? 'unlock.html' : 'signup.html');
-      window.location.href = dest;
-    });
+    // Gate: redirect if not unlocked or no results
+    (function() {
+      var unlocked = localStorage.getItem('tyg_unlocked') === 'true';
+      var hasResults = !!loadResultData();
+      if (!hasResults) { window.location.href = 'start.html'; return; }
+      if (!unlocked) { window.location.href = 'unlock.html'; return; }
+    })();
   </script>
+  <script src="assets/js/result.js"></script>
 </body>
 </html>

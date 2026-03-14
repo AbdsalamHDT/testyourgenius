@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All 24 Archetypes | TestYourGenius</title>
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <style>
+    .arch-page{padding:110px var(--space-5) var(--space-8);max-width:1020px;margin:0 auto}
+    .arch-hero{text-align:center;margin-bottom:var(--space-8)}
+    .arch-hero h1{font-size:2.4rem;font-weight:800;letter-spacing:-.03em;color:var(--ink);margin-bottom:var(--space-3)}
+    .arch-hero p{font-size:1rem;color:rgba(234,242,255,.5);max-width:540px;margin:0 auto;line-height:1.65}
+    .arch-island-section{margin-bottom:var(--space-8)}
+    .arch-island-header{display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-5)}
+    .arch-island-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+    .arch-island-dot--Grounded{background:#7EC8A0}
+    .arch-island-dot--Sensitive{background:#C89BDE}
+    .arch-island-dot--Driven{background:#E87070}
+    .arch-island-dot--Curious{background:var(--accent)}
+    .arch-island-dot--Expressive{background:#F4D37E}
+    .arch-island-dot--Independent{background:#8BA8D9}
+    .arch-island-name{font-size:1.4rem;font-weight:800;color:var(--ink)}
+    .arch-island-desc{font-size:.82rem;color:rgba(234,242,255,.4);margin-left:auto;max-width:360px;text-align:right;line-height:1.5}
+    .arch-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4)}
+    .arch-card{background:rgba(14,26,58,.35);border:1px solid rgba(100,212,255,.08);border-radius:16px;padding:var(--space-5);display:flex;gap:var(--space-4);transition:border-color .3s,transform .3s}
+    .arch-card:hover{border-color:rgba(100,212,255,.2);transform:translateY(-3px)}
+    .arch-card-icon{flex-shrink:0;width:64px;height:64px;display:flex;align-items:center;justify-content:center}
+    .arch-card-icon img{border-radius:12px}
+    .arch-card-body h3{font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:var(--space-2)}
+    .arch-card-body p{font-size:.8rem;color:rgba(234,242,255,.45);line-height:1.55}
+    .arch-card-strengths{display:flex;flex-wrap:wrap;gap:var(--space-1);margin-top:var(--space-3)}
+    .arch-card-chip{padding:2px var(--space-2);background:rgba(100,212,255,.06);border:1px solid rgba(100,212,255,.1);border-radius:8px;font-size:.68rem;color:var(--accent);font-weight:600}
+    .arch-your-badge{display:inline-block;padding:2px var(--space-2);background:rgba(244,211,126,.12);border:1px solid rgba(244,211,126,.25);border-radius:8px;font-size:.65rem;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-left:var(--space-2);vertical-align:middle}
+    .arch-cta{text-align:center;margin-top:var(--space-7);padding:var(--space-7) var(--space-5);background:rgba(14,26,58,.3);border:1px solid rgba(100,212,255,.06);border-radius:20px}
+    .arch-cta h2{font-size:1.4rem;font-weight:700;color:var(--ink);margin-bottom:var(--space-3)}
+    .arch-cta p{font-size:.92rem;color:rgba(234,242,255,.45);margin-bottom:var(--space-5)}
+    .arch-cta a{display:inline-block;padding:var(--space-3) var(--space-6);background:var(--accent);color:var(--bg-1);border-radius:10px;font-weight:700;text-decoration:none;transition:all .3s}
+    .arch-cta a:hover{box-shadow:0 0 24px rgba(100,212,255,.3);transform:translateY(-2px)}
+    @media(max-width:768px){
+      .arch-grid{grid-template-columns:1fr}
+      .arch-island-header{flex-wrap:wrap}
+      .arch-island-desc{margin-left:0;text-align:left;margin-top:var(--space-2)}
+      .arch-hero h1{font-size:1.7rem}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar nav--scrolled" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="homepage.html" class="navbar-logo"><img src="assets/images/logo.png" alt="TestYourGenius" height="48" width="186"></a>
+      <ul class="navbar-links">
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="about-test.html">About the Test</a></li>
+        <li><a href="start.html">Start Assessment</a></li>
+        <li><a href="start.html" class="navbar-cta">Start Assessment</a></li>
+      </ul>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <nav id="mobile-menu" class="mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <ul>
+      <li><a href="homepage.html">Home</a></li>
+      <li><a href="about-test.html">About the Test</a></li>
+      <li><a href="start.html">Start Assessment</a></li>
+    </ul>
+  </nav>
+
+  <div class="arch-page" id="arch-page">
+    <div class="arch-hero">
+      <h1>The 24 Cognitive Archetypes</h1>
+      <p>Six cognitive islands, four archetypes each — a complete map of how minds are wired. Discover the patterns that shape thinking, feeling, and decision-making.</p>
+    </div>
+    <div id="arch-content"></div>
+    <div class="arch-cta">
+      <h2>Which one are you?</h2>
+      <p>Take the free assessment to discover your primary archetype and cognitive profile.</p>
+      <a href="start.html">Start the Assessment</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="homepage.html" class="navbar-logo"><img src="assets/images/logo.png" alt="TestYourGenius" height="42" width="162"></a>
+        <p class="footer-tagline">Understand how your mind works.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <a href="homepage.html">Home</a>
+          <a href="about-test.html">About the Test</a>
+          <a href="start.html">Start Assessment</a>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="archetypes.html">Archetypes</a>
+          <a href="mirror.html">Mirror</a>
+          <a href="decision.html">Decision</a>
+          <a href="history.html">History</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 TestYourGenius. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/tyg-data.js"></script>
+  <script>
+    (function() {
+      var ISLANDS = {
+        Grounded: {
+          desc: "Stability, reliability, and quiet strength",
+          archetypes: ["Calm Protector", "Practical Stabilizer", "Quiet Improver", "Steady Builder"]
+        },
+        Sensitive: {
+          desc: "Deep feeling, empathy, and emotional intelligence",
+          archetypes: ["Deep Feeler", "Gentle Giver", "Loyal Connector", "Vigilant Heart"]
+        },
+        Driven: {
+          desc: "Momentum, ambition, and relentless progress",
+          archetypes: ["Competitive Fire", "Control Seeker", "Relentless Achiever", "Standard Bearer"]
+        },
+        Curious: {
+          desc: "Pattern recognition, systems thinking, and discovery",
+          archetypes: ["Explorer Mind", "Idea Architect", "Pattern Reader", "Systems Thinker"]
+        },
+        Expressive: {
+          desc: "Creative energy, authentic presence, and influence",
+          archetypes: ["Charismatic Mover", "Creative Spark", "Social Catalyst", "Story Weaver"]
+        },
+        Independent: {
+          desc: "Autonomy, boundaries, and sovereign thinking",
+          archetypes: ["Boundary Keeper", "Free Spirit", "Inner Rebel", "Self-Reliant"]
+        }
+      };
+
+      var ARCHETYPE_SUMMARY = {
+        "Calm Protector": { short: "The steady guardian who creates safety through presence and reliability.", chips: ["Protective", "Calm", "Present"] },
+        "Practical Stabilizer": { short: "Grounds chaos into workable systems through pragmatic thinking.", chips: ["Pragmatic", "Organized", "Dependable"] },
+        "Quiet Improver": { short: "Refines everything they touch through patient, incremental excellence.", chips: ["Meticulous", "Persistent", "Humble"] },
+        "Steady Builder": { short: "Constructs lasting foundations through consistency and long-term vision.", chips: ["Consistent", "Focused", "Patient"] },
+        "Deep Feeler": { short: "Processes the world through emotional depth and rich inner experience.", chips: ["Profound", "Intuitive", "Reflective"] },
+        "Gentle Giver": { short: "Nurtures others with natural warmth and selfless consideration.", chips: ["Caring", "Generous", "Attuned"] },
+        "Loyal Connector": { short: "Builds deep bonds through unwavering loyalty and emotional commitment.", chips: ["Devoted", "Trustworthy", "Warm"] },
+        "Vigilant Heart": { short: "Protects loved ones through heightened awareness and emotional radar.", chips: ["Perceptive", "Protective", "Sensitive"] },
+        "Competitive Fire": { short: "Fueled by challenge, drives toward victory with raw determination.", chips: ["Fierce", "Motivated", "Bold"] },
+        "Control Seeker": { short: "Masters environments through structure, planning, and strategic control.", chips: ["Strategic", "Precise", "Commanding"] },
+        "Relentless Achiever": { short: "Pursues excellence without pause — rest comes after the goal.", chips: ["Unstoppable", "Focused", "Ambitious"] },
+        "Standard Bearer": { short: "Holds themselves and others to the highest standards of quality.", chips: ["Principled", "Exacting", "Disciplined"] },
+        "Explorer Mind": { short: "Driven by curiosity, always seeking new knowledge and perspectives.", chips: ["Curious", "Open", "Adventurous"] },
+        "Idea Architect": { short: "Builds conceptual frameworks that turn scattered ideas into systems.", chips: ["Visionary", "Structured", "Creative"] },
+        "Pattern Reader": { short: "Sees hidden connections and underlying structures others miss entirely.", chips: ["Perceptive", "Analytical", "Insightful"] },
+        "Systems Thinker": { short: "Understands how parts connect to form wholes across any domain.", chips: ["Holistic", "Logical", "Integrative"] },
+        "Charismatic Mover": { short: "Energizes groups through natural magnetism and confident expression.", chips: ["Magnetic", "Dynamic", "Inspiring"] },
+        "Creative Spark": { short: "Generates original ideas and brings fresh energy to everything.", chips: ["Inventive", "Playful", "Original"] },
+        "Social Catalyst": { short: "Activates social dynamics and brings people together effortlessly.", chips: ["Connector", "Energetic", "Inclusive"] },
+        "Story Weaver": { short: "Turns experience into narrative — finds meaning through storytelling.", chips: ["Articulate", "Expressive", "Meaningful"] },
+        "Boundary Keeper": { short: "Protects personal space and values through clear, firm boundaries.", chips: ["Principled", "Firm", "Self-aware"] },
+        "Free Spirit": { short: "Resists conformity and follows their own authentic path.", chips: ["Unconventional", "Authentic", "Free"] },
+        "Inner Rebel": { short: "Questions authority and challenges norms that feel wrong or outdated.", chips: ["Defiant", "Honest", "Courageous"] },
+        "Self-Reliant": { short: "Trusts their own judgment and builds life on personal capability.", chips: ["Independent", "Capable", "Autonomous"] }
+      };
+
+      // Detect user's archetype if available
+      var userArchetype = null;
+      try {
+        var stored = loadResultData();
+        if (stored && stored.answers) {
+          var raw = computeResults(stored.answers);
+          var r = normalizeResults(raw);
+          userArchetype = r.archetypePrimary.name;
+        }
+      } catch(e) {}
+
+      var container = document.getElementById('arch-content');
+      var html = '';
+
+      Object.keys(ISLANDS).forEach(function(island) {
+        var data = ISLANDS[island];
+        html += '<div class="arch-island-section">';
+        html += '<div class="arch-island-header">';
+        html += '<span class="arch-island-dot arch-island-dot--' + island + '"></span>';
+        html += '<span class="arch-island-name">' + island + '</span>';
+        html += '<span class="arch-island-desc">' + data.desc + '</span>';
+        html += '</div>';
+        html += '<div class="arch-grid">';
+
+        data.archetypes.forEach(function(name) {
+          var info = ARCHETYPE_SUMMARY[name] || { short: '', chips: [] };
+          var isYours = userArchetype && name === userArchetype;
+          html += '<div class="arch-card">';
+          html += '<div class="arch-card-icon">' + getArchetypeIconHtml(name, 64, true) + '</div>';
+          html += '<div class="arch-card-body">';
+          html += '<h3>' + name + (isYours ? '<span class="arch-your-badge">You</span>' : '') + '</h3>';
+          html += '<p>' + info.short + '</p>';
+          html += '<div class="arch-card-strengths">';
+          info.chips.forEach(function(c) { html += '<span class="arch-card-chip">' + c + '</span>'; });
+          html += '</div></div></div>';
+        });
+
+        html += '</div></div>';
+      });
+
+      container.innerHTML = html;
+    })();
+  </script>
+</body>
+</html>

@@ -27,4 +27,16 @@ document.addEventListener('DOMContentLoaded', () => {
     stepItems.forEach((item) => item.classList.add('step-visible'));
   }
 
+  /* ── Sticky Mobile CTA: hide in hero, show after scroll ── */
+  const stickyCta = document.querySelector('.sticky-mobile-cta');
+  const heroSection = document.querySelector('.hero');
+  if (stickyCta && heroSection && 'IntersectionObserver' in window) {
+    const heroObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        stickyCta.classList.toggle('sticky-visible', !entry.isIntersecting);
+      });
+    }, { threshold: 0.15 });
+    heroObserver.observe(heroSection);
+  }
+
 });

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mirror — Self-Reflection | TestYourGenius</title>
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <style>
+    .explore-page{padding:0 0 var(--space-8);max-width:100%;margin:0 auto}
+    .explore-video-hero{position:relative;width:100%;height:70vh;min-height:400px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .explore-video-hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+    .explore-video-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(7,11,26,.3) 0%,rgba(7,11,26,.7) 60%,var(--bg-1) 100%)}
+    .explore-video-content{position:relative;z-index:2;text-align:center;padding:0 var(--space-5)}
+    .explore-content{max-width:780px;margin:0 auto;padding:var(--space-8) var(--space-5) 0}
+    .explore-hero{text-align:center;margin-bottom:var(--space-8)}
+    .explore-icon{font-size:3rem;margin-bottom:var(--space-4);display:block}
+    .explore-hero h1{font-size:2.6rem;font-weight:800;letter-spacing:-.03em;color:var(--ink);margin-bottom:var(--space-3);text-shadow:0 2px 20px rgba(0,0,0,.5)}
+    .explore-hero p{font-size:1.05rem;color:rgba(234,242,255,.7);max-width:520px;margin:0 auto;line-height:1.65;text-shadow:0 1px 10px rgba(0,0,0,.4)}
+    .explore-section{margin-bottom:var(--space-7)}
+    .explore-section h2{font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:var(--space-4)}
+    .explore-section p{font-size:.92rem;color:rgba(234,242,255,.5);line-height:1.7;margin-bottom:var(--space-4)}
+    .explore-card{background:rgba(14,26,58,.35);border:1px solid rgba(100,212,255,.08);border-radius:16px;padding:var(--space-5) var(--space-6);margin-bottom:var(--space-4)}
+    .explore-card h3{font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:var(--space-2)}
+    .explore-card p{margin-bottom:0}
+    .explore-prompt{background:rgba(244,211,126,.04);border-left:3px solid var(--gold);padding:var(--space-4) var(--space-5);border-radius:0 12px 12px 0;margin-bottom:var(--space-4)}
+    .explore-prompt p{font-style:italic;color:rgba(234,242,255,.6);margin-bottom:0}
+    .explore-cta{text-align:center;margin-top:var(--space-7);padding:var(--space-6);background:rgba(14,26,58,.3);border:1px solid rgba(100,212,255,.06);border-radius:20px}
+    .explore-cta p{font-size:.92rem;color:rgba(234,242,255,.45);margin-bottom:var(--space-4)}
+    .explore-cta a{display:inline-block;padding:var(--space-3) var(--space-6);background:var(--accent);color:var(--bg-1);border-radius:10px;font-weight:700;text-decoration:none;transition:all .3s}
+    .explore-cta a:hover{box-shadow:0 0 24px rgba(100,212,255,.3);transform:translateY(-2px)}
+    @media(max-width:768px){.explore-hero h1{font-size:1.7rem}.explore-video-hero{height:70vh;min-height:320px}}
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar nav--scrolled" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="homepage.html" class="navbar-logo"><img src="assets/images/logo.png" alt="TestYourGenius" height="48" width="186"></a>
+      <ul class="navbar-links">
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="about-test.html">About the Test</a></li>
+        <li><a href="archetypes.html">Archetypes</a></li>
+        <li><a href="start.html" class="navbar-cta">Start Assessment</a></li>
+      </ul>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <nav id="mobile-menu" class="mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <ul>
+      <li><a href="homepage.html">Home</a></li>
+      <li><a href="about-test.html">About the Test</a></li>
+      <li><a href="archetypes.html">Archetypes</a></li>
+      <li><a href="start.html">Start Assessment</a></li>
+    </ul>
+  </nav>
+
+  <div class="explore-page">
+    <div class="explore-video-hero">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="assets/videos/worlds/world-mirror.mp4" type="video/mp4">
+      </video>
+      <div class="explore-video-content">
+        <h1 class="explore-hero">The Mirror</h1>
+        <p style="font-size:1.05rem;color:rgba(234,242,255,.7);max-width:520px;margin:0 auto;line-height:1.65;text-shadow:0 1px 10px rgba(0,0,0,.4)">Your mind shapes how you see the world — and how you see yourself. The mirror asks you to look honestly at both.</p>
+      </div>
+    </div>
+
+    <div class="explore-content">
+    <div class="explore-section">
+      <h2>Why Self-Reflection Matters</h2>
+      <p>Most people move through life on autopilot — reacting to events, repeating patterns, and never questioning why they do what they do. Self-reflection is the act of pausing to observe your own mind without judgment.</p>
+      <p>Research in cognitive psychology consistently shows that people who practice structured self-reflection make better decisions, experience less anxiety, and build stronger relationships. Not because they're smarter, but because they're more aware.</p>
+    </div>
+
+    <div class="explore-section">
+      <h2>How Your Archetype Shapes Your Reflection</h2>
+      <div class="explore-card">
+        <h3>Grounded Minds</h3>
+        <p>You reflect through action — your insights come when you're doing, not just thinking. Journaling after a structured activity works better than open-ended contemplation.</p>
+      </div>
+      <div class="explore-card">
+        <h3>Sensitive Minds</h3>
+        <p>You reflect naturally and deeply — sometimes too deeply. Your challenge isn't starting reflection but knowing when to stop. Set a timer. Trust what surfaces first.</p>
+      </div>
+      <div class="explore-card">
+        <h3>Driven Minds</h3>
+        <p>You tend to reflect on outcomes rather than process. The mirror asks you to look beyond results: what were you feeling before the decision? What pattern were you repeating?</p>
+      </div>
+      <div class="explore-card">
+        <h3>Curious Minds</h3>
+        <p>You intellectualize reflection. The mirror invites you to sit with how something felt, not just what it meant. Let confusion exist without resolving it.</p>
+      </div>
+      <div class="explore-card">
+        <h3>Expressive Minds</h3>
+        <p>Your reflection often happens through expression — talking, creating, performing. Write a letter to yourself. Draw what you feel. Make reflection a creative act.</p>
+      </div>
+      <div class="explore-card">
+        <h3>Independent Minds</h3>
+        <p>You prefer private reflection and resist shared vulnerability. The mirror asks: what would it cost to let someone else see this part of you?</p>
+      </div>
+    </div>
+
+    <div class="explore-section">
+      <h2>Reflection Prompts</h2>
+      <div class="explore-prompt"><p>"What do I keep avoiding that I know I need to face?"</p></div>
+      <div class="explore-prompt"><p>"When did I last feel truly like myself — and what was different about that moment?"</p></div>
+      <div class="explore-prompt"><p>"What pattern keeps showing up in my relationships that I haven't fully understood?"</p></div>
+      <div class="explore-prompt"><p>"If I trusted myself completely, what would I do differently tomorrow?"</p></div>
+      <div class="explore-prompt"><p>"What am I protecting by staying exactly where I am?"</p></div>
+    </div>
+
+    <div class="explore-cta">
+      <p>Discover your reflection style by taking the assessment.</p>
+      <a href="start.html">Start the Assessment</a>
+    </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="homepage.html" class="navbar-logo"><img src="assets/images/logo.png" alt="TestYourGenius" height="42" width="162"></a>
+        <p class="footer-tagline">Understand how your mind works.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <a href="homepage.html">Home</a>
+          <a href="about-test.html">About the Test</a>
+          <a href="start.html">Start Assessment</a>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="archetypes.html">Archetypes</a>
+          <a href="mirror.html">Mirror</a>
+          <a href="decision.html">Decision</a>
+          <a href="history.html">History</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 TestYourGenius. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | TestYourGenius</title>
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <style>
+    .auth-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px var(--space-5) var(--space-7);
+      position: relative;
+      overflow: hidden;
+    }
+    .auth-page::before {
+      content: '';
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      width: min(600px, 100vw);
+      height: min(600px, 100vw);
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(100, 212, 255, 0.06) 0%, rgba(244, 211, 126, 0.03) 40%, transparent 70%);
+      filter: blur(60px);
+      pointer-events: none;
+    }
+    .auth-card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      background: rgba(14, 26, 58, 0.4);
+      border: 1px solid rgba(100, 212, 255, 0.1);
+      border-radius: 20px;
+      padding: var(--space-7) var(--space-6);
+      backdrop-filter: blur(12px);
+    }
+    .auth-logo {
+      text-align: center;
+      margin-bottom: var(--space-6);
+    }
+    .auth-logo img {
+      height: 40px;
+      width: auto;
+      display: inline-block;
+    }
+    .auth-title {
+      text-align: center;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: var(--space-2);
+    }
+    .auth-subtitle {
+      text-align: center;
+      font-size: 0.9rem;
+      color: rgba(234, 242, 255, 0.5);
+      margin-bottom: var(--space-6);
+    }
+    .auth-field {
+      margin-bottom: var(--space-4);
+    }
+    .auth-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(234, 242, 255, 0.6);
+      margin-bottom: var(--space-2);
+      letter-spacing: 0.02em;
+    }
+    .auth-input {
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      background: rgba(7, 11, 26, 0.6);
+      border: 1px solid rgba(100, 212, 255, 0.12);
+      border-radius: 10px;
+      color: var(--ink);
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      box-sizing: border-box;
+    }
+    .auth-input::placeholder { color: rgba(234, 242, 255, 0.25); }
+    .auth-input:focus {
+      outline: none;
+      border-color: rgba(100, 212, 255, 0.35);
+      box-shadow: 0 0 16px rgba(100, 212, 255, 0.08);
+    }
+    .auth-btn {
+      width: 100%;
+      padding: var(--space-4) var(--space-5);
+      background: var(--accent);
+      color: var(--bg-1);
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: var(--space-5);
+    }
+    .auth-btn:hover {
+      box-shadow: 0 0 24px rgba(100, 212, 255, 0.35);
+      transform: translateY(-1px);
+    }
+    .auth-divider {
+      text-align: center;
+      margin: var(--space-5) 0;
+      font-size: 0.82rem;
+      color: rgba(234, 242, 255, 0.3);
+    }
+    .auth-link {
+      text-align: center;
+      font-size: 0.88rem;
+      color: rgba(234, 242, 255, 0.5);
+    }
+    .auth-link a {
+      color: var(--accent);
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .auth-link a:hover { color: var(--ink); }
+    .auth-error {
+      display: none;
+      padding: var(--space-3) var(--space-4);
+      background: rgba(255, 100, 100, 0.08);
+      border: 1px solid rgba(255, 100, 100, 0.2);
+      border-radius: 8px;
+      color: #ff8888;
+      font-size: 0.82rem;
+      margin-bottom: var(--space-4);
+    }
+    .auth-success {
+      display: none;
+      padding: var(--space-3) var(--space-4);
+      background: rgba(100, 212, 255, 0.08);
+      border: 1px solid rgba(100, 212, 255, 0.2);
+      border-radius: 8px;
+      color: var(--accent);
+      font-size: 0.82rem;
+      margin-bottom: var(--space-4);
+      text-align: center;
+    }
+    @media (max-width: 480px) {
+      .auth-card { padding: var(--space-6) var(--space-5); }
+      .auth-title { font-size: 1.35rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar nav--scrolled" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="homepage.html" class="navbar-logo"><img src="assets/images/logo.png" alt="TestYourGenius" height="48" width="186"></a>
+      <ul class="navbar-links">
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="about-test.html">About the Test</a></li>
+        <li><a href="start.html">Start Assessment</a></li>
+        <li><a href="start.html" class="navbar-cta">Start Assessment</a></li>
+      </ul>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <nav id="mobile-menu" class="mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <ul>
+      <li><a href="homepage.html">Home</a></li>
+      <li><a href="about-test.html">About the Test</a></li>
+      <li><a href="start.html">Start Assessment</a></li>
+    </ul>
+  </nav>
+
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <img src="assets/images/logo.png" alt="TestYourGenius" height="40">
+      </div>
+      <h1 class="auth-title">Create Your Account</h1>
+      <p class="auth-subtitle">Save your results and unlock your full cognitive report.</p>
+
+      <div class="auth-error" id="signup-error"></div>
+      <div class="auth-success" id="signup-success"></div>
+
+      <form id="signup-form" autocomplete="off">
+        <div class="auth-field">
+          <label class="auth-label" for="signup-name">Full Name</label>
+          <input class="auth-input" type="text" id="signup-name" placeholder="Enter your name" required>
+        </div>
+        <div class="auth-field">
+          <label class="auth-label" for="signup-email">Email Address</label>
+          <input class="auth-input" type="email" id="signup-email" placeholder="you@example.com" required>
+        </div>
+        <div class="auth-field">
+          <label class="auth-label" for="signup-password">Password</label>
+          <input class="auth-input" type="password" id="signup-password" placeholder="At least 6 characters" required minlength="6">
+        </div>
+        <button type="submit" class="auth-btn">Create Account</button>
+      </form>
+
+      <div class="auth-divider">or</div>
+      <p class="auth-link">Already have an account? <a href="login.html">Sign in</a></p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="homepage.html" class="navbar-logo"><img src="assets/images/logo.png" alt="TestYourGenius" height="42" width="162"></a>
+        <p class="footer-tagline">Understand how your mind works.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <a href="homepage.html">Home</a>
+          <a href="about-test.html">About the Test</a>
+          <a href="start.html">Start Assessment</a>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="archetypes.html">Archetypes</a>
+          <a href="mirror.html">Mirror</a>
+          <a href="decision.html">Decision</a>
+          <a href="history.html">History</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 TestYourGenius. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script>
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var name = document.getElementById('signup-name').value.trim();
+      var email = document.getElementById('signup-email').value.trim();
+      var password = document.getElementById('signup-password').value;
+      var errorEl = document.getElementById('signup-error');
+      var successEl = document.getElementById('signup-success');
+      errorEl.style.display = 'none';
+      successEl.style.display = 'none';
+
+      if (!name || !email || password.length < 6) {
+        errorEl.textContent = 'Please fill in all fields. Password must be at least 6 characters.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      // Simulate account creation
+      var user = { name: name, email: email, createdAt: Date.now() };
+      try { localStorage.setItem('tyg_user', JSON.stringify(user)); } catch(err) {}
+
+      successEl.textContent = 'Account created! Redirecting…';
+      successEl.style.display = 'block';
+
+      setTimeout(function() {
+        // If they have results, go to unlock. Otherwise, go to homepage.
+        var hasResults = false;
+        try { hasResults = !!localStorage.getItem('tyg_result_data'); } catch(err) {}
+        window.location.href = hasResults ? 'unlock.html' : 'homepage.html';
+      }, 1200);
+    });
+  </script>
+</body>
+</html>

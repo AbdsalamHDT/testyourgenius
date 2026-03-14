@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | TestYourGenius</title>
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <style>
+    .dash-page {
+      padding: 110px var(--space-5) var(--space-8);
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    .dash-header {
+      margin-bottom: var(--space-7);
+    }
+    .dash-greeting {
+      font-size: 0.82rem;
+      color: rgba(234, 242, 255, 0.4);
+      margin-bottom: var(--space-2);
+    }
+    .dash-title {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.03em;
+    }
+    .dash-archetype-card {
+      background: rgba(14, 26, 58, 0.5);
+      border: 1px solid rgba(100, 212, 255, 0.12);
+      border-radius: 20px;
+      padding: var(--space-6);
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      margin-bottom: var(--space-6);
+    }
+    .dash-archetype-icon {
+      flex-shrink: 0;
+    }
+    .dash-archetype-info h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--gold), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--space-2);
+    }
+    .dash-archetype-info .dash-island-pills {
+      display: flex;
+      gap: var(--space-2);
+      margin-bottom: var(--space-3);
+    }
+    .dash-pill {
+      padding: var(--space-1) var(--space-3);
+      background: rgba(100, 212, 255, 0.08);
+      border: 1px solid rgba(100, 212, 255, 0.15);
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .dash-pill--sec {
+      background: rgba(244, 211, 126, 0.06);
+      border-color: rgba(244, 211, 126, 0.15);
+      color: var(--gold);
+    }
+    .dash-archetype-desc {
+      font-size: 0.88rem;
+      color: rgba(234, 242, 255, 0.5);
+      line-height: 1.6;
+    }
+    .dash-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+    .dash-stat {
+      background: rgba(14, 26, 58, 0.35);
+      border: 1px solid rgba(100, 212, 255, 0.08);
+      border-radius: 14px;
+      padding: var(--space-4);
+      text-align: center;
+    }
+    .dash-stat-value {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--accent);
+      display: block;
+    }
+    .dash-stat-label {
+      font-size: 0.72rem;
+      color: rgba(234, 242, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: var(--space-1);
+      display: block;
+    }
+    .dash-actions-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: var(--space-4);
+    }
+    .dash-actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+    .dash-action {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-5);
+      background: rgba(14, 26, 58, 0.35);
+      border: 1px solid rgba(100, 212, 255, 0.08);
+      border-radius: 16px;
+      text-decoration: none;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .dash-action:hover {
+      border-color: rgba(100, 212, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    .dash-action-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .dash-action h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+    .dash-action p {
+      font-size: 0.78rem;
+      color: rgba(234, 242, 255, 0.4);
+      line-height: 1.5;
+    }
+    .dash-retake {
+      text-align: center;
+      margin-top: var(--space-6);
+      padding-top: var(--space-6);
+      border-top: 1px solid rgba(100, 212, 255, 0.06);
+    }
+    .dash-retake a {
+      color: rgba(234, 242, 255, 0.35);
+      font-size: 0.82rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .dash-retake a:hover { color: var(--accent); }
+    @media (max-width: 768px) {
+      .dash-archetype-card { flex-direction: column; text-align: center; }
+      .dash-archetype-info .dash-island-pills { justify-content: center; }
+      .dash-stats { grid-template-columns: repeat(2, 1fr); }
+      .dash-actions { grid-template-columns: 1fr; }
+      .dash-title { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar nav--scrolled" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="homepage.html" class="navbar-logo"><img src="assets/images/logo.png" alt="TestYourGenius" height="48" width="186"></a>
+      <ul class="navbar-links">
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="about-test.html">About the Test</a></li>
+        <li><a href="archetypes.html">Archetypes</a></li>
+        <li><a href="report.html" class="navbar-cta">My Report</a></li>
+      </ul>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <nav id="mobile-menu" class="mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <ul>
+      <li><a href="homepage.html">Home</a></li>
+      <li><a href="about-test.html">About the Test</a></li>
+      <li><a href="archetypes.html">Archetypes</a></li>
+      <li><a href="report.html">My Report</a></li>
+    </ul>
+  </nav>
+
+  <div class="dash-page" id="dash-page">
+    <div class="dash-header">
+      <p class="dash-greeting" id="dash-greeting">Welcome back</p>
+      <h1 class="dash-title">Your Dashboard</h1>
+    </div>
+
+    <div class="dash-archetype-card" id="dash-arch-card">
+      <div class="dash-archetype-icon" id="dash-arch-icon"></div>
+      <div class="dash-archetype-info">
+        <h2 id="dash-arch-name">—</h2>
+        <div class="dash-island-pills">
+          <span class="dash-pill" id="dash-pri-pill">—</span>
+          <span class="dash-pill dash-pill--sec" id="dash-sec-pill">—</span>
+        </div>
+        <p class="dash-archetype-desc" id="dash-arch-desc"></p>
+      </div>
+    </div>
+
+    <div class="dash-stats" id="dash-stats">
+      <div class="dash-stat"><span class="dash-stat-value" id="stat-healthy">—</span><span class="dash-stat-label">Healthy Adult</span></div>
+      <div class="dash-stat"><span class="dash-stat-value" id="stat-resilience">—</span><span class="dash-stat-label">Resilience</span></div>
+      <div class="dash-stat"><span class="dash-stat-value" id="stat-confidence">—</span><span class="dash-stat-label">Confidence</span></div>
+      <div class="dash-stat"><span class="dash-stat-value" id="stat-modes">—</span><span class="dash-stat-label">Stress Modes</span></div>
+    </div>
+
+    <h2 class="dash-actions-title">Explore</h2>
+    <div class="dash-actions">
+      <a href="report.html" class="dash-action">
+        <span class="dash-action-icon">📋</span>
+        <div><h3>Full Report</h3><p>View your complete cognitive analysis</p></div>
+      </a>
+      <a href="archetypes.html" class="dash-action">
+        <span class="dash-action-icon">✦</span>
+        <div><h3>All Archetypes</h3><p>Explore all 24 cognitive archetypes</p></div>
+      </a>
+      <a href="mirror.html" class="dash-action">
+        <span class="dash-action-icon">🪞</span>
+        <div><h3>Mirror</h3><p>Reflect on how your mind shapes your world</p></div>
+      </a>
+      <a href="decision.html" class="dash-action">
+        <span class="dash-action-icon">⚖️</span>
+        <div><h3>Decision Lab</h3><p>Understand your decision-making patterns</p></div>
+      </a>
+      <a href="history.html" class="dash-action">
+        <span class="dash-action-icon">🏛️</span>
+        <div><h3>History</h3><p>Historical figures who share your patterns</p></div>
+      </a>
+      <a href="about-test.html" class="dash-action">
+        <span class="dash-action-icon">🔬</span>
+        <div><h3>About the Test</h3><p>The science behind the assessment</p></div>
+      </a>
+    </div>
+
+    <div class="dash-retake">
+      <a href="#" id="btn-retake">↻ Retake Assessment</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="homepage.html" class="navbar-logo"><img src="assets/images/logo.png" alt="TestYourGenius" height="42" width="162"></a>
+        <p class="footer-tagline">Understand how your mind works.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <a href="homepage.html">Home</a>
+          <a href="about-test.html">About the Test</a>
+          <a href="start.html">Start Assessment</a>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="archetypes.html">Archetypes</a>
+          <a href="mirror.html">Mirror</a>
+          <a href="decision.html">Decision</a>
+          <a href="history.html">History</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 TestYourGenius. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/tyg-data.js"></script>
+  <script>
+    (function() {
+      var stored = loadResultData();
+      if (!stored || !stored.answers) {
+        window.location.href = 'start.html';
+        return;
+      }
+      var raw = computeResults(stored.answers);
+      var r = normalizeResults(raw);
+      var arch = ARCHETYPE_NARRATIVES[r.primaryIsland] || ARCHETYPE_NARRATIVES.Grounded;
+
+      // Greeting
+      try {
+        var user = JSON.parse(localStorage.getItem('tyg_user'));
+        if (user && user.name) document.getElementById('dash-greeting').textContent = 'Welcome back, ' + user.name;
+      } catch(e) {}
+
+      // Archetype card
+      document.getElementById('dash-arch-icon').innerHTML = getArchetypeIconHtml(r.archetypePrimary.name, 96, false);
+      document.getElementById('dash-arch-name').textContent = r.archetypePrimary.name;
+      document.getElementById('dash-pri-pill').textContent = r.primaryIsland;
+      document.getElementById('dash-sec-pill').textContent = r.secondaryIsland;
+      document.getElementById('dash-arch-desc').textContent = arch.narrative.split('. ').slice(0, 2).join('. ') + '.';
+
+      // Stats
+      document.getElementById('stat-healthy').textContent = r.healthyAdult.toFixed(1);
+      document.getElementById('stat-resilience').textContent = r.resilience.toFixed(1);
+      document.getElementById('stat-confidence').textContent = r.confidence.level;
+      document.getElementById('stat-modes').textContent = r.topModes.length;
+
+      // Retake
+      document.getElementById('btn-retake').addEventListener('click', function(e) {
+        e.preventDefault();
+        if (confirm('This will clear your current results. Continue?')) {
+          clearResultData();
+          localStorage.removeItem('tyg_unlocked');
+          window.location.href = 'assessment.html';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

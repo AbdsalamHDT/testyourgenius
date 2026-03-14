@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unlock Your Full Report | TestYourGenius</title>
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <style>
+    /* ═══════════════════════════════════════════
+       UNLOCK PAGE — HIGH CONVERSION
+       ═══════════════════════════════════════════ */
+
+    .u-page { padding: 0 0 0; }
+
+    /* ── HERO ── */
+    .u-hero {
+      position: relative;
+      text-align: center;
+      padding: 130px var(--space-5) var(--space-8);
+      overflow: hidden;
+    }
+    .u-hero::before {
+      content: '';
+      position: absolute;
+      top: -60%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(700px, 100vw);
+      height: min(700px, 100vw);
+      background: radial-gradient(circle, rgba(100,212,255,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .u-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 18px;
+      background: rgba(244,211,126,0.08);
+      border: 1px solid rgba(244,211,126,0.22);
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-5);
+      animation: u-pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes u-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(244,211,126,0.15); }
+      50% { box-shadow: 0 0 20px 4px rgba(244,211,126,0.1); }
+    }
+    .u-badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: u-blink 1.5s ease-in-out infinite;
+    }
+    @keyframes u-blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .u-hero h1 {
+      font-size: clamp(1.9rem, 5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: var(--space-4);
+    }
+    .u-hero-sub {
+      font-size: 1.05rem;
+      color: rgba(234,242,255,0.5);
+      max-width: 560px;
+      margin: 0 auto var(--space-6);
+      line-height: 1.7;
+    }
+
+    /* ── ARCHETYPE REVEAL CARD ── */
+    .u-archetype-card {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-4) var(--space-6);
+      background: rgba(14,26,58,0.5);
+      border: 1px solid rgba(100,212,255,0.15);
+      border-radius: 18px;
+      margin-bottom: var(--space-3);
+      backdrop-filter: blur(12px);
+    }
+    .u-archetype-card::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(100,212,255,0.12), rgba(244,211,126,0.08), transparent);
+      z-index: -1;
+    }
+    .u-archetype-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .u-archetype-icon img { width: 100%; height: 100%; object-fit: cover; }
+    .u-archetype-info { text-align: left; }
+    .u-archetype-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: rgba(234,242,255,0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 2px;
+    }
+    .u-archetype-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--gold), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .u-archetype-island {
+      font-size: 0.78rem;
+      color: rgba(234,242,255,0.4);
+      margin-top: 2px;
+    }
+
+    /* ── PERSONALIZED PREVIEW (blurred teaser) ── */
+    .u-preview {
+      max-width: 700px;
+      margin: var(--space-7) auto;
+      position: relative;
+    }
+    .u-preview-inner {
+      background: rgba(14,26,58,0.35);
+      border: 1px solid rgba(100,212,255,0.08);
+      border-radius: 20px;
+      padding: var(--space-6);
+      overflow: hidden;
+    }
+    .u-preview-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(234,242,255,0.35);
+      margin-bottom: var(--space-5);
+      text-align: center;
+    }
+    .u-bars { display: flex; flex-direction: column; gap: 14px; }
+    .u-bar-row { display: flex; align-items: center; gap: 12px; }
+    .u-bar-label {
+      flex: 0 0 100px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--ink);
+      opacity: 0.7;
+      text-align: right;
+    }
+    .u-bar-track {
+      flex: 1;
+      height: 8px;
+      background: rgba(100,212,255,0.06);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .u-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--accent), rgba(100,212,255,0.6));
+      transition: width 1.2s cubic-bezier(.22,1,.36,1);
+    }
+    .u-bar-val {
+      flex: 0 0 36px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-align: left;
+    }
+    .u-preview-blur {
+      position: relative;
+      margin-top: var(--space-5);
+      padding: var(--space-5);
+      filter: blur(6px);
+      user-select: none;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+    .u-preview-blur-fake {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .u-preview-blur-line {
+      height: 10px;
+      border-radius: 5px;
+      background: rgba(234,242,255,0.08);
+    }
+    .u-preview-lock {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      background: linear-gradient(to top, var(--bg-1) 30%, transparent);
+      z-index: 2;
+    }
+    .u-preview-lock svg {
+      opacity: 0.5;
+    }
+    .u-preview-lock span {
+      font-size: 0.82rem;
+      color: rgba(234,242,255,0.4);
+    }
+
+    /* ── SOCIAL PROOF STRIP ── */
+    .u-social {
+      text-align: center;
+      padding: var(--space-7) var(--space-5);
+      border-top: 1px solid rgba(100,212,255,0.04);
+      border-bottom: 1px solid rgba(100,212,255,0.04);
+    }
+    .u-social-number {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: var(--space-2);
+    }
+    .u-social-number span {
+      background: linear-gradient(135deg, var(--gold), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .u-social-label {
+      font-size: 0.88rem;
+      color: rgba(234,242,255,0.4);
+    }
+
+    /* ── CTA SECTION ── */
+    .u-cta-section {
+      text-align: center;
+      padding: var(--space-8) var(--space-5);
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .u-cta-heading {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: var(--space-3);
+      letter-spacing: -0.02em;
+    }
+    .u-cta-sub {
+      font-size: 0.92rem;
+      color: rgba(234,242,255,0.45);
+      line-height: 1.6;
+      margin-bottom: var(--space-6);
+    }
+    .u-price-block {
+      margin-bottom: var(--space-5);
+    }
+    .u-price-anchor {
+      font-size: 0.82rem;
+      color: rgba(234,242,255,0.3);
+      margin-bottom: 6px;
+    }
+    .u-price-anchor s {
+      color: rgba(234,242,255,0.25);
+    }
+    .u-price-main {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 6px;
+    }
+    .u-price-dollar {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-top: 8px;
+    }
+    .u-price-amount {
+      font-size: 3.4rem;
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1;
+      text-shadow: 0 0 30px rgba(100,212,255,0.15);
+    }
+    .u-price-period {
+      font-size: 0.88rem;
+      color: rgba(234,242,255,0.4);
+      font-weight: 500;
+    }
+    .u-cta-btn {
+      display: inline-block;
+      width: 100%;
+      max-width: 400px;
+      padding: 20px 44px;
+      background: linear-gradient(135deg, var(--accent), #4fc3f7);
+      color: var(--bg-1);
+      border: none;
+      border-radius: 14px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      box-shadow: 0 4px 24px rgba(100,212,255,0.3);
+      letter-spacing: -0.01em;
+    }
+    .u-cta-btn:hover {
+      box-shadow: 0 6px 35px rgba(100,212,255,0.4);
+      transform: translateY(-2px);
+    }
+    .u-guarantee {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: var(--space-4);
+      font-size: 0.78rem;
+      color: rgba(234,242,255,0.35);
+    }
+    .u-trust-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-5);
+      flex-wrap: wrap;
+      margin-top: var(--space-5);
+    }
+    .u-trust-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.76rem;
+      color: rgba(234,242,255,0.35);
+    }
+    .u-trust-item svg {
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+
+    /* ── WHAT'S INSIDE ── */
+    .u-inside {
+      padding: var(--space-8) var(--space-5);
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .u-section-label {
+      display: block;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-3);
+    }
+    .u-section-title {
+      text-align: center;
+      font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-3);
+    }
+    .u-section-sub {
+      text-align: center;
+      font-size: 0.92rem;
+      color: rgba(234,242,255,0.4);
+      max-width: 540px;
+      margin: 0 auto var(--space-7);
+      line-height: 1.6;
+    }
+    .u-inside-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-5);
+    }
+    .u-inside-card {
+      background: rgba(14,26,58,0.35);
+      border: 1px solid rgba(100,212,255,0.08);
+      border-radius: 18px;
+      padding: var(--space-5) var(--space-5) var(--space-5);
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .u-inside-card:hover {
+      border-color: rgba(100,212,255,0.18);
+      transform: translateY(-3px);
+    }
+    .u-inside-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-3);
+      font-size: 1.2rem;
+    }
+    .u-inside-icon--blue  { background: rgba(100,212,255,0.1); color: var(--accent); }
+    .u-inside-icon--gold  { background: rgba(244,211,126,0.1); color: var(--gold); }
+    .u-inside-icon--green { background: rgba(100,255,180,0.1); color: #64ffb4; }
+    .u-inside-icon--pink  { background: rgba(255,100,180,0.1); color: #ff64b4; }
+    .u-inside-icon--purple{ background: rgba(180,100,255,0.1); color: #b464ff; }
+    .u-inside-icon--white { background: rgba(234,242,255,0.08); color: var(--ink); }
+    .u-inside-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .u-inside-card p {
+      font-size: 0.82rem;
+      color: rgba(234,242,255,0.45);
+      line-height: 1.6;
+    }
+    .u-inside-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+    }
+    .u-inside-card ul li {
+      font-size: 0.78rem;
+      color: rgba(234,242,255,0.4);
+      padding: 3px 0;
+      padding-left: 16px;
+      position: relative;
+    }
+    .u-inside-card ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      opacity: 0.6;
+    }
+
+    /* ── COMPARISON TABLE ── */
+    .u-compare {
+      padding: var(--space-8) var(--space-5);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .u-compare-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(100,212,255,0.08);
+    }
+    .u-compare-table th {
+      padding: 16px 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .u-compare-table th:first-child {
+      text-align: left;
+      color: rgba(234,242,255,0.35);
+      background: rgba(14,26,58,0.3);
+    }
+    .u-compare-table th:nth-child(2) {
+      color: rgba(234,242,255,0.35);
+      background: rgba(14,26,58,0.3);
+      text-align: center;
+    }
+    .u-compare-table th:nth-child(3) {
+      color: var(--gold);
+      background: rgba(244,211,126,0.06);
+      text-align: center;
+    }
+    .u-compare-table td {
+      padding: 14px 20px;
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(100,212,255,0.04);
+    }
+    .u-compare-table td:first-child {
+      color: rgba(234,242,255,0.6);
+      background: rgba(14,26,58,0.15);
+    }
+    .u-compare-table td:nth-child(2) {
+      text-align: center;
+      color: rgba(234,242,255,0.3);
+      background: rgba(14,26,58,0.15);
+    }
+    .u-compare-table td:nth-child(3) {
+      text-align: center;
+      color: var(--accent);
+      font-weight: 600;
+      background: rgba(244,211,126,0.03);
+    }
+    .u-check { font-size: 1rem; }
+    .u-x { font-size: 0.9rem; opacity: 0.3; }
+
+    /* ── TESTIMONIALS ── */
+    .u-testimonials {
+      padding: var(--space-7) var(--space-5);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .u-testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5);
+    }
+    .u-testimonial {
+      background: rgba(14,26,58,0.3);
+      border: 1px solid rgba(100,212,255,0.06);
+      border-radius: 16px;
+      padding: var(--space-5);
+    }
+    .u-testimonial-stars {
+      font-size: 0.85rem;
+      color: var(--gold);
+      margin-bottom: var(--space-3);
+      letter-spacing: 2px;
+    }
+    .u-testimonial p {
+      font-size: 0.85rem;
+      color: rgba(234,242,255,0.55);
+      line-height: 1.65;
+      margin-bottom: var(--space-3);
+      font-style: italic;
+    }
+    .u-testimonial-author {
+      font-size: 0.75rem;
+      color: rgba(234,242,255,0.3);
+      font-weight: 600;
+    }
+
+    /* ── PRICING CARD ── */
+    .u-pricing-card {
+      background: rgba(14,26,58,0.4);
+      border: 1px solid rgba(100,212,255,0.12);
+      border-radius: 22px;
+      padding: var(--space-6) var(--space-5);
+      max-width: 440px;
+      margin: 0 auto var(--space-5);
+      position: relative;
+      overflow: hidden;
+    }
+    .u-pricing-card::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(100,212,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .u-pricing-card-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-bottom: var(--space-4);
+    }
+    .u-pricing-includes {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-4) 0 0;
+      text-align: left;
+    }
+    .u-pricing-includes li {
+      font-size: 0.84rem;
+      color: rgba(234,242,255,0.55);
+      padding: 5px 0;
+      padding-left: 22px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .u-pricing-includes li::before {
+      content: '✔';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.78rem;
+    }
+
+    /* ── FAQ ── */
+    .u-faq {
+      padding: var(--space-8) var(--space-5);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .u-faq-item {
+      border-bottom: 1px solid rgba(100,212,255,0.06);
+    }
+    .u-faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: var(--space-4) 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      text-align: left;
+    }
+    .u-faq-q span {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .u-faq-q .u-faq-arrow {
+      font-size: 1.2rem;
+      color: rgba(234,242,255,0.3);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+      margin-left: 12px;
+    }
+    .u-faq-item.active .u-faq-arrow { transform: rotate(45deg); }
+    .u-faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+    }
+    .u-faq-item.active .u-faq-a {
+      max-height: 300px;
+      padding-bottom: var(--space-4);
+    }
+    .u-faq-a p {
+      font-size: 0.85rem;
+      color: rgba(234,242,255,0.45);
+      line-height: 1.7;
+    }
+
+    /* ── FINAL CTA ── */
+    .u-final-cta {
+      text-align: center;
+      padding: var(--space-8) var(--space-5) var(--space-8);
+      position: relative;
+      overflow: hidden;
+    }
+    .u-final-cta::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(600px, 100vw);
+      height: min(400px, 70vw);
+      background: radial-gradient(circle, rgba(244,211,126,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .u-final-heading {
+      font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: var(--space-3);
+    }
+    .u-final-sub {
+      font-size: 0.88rem;
+      color: rgba(234,242,255,0.4);
+      margin-bottom: var(--space-5);
+    }
+
+    /* ── STICKY MOBILE CTA ── */
+    .u-sticky-cta {
+      display: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .u-inside-grid { grid-template-columns: 1fr; }
+      .u-testimonials-grid { grid-template-columns: 1fr; }
+      .u-bar-label { flex: 0 0 72px; font-size: 0.75rem; }
+      .u-pricing-card { margin-left: 16px; margin-right: 16px; }
+      .u-archetype-card { flex-direction: column; text-align: center; padding: var(--space-4); }
+      .u-archetype-info { text-align: center; }
+      .u-compare-table td, .u-compare-table th { padding: 10px 12px; font-size: 0.78rem; }
+      .u-compare { overflow-x: auto; }
+      .u-sticky-cta {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        background: rgba(7,11,26,0.92);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        padding: 12px 16px;
+        border-top: 1px solid rgba(100,212,255,0.1);
+        opacity: 0;
+        transform: translateY(100%);
+        pointer-events: none;
+        transition: opacity 0.35s ease, transform 0.35s ease;
+      }
+      .u-sticky-cta.sticky-visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      .u-sticky-cta-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .u-sticky-cta-price {
+        font-size: 0.78rem;
+        color: rgba(234,242,255,0.5);
+        white-space: nowrap;
+      }
+      .u-sticky-cta-price strong {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: var(--ink);
+      }
+      .u-sticky-cta-btn {
+        flex: 1;
+        display: block;
+        padding: 13px 16px;
+        background: linear-gradient(135deg, var(--accent), #4fc3f7);
+        color: var(--bg-1);
+        text-align: center;
+        font-size: 0.92rem;
+        font-weight: 700;
+        border: none;
+        border-radius: 10px;
+        text-decoration: none;
+        box-shadow: 0 0 16px rgba(100,212,255,0.25);
+      }
+      .site-footer { padding-bottom: 72px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar nav--scrolled" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="homepage.html" class="navbar-logo"><img src="assets/images/logo.png" alt="TestYourGenius" height="48" width="186"></a>
+      <ul class="navbar-links">
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="about-test.html">About the Test</a></li>
+        <li><a href="start.html">Start Assessment</a></li>
+        <li><a href="login.html" class="navbar-cta" id="nav-auth-cta">Sign In</a></li>
+      </ul>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <nav id="mobile-menu" class="mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <ul>
+      <li><a href="homepage.html">Home</a></li>
+      <li><a href="about-test.html">About the Test</a></li>
+      <li><a href="start.html">Start Assessment</a></li>
+      <li><a href="login.html" class="navbar-cta" style="display:inline-block;text-align:center;margin-top:var(--space-2);" id="mobile-auth-cta">Sign In</a></li>
+    </ul>
+  </nav>
+
+  <div class="u-page">
+
+    <!-- ═══════════ 1. HERO ═══════════ -->
+    <section class="u-hero">
+      <div class="u-badge"><span class="u-badge-dot"></span> Assessment Complete — Results Ready</div>
+      <h1 id="u-hero-heading">Your Mind Has Been Mapped.<br>Now See the Full Picture.</h1>
+      <p class="u-hero-sub">You answered 70 questions. Your cognitive profile has been computed. Your archetype has been identified. Unlock the complete analysis to understand the patterns behind the way you think, decide, and respond.</p>
+
+      <div class="u-archetype-card" id="u-archetype-card">
+        <div class="u-archetype-icon" id="u-archetype-icon"></div>
+        <div class="u-archetype-info">
+          <div class="u-archetype-label">Your Archetype</div>
+          <div class="u-archetype-name" id="u-archetype-name">Loading…</div>
+          <div class="u-archetype-island" id="u-archetype-island"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 2. PERSONALIZED PREVIEW ═══════════ -->
+    <section class="u-preview">
+      <div class="u-preview-inner">
+        <div class="u-preview-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;opacity:0.5;margin-right:6px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Your Cognitive Dimension Scores</div>
+        <div class="u-bars" id="u-bars">
+          <!-- Filled by JS with real island scores -->
+        </div>
+        <div class="u-preview-blur">
+          <div class="u-preview-blur-fake">
+            <div class="u-preview-blur-line" style="width:85%"></div>
+            <div class="u-preview-blur-line" style="width:60%"></div>
+            <div class="u-preview-blur-line" style="width:92%"></div>
+            <div class="u-preview-blur-line" style="width:45%"></div>
+            <div class="u-preview-blur-line" style="width:78%"></div>
+          </div>
+        </div>
+        <div class="u-preview-lock">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Full breakdown available in your complete report</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 3. SOCIAL PROOF ═══════════ -->
+    <section class="u-social">
+      <div class="u-social-number"><span id="u-counter">2,400</span>+ people</div>
+      <div class="u-social-label">have already unlocked their full cognitive report</div>
+    </section>
+
+    <!-- ═══════════ 4. FIRST CTA (Pricing Card) ═══════════ -->
+    <section class="u-cta-section" id="u-cta-1">
+      <div class="u-cta-heading">Understand your mind at a deeper level.</div>
+      <div class="u-cta-sub">Your basic result shows your archetype. Your full report reveals <em>why</em> you think the way you do — and what to do with that knowledge.</div>
+
+      <div class="u-pricing-card">
+        <div class="u-pricing-card-label">Full Report Access</div>
+
+        <div class="u-price-block">
+          <div class="u-price-main">
+            <span class="u-price-dollar">$</span>
+            <span class="u-price-amount">15</span>
+          </div>
+          <div class="u-price-period">one-time payment · lifetime access</div>
+        </div>
+
+        <ul class="u-pricing-includes">
+          <li>Complete 6-dimension cognitive profile</li>
+          <li>Full archetype narrative & deep dive</li>
+          <li>Stress response map (top 3 modes)</li>
+          <li>Decision & motivation patterns</li>
+          <li>Personalized growth blueprint</li>
+          <li>Historical mind parallels</li>
+        </ul>
+      </div>
+
+      <a href="checkout.html" class="u-cta-btn">Unlock My Full Report</a>
+
+      <div class="u-guarantee">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Secure checkout · Instant access · No subscription
+      </div>
+
+      <div class="u-trust-row">
+        <span class="u-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          Instant digital delivery
+        </span>
+        <span class="u-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          Data never leaves your device
+        </span>
+        <span class="u-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          Lifetime access
+        </span>
+      </div>
+    </section>
+
+    <!-- ═══════════ 5. WHAT'S INSIDE ═══════════ -->
+    <section class="u-inside">
+      <span class="u-section-label">What's Inside</span>
+      <h2 class="u-section-title">Everything Your Full Report Includes</h2>
+      <p class="u-section-sub">Your report is not a generic personality summary. It's a detailed cognitive map built from your specific answers.</p>
+
+      <div class="u-inside-grid">
+        <div class="u-inside-card">
+          <div class="u-inside-icon u-inside-icon--blue">◉</div>
+          <h3>Complete Cognitive Profile</h3>
+          <p>Your scores across all six cognitive dimensions — mapped, ranked, and explained.</p>
+          <ul>
+            <li>Dimension breakdown with percentages</li>
+            <li>Primary and secondary island analysis</li>
+            <li>Confidence score and interpretation</li>
+          </ul>
+        </div>
+        <div class="u-inside-card">
+          <div class="u-inside-icon u-inside-icon--gold">✦</div>
+          <h3>Archetype Deep Dive</h3>
+          <p>Your primary archetype narrative — who you are, how you think, and what drives your patterns.</p>
+          <ul>
+            <li>Full archetype narrative and description</li>
+            <li>Core strengths mapped from your results</li>
+            <li>Growth areas and blind spots</li>
+          </ul>
+        </div>
+        <div class="u-inside-card">
+          <div class="u-inside-icon u-inside-icon--pink">⚡</div>
+          <h3>Stress Response Map</h3>
+          <p>Your top 3 stress modes — when they activate, what they protect, and what they cost you.</p>
+          <ul>
+            <li>Ranked stress patterns with scores</li>
+            <li>Protection vs. cost analysis for each</li>
+            <li>Healthy Adult & Resilience scores</li>
+          </ul>
+        </div>
+        <div class="u-inside-card">
+          <div class="u-inside-icon u-inside-icon--green">⚖</div>
+          <h3>Decision & Motivation Patterns</h3>
+          <p>How your core psychological needs shape the choices you make and the things you avoid.</p>
+          <ul>
+            <li>Autonomy, Competence & Relatedness scores</li>
+            <li>Attachment style (anxiety vs avoidance)</li>
+            <li>Need balance visualization</li>
+          </ul>
+        </div>
+        <div class="u-inside-card">
+          <div class="u-inside-icon u-inside-icon--purple">↗</div>
+          <h3>Personalized Growth Blueprint</h3>
+          <p>A clear path forward — not generic advice, but growth strategies matched to your specific patterns.</p>
+          <ul>
+            <li>Your #1 growth lever identified</li>
+            <li>Micro-actions tailored to your archetype</li>
+            <li>Reflection prompts for deeper self-work</li>
+          </ul>
+        </div>
+        <div class="u-inside-card">
+          <div class="u-inside-icon u-inside-icon--white">🏛</div>
+          <h3>Historical Mind Parallels</h3>
+          <p>Discover historical figures who share your cognitive structure — and how minds like yours shaped the world.</p>
+          <ul>
+            <li>Historical figures with similar patterns</li>
+            <li>What they reveal about your thinking</li>
+            <li>Lessons from cognitive parallels</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 6. FREE vs FULL COMPARISON ═══════════ -->
+    <section class="u-compare">
+      <span class="u-section-label">Compare</span>
+      <h2 class="u-section-title">Free Result vs. Full Report</h2>
+      <p class="u-section-sub">You've seen your archetype name. Here's what's still locked.</p>
+
+      <table class="u-compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Free</th>
+            <th>Full Report</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Archetype name</td>
+            <td><span class="u-check">✓</span></td>
+            <td><span class="u-check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Dimension scores (6 islands)</td>
+            <td><span class="u-x">✕</span></td>
+            <td><span class="u-check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Full archetype narrative</td>
+            <td><span class="u-x">✕</span></td>
+            <td><span class="u-check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Strengths & growth areas</td>
+            <td><span class="u-x">✕</span></td>
+            <td><span class="u-check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Stress mode analysis (top 3)</td>
+            <td><span class="u-x">✕</span></td>
+            <td><span class="u-check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Decision & motivation patterns</td>
+            <td><span class="u-x">✕</span></td>
+            <td><span class="u-check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Attachment style mapping</td>
+            <td><span class="u-x">✕</span></td>
+            <td><span class="u-check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Personalized growth blueprint</td>
+            <td><span class="u-x">✕</span></td>
+            <td><span class="u-check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Historical mind parallels</td>
+            <td><span class="u-x">✕</span></td>
+            <td><span class="u-check">✓</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ═══════════ 7. TESTIMONIALS ═══════════ -->
+    <section class="u-testimonials">
+      <span class="u-section-label">What People Say</span>
+      <h2 class="u-section-title" style="margin-bottom:var(--space-7)">After Unlocking Their Report</h2>
+
+      <div class="u-testimonials-grid">
+        <div class="u-testimonial">
+          <div class="u-testimonial-stars">★★★★★</div>
+          <p>"I've done MBTI, Enneagram, Big 5 — none of them made me feel as <em>seen</em> as this. The stress mode section alone was worth it."</p>
+          <div class="u-testimonial-author">— Sarah M., Product Designer</div>
+        </div>
+        <div class="u-testimonial">
+          <div class="u-testimonial-stars">★★★★★</div>
+          <p>"The growth blueprint gave me something I've never gotten from a test — an actual next step. Not just a label, but a direction."</p>
+          <div class="u-testimonial-author">— Daniel K., Founder</div>
+        </div>
+        <div class="u-testimonial">
+          <div class="u-testimonial-stars">★★★★★</div>
+          <p>"Reading my archetype narrative felt like reading a letter I wrote to myself and forgot about. Uncomfortably accurate."</p>
+          <div class="u-testimonial-author">— Layla R., Therapist</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 8. SECOND CTA ═══════════ -->
+    <section class="u-cta-section">
+      <div class="u-cta-heading">Your results won't wait forever.</div>
+      <div class="u-cta-sub">Your cognitive data is computed and ready. Unlock now and start understanding the patterns behind the way your mind works.</div>
+
+      <div class="u-price-block">
+        <div class="u-price-main">
+          <span class="u-price-dollar">$</span>
+          <span class="u-price-amount">15</span>
+        </div>
+        <div class="u-price-period">one-time payment · lifetime access</div>
+      </div>
+
+      <a href="checkout.html" class="u-cta-btn">Unlock My Full Report</a>
+
+      <div class="u-guarantee">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Secure checkout · Instant access · No subscription
+      </div>
+    </section>
+
+    <!-- ═══════════ 10. FAQ ═══════════ -->
+    <section class="u-faq">
+      <span class="u-section-label">Questions</span>
+      <h2 class="u-section-title" style="margin-bottom:var(--space-7)">Frequently Asked</h2>
+
+      <div class="u-faq-item">
+        <button class="u-faq-q"><span>What exactly do I get for $15?</span><span class="u-faq-arrow">+</span></button>
+        <div class="u-faq-a"><p>A complete cognitive report with your archetype deep dive, six dimension scores, stress mode analysis, decision patterns, attachment mapping, a personalized growth blueprint, and historical mind parallels. It's instant, digital, and yours forever.</p></div>
+      </div>
+      <div class="u-faq-item">
+        <button class="u-faq-q"><span>Is this a subscription?</span><span class="u-faq-arrow">+</span></button>
+        <div class="u-faq-a"><p>No. It's a one-time payment. You pay once, you get lifetime access to your full report. No recurring charges, no hidden fees.</p></div>
+      </div>
+      <div class="u-faq-item">
+        <button class="u-faq-q"><span>How is this different from MBTI or Enneagram?</span><span class="u-faq-arrow">+</span></button>
+        <div class="u-faq-a"><p>Most personality tests give you a label. TestYourGenius maps how your mind actually operates — your thinking patterns, stress responses, decision-making style, and growth areas. It's a cognitive map, not a category.</p></div>
+      </div>
+      <div class="u-faq-item">
+        <button class="u-faq-q"><span>What if I don't find it useful?</span><span class="u-faq-arrow">+</span></button>
+        <div class="u-faq-a"><p>We're confident in the depth and accuracy of the report. If you're not satisfied after reading your full report, contact us and we'll make it right.</p></div>
+      </div>
+      <div class="u-faq-item">
+        <button class="u-faq-q"><span>Is my data safe?</span><span class="u-faq-arrow">+</span></button>
+        <div class="u-faq-a"><p>Yes. Your assessment data stays on your device. We don't store your answers on any server. Your cognitive profile is computed locally in your browser.</p></div>
+      </div>
+      <div class="u-faq-item">
+        <button class="u-faq-q"><span>Can I retake the assessment?</span><span class="u-faq-arrow">+</span></button>
+        <div class="u-faq-a"><p>Yes. You can retake the assessment anytime. Your most recent results will always be accessible, and your full report will update based on your latest answers.</p></div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 11. FINAL CTA ═══════════ -->
+    <section class="u-final-cta">
+      <div class="u-final-heading">You've already uncovered the outline of your mind.<br>Now unlock the full structure.</div>
+      <div class="u-final-sub">70 questions answered. Your cognitive map is computed and waiting. Don't leave it locked.</div>
+      <a href="checkout.html" class="u-cta-btn">Unlock My Full Report — $15</a>
+      <div class="u-guarantee" style="margin-top:var(--space-4)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        One-time payment · Lifetime access · Instant delivery
+      </div>
+    </section>
+  </div>
+
+  <!-- Sticky Mobile CTA -->
+  <div class="u-sticky-cta" id="u-sticky-cta">
+    <div class="u-sticky-cta-inner">
+      <div class="u-sticky-cta-price"><strong>$15</strong> one-time</div>
+      <a href="checkout.html" class="u-sticky-cta-btn">Unlock Full Report</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="homepage.html" class="navbar-logo"><img src="assets/images/logo.png" alt="TestYourGenius" height="42" width="162"></a>
+        <p class="footer-tagline">Understand how your mind works.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <a href="homepage.html">Home</a>
+          <a href="about-test.html">About the Test</a>
+          <a href="start.html">Start Assessment</a>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="archetypes.html">Archetypes</a>
+          <a href="mirror.html">Mirror</a>
+          <a href="decision.html">Decision</a>
+          <a href="history.html">History</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 TestYourGenius. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/tyg-data.js"></script>
+  <script>
+  (function() {
+    /* ── Populate personalized data ── */
+    var nameEl = document.getElementById('u-archetype-name');
+    var islandEl = document.getElementById('u-archetype-island');
+    var iconEl = document.getElementById('u-archetype-icon');
+    var barsEl = document.getElementById('u-bars');
+    var heroHeading = document.getElementById('u-hero-heading');
+
+    /* ── Personalize hero heading with username ── */
+    try {
+      var userData = JSON.parse(localStorage.getItem('tyg_user'));
+      if (userData && userData.name && heroHeading) {
+        heroHeading.innerHTML = userData.name + ', Your Mind Has Been Mapped.<br>Now See the Full Picture.';
+      }
+    } catch(e) {}
+
+    try {
+      var stored = loadResultData();
+      if (stored && stored.answers) {
+        var raw = computeResults(stored.answers);
+        var r = normalizeResults(raw);
+
+        // Archetype name + island
+        nameEl.textContent = r.archetypePrimary.name;
+        islandEl.textContent = r.primaryIsland + ' Island';
+
+        // Archetype icon
+        if (typeof getArchetypeIconHtml === 'function') {
+          iconEl.innerHTML = getArchetypeIconHtml(r.archetypePrimary.name, 52, false);
+        }
+
+        // Island score bars (show top 3 for teaser)
+        var allIslands = ["Grounded","Sensitive","Driven","Curious","Expressive","Independent"];
+        var maxScore = Math.max.apply(null, allIslands.map(function(k){ return r.islands[k] || 0; }));
+        var sorted = allIslands.slice().sort(function(a,b){ return (r.islands[b]||0) - (r.islands[a]||0); });
+        var top3 = sorted.slice(0, 3);
+
+        top3.forEach(function(island) {
+          var pct = maxScore > 0 ? Math.round(((r.islands[island] || 0) / maxScore) * 100) : 0;
+          var row = document.createElement('div');
+          row.className = 'u-bar-row';
+          row.innerHTML = '<span class="u-bar-label">' + island + '</span>' +
+            '<div class="u-bar-track"><div class="u-bar-fill" style="width:0%"></div></div>' +
+            '<span class="u-bar-val">' + pct + '%</span>';
+          barsEl.appendChild(row);
+          // Animate after append
+          setTimeout(function() {
+            row.querySelector('.u-bar-fill').style.width = pct + '%';
+          }, 300);
+        });
+      } else {
+        nameEl.textContent = 'Your Archetype';
+        islandEl.textContent = 'Complete the assessment to see your results';
+      }
+    } catch(e) {
+      nameEl.textContent = 'Your Archetype';
+      islandEl.textContent = '';
+    }
+
+    /* ── FAQ accordion ── */
+    document.querySelectorAll('.u-faq-q').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = btn.parentElement;
+        var wasActive = item.classList.contains('active');
+        document.querySelectorAll('.u-faq-item').forEach(function(el) { el.classList.remove('active'); });
+        if (!wasActive) item.classList.add('active');
+      });
+    });
+
+    /* ── Sticky mobile CTA: show after scrolling past first CTA ── */
+    var stickyCta = document.getElementById('u-sticky-cta');
+    var firstCta = document.getElementById('u-cta-1');
+    if (stickyCta && firstCta && 'IntersectionObserver' in window) {
+      var ctaObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          stickyCta.classList.toggle('sticky-visible', !entry.isIntersecting);
+        });
+      }, { threshold: 0 });
+      ctaObserver.observe(firstCta);
+    }
+
+    /* ── Animate counter ── */
+    var counter = document.getElementById('u-counter');
+    if (counter && 'IntersectionObserver' in window) {
+      var counted = false;
+      var cObserver = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting && !counted) {
+          counted = true;
+          var target = 2400, current = 0, step = Math.ceil(target / 60);
+          var interval = setInterval(function() {
+            current += step;
+            if (current >= target) { current = target; clearInterval(interval); }
+            counter.textContent = current.toLocaleString();
+          }, 25);
+        }
+      }, { threshold: 0.5 });
+      cObserver.observe(counter);
+    }
+  })();
+  </script>
+</body>
+</html>

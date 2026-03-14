@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decision Lab — How You Decide | TestYourGenius</title>
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <style>
+    .explore-page{padding:0 0 var(--space-8);max-width:100%;margin:0 auto}
+    .explore-video-hero{position:relative;width:100%;height:70vh;min-height:400px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .explore-video-hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+    .explore-video-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(7,11,26,.3) 0%,rgba(7,11,26,.7) 60%,var(--bg-1) 100%)}
+    .explore-video-content{position:relative;z-index:2;text-align:center;padding:0 var(--space-5)}
+    .explore-content{max-width:780px;margin:0 auto;padding:var(--space-8) var(--space-5) 0}
+    .explore-hero{text-align:center;margin-bottom:var(--space-8)}
+    .explore-icon{font-size:3rem;margin-bottom:var(--space-4);display:block}
+    .explore-hero h1{font-size:2.6rem;font-weight:800;letter-spacing:-.03em;color:var(--ink);margin-bottom:var(--space-3);text-shadow:0 2px 20px rgba(0,0,0,.5)}
+    .explore-hero p{font-size:1.05rem;color:rgba(234,242,255,.7);max-width:520px;margin:0 auto;line-height:1.65;text-shadow:0 1px 10px rgba(0,0,0,.4)}
+    .explore-section{margin-bottom:var(--space-7)}
+    .explore-section h2{font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:var(--space-4)}
+    .explore-section p{font-size:.92rem;color:rgba(234,242,255,.5);line-height:1.7;margin-bottom:var(--space-4)}
+    .explore-card{background:rgba(14,26,58,.35);border:1px solid rgba(100,212,255,.08);border-radius:16px;padding:var(--space-5) var(--space-6);margin-bottom:var(--space-4)}
+    .explore-card h3{font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:var(--space-2)}
+    .explore-card p{margin-bottom:0}
+    .explore-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4);margin-bottom:var(--space-4)}
+    .explore-grid .explore-card{margin-bottom:0}
+    .explore-prompt{background:rgba(244,211,126,.04);border-left:3px solid var(--gold);padding:var(--space-4) var(--space-5);border-radius:0 12px 12px 0;margin-bottom:var(--space-4)}
+    .explore-prompt p{font-style:italic;color:rgba(234,242,255,.6);margin-bottom:0}
+    .explore-cta{text-align:center;margin-top:var(--space-7);padding:var(--space-6);background:rgba(14,26,58,.3);border:1px solid rgba(100,212,255,.06);border-radius:20px}
+    .explore-cta p{font-size:.92rem;color:rgba(234,242,255,.45);margin-bottom:var(--space-4)}
+    .explore-cta a{display:inline-block;padding:var(--space-3) var(--space-6);background:var(--accent);color:var(--bg-1);border-radius:10px;font-weight:700;text-decoration:none;transition:all .3s}
+    .explore-cta a:hover{box-shadow:0 0 24px rgba(100,212,255,.3);transform:translateY(-2px)}
+    @media(max-width:768px){.explore-hero h1{font-size:1.7rem}.explore-grid{grid-template-columns:1fr}.explore-video-hero{height:70vh;min-height:320px}}
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar nav--scrolled" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="homepage.html" class="navbar-logo"><img src="assets/images/logo.png" alt="TestYourGenius" height="48" width="186"></a>
+      <ul class="navbar-links">
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="about-test.html">About the Test</a></li>
+        <li><a href="archetypes.html">Archetypes</a></li>
+        <li><a href="start.html" class="navbar-cta">Start Assessment</a></li>
+      </ul>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <nav id="mobile-menu" class="mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <ul>
+      <li><a href="homepage.html">Home</a></li>
+      <li><a href="about-test.html">About the Test</a></li>
+      <li><a href="archetypes.html">Archetypes</a></li>
+      <li><a href="start.html">Start Assessment</a></li>
+    </ul>
+  </nav>
+
+  <div class="explore-page">
+    <div class="explore-video-hero">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="assets/videos/worlds/world-decision.mp4" type="video/mp4">
+      </video>
+      <div class="explore-video-content">
+        <h1 class="explore-hero">The Decision Lab</h1>
+        <p style="font-size:1.05rem;color:rgba(234,242,255,.7);max-width:520px;margin:0 auto;line-height:1.65;text-shadow:0 1px 10px rgba(0,0,0,.4)">Every decision you make is shaped by invisible cognitive patterns. Understanding them doesn't just improve your choices — it changes how you experience life.</p>
+      </div>
+    </div>
+
+    <div class="explore-content">
+    <div class="explore-section">
+      <h2>The Anatomy of a Decision</h2>
+      <p>Decisions aren't purely rational. They're a blend of logic, emotion, habit, and unconscious bias — all filtered through your cognitive archetype. The same choice can feel effortless for one person and agonizing for another, not because of the situation, but because of how their mind processes uncertainty.</p>
+      <p>Neuroscience shows that most decisions are made emotionally and then justified logically. Your archetype determines which emotions dominate that process.</p>
+    </div>
+
+    <div class="explore-section">
+      <h2>Decision Styles by Archetype</h2>
+      <div class="explore-grid">
+        <div class="explore-card">
+          <h3>Grounded → Measured</h3>
+          <p>You weigh options against proven results. Your risk: being too slow when speed matters.</p>
+        </div>
+        <div class="explore-card">
+          <h3>Sensitive → Intuitive</h3>
+          <p>You feel your way to answers. Your risk: emotional flooding clouding clear judgment.</p>
+        </div>
+        <div class="explore-card">
+          <h3>Driven → Decisive</h3>
+          <p>You commit fast and adjust later. Your risk: bulldozing through nuance to reach the goal.</p>
+        </div>
+        <div class="explore-card">
+          <h3>Curious → Analytical</h3>
+          <p>You research every angle before committing. Your risk: analysis paralysis at critical moments.</p>
+        </div>
+        <div class="explore-card">
+          <h3>Expressive → Instinctive</h3>
+          <p>You follow energy and enthusiasm. Your risk: confusing excitement with alignment.</p>
+        </div>
+        <div class="explore-card">
+          <h3>Independent → Autonomous</h3>
+          <p>You decide alone and trust your own read. Your risk: missing perspectives that challenge yours.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="explore-section">
+      <h2>Common Decision Traps</h2>
+      <div class="explore-card">
+        <h3>The Sunk Cost Trap</h3>
+        <p>You continue because of what you've already invested, not because the path still makes sense. Driven and Grounded types are most vulnerable.</p>
+      </div>
+      <div class="explore-card">
+        <h3>The Overthinking Spiral</h3>
+        <p>You gather information until the window closes. Curious and Sensitive types experience this most — the mind tries to achieve certainty in an uncertain world.</p>
+      </div>
+      <div class="explore-card">
+        <h3>The Authenticity Illusion</h3>
+        <p>"I'm just being true to myself" can be a rationalization for avoiding growth. Expressive and Independent types may mistake comfort for authenticity.</p>
+      </div>
+    </div>
+
+    <div class="explore-section">
+      <h2>Decision Reflection Prompts</h2>
+      <div class="explore-prompt"><p>"What would I choose if I wasn't afraid of being wrong?"</p></div>
+      <div class="explore-prompt"><p>"Am I deciding based on what I want, or what I think others expect?"</p></div>
+      <div class="explore-prompt"><p>"What would a trusted advisor say about this choice — and why am I ignoring that voice?"</p></div>
+      <div class="explore-prompt"><p>"In five years, which choice will I regret not making?"</p></div>
+    </div>
+
+    <div class="explore-cta">
+      <p>Discover your decision-making patterns with a personalized cognitive profile.</p>
+      <a href="start.html">Start the Assessment</a>
+    </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="homepage.html" class="navbar-logo"><img src="assets/images/logo.png" alt="TestYourGenius" height="42" width="162"></a>
+        <p class="footer-tagline">Understand how your mind works.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <a href="homepage.html">Home</a>
+          <a href="about-test.html">About the Test</a>
+          <a href="start.html">Start Assessment</a>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="archetypes.html">Archetypes</a>
+          <a href="mirror.html">Mirror</a>
+          <a href="decision.html">Decision</a>
+          <a href="history.html">History</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 TestYourGenius. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

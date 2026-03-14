@@ -101,4 +101,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, { passive: true });
   }
+
+  /* ── Auth-aware navbar CTA ── */
+  (function() {
+    var user = null;
+    try { user = JSON.parse(localStorage.getItem('tyg_user')); } catch(e) {}
+    if (user && user.name) {
+      var desktopCta = document.getElementById('nav-auth-cta');
+      var mobileCta = document.getElementById('mobile-auth-cta');
+      var hasResults = !!localStorage.getItem('tyg_result_data');
+      var dest = hasResults ? 'dashboard.html' : 'homepage.html';
+      if (desktopCta) { desktopCta.textContent = 'Dashboard'; desktopCta.href = dest; }
+      if (mobileCta) { mobileCta.textContent = 'Dashboard'; mobileCta.href = dest; }
+    }
+  })();
 });

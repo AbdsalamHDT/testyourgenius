@@ -1213,9 +1213,6 @@
   display: block;
   object-fit: cover;
   pointer-events: none;
-  margin-left: -10%;
-  margin-right: -10%;
-  width: 120%;
 }
 
 

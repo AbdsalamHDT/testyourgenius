@@ -108,7 +108,8 @@ function initAssessment() {
     if (saved && saved.completed) {
       // Already completed — redirect to result page
       saveResultData(saved.answers);
-      window.location.href = "result.html";
+      var dest = localStorage.getItem('tyg_unlocked') === 'true' ? 'report.html' : (localStorage.getItem('tyg_user') ? 'unlock.html' : 'signup.html');
+      window.location.href = dest;
       return;
     } else {
       state.startedAt = Date.now();
@@ -129,7 +130,8 @@ function initAssessment() {
 function renderRouter() {
   if (state.completed) {
     saveResultData(state.answers);
-    window.location.href = "result.html";
+    var dest = localStorage.getItem('tyg_unlocked') === 'true' ? 'report.html' : (localStorage.getItem('tyg_user') ? 'unlock.html' : 'signup.html');
+    window.location.href = dest;
     return;
   }
 
@@ -137,7 +139,8 @@ function renderRouter() {
     state.completed = true;
     saveProgress();
     saveResultData(state.answers);
-    window.location.href = "result.html";
+    var dest = localStorage.getItem('tyg_unlocked') === 'true' ? 'report.html' : (localStorage.getItem('tyg_user') ? 'unlock.html' : 'signup.html');
+    window.location.href = dest;
     return;
   }
 
