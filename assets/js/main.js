@@ -64,5 +64,41 @@ document.addEventListener('DOMContentLoaded', () => {
       window.addEventListener('scroll', updateNavScroll, { passive: true });
       updateNavScroll();
     }
+
+    /* ── Hide navbar on scroll down, show on scroll up ── */
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    const SCROLL_THRESHOLD = 8;
+
+    function updateNavVisibility() {
+      const currentY = window.scrollY;
+      const delta = currentY - lastScrollY;
+
+      if (delta > SCROLL_THRESHOLD && currentY > 100) {
+        // Scrolling down past 100px — hide
+        navbar.classList.add('nav--hidden');
+      } else if (delta < -SCROLL_THRESHOLD || currentY <= 10) {
+        // Scrolling up or near top — show
+        navbar.classList.remove('nav--hidden');
+      }
+
+      // Also update scrolled background
+      if (!hasHeroVideo) {
+        navbar.classList.add('nav--scrolled');
+      } else {
+        if (currentY > 10) navbar.classList.add('nav--scrolled');
+        else navbar.classList.remove('nav--scrolled');
+      }
+
+      lastScrollY = currentY;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        requestAnimationFrame(updateNavVisibility);
+        ticking = true;
+      }
+    }, { passive: true });
   }
 });

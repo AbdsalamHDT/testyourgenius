@@ -352,7 +352,7 @@ function computeMindOrientation(r) {
 }
 
 function meterLevel(v) {
-  if (v <= 25) return "Low"; if (v <= 50) return "Moderate"; if (v <= 75) return "High"; return "Very High";
+  if (v <= 19) return "Very Low"; if (v <= 39) return "Low"; if (v <= 69) return "Moderate"; if (v <= 89) return "High"; return "Very High";
 }
 
 // ── YOU IN CONTEXT GENERATOR ────────────────────────────────────
@@ -376,7 +376,7 @@ function generateYouInContext(r) {
   if (avd > 4.5) relBullets.push("You may keep emotional distance as a default, even with people you trust.");
   if (anx <= 3.5 && avd <= 3.5) relBullets.push("You're relatively secure in closeness — you can tolerate uncertainty without spiralling.");
   if (nb.relatedness < -0.1) relBullets.push("You may feel unseen even in close relationships — a gap between being present and being understood.");
-  blocks.push({ title:"In Relationships", bullets: relBullets.slice(0, 7) });
+  blocks.push({ title:"How This Shows Up in Real Life", bullets: relBullets.slice(0, 7) });
 
   // Decisions
   const decBullets = [];

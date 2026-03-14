@@ -1,0 +1,477 @@
+/* ================================================================
+   result-enhancements.css — Enhanced Result Page Presentation
+   Layered on top of components.css report styles
+   ================================================================ */
+
+/* ── SCROLL REVEAL ────────────────────────────────────────────── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ── HERO REVEAL ENHANCEMENT ──────────────────────────────────── */
+
+.rpt-hero--reveal {
+  padding: var(--space-8) 0 var(--space-7);
+  position: relative;
+  overflow: hidden;
+}
+
+.rpt-hero--reveal::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(600px, 100vw);
+  height: min(600px, 100vw);
+  background: radial-gradient(circle,
+    rgba(100, 212, 255, 0.05) 0%,
+    rgba(244, 211, 126, 0.03) 40%,
+    transparent 70%);
+  pointer-events: none;
+  filter: blur(60px);
+  animation: heroGlow 6s ease-in-out infinite alternate;
+}
+
+@keyframes heroGlow {
+  0%   { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 1;   transform: translate(-50%, -50%) scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rpt-hero--reveal::before { animation: none; opacity: 0.8; }
+}
+
+.rpt-hero--reveal .rpt-hero-label {
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  margin-bottom: var(--space-4);
+}
+
+.rpt-hero--reveal .rpt-hero-name {
+  font-size: 3rem;
+  margin-bottom: var(--space-4);
+}
+
+/* ── IDENTITY STATEMENT ───────────────────────────────────────── */
+
+.rpt-hero-statement {
+  font-size: 1.1rem;
+  color: rgba(234, 242, 255, 0.5);
+  font-style: italic;
+  max-width: 540px;
+  margin: 0 auto var(--space-5);
+  line-height: 1.65;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── STRENGTH CHIPS ───────────────────────────────────────────── */
+
+.rpt-strength-chips {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+}
+
+.rpt-chip {
+  display: inline-block;
+  padding: 6px 18px;
+  background: rgba(244, 211, 126, 0.07);
+  border: 1px solid rgba(244, 211, 126, 0.22);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.02em;
+  box-shadow: 0 0 14px rgba(244, 211, 126, 0.06);
+  transition: all 0.35s ease;
+}
+
+.rpt-chip:hover {
+  box-shadow: 0 0 22px rgba(244, 211, 126, 0.14);
+  background: rgba(244, 211, 126, 0.12);
+  transform: translateY(-1px);
+}
+
+/* ── KEY SIGNALS ──────────────────────────────────────────────── */
+
+.rpt-key-signals {
+  margin-top: var(--space-6);
+}
+
+.rpt-key-signals .rpt-subtitle {
+  text-align: center;
+}
+
+.rpt-signals-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.rpt-signal-card {
+  background: rgba(14, 26, 58, 0.5);
+  border: 1px solid rgba(100, 212, 255, 0.10);
+  border-radius: 14px;
+  padding: var(--space-5) var(--space-4);
+  text-align: center;
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.rpt-signal-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  opacity: 0.4;
+}
+
+.rpt-signal-card:hover {
+  border-color: rgba(100, 212, 255, 0.22);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.rpt-signal-name {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(234, 242, 255, 0.4);
+  margin-bottom: var(--space-3);
+}
+
+.rpt-signal-pct {
+  display: block;
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--accent), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-2);
+  line-height: 1;
+}
+
+.rpt-signal-level {
+  display: inline-block;
+  padding: 3px 14px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.rpt-signal-level--veryhigh {
+  background: rgba(100, 212, 255, 0.14);
+  color: var(--accent);
+}
+
+.rpt-signal-level--high {
+  background: rgba(100, 212, 255, 0.10);
+  color: rgba(100, 212, 255, 0.8);
+}
+
+.rpt-signal-level--moderate {
+  background: rgba(244, 211, 126, 0.10);
+  color: var(--gold);
+}
+
+.rpt-signal-level--low {
+  background: rgba(234, 242, 255, 0.05);
+  color: rgba(234, 242, 255, 0.4);
+}
+
+.rpt-signal-level--verylow {
+  background: rgba(234, 242, 255, 0.03);
+  color: rgba(234, 242, 255, 0.28);
+}
+
+/* ── CONNECTION SUMMARY ───────────────────────────────────────── */
+
+.rpt-conn-summary {
+  font-size: 1.02rem;
+  color: rgba(234, 242, 255, 0.6);
+  font-style: italic;
+  margin-bottom: var(--space-5);
+  padding: var(--space-4) var(--space-5);
+  background: rgba(14, 26, 58, 0.3);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  line-height: 1.6;
+}
+
+/* ── ENHANCED METERS ──────────────────────────────────────────── */
+
+.rpt-meter-enhanced {
+  margin-bottom: var(--space-5);
+}
+
+.rpt-meter-enhanced .rpt-meter-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--space-2);
+}
+
+.rpt-meter-enhanced .rpt-meter-info > span:first-child {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.rpt-meter-explanation {
+  font-size: 0.78rem;
+  color: rgba(234, 242, 255, 0.35);
+  line-height: 1.5;
+  margin-top: var(--space-2);
+  padding: 0;
+}
+
+/* ── DUAL METER PERCENTAGE BADGE ──────────────────────────────── */
+
+.rpt-meter-pct-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(234, 242, 255, 0.3);
+  min-width: 36px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── STRESS INTERPRETATION ────────────────────────────────────── */
+
+.rpt-stress-interpretation {
+  font-size: 0.85rem;
+  color: rgba(234, 242, 255, 0.5);
+  line-height: 1.65;
+  margin-top: var(--space-3);
+}
+
+/* ── ACCORDION ICONS ──────────────────────────────────────────── */
+
+.rpt-acc-icon {
+  margin-right: var(--space-3);
+  font-size: 1rem;
+}
+
+/* ── RESPONSIVE OVERRIDES ─────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .rpt-signals-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+  .rpt-signal-pct { font-size: 1.8rem; }
+  .rpt-hero--reveal .rpt-hero-name { font-size: 2.2rem; }
+  .rpt-hero-statement { font-size: 0.95rem; }
+}
+
+/* ── ARCHETYPE SECTION LABEL ──────────────────────────────────── */
+
+.rpt-arch-section-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(234, 242, 255, 0.3);
+  margin-bottom: var(--space-3);
+}
+
+/* ── SHAREABLE ARCHETYPE CARD ─────────────────────────────────── */
+
+.rpt-share-section {
+  margin-top: var(--space-7);
+  padding-top: var(--space-6);
+  border-top: 1px solid rgba(100, 212, 255, 0.08);
+}
+
+.rpt-share-section .rpt-subtitle {
+  text-align: center;
+  margin-bottom: var(--space-5);
+}
+
+.rpt-share-card {
+  max-width: 420px;
+  margin: 0 auto var(--space-5);
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(100, 212, 255, 0.15);
+  box-shadow: 0 0 40px rgba(100, 212, 255, 0.06), 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+.rpt-share-card-inner {
+  position: relative;
+  padding: var(--space-7) var(--space-6);
+  text-align: center;
+}
+
+.rpt-share-card-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(14, 26, 58, 0.95), rgba(7, 11, 26, 0.98));
+  z-index: 0;
+}
+
+.rpt-share-card-bg::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(100, 212, 255, 0.08), transparent 70%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+.rpt-share-card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.rpt-share-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+}
+
+.rpt-share-icon-wrap .archetype-icon,
+.rpt-share-icon-wrap .archetype-icon-fallback {
+  width: 72px;
+  height: 72px;
+  filter: drop-shadow(0 0 16px rgba(100, 212, 255, 0.25));
+}
+
+.rpt-share-label {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(234, 242, 255, 0.3);
+  margin-bottom: var(--space-2);
+}
+
+.rpt-share-name {
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--gold), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-4);
+  line-height: 1.2;
+}
+
+.rpt-share-chips {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-5);
+}
+
+.rpt-chip--share {
+  font-size: 0.7rem;
+  padding: 4px 12px;
+  background: rgba(244, 211, 126, 0.06);
+  border-color: rgba(244, 211, 126, 0.18);
+}
+
+.rpt-share-url {
+  font-size: 0.68rem;
+  color: rgba(234, 242, 255, 0.2);
+  letter-spacing: 0.04em;
+}
+
+/* Share Buttons Row */
+
+.rpt-share-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-5);
+}
+
+.rpt-share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: rgba(100, 212, 255, 0.06);
+  border: 1px solid rgba(100, 212, 255, 0.15);
+  border-radius: 10px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.rpt-share-btn:hover {
+  background: rgba(100, 212, 255, 0.12);
+  border-color: rgba(100, 212, 255, 0.28);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(100, 212, 255, 0.1);
+}
+
+.rpt-share-btn-icon {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+/* ── REVEAL STAGGER DELAYS ────────────────────────────────────── */
+
+.rpt-section .reveal:nth-child(2) { transition-delay: 0.06s; }
+.rpt-section .reveal:nth-child(3) { transition-delay: 0.12s; }
+.rpt-section .reveal:nth-child(4) { transition-delay: 0.18s; }
+.rpt-section .reveal:nth-child(5) { transition-delay: 0.24s; }
+.rpt-section .reveal:nth-child(6) { transition-delay: 0.30s; }
+
+/* ── RESPONSIVE SHARE CARD ────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .rpt-share-card { max-width: 100%; }
+  .rpt-share-name { font-size: 1.4rem; }
+  .rpt-share-actions { gap: var(--space-2); }
+  .rpt-share-btn { font-size: 0.72rem; padding: var(--space-2) var(--space-3); }
+}
+
+@media (max-width: 480px) {
+  .rpt-share-actions { flex-direction: column; align-items: center; }
+  .rpt-share-btn { width: 100%; max-width: 240px; justify-content: center; }
+}
