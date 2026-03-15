@@ -42,6 +42,9 @@
     const raw = computeResults(answers);
     const r = normalizeResults(raw);
 
+    // Store computed results in localStorage
+    saveComputedResults(r);
+
     // Add report-mode class to shell
     if (shellEl) shellEl.classList.add('report-mode');
 
@@ -60,6 +63,8 @@
     const blueprint = generateGrowthBlueprint(r);
     const savedReflections = loadReflections();
     const arch = ARCHETYPE_NARRATIVES[r.primaryIsland] || ARCHETYPE_NARRATIVES.Grounded;
+    const archData = ARCHETYPE_DATA[r.archetypePrimary.name] || {};
+    const dimInsights = generateDimensionInsights(r);
 
     // helpers
     const needsDims = ["autonomy","competence","relatedness"];
@@ -70,25 +75,9 @@
       if (r.needsBalance[d] < lowestVal) { lowestVal = r.needsBalance[d]; lowestNeed = d; }
     });
 
-    // ── Identity presentation data (display only) ──
-    const IDENTITY_STATEMENTS = {
-      Grounded: "A mind wired for stability, reliability, and quiet strength.",
-      Sensitive: "A mind tuned to feel deeply \u2014 guided by empathy and invisible signals.",
-      Driven: "A mind wired for momentum, challenge, and forward progress.",
-      Curious: "A mind built to understand \u2014 drawn to complexity and deeper truth.",
-      Expressive: "A mind made to express \u2014 fueled by creativity and authentic energy.",
-      Independent: "A mind that trusts itself first \u2014 sovereign, boundaried, and free."
-    };
-    const STRENGTH_CHIPS = {
-      Grounded: ["Steady", "Reliable", "Present"],
-      Sensitive: ["Empathic", "Intuitive", "Deep"],
-      Driven: ["Driven", "Focused", "Strategic"],
-      Curious: ["Analytical", "Pattern-Seer", "Innovative"],
-      Expressive: ["Creative", "Magnetic", "Authentic"],
-      Independent: ["Self-Reliant", "Boundaried", "Courageous"]
-    };
-    const identityStatement = IDENTITY_STATEMENTS[r.primaryIsland] || IDENTITY_STATEMENTS.Grounded;
-    const strengthChips = STRENGTH_CHIPS[r.primaryIsland] || STRENGTH_CHIPS.Grounded;
+    // ── Identity presentation data (driven by sub-archetype) ──
+    const identityStatement = archData.summary || "A mind with unique patterns and untapped potential.";
+    const strengthChips = archData.chips || ["Adaptive", "Aware", "Growing"];
     const keySignals = [
       { name: "Drive Intensity", value: mind.drive[0].value, level: meterLevel(mind.drive[0].value) },
       { name: "Calm Under Pressure", value: mind.emotional[1].value, level: meterLevel(mind.emotional[1].value) },
@@ -155,14 +144,16 @@
         <h3 class="rpt-arch-name">${r.archetypePrimary.name}</h3>
         <h4 class="rpt-arch-section-label">What Defines This Archetype</h4>
         <p class="rpt-arch-narrative">${arch.narrative.split('. ').slice(0, 3).join('. ').replace(/\.?$/, '.')}</p>
+        ${archData.insight ? `<blockquote class="rpt-arch-insight" style="margin:var(--space-4) 0;padding:var(--space-3) var(--space-4);border-left:3px solid var(--accent);font-style:italic;opacity:0.9;">"${archData.insight}"</blockquote>` : ''}
         <div class="rpt-arch-cols">
           <div class="rpt-arch-col">
-            <h4>Strengths</h4><ul>${arch.strengths.map(s => `<li>${s}</li>`).join("")}</ul>
+            <h4>Strengths</h4><ul>${(archData.strengths || arch.strengths).map(s => `<li>${s}</li>`).join("")}</ul>
           </div>
           <div class="rpt-arch-col rpt-arch-col--growth">
-            <h4>Growth Needs</h4><ul>${arch.growth.map(s => `<li>${s}</li>`).join("")}</ul>
+            <h4>Growth Needs</h4><ul>${(archData.growthNeeds || arch.growth).map(s => `<li>${s}</li>`).join("")}</ul>
           </div>
         </div>
+        ${archData.patterns ? `<div class="rpt-arch-col" style="margin-top:var(--space-4);"><h4>Behavioral Patterns</h4><ul>${archData.patterns.map(s => '<li>' + s + '</li>').join('')}</ul></div>` : ''}
       </div>
       <h3 class="rpt-subtitle reveal">Secondary Influences</h3>
       <div class="rpt-influences reveal">`;
@@ -173,21 +164,12 @@
 
     // ── SECTION 3: MIND ORIENTATION ──
     function dualMeter(item) {
-      return `<div class="rpt-meter-dual"><span class="rpt-meter-edge">${item.leftLabel}</span><div class="rpt-meter-track"><div class="rpt-meter-thumb" style="left:${item.value}%"></div><div class="rpt-meter-mid"></div></div><span class="rpt-meter-edge">${item.rightLabel}</span><span class="rpt-meter-pct-badge">${item.value}%</span></div>`;
+      const interp = getDimensionInterpretation(item.label, item.value);
+      return `<div class="rpt-meter-dual"><span class="rpt-meter-edge">${item.leftLabel}</span><div class="rpt-meter-track"><div class="rpt-meter-thumb" style="left:${item.value}%"></div><div class="rpt-meter-mid"></div></div><span class="rpt-meter-edge">${item.rightLabel}</span><span class="rpt-meter-pct-badge">${item.value}%</span>${interp ? `<p class="rpt-meter-explanation">${interp}</p>` : ''}</div>`;
     }
-    const driveExplanations = {
-      "Driven Intensity": "How strongly you feel the internal push toward progress.",
-      "Perfection Sensitivity": "How much perfectionism influences your actions.",
-      "Flexibility": "How well you adapt when plans change or shift."
-    };
-    const emotionalExplanations = {
-      "Sensitivity": "How deeply you absorb emotional signals from your environment.",
-      "Calm Under Pressure": "Your ability to stay centered when things get chaotic.",
-      "Rumination Risk": "How likely you are to replay thoughts and worry loops."
-    };
-    function enhancedMeter(item, expl) {
+    function enhancedMeter(item) {
       const lvl = meterLevel(item.value);
-      const tip = expl[item.label] || "";
+      const tip = getDimensionInterpretation(item.label, item.value);
       return `<div class="rpt-meter-enhanced"><div class="rpt-meter-info"><span>${item.label}</span><span class="rpt-meter-lvl">${lvl} · ${item.value}%</span></div><div class="rpt-meter-track rpt-meter-track--fill"><div class="rpt-meter-bar" style="width:${item.value}%"></div></div>${tip ? `<p class="rpt-meter-explanation">${tip}</p>` : ''}</div>`;
     }
 
@@ -195,8 +177,8 @@
       <h2 class="rpt-title reveal">Mind Orientation</h2>
       <div class="rpt-mind-grid">
         <div class="rpt-card reveal"><h4>Thinking Style</h4>${mind.thinking.map(dualMeter).join("")}</div>
-        <div class="rpt-card reveal"><h4>Drive &amp; Tendencies</h4>${mind.drive.map(d => enhancedMeter(d, driveExplanations)).join("")}</div>
-        <div class="rpt-card reveal"><h4>Emotional Texture</h4>${mind.emotional.map(d => enhancedMeter(d, emotionalExplanations)).join("")}</div>
+        <div class="rpt-card reveal"><h4>Drive &amp; Tendencies</h4>${mind.drive.map(d => enhancedMeter(d)).join("")}</div>
+        <div class="rpt-card reveal"><h4>Emotional Texture</h4>${mind.emotional.map(d => enhancedMeter(d)).join("")}</div>
       </div>
     </section>`;
 
@@ -229,7 +211,7 @@
       s5 += `<div class="rpt-card rpt-stress-card reveal">
         <div class="rpt-stress-top"><span class="rpt-stress-name">${camelToWords(m.key)}</span><span class="rpt-stress-score">${m.score.toFixed(1)}/7</span></div>
         <div class="rpt-meter-track rpt-meter-track--fill"><div class="rpt-meter-bar rpt-meter-bar--stress" style="width:${pct}%"></div></div>
-        <p class="rpt-stress-interpretation">Under pressure, you ${d.when}. This ${d.cost.charAt(0).toLowerCase() + d.cost.slice(1)}</p>
+        <p class="rpt-stress-interpretation">${getStressSeverityText(m.key, m.score)}</p>
       </div>`;
     });
     s5 += `</div><div class="rpt-healthy-row reveal">
@@ -254,6 +236,7 @@
     // ── SECTION 7: GROWTH BLUEPRINT ──
     let s7 = `<section class="rpt-section" id="sec-growth">
       <h2 class="rpt-title reveal">Growth Blueprint</h2>
+      ${dimInsights.length > 0 ? `<div class="rpt-card reveal" style="margin-bottom:var(--space-5);"><h4>Score-Based Insights</h4><ul>${dimInsights.map(i => '<li>' + i.text + '</li>').join('')}</ul></div>` : ''}
       <div class="rpt-card rpt-growth-card reveal">
         <span class="rpt-growth-tag">Growth Insight</span>
         <h3>${blueprint.lever.title}</h3>
@@ -278,26 +261,45 @@
       </div>`;
     });
     s7 += `</div>
-      <h3 class="rpt-subtitle reveal">Explore Your Path</h3>
-      <div class="rpt-worlds">`;
-    const worldVideoMap = { "Reflection World": "world-mirror", "History World": "world-history", "Decision World": "world-decision" };
-    blueprint.worlds.forEach(w => {
-      const vid = worldVideoMap[w.name] || "world-mirror";
-      s7 += `<div class="rpt-world-card">
-        <div class="rpt-world-media">
-          <video class="world-video" autoplay muted loop playsinline preload="metadata">
-            <source src="assets/videos/worlds/${vid}.mp4" type="video/mp4" />
-          </video>
+      <h3 class="rpt-subtitle reveal">Continue Exploring Your Mind</h3>
+      <div class="rpt-worlds">
+        <div class="rpt-world-card">
+          <div class="rpt-world-media">
+            <video class="world-video" autoplay muted loop playsinline preload="metadata">
+              <source src="assets/videos/worlds/world-mirror.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="rpt-world-body">
+            <h4>Reflection Mirror</h4>
+            <p>Understand how your internal patterns appear in everyday situations.</p>
+            <button class="rpt-world-btn" onclick="window.location.href='mirror.html'">Open Reflection \u2192</button>
+          </div>
         </div>
-        <div class="rpt-world-body">
-          <h4>${w.name}</h4>
-          <p>${w.desc}</p>
-          <p class="rpt-world-reason">${w.reason}</p>
-          <button class="rpt-world-btn" onclick="alert('Coming soon.')">Explore \u2192</button>
+        <div class="rpt-world-card">
+          <div class="rpt-world-media">
+            <video class="world-video" autoplay muted loop playsinline preload="metadata">
+              <source src="assets/videos/worlds/world-decision.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="rpt-world-body">
+            <h4>Decision Patterns</h4>
+            <p>See how your thinking style influences the way you make decisions.</p>
+            <button class="rpt-world-btn" onclick="window.location.href='decision.html'">View Decision Style \u2192</button>
+          </div>
         </div>
-      </div>`;
-    });
-    s7 += `</div>
+        <div class="rpt-world-card">
+          <div class="rpt-world-media">
+            <video class="world-video" autoplay muted loop playsinline preload="metadata">
+              <source src="assets/videos/worlds/world-history.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="rpt-world-body">
+            <h4>Historical Parallels</h4>
+            <p>Explore thinkers and builders who share similar cognitive traits.</p>
+            <button class="rpt-world-btn" onclick="window.location.href='history.html'">See Parallels \u2192</button>
+          </div>
+        </div>
+      </div>
       <div class="rpt-share-section reveal">
         <h3 class="rpt-subtitle">Share Your Archetype</h3>
         <div class="rpt-share-card" id="share-card">
@@ -529,7 +531,7 @@
           });
         } else {
           // Fallback: copy summary text
-          const text = `My Archetype: ${r.archetypePrimary.name}\nTraits: ${(STRENGTH_CHIPS[r.primaryIsland] || []).join(', ')}\ntestyourgenius.com`;
+          const text = `My Archetype: ${r.archetypePrimary.name}\nTraits: ${strengthChips.join(', ')}\ntestyourgenius.com`;
           navigator.clipboard.writeText(text).then(() => {
             downloadBtn.textContent = 'Copied text \u2713';
             setTimeout(() => { downloadBtn.innerHTML = '<span class="rpt-share-btn-icon">\u2b07</span> Download Image'; }, 2000);

@@ -221,10 +221,11 @@ function normalizeResults(raw) {
 
   const topModes = Object.entries(modes).map(([key, score]) => ({ key, score })).sort((a, b) => b.score - a.score).slice(0, 3);
 
-  const ARCHETYPE_MAP = { Grounded:"The Steady Builder", Sensitive:"The Deep Feeler", Driven:"The Relentless Achiever", Curious:"The Systems Thinker", Expressive:"The Creative Spark", Independent:"The Self-Reliant Lone Wolf" };
-
   // Secondary influences
   const secondaryInfluences = deriveSecondaryInfluences(secondaryIsland, topModes);
+
+  // Determine sub-archetype from primary + secondary island
+  const subArchetypeName = determineSubArchetype(primaryIsland, secondaryIsland, topModes);
 
   return {
     islands, primaryIsland, secondaryIsland,
@@ -233,7 +234,7 @@ function normalizeResults(raw) {
     modes, topModes,
     healthyAdult, resilience,
     confidence: { level: confidenceLevel, score: confidenceScore, reason: confidenceReason },
-    archetypePrimary: { island: primaryIsland, name: ARCHETYPE_MAP[primaryIsland] || "The Explorer" },
+    archetypePrimary: { island: primaryIsland, name: subArchetypeName },
     archetypeSecondary: secondaryInfluences
   };
 }
@@ -309,6 +310,148 @@ const ARCHETYPE_NARRATIVES = {
   Expressive: { narrative:"You process life through expression. Words, images, energy, presence — you turn inner experience into something others can feel. You light up rooms not through artifice but through genuine emotional broadcast. People are drawn to your energy because it gives them permission to feel more openly too. The risk is that you may perform even when you're hurting.", strengths:["Emotional expressiveness — you make the invisible visible","Natural influence — your energy shifts group dynamics positively","Creative communication — you find unique ways to share ideas","Social intelligence — you read and respond to group energy intuitively","Authenticity — when you're real, you're magnetic"], growth:["You may confuse being seen with being understood — depth requires slowing down","Your energy can mask pain — make sure expression includes honesty, not just performance","Validation-seeking can quietly drive your behaviour if you're not careful"] },
   Independent: { narrative:"You trust yourself first — not out of arrogance, but because experience taught you that relying on others has a cost. Your autonomy isn't isolation; it's a deliberate choice to stay sovereign over your inner world. You solve problems alone, set boundaries firmly, and value freedom above almost everything. The challenge is knowing when self-reliance becomes self-imprisonment.", strengths:["Self-reliance — you can function and decide without external validation","Boundary clarity — you know where you end and others begin","Focus — fewer dependencies mean fewer distractions","Courage — you'll walk alone when the crowd is wrong","Honest self-assessment — you don't sugarcoat your own flaws"], growth:["Your independence can become isolation — connection isn't weakness","Asking for help is a skill, not a failure — practice it deliberately","You may dismiss emotional needs as unnecessary, but they're real and valid"] }
 };
+
+// ── SUB-ARCHETYPE DETERMINATION ─────────────────────────────────
+
+function determineSubArchetype(primaryIsland, secondaryIsland) {
+  var SUB_MAP = {
+    Grounded:    { Sensitive:"The Calm Protector", Driven:"The Quiet Improver", Curious:"The Practical Stabilizer", Expressive:"The Steady Builder", Independent:"The Practical Stabilizer", _default:"The Steady Builder" },
+    Sensitive:   { Grounded:"The Loyal Connector", Driven:"The Vigilant Heart", Curious:"The Deep Feeler", Expressive:"The Gentle Giver", Independent:"The Deep Feeler", _default:"The Deep Feeler" },
+    Driven:      { Sensitive:"The Standard Bearer", Curious:"The Control Seeker", Grounded:"The Relentless Achiever", Expressive:"The Competitive Fire", Independent:"The Competitive Fire", _default:"The Relentless Achiever" },
+    Curious:     { Driven:"The Systems Thinker", Expressive:"The Idea Architect", Sensitive:"The Pattern Reader", Grounded:"The Explorer Mind", Independent:"The Systems Thinker", _default:"The Explorer Mind" },
+    Expressive:  { Sensitive:"The Story Weaver", Driven:"The Charismatic Mover", Curious:"The Creative Spark", Grounded:"The Social Catalyst", Independent:"The Creative Spark", _default:"The Social Catalyst" },
+    Independent: { Sensitive:"The Boundary Keeper", Driven:"The Inner Rebel", Curious:"The Self-Reliant", Grounded:"The Boundary Keeper", Expressive:"The Free Spirit", _default:"The Free Spirit" }
+  };
+  var islandMap = SUB_MAP[primaryIsland];
+  if (!islandMap) return "The Explorer Mind";
+  return islandMap[secondaryIsland] || islandMap._default;
+}
+
+// ── ARCHETYPE DATA (24 sub-archetypes) ──────────────────────────
+
+var ARCHETYPE_DATA = {
+  "The Calm Protector": { island:"Grounded", summary:"A mind wired for steady presence \u2014 you absorb chaos so others don't have to.", chips:["Steady","Protective","Present"], strengths:["Emotionally steady under pressure","Natural caretaker and emotional anchor","Patient and present when others panic"], growthNeeds:["Express your own needs before absorbing others'","Allow yourself to feel overwhelmed without fixing it","Distinguish between protecting and avoiding"], patterns:["You absorb others' stress to keep the environment calm","You default to steadiness even when you're struggling inside"], insight:"Your calm is a gift, but it becomes a prison when you never let anyone see you struggle." },
+  "The Practical Stabilizer": { island:"Grounded", summary:"A mind built for clarity \u2014 you bring logic and structure to uncertainty.", chips:["Logical","Reliable","Grounded"], strengths:["Clear-headed in complex situations","Systematic and methodical thinker","Trustworthy and predictable in the best way"], growthNeeds:["Allow space for intuition alongside logic","Embrace uncertainty as a source of growth","Balance structure with spontaneity"], patterns:["You organize your environment when you feel unsettled","You seek practical solutions before exploring emotional ones"], insight:"Structure is your anchor, but the deepest breakthroughs come when you let go of the plan." },
+  "The Quiet Improver": { island:"Grounded", summary:"A mind that grows through steady effort \u2014 patient ambition that compounds silently.", chips:["Patient","Disciplined","Steady"], strengths:["Discipline through consistency, not intensity","Quiet resilience that outlasts louder forces","Practical goal-setting grounded in reality"], growthNeeds:["Celebrate progress instead of always looking ahead","Share your goals with others to build accountability","Allow rest to be part of the process"], patterns:["You improve silently and rarely announce progress","You push through setbacks with stubborn patience"], insight:"Your patience is your superpower, but invisible growth can become invisible self-neglect." },
+  "The Steady Builder": { island:"Grounded", summary:"A mind wired for reliability \u2014 you build foundations others can stand on.", chips:["Consistent","Dependable","Calm"], strengths:["Consistent follow-through that others depend on","Calm problem-solving rooted in experience","Emotional stability that grounds entire groups"], growthNeeds:["Challenge your comfort zones before they become limits","Express vulnerability to deepen connections","Embrace change as an ally, not a threat"], patterns:["You default to proven methods over experimentation","You sustain effort long after others lose interest"], insight:"You are the foundation \u2014 but foundations need cracks to let the light in." },
+  "The Deep Feeler": { island:"Sensitive", summary:"A mind tuned to the full spectrum of emotion \u2014 you feel what others can barely name.", chips:["Empathic","Deep","Intuitive"], strengths:["Profound emotional depth and self-awareness","Intuitive understanding of others' inner worlds","Rich inner life that fuels creativity and insight"], growthNeeds:["Distinguish between your feelings and others'","Build emotional boundaries without guilt","Allow lightness without feeling shallow"], patterns:["You absorb the emotional tone of every room you enter","You replay emotional moments long after they've passed"], insight:"Your depth is rare \u2014 but feeling everything means you need deliberate recovery, not just endurance." },
+  "The Gentle Giver": { island:"Sensitive", summary:"A mind designed for compassion \u2014 you give instinctively and deeply.", chips:["Generous","Nurturing","Warm"], strengths:["Naturally nurturing and emotionally generous","People feel genuinely seen in your presence","Selfless care that builds deep loyalty"], growthNeeds:["Practice receiving without guilt","Say no before resentment says it for you","Your needs matter as much as anyone else's"], patterns:["You prioritize others' comfort over your own needs","You notice what someone needs before they ask"], insight:"Giving is your language \u2014 but a gift forced becomes a debt. Let yourself receive." },
+  "The Loyal Connector": { island:"Sensitive", summary:"A mind anchored in devotion \u2014 steady empathy with roots that hold.", chips:["Devoted","Steady","Caring"], strengths:["Deep loyalty that creates real trust","Combines emotional sensitivity with practical care","Consistent presence that makes others feel safe"], growthNeeds:["Loyalty shouldn't mean tolerating harm","Allow relationships to evolve without clinging","Trust yourself as much as you trust others"], patterns:["You stay committed long past when others would leave","You feel responsible for the emotional health of your relationships"], insight:"Your loyalty is a beacon \u2014 but being faithful to others must include being faithful to yourself." },
+  "The Vigilant Heart": { island:"Sensitive", summary:"A mind on alert \u2014 sensitivity sharpened by drive into a watchful protector.", chips:["Protective","Alert","Empathic"], strengths:["Quick to detect emotional threats and shifts","Combines sensitivity with alertness and action","Protective instinct that shields those you love"], growthNeeds:["Not every signal is a threat \u2014 learn to filter","Rest your nervous system deliberately","Distinguish between intuition and anxiety"], patterns:["You scan for danger in emotional environments","You respond to perceived threats before confirming them"], insight:"Your vigilance keeps people safe \u2014 but the alarm that never turns off burns out the sentinel." },
+  "The Competitive Fire": { island:"Driven", summary:"A mind fueled by challenge \u2014 competition ignites your deepest energy.", chips:["Bold","Intense","Ambitious"], strengths:["Thrives on challenge and pressure","Bold risk-taking with high conviction","Magnetic intensity that inspires others"], growthNeeds:["Winning isn't the only form of worth","Soften competition in intimate relationships","Channel intensity into creation, not just conquest"], patterns:["You measure yourself against others instinctively","You perform best when something meaningful is at stake"], insight:"Your fire is your engine \u2014 but flames that never rest consume their own fuel." },
+  "The Control Seeker": { island:"Driven", summary:"A mind that commands through strategy \u2014 calculated drive toward mastery.", chips:["Strategic","Focused","Precise"], strengths:["Strategic and methodical in pursuit of goals","Sees the chess moves others miss","Combines analytical thinking with execution power"], growthNeeds:["Control is an illusion at scale \u2014 practise letting go","Trust others' competence alongside your own","Perfectionism isn't precision \u2014 know the difference"], patterns:["You plan extensively before taking action","You feel uneasy when outcomes depend on others"], insight:"Your strategy is your edge \u2014 but the tightest grip leaves the least room for what you didn't expect." },
+  "The Relentless Achiever": { island:"Driven", summary:"A mind built for momentum \u2014 stopping feels like falling behind.", chips:["Driven","Resilient","Focused"], strengths:["Exceptional execution and follow-through","Goal clarity that cuts through ambiguity","Self-discipline that others admire and rely on"], growthNeeds:["Rest is not regression \u2014 it's fuel","Separate your identity from your productivity","Ask for help before you break"], patterns:["You set increasingly higher targets after each success","You feel restless and guilty when you're not progressing"], insight:"Your drive is extraordinary \u2014 but achievement without recovery is a countdown, not a climb." },
+  "The Standard Bearer": { island:"Driven", summary:"A mind that cares deeply about quality \u2014 high standards powered by genuine feeling.", chips:["Quality-Driven","Caring","Determined"], strengths:["Holds themselves and their work to high standards","Combines drive with emotional care","Produces quality that reflects personal values"], growthNeeds:["Good enough is sometimes the standard","Self-compassion doesn't lower your standards","Let imperfect work into the world to learn from it"], patterns:["You revise and refine beyond what's required","You feel the gap between reality and your ideal viscerally"], insight:"Your standards reflect your values \u2014 but perfection pursued at all costs becomes its own prison." },
+  "The Explorer Mind": { island:"Curious", summary:"A mind built to wander \u2014 driven by wonder and the thrill of understanding.", chips:["Curious","Open","Adventurous"], strengths:["Insatiable curiosity that opens new doors","Learns rapidly across diverse domains","Finds joy in the process of discovery itself"], growthNeeds:["Focus long enough to finish, not just to start","Apply what you learn, not just collect it","Let some questions remain unanswered"], patterns:["You hop between interests once the novelty fades","You research deeply before committing to anything"], insight:"Your curiosity is limitless \u2014 but a map drawn without arriving anywhere is just wandering." },
+  "The Idea Architect": { island:"Curious", summary:"A mind that builds with concepts \u2014 turning raw ideas into creative structures.", chips:["Innovative","Creative","Analytical"], strengths:["Connects abstract ideas into new frameworks","Thinks both creatively and analytically","Generates original solutions that surprise others"], growthNeeds:["Not every idea needs to become a project","Share early drafts \u2014 perfectionism kills momentum","Balance creation with completion"], patterns:["You generate more ideas than you can execute","You see possibilities where others see problems"], insight:"Your ideas are blueprints for the future \u2014 but an architect who never builds is just dreaming." },
+  "The Pattern Reader": { island:"Curious", summary:"A mind that reads between the lines \u2014 intuitive analysis that sees what's hidden.", chips:["Perceptive","Intuitive","Sharp"], strengths:["Detects patterns and connections others miss","Combines analytical depth with emotional intuition","Understands systems at both a logical and felt level"], growthNeeds:["Not every pattern is meaningful \u2014 learn to filter","Trust your insights enough to act on them","Share your observations instead of staying silent"], patterns:["You observe quietly before forming conclusions","You notice inconsistencies that others overlook"], insight:"Your pattern-reading is a rare gift \u2014 but insight without action is just observation." },
+  "The Systems Thinker": { island:"Curious", summary:"A mind that sees the whole board \u2014 complexity is your native language.", chips:["Strategic","Deep","Visionary"], strengths:["Naturally sees the big picture and interconnections","Exceptional at understanding complex systems","Strategic thinking that anticipates downstream effects"], growthNeeds:["Analysis can become avoidance disguised as preparation","Sometimes the heart knows before the mind","Act on 70% clarity \u2014 the rest comes from doing"], patterns:["You map out systems before making decisions","You question frameworks that others accept blindly"], insight:"Your systems thinking is visionary \u2014 but the map is not the territory. Sometimes you have to walk it." },
+  "The Charismatic Mover": { island:"Expressive", summary:"A mind that moves others \u2014 magnetic energy combined with purposeful drive.", chips:["Magnetic","Driven","Inspiring"], strengths:["Natural ability to influence and inspire","Combines expressive energy with goal-directed action","Turns vision into movement that others follow"], growthNeeds:["Charisma without vulnerability is performance","Slow down enough for others to catch up","Your energy can overwhelm \u2014 read the room"], patterns:["You energize groups and set the emotional tone","You lead through enthusiasm and conviction"], insight:"Your magnetism is genuine \u2014 but inspiring others while hiding your own struggles is a lonely spotlight." },
+  "The Creative Spark": { island:"Expressive", summary:"A mind that creates from the inside out \u2014 raw originality powered by curiosity.", chips:["Original","Free","Inventive"], strengths:["Generates original creative output naturally","Sees beauty and possibility in unexpected places","Combines intellectual depth with expressive freedom"], growthNeeds:["Finish what you start before starting something new","Discipline is not the enemy of creativity","Share your work even when it feels incomplete"], patterns:["You create in bursts of intense inspiration","You resist structure but need it to complete projects"], insight:"Your creativity is your gift \u2014 but a spark needs fuel and focus to become a lasting flame." },
+  "The Social Catalyst": { island:"Expressive", summary:"A mind that makes things happen between people \u2014 you activate connection.", chips:["Energizing","Connected","Warm"], strengths:["Creates energy and cohesion in social settings","Natural facilitator who brings people together","Communicates in ways that make others feel included"], growthNeeds:["Your social energy needs recharging too","Being the connector doesn't mean losing yourself","Quiet moments are productive, not empty"], patterns:["You organize gatherings and facilitate connections","You feel responsible for group energy and morale"], insight:"You are the catalyst \u2014 but the person mixing the elements also needs to rest before the reaction." },
+  "The Story Weaver": { island:"Expressive", summary:"A mind that speaks through narrative \u2014 you make meaning by shaping experience into story.", chips:["Articulate","Feeling","Authentic"], strengths:["Exceptional ability to communicate feeling through narrative","Combines emotional depth with creative expression","Helps others understand themselves through shared stories"], growthNeeds:["Not every experience needs to become a narrative","Let some moments simply be felt, not framed","Your story is enough \u2014 you don't need to perform it"], patterns:["You process experiences by telling them as stories","You find meaning through narrative framing"], insight:"Your stories heal and connect \u2014 but make sure you're living the story, not just telling it." },
+  "The Boundary Keeper": { island:"Independent", summary:"A mind that protects its space \u2014 firm limits drawn with quiet conviction.", chips:["Protected","Clear","Firm"], strengths:["Clear sense of personal limits and boundaries","Protects inner world with calm firmness","Combines sensitivity with self-protective wisdom"], growthNeeds:["Boundaries can become walls if never tested","Letting someone in is not the same as losing yourself","Flexibility doesn't mean weakness"], patterns:["You set limits early and hold them firmly","You withdraw when your boundaries are threatened"], insight:"Your boundaries are earned wisdom \u2014 but the safest fortress is also the loneliest." },
+  "The Free Spirit": { island:"Independent", summary:"A mind that needs open sky \u2014 freedom is not just preferred, it's essential.", chips:["Authentic","Free","Bold"], strengths:["Deeply authentic and resistant to conformity","Finds creative solutions through unconventional paths","Inspires others to be more honest about what they want"], growthNeeds:["Freedom without connection is isolation","Commitment doesn't have to mean confinement","Some structures support freedom rather than limit it"], patterns:["You resist rules and expectations that feel imposed","You change direction when something feels restrictive"], insight:"Your freedom is sacred \u2014 but flying without roots means the wind decides where you land." },
+  "The Inner Rebel": { island:"Independent", summary:"A mind that refuses to conform \u2014 autonomous drive that challenges the status quo.", chips:["Defiant","Courageous","Driven"], strengths:["Fierce independence combined with ambitious drive","Challenges systems and norms that don't serve truth","Courage to stand alone when conviction demands it"], growthNeeds:["Rebellion without direction is just reaction","Some authorities have earned their credibility","Channel defiance into building, not just opposing"], patterns:["You push back instinctively against control or pressure","You work hardest when proving something to yourself"], insight:"Your rebellion has purpose \u2014 but the strongest rebels eventually build the thing they believe in." },
+  "The Self-Reliant": { island:"Independent", summary:"A mind that trusts its own counsel \u2014 sovereign thinking that needs no external validation.", chips:["Self-Trusting","Sovereign","Sharp"], strengths:["Intellectual self-sufficiency and deep trust in own judgment","Combines curiosity with independent thinking","Solves problems without needing consensus"], growthNeeds:["Self-reliance taken too far becomes isolation","Other perspectives strengthen your own thinking","Asking for input is intelligence, not weakness"], patterns:["You prefer to figure things out alone before discussing","You trust your own analysis over received wisdom"], insight:"Your self-reliance is a fortress of clarity \u2014 but even the wisest counsel benefits from a second voice." }
+};
+
+// ── DIMENSION INTERPRETATION LOGIC ──────────────────────────────
+
+var DIMENSION_INTERPRETATIONS = {
+  "Driven Intensity": { veryHigh:"You are powerfully driven by goals and momentum. Progress isn't optional \u2014 it's core to your identity.", high:"You carry a strong internal drive that keeps you focused and moving forward.", moderate:"You balance ambition with reflection, knowing when to push and when to pause.", low:"You move carefully and deliberately, valuing experience quality over speed.", veryLow:"External achievement holds less pull on you \u2014 you follow your own internal rhythm." },
+  "Perfection Sensitivity": { veryHigh:"Perfectionism is a dominant force in your life. You hold yourself to standards that are almost impossible to meet.", high:"You feel the pull of perfectionism strongly \u2014 'good enough' rarely feels good enough.", moderate:"You have standards but can usually find the line between quality and paralysis.", low:"You're relatively comfortable with imperfection and can move forward without everything being ideal.", veryLow:"You rarely get caught in perfectionism \u2014 you accept flaws as natural." },
+  "Flexibility": { veryHigh:"You adapt readily to change and shifting circumstances \u2014 rigidity is rare for you.", high:"You handle change well and can adjust your approach when plans shift.", moderate:"You can adapt when needed but prefer some predictability in your environment.", low:"You prefer structure and find it difficult when plans change unexpectedly.", veryLow:"Change is deeply uncomfortable for you \u2014 you need predictability to feel safe." },
+  "Sensitivity": { veryHigh:"You experience the world at full volume \u2014 emotions, atmospheres, and subtle cues are impossible to ignore.", high:"You're highly attuned to emotional signals and absorb more from your environment than most.", moderate:"You pick up on emotional cues but can maintain a degree of healthy distance.", low:"You process emotional signals at a moderate level \u2014 you notice but don't absorb easily.", veryLow:"You naturally filter out emotional noise and tend to process things rationally first." },
+  "Calm Under Pressure": { veryHigh:"You are remarkably steady under pressure \u2014 you become clearer, not more reactive, when things get chaotic.", high:"You handle pressure well and can maintain composure when others around you react.", moderate:"You manage pressure reasonably well but feel the strain in extended stressful periods.", low:"Pressure affects your clarity and you may need time to regain composure after stressful events.", veryLow:"High-pressure situations significantly impact your ability to think clearly and respond calmly." },
+  "Rumination Risk": { veryHigh:"Your mind tends to replay thoughts and worries on a persistent loop \u2014 letting go is genuinely hard.", high:"You often find yourself stuck in thought loops, especially around unresolved situations.", moderate:"You ruminate sometimes but can usually redirect your attention with effort.", low:"You rarely get stuck in mental loops \u2014 your mind moves on relatively easily.", veryLow:"Rumination is uncommon for you \u2014 you process and release thoughts efficiently." }
+};
+
+var DUAL_INTERPRETATIONS = {
+  "Curious vs Grounded": { veryHigh:"Your thinking is strongly curiosity-led \u2014 you explore, question, and seek novelty naturally.", high:"You lean toward curious, exploratory thinking over traditional or routine approaches.", moderate:"You balance curiosity with practicality \u2014 exploring new ideas while staying grounded.", low:"You lean toward grounded, practical thinking \u2014 reliability over novelty.", veryLow:"You are deeply grounded \u2014 you trust what's proven over what's new." },
+  "Expressive vs Structured": { veryHigh:"You think and communicate in expressive, fluid ways \u2014 structure feels limiting to you.", high:"You lean toward expressive thinking \u2014 creativity and feeling guide you more than systems.", moderate:"You balance expression with structure \u2014 creative but organized when needed.", low:"You lean toward structured thinking \u2014 you prefer order, logic, and clear frameworks.", veryLow:"You are deeply structured \u2014 you think in systems, rules, and reliable patterns." },
+  "Independent vs Collaborative": { veryHigh:"You strongly prefer working and thinking independently \u2014 collaboration feels like friction.", high:"You lean toward independent thinking and decision-making over group consensus.", moderate:"You balance independence with collaboration \u2014 comfortable alone or in a team.", low:"You lean toward collaborative thinking \u2014 you value input and shared direction.", veryLow:"You are deeply collaborative \u2014 you think best when processing with others." }
+};
+
+function getDimensionInterpretation(label, value) {
+  var ranges = DIMENSION_INTERPRETATIONS[label] || DUAL_INTERPRETATIONS[label];
+  if (!ranges) return "";
+  if (value >= 80) return ranges.veryHigh;
+  if (value >= 60) return ranges.high;
+  if (value >= 40) return ranges.moderate;
+  if (value >= 20) return ranges.low;
+  return ranges.veryLow;
+}
+
+// ── STRESS SEVERITY LOGIC ───────────────────────────────────────
+
+function getStressSeverityText(modeKey, score) {
+  var d = MODE_DESC[modeKey];
+  if (!d) return "";
+  if (score >= 5.5) return "This is a dominant stress pattern for you. Under pressure, you strongly " + d.when + ". " + d.cost;
+  if (score >= 4) return "This pattern activates noticeably under pressure. You tend to " + d.when + ", and over time this " + d.cost.charAt(0).toLowerCase() + d.cost.slice(1);
+  return "This pattern is present but not dominant. You may occasionally " + d.when + ".";
+}
+
+// ── DIMENSION-BASED GROWTH INSIGHTS ─────────────────────────────
+
+function generateDimensionInsights(r) {
+  var mind = computeMindOrientation(r);
+  var insights = [];
+  var driveVal = mind.drive[0].value;
+  var flexVal = mind.drive[2].value;
+  var calmVal = mind.emotional[1].value;
+  var rumVal = mind.emotional[2].value;
+  var sensVal = mind.emotional[0].value;
+  var perfVal = mind.drive[1].value;
+
+  if (driveVal >= 80 && flexVal < 40) {
+    insights.push({ type:"balance", text:"Your intense drive combined with low flexibility creates rigid momentum. You may push through even when course correction would serve you better. Practice pausing to reassess direction, not just speed." });
+  }
+  if (sensVal >= 70 && calmVal < 40) {
+    insights.push({ type:"regulation", text:"Your high sensitivity without matching calm creates emotional flooding under pressure. Building nervous system regulation practices (breathing, grounding) will multiply your emotional intelligence." });
+  }
+  if (rumVal >= 70 && driveVal >= 70) {
+    insights.push({ type:"loop", text:"High rumination combined with strong drive means you worry about progress constantly. Your mind replays what went wrong instead of resting between efforts. Deliberate recovery is your growth edge." });
+  }
+  if (calmVal >= 80 && sensVal < 30) {
+    insights.push({ type:"access", text:"Your calm is exceptional but may come at the cost of emotional access. You might miss important emotional signals from yourself and others. Practice naming emotions \u2014 even small ones." });
+  }
+  if (perfVal >= 70 && flexVal < 40) {
+    insights.push({ type:"control", text:"Perfectionism and low flexibility create a control pattern that resists the unexpected. Growth comes from deliberately doing things imperfectly and observing what happens." });
+  }
+  if (driveVal < 30 && rumVal >= 60) {
+    insights.push({ type:"stagnation", text:"Low drive combined with high rumination can create a cycle where overthinking replaces action. Start with the smallest possible step \u2014 movement breaks the loop." });
+  }
+  if (sensVal >= 70 && rumVal >= 70) {
+    insights.push({ type:"overload", text:"High sensitivity paired with high rumination means you absorb deeply and replay endlessly. Journaling or expressive practices can help externalize what your mind keeps recycling." });
+  }
+  return insights.slice(0, 2);
+}
+
+// ── COMPUTED RESULTS STORAGE ────────────────────────────────────
+
+function saveComputedResults(r) {
+  try {
+    var stored = {
+      archetype: r.archetypePrimary.name,
+      primaryIsland: r.primaryIsland,
+      secondaryIsland: r.secondaryIsland,
+      scores: { islands: r.islands, needsBalance: r.needsBalance, attachment: r.attachment, modes: r.modes, healthyAdult: r.healthyAdult, resilience: r.resilience },
+      stressPatterns: r.topModes.map(function(m) { return m.key; }),
+      confidence: r.confidence,
+      timestamp: Date.now()
+    };
+    localStorage.setItem('tyg_computed_results', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function loadComputedResults() {
+  try {
+    var raw = localStorage.getItem('tyg_computed_results');
+    return raw ? JSON.parse(raw) : null;
+  } catch(e) { return null; }
+}
 
 // ── MIND ORIENTATION COMPUTED TRAITS ────────────────────────────
 

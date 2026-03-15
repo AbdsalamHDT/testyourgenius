@@ -1513,12 +1513,12 @@ body:has(.nav--hidden) .rpt-tabs {
 /* ── SECTIONS ── */
 
 .rpt-section {
-  margin-bottom: var(--space-8);
+  margin-bottom: 80px;
   scroll-margin-top: 130px;
 }
 
 .rpt-title {
-  font-size: 1.5rem;
+  font-size: 1.55rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--ink);
@@ -1528,10 +1528,10 @@ body:has(.nav--hidden) .rpt-tabs {
 }
 
 .rpt-subtitle {
-  font-size: 1.1rem;
+  font-size: 1.12rem;
   font-weight: 600;
   color: var(--ink);
-  margin: var(--space-6) 0 var(--space-4);
+  margin: var(--space-7) 0 var(--space-5);
 }
 
 /* ── HERO / OVERVIEW ── */
@@ -1647,9 +1647,9 @@ body:has(.nav--hidden) .rpt-tabs {
 
 .rpt-arch-narrative {
   font-size: 0.95rem;
-  line-height: 1.7;
-  color: rgba(234, 242, 255, 0.7);
-  margin-bottom: var(--space-5);
+  line-height: 1.75;
+  color: rgba(234, 242, 255, 0.8);
+  margin-bottom: var(--space-6);
 }
 
 .rpt-arch-cols {
@@ -1728,15 +1728,15 @@ body:has(.nav--hidden) .rpt-tabs {
   background: rgba(14, 26, 58, 0.4);
   border: 1px solid rgba(100, 212, 255, 0.1);
   border-radius: 14px;
-  padding: var(--space-5);
+  padding: var(--space-6);
   backdrop-filter: blur(8px);
 }
 
 .rpt-card h4 {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: 700;
   color: var(--accent);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-5);
 }
 
 .rpt-card--help {
@@ -1749,9 +1749,9 @@ body:has(.nav--hidden) .rpt-tabs {
 }
 
 .rpt-help-need {
-  font-size: 0.9rem;
-  color: rgba(234, 242, 255, 0.6);
-  margin-bottom: var(--space-3);
+  font-size: 0.92rem;
+  color: rgba(234, 242, 255, 0.75);
+  margin-bottom: var(--space-4);
 }
 
 .rpt-card ul {
@@ -1762,10 +1762,10 @@ body:has(.nav--hidden) .rpt-tabs {
 .rpt-card li {
   position: relative;
   padding-left: var(--space-5);
-  margin-bottom: var(--space-3);
-  font-size: 0.88rem;
-  color: rgba(234, 242, 255, 0.65);
-  line-height: 1.55;
+  margin-bottom: var(--space-4);
+  font-size: 0.92rem;
+  color: rgba(234, 242, 255, 0.78);
+  line-height: 1.65;
 }
 
 .rpt-card li::before {
@@ -1841,7 +1841,8 @@ body:has(.nav--hidden) .rpt-tabs {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
 }
 
 .rpt-meter-edge {
@@ -1926,9 +1927,9 @@ body:has(.nav--hidden) .rpt-tabs {
 }
 
 .rpt-conn-type p {
-  font-size: 0.85rem;
-  color: rgba(234, 242, 255, 0.55);
-  line-height: 1.55;
+  font-size: 0.88rem;
+  color: rgba(234, 242, 255, 0.72);
+  line-height: 1.6;
 }
 
 /* ── STRESS ── */
@@ -2058,10 +2059,10 @@ body:has(.nav--hidden) .rpt-tabs {
 .rpt-acc-body li {
   position: relative;
   padding-left: var(--space-5);
-  margin-bottom: var(--space-3);
-  font-size: 0.88rem;
-  line-height: 1.6;
-  color: rgba(234, 242, 255, 0.65);
+  margin-bottom: var(--space-4);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: rgba(234, 242, 255, 0.78);
 }
 
 .rpt-acc-body li::before {
@@ -2073,9 +2074,9 @@ body:has(.nav--hidden) .rpt-tabs {
 }
 
 .rpt-acc-body p {
-  font-size: 0.88rem;
-  line-height: 1.6;
-  color: rgba(234, 242, 255, 0.6);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: rgba(234, 242, 255, 0.75);
 }
 
 /* ── GROWTH BLUEPRINT ── */
@@ -2111,20 +2112,20 @@ body:has(.nav--hidden) .rpt-tabs {
 }
 
 .rpt-growth-exp {
-  font-size: 0.9rem;
-  color: rgba(234, 242, 255, 0.65);
-  line-height: 1.65;
+  font-size: 0.92rem;
+  color: rgba(234, 242, 255, 0.78);
+  line-height: 1.7;
   margin-bottom: var(--space-5);
 }
 
 .rpt-growth-trap {
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-4) var(--space-5);
   background: rgba(234, 242, 255, 0.03);
   border: 1px solid rgba(234, 242, 255, 0.08);
   border-radius: 8px;
-  font-size: 0.88rem;
-  color: rgba(234, 242, 255, 0.55);
-  line-height: 1.55;
+  font-size: 0.9rem;
+  color: rgba(234, 242, 255, 0.72);
+  line-height: 1.6;
   margin-bottom: var(--space-5);
 }
 
@@ -2146,10 +2147,10 @@ body:has(.nav--hidden) .rpt-tabs {
   counter-increment: g-step;
   position: relative;
   padding-left: var(--space-7);
-  margin-bottom: var(--space-4);
-  color: rgba(234, 242, 255, 0.72);
-  font-size: 0.9rem;
-  line-height: 1.6;
+  margin-bottom: var(--space-5);
+  color: rgba(234, 242, 255, 0.82);
+  font-size: 0.92rem;
+  line-height: 1.65;
 }
 
 .rpt-growth-actions li::before {
@@ -2295,7 +2296,7 @@ body:has(.nav--hidden) .rpt-tabs {
 
 .rpt-world-body h4 { color: var(--ink); font-size: 1.15rem; font-weight: 700; margin-bottom: var(--space-2); }
 
-.rpt-world-body p { font-size: 0.9rem; color: rgba(234, 242, 255, 0.7); line-height: 1.55; margin-bottom: var(--space-2); }
+.rpt-world-body p { font-size: 0.92rem; color: rgba(234, 242, 255, 0.78); line-height: 1.6; margin-bottom: var(--space-2); }
 
 .rpt-world-reason { color: var(--accent); font-size: 0.78rem; font-style: italic; margin-bottom: var(--space-4); }
 

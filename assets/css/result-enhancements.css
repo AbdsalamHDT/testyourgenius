@@ -74,11 +74,11 @@
 
 .rpt-hero-statement {
   font-size: 1.1rem;
-  color: rgba(234, 242, 255, 0.5);
+  color: rgba(234, 242, 255, 0.72);
   font-style: italic;
   max-width: 540px;
   margin: 0 auto var(--space-5);
-  line-height: 1.65;
+  line-height: 1.7;
   position: relative;
   z-index: 2;
 }
@@ -219,14 +219,14 @@
 
 .rpt-conn-summary {
   font-size: 1.02rem;
-  color: rgba(234, 242, 255, 0.6);
+  color: rgba(234, 242, 255, 0.75);
   font-style: italic;
   margin-bottom: var(--space-5);
   padding: var(--space-4) var(--space-5);
   background: rgba(14, 26, 58, 0.3);
   border-left: 3px solid var(--accent);
   border-radius: 0 10px 10px 0;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 /* ── ENHANCED METERS ──────────────────────────────────────────── */
@@ -249,11 +249,13 @@
 }
 
 .rpt-meter-explanation {
-  font-size: 0.78rem;
-  color: rgba(234, 242, 255, 0.35);
-  line-height: 1.5;
+  font-size: 0.82rem;
+  color: rgba(234, 242, 255, 0.58);
+  line-height: 1.55;
   margin-top: var(--space-2);
   padding: 0;
+  width: 100%;
+  flex-basis: 100%;
 }
 
 /* ── DUAL METER PERCENTAGE BADGE ──────────────────────────────── */
@@ -270,8 +272,8 @@
 /* ── STRESS INTERPRETATION ────────────────────────────────────── */
 
 .rpt-stress-interpretation {
-  font-size: 0.85rem;
-  color: rgba(234, 242, 255, 0.5);
+  font-size: 0.88rem;
+  color: rgba(234, 242, 255, 0.72);
   line-height: 1.65;
   margin-top: var(--space-3);
 }
