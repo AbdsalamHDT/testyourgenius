@@ -94,6 +94,46 @@ html {
   opacity: 0.85;
 }
 
+/* ── Reveals Section Cards ── */
+.reveals-card {
+  text-align: center;
+  padding: var(--space-7) var(--space-5);
+}
+
+.reveals-card h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #eaf2ff;
+}
+
+.reveals-card p {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: rgba(234, 242, 255, 0.6);
+}
+
+.reveals-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto var(--space-5);
+  border-radius: 16px;
+  background: rgba(100, 212, 255, 0.06);
+  border: 1px solid rgba(100, 212, 255, 0.1);
+  opacity: 1;
+  filter: drop-shadow(0 0 12px rgba(100, 212, 255, 0.15));
+  transition: all var(--transition-base);
+}
+
+.reveals-card:hover .reveals-icon {
+  background: rgba(100, 212, 255, 0.1);
+  border-color: rgba(100, 212, 255, 0.25);
+  filter: drop-shadow(0 0 20px rgba(100, 212, 255, 0.25));
+}
+
 /* ── Result Includes ── */
 .result-includes {
   max-width: 600px;

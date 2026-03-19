@@ -66,6 +66,10 @@
     const archData = ARCHETYPE_DATA[r.archetypePrimary.name] || {};
     const dimInsights = generateDimensionInsights(r);
 
+    // Get user name for share card
+    let userName = '';
+    try { const u = JSON.parse(localStorage.getItem('tyg_user')); if (u && u.name) userName = u.name; } catch(e) {}
+
     // helpers
     const needsDims = ["autonomy","competence","relatedness"];
     const needsLabelsMap = { autonomy:"Autonomy", competence:"Competence", relatedness:"Relatedness" };
@@ -309,6 +313,7 @@
               <div class="rpt-share-icon-wrap" data-island="${r.primaryIsland}">
                 ${getArchetypeIconHtml(r.archetypePrimary.name, 72, true)}
               </div>
+              ${userName ? `<p class="rpt-share-user-name">${userName}</p>` : ''}
               <p class="rpt-share-label">My Archetype</p>
               <h3 class="rpt-share-name">${r.archetypePrimary.name}</h3>
               <div class="rpt-share-chips">

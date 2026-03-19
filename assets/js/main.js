@@ -71,6 +71,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const SCROLL_THRESHOLD = 8;
 
     function updateNavVisibility() {
+      // Don't hide navbar on assessment page (progress bar depends on fixed navbar)
+      if (document.getElementById('assessment-app')) {
+        navbar.classList.remove('nav--hidden');
+        navbar.classList.add('nav--scrolled');
+        lastScrollY = window.scrollY;
+        ticking = false;
+        return;
+      }
+
       const currentY = window.scrollY;
       const delta = currentY - lastScrollY;
 

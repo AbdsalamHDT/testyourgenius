@@ -227,6 +227,9 @@ function normalizeResults(raw) {
   // Determine sub-archetype from primary + secondary island
   const subArchetypeName = determineSubArchetype(primaryIsland, secondaryIsland, topModes);
 
+  // Filter out any secondary influence that duplicates the primary archetype name
+  const filteredInfluences = secondaryInfluences.filter(inf => inf.name !== subArchetypeName);
+
   return {
     islands, primaryIsland, secondaryIsland,
     needsBalance, needsRaw,
@@ -235,7 +238,7 @@ function normalizeResults(raw) {
     healthyAdult, resilience,
     confidence: { level: confidenceLevel, score: confidenceScore, reason: confidenceReason },
     archetypePrimary: { island: primaryIsland, name: subArchetypeName },
-    archetypeSecondary: secondaryInfluences
+    archetypeSecondary: filteredInfluences
   };
 }
 
